@@ -1,0 +1,331 @@
+
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lernplattform - Startseite</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e8f0f7 100%);
+            min-height: 100vh;
+        }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 250px;
+            height: 100vh;
+            background: linear-gradient(180deg, #2563eb 0%, #1e40af 100%);
+            padding: 30px 20px;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+
+        .logo-container {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .logo-placeholder {
+            width: 80px;
+            height: 80px;
+            background: white;
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            color: #2563eb;
+            font-weight: bold;
+        }
+
+        .site-title {
+            color: white;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .nav-menu {
+            list-style: none;
+        }
+
+        .nav-item {
+            margin-bottom: 10px;
+        }
+
+        .nav-link {
+            display: block;
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            padding: 12px 15px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            font-size: 15px;
+        }
+
+        .nav-link:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateX(5px);
+        }
+
+        .nav-link.active {
+            background: rgba(255, 255, 255, 0.2);
+            font-weight: 600;
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: 250px;
+            padding: 40px;
+        }
+
+        .hero-section {
+            background: white;
+            border-radius: 16px;
+            padding: 50px;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+        }
+
+        .hero-title {
+            color: #1e293b;
+            font-size: 42px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .hero-subtitle {
+            color: #64748b;
+            font-size: 18px;
+            line-height: 1.6;
+            max-width: 700px;
+        }
+
+        .section-title {
+            color: #1e293b;
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 25px;
+        }
+
+        /* Cards Grid */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(37, 99, 235, 0.15);
+        }
+
+        .card-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .card-title {
+            color: #1e293b;
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .card-description {
+            color: #64748b;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+            }
+
+            .main-content {
+                margin-left: 0;
+                padding: 20px;
+            }
+
+            .hero-section {
+                padding: 30px;
+            }
+
+            .hero-title {
+                font-size: 32px;
+            }
+
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar Navigation -->
+    <nav class="sidebar">
+        <div class="logo-container">
+            <div class="logo-placeholder">L</div>
+            <div class="site-title">Lernplattform</div>
+        </div>
+        
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="index.html" class="nav-link active">🏠 Startseite</a>
+            </li>
+            <li class="nav-item">
+                <a href="lektion1.html" class="nav-link">📖 Lektion 1</a>
+            </li>
+            <li class="nav-item">
+                <a href="lektion2.html" class="nav-link">📖 Lektion 2</a>
+            </li>
+            <li class="nav-item">
+                <a href="lektion3.html" class="nav-link">📖 Lektion 3</a>
+            </li>
+            <li class="nav-item">
+                <a href="lektion4.html" class="nav-link">📖 Lektion 4</a>
+            </li>
+            <li class="nav-item">
+                <a href="lektion5.html" class="nav-link">📖 Lektion 5</a>
+            </li>
+            <li class="nav-item">
+                <a href="lektion6.html" class="nav-link">📖 Lektion 6</a>
+            </li>
+            <li class="nav-item">
+                <a href="lektion7.html" class="nav-link">📖 Lektion 7</a>
+            </li>
+            <li class="nav-item">
+                <a href="lektion8.html" class="nav-link">📖 Lektion 8</a>
+            </li>
+            <li class="nav-item">
+                <a href="lektion9.html" class="nav-link">📖 Lektion 9</a>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <h1 class="hero-title">Willkommen auf deiner Lernplattform</h1>
+            <p class="hero-subtitle">
+                Diese Plattform bietet dir alle Materialien für dein Studium in 9 strukturierten Lektionen. 
+                Jede Lektion enthält Lerninhalte, Übungen und Ressourcen. Wähle unten eine Lektion aus, um loszulegen.
+            </p>
+        </section>
+
+        <!-- Cards Section -->
+        <h2 class="section-title">Lektionen Übersicht</h2>
+        <div class="cards-grid">
+            <a href="lektion1.html" class="card">
+                <div class="card-icon">1️⃣</div>
+                <h3 class="card-title">Lektion 1</h3>
+                <p class="card-description">
+                    Einführung und Grundlagen - Starte hier mit den Basiskenntnissen.
+                </p>
+            </a>
+
+            <a href="lektion2.html" class="card">
+                <div class="card-icon">2️⃣</div>
+                <h3 class="card-title">Lektion 2</h3>
+                <p class="card-description">
+                    Aufbauende Konzepte und erste praktische Anwendungen.
+                </p>
+            </a>
+
+            <a href="lektion3.html" class="card">
+                <div class="card-icon">3️⃣</div>
+                <h3 class="card-title">Lektion 3</h3>
+                <p class="card-description">
+                    Vertiefung der Grundlagen mit erweiterten Beispielen.
+                </p>
+            </a>
+
+            <a href="lektion4.html" class="card">
+                <div class="card-icon">4️⃣</div>
+                <h3 class="card-title">Lektion 4</h3>
+                <p class="card-description">
+                    Fortgeschrittene Themen und komplexere Aufgabenstellungen.
+                </p>
+            </a>
+
+            <a href="lektion5.html" class="card">
+                <div class="card-icon">5️⃣</div>
+                <h3 class="card-title">Lektion 5</h3>
+                <p class="card-description">
+                    Mitte des Kurses - Zusammenführung bisheriger Kenntnisse.
+                </p>
+            </a>
+
+            <a href="lektion6.html" class="card">
+                <div class="card-icon">6️⃣</div>
+                <h3 class="card-title">Lektion 6</h3>
+                <p class="card-description">
+                    Spezialisierung und vertiefende Praxisbeispiele.
+                </p>
+            </a>
+
+            <a href="lektion7.html" class="card">
+                <div class="card-icon">7️⃣</div>
+                <h3 class="card-title">Lektion 7</h3>
+                <p class="card-description">
+                    Erweiterte Techniken und Problemlösungsstrategien.
+                </p>
+            </a>
+
+            <a href="lektion8.html" class="card">
+                <div class="card-icon">8️⃣</div>
+                <h3 class="card-title">Lektion 8</h3>
+                <p class="card-description">
+                    Vorbereitung auf komplexe Szenarien und Anwendungen.
+                </p>
+            </a>
+
+            <a href="lektion9.html" class="card">
+                <div class="card-icon">9️⃣</div>
+                <h3 class="card-title">Lektion 9</h3>
+                <p class="card-description">
+                    Abschluss und Zusammenfassung - Finale Projekte und Übungen.
+                </p>
+            </a>
+        </div>
+    </main>
+</body>
+</html>
