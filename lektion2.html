@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lektion 1 - Lernplattform</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e8f0f7 100%);
+            min-height: 100vh;
+        }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 250px;
+            height: 100vh;
+            background: linear-gradient(180deg, #2563eb 0%, #1e40af 100%);
+            padding: 30px 20px;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            overflow-y: auto;
+        }
+
+        .logo-container {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .logo-placeholder {
+            width: 80px;
+            height: 80px;
+            background: white;
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            color: #2563eb;
+            font-weight: bold;
+        }
+
+        .site-title {
+            color: white;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .nav-menu {
+            list-style: none;
+        }
+
+        .nav-item {
+            margin-bottom: 10px;
+        }
+
+        .nav-link {
+            display: block;
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            padding: 12px 15px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            font-size: 15px;
+        }
+
+        .nav-link:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateX(5px);
+        }
+
+        .nav-link.active {
+            background: rgba(255, 255, 255, 0.2);
+            font-weight: 600;
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: 250px;
+            padding: 40px;
+            max-width: 1200px;
+        }
+
+        /* Breadcrumb */
+        .breadcrumb {
+            margin-bottom: 30px;
+            color: #64748b;
+            font-size: 14px;
+        }
+
+        .breadcrumb a {
+            color: #3b82f6;
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        /* Lesson Header */
+        .lesson-header {
+            background: white;
+            border-radius: 16px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+        }
+
+        .lesson-number {
+            display: inline-block;
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .lesson-title {
+            color: #1e293b;
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .lesson-description {
+            color: #64748b;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        /* Content Section */
+        .content-section {
+            background: white;
+            border-radius: 16px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+        }
+
+        .section-title {
+            color: #1e293b;
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        .content-text {
+            color: #475569;
+            font-size: 16px;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .content-text p {
+            margin-bottom: 15px;
+        }
+
+        .content-text h3 {
+            color: #1e293b;
+            font-size: 20px;
+            font-weight: 600;
+            margin-top: 25px;
+            margin-bottom: 15px;
+        }
+
+        .content-text ul, .content-text ol {
+            margin-left: 25px;
+            margin-bottom: 15px;
+        }
+
+        .content-text li {
+            margin-bottom: 8px;
+        }
+
+        /* Info Box */
+        .info-box {
+            background: #eff6ff;
+            border-left: 4px solid #3b82f6;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .info-box-title {
+            color: #1e40af;
+            font-weight: 600;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .info-box-content {
+            color: #475569;
+            line-height: 1.6;
+        }
+
+        /* Navigation Buttons */
+        .lesson-navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+        }
+
+        .nav-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 24px;
+            background: white;
+            color: #3b82f6;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: 600;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .nav-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
+            background: #3b82f6;
+            color: white;
+        }
+
+        .nav-button.disabled {
+            opacity: 0.4;
+            pointer-events: none;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+            }
+
+            .main-content {
+                margin-left: 0;
+                padding: 20px;
+            }
+
+            .lesson-header {
+                padding: 25px;
+            }
+
+            .lesson-title {
+                font-size: 28px;
+            }
+
+            .content-section {
+                padding: 25px;
+            }
+
+            .lesson-navigation {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar Navigation -->
+    <nav class="sidebar">
+        <div class="logo-container">
+            <div class="logo-placeholder">L</div>
+            <div class="site-title">Lernplattform</div>
+        </div>
+        
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="index.html" class="nav-link">🏠 Startseite</a>
+            </li>
+            <li class="nav-item">
+                <a href="lektion1.html" class="nav-link active">📖 Lektion 1</a>
+            </li>
+            <li class="nav-item">
+                <a href="lektion2.html" class="nav-link">📖 Lektion 2</a>
+            </li>
+            <li class="nav-item">
+                <a href="lektion3.html" class="nav-link">📖 Lektion 3</a>
+            </li>
+            <li class="nav-item">
+                <a href="lektion4.html" class="nav-link">📖 Lektion 4</a>
+            </li>
+            <li class="nav-item">
+                <a href="lektion5.html" class="nav-link">📖 Lektion 5</a>
+            </li>
+            <li class="nav-item">
+                <a href="lektion6.html" class="nav-link">📖 Lektion 6</a>
+            </li>
+            <li class="nav-item">
+                <a href="lektion7.html" class="nav-link">📖 Lektion 7</a>
+            </li>
+            <li class="nav-item">
+                <a href="lektion8.html" class="nav-link">📖 Lektion 8</a>
+            </li>
+            <li class="nav-item">
+                <a href="lektion9.html" class="nav-link">📖 Lektion 9</a>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Breadcrumb -->
+        <div class="breadcrumb">
+            <a href="index.html">Startseite</a> / Lektion 1
+        </div>
+
+        <!-- Lesson Header -->
+        <div class="lesson-header">
+            <span class="lesson-number">Lektion 1</span>
+            <h1 class="lesson-title">Titel deiner ersten Lektion</h1>
+            <p class="lesson-description">
+                Hier kommt eine kurze Beschreibung, was in dieser Lektion behandelt wird. 
+                Dieser Text gibt einen Überblick über die Lernziele und Inhalte.
+            </p>
+        </div>
+
+        <!-- Content Section 1 -->
+        <div class="content-section">
+            <h2 class="section-title">1. Einführung</h2>
+            <div class="content-text">
+                <p>
+                    Hier beginnt dein Lektionstext. Du kannst hier beliebig viel Text einfügen und formatieren. 
+                    Dieser Bereich ist für den Hauptinhalt deiner Lektion gedacht.
+                </p>
+                <p>
+                    Du kannst mehrere Absätze schreiben, und sie werden automatisch schön formatiert. 
+                    Der Text ist gut lesbar mit angenehmen Zeilenabständen.
+                </p>
+
+                <h3>Wichtige Konzepte</h3>
+                <p>
+                    Mit h3-Überschriften kannst du Unterabschnitte erstellen. Diese helfen dabei, 
+                    den Inhalt zu strukturieren.
+                </p>
+
+                <ul>
+                    <li>Aufzählungspunkte funktionieren auch</li>
+                    <li>Sie sind perfekt für Listen</li>
+                    <li>Und machen den Text übersichtlich</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Content Section 2 -->
+        <div class="content-section">
+            <h2 class="section-title">2. Hauptthema</h2>
+            <div class="content-text">
+                <p>
+                    Hier kannst du den nächsten Abschnitt deiner Lektion einfügen. 
+                    Jeder Content-Bereich ist optisch vom anderen getrennt.
+                </p>
+
+                <!-- Info Box Beispiel -->
+                <div class="info-box">
+                    <div class="info-box-title">💡 Wichtiger Hinweis</div>
+                    <div class="info-box-content">
+                        Diese blauen Boxen kannst du für wichtige Hinweise, Tipps oder Zusatzinformationen nutzen. 
+                        Sie heben sich visuell vom Rest ab.
+                    </div>
+                </div>
+
+                <p>
+                    Nach einer Info-Box geht der normale Text einfach weiter. Du kannst so viele Abschnitte 
+                    hinzufügen, wie du möchtest.
+                </p>
+
+                <h3>Beispiel mit nummerierten Listen</h3>
+                <ol>
+                    <li>Erster Schritt im Prozess</li>
+                    <li>Zweiter Schritt mit weiteren Details</li>
+                    <li>Dritter und letzter Schritt</li>
+                </ol>
+            </div>
+        </div>
+
+<iframe src="https://app.lumi.education/api/v1/run/bWDgNo/embed" width="1088" height="720" frameborder="0" allowfullscreen="allowfullscreen" allow="geolocation *; microphone *; camera *; midi *; encrypted-media *"></iframe><script src="https://app.Lumi.education/api/v1/h5p/core/js/h5p-resizer.js" charset="UTF-8"></script>
+        
+        <!-- Content Section 3 -->
+        <div class="content-section">
+            <h2 class="section-title">3. Übungen</h2>
+            <div class="content-text">
+                <p>
+                    In diesem Abschnitt kannst du Übungsaufgaben oder praktische Beispiele einfügen.
+                </p>
+                <p>
+                    Du kannst so viele Sections hinzufügen, wie du für deine Lektion brauchst. 
+                    Kopiere einfach eine komplette "content-section" und passe den Inhalt an.
+                </p>
+            </div>
+        </div>
+
+        <!-- Content Section 3 -->
+<div class="content-section">
+    <h2 class="section-title">3. Übungen</h2>
+    <div class="content-text">
+        <p>
+            In diesem Abschnitt kannst du Übungsaufgaben oder praktische Beispiele einfügen.
+        </p>
+    </div>
+    
+    <!-- H5P Übung -->
+    <div style="border-radius: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin-top: 20px;">
+        <iframe 
+            src="lektion1.html" 
+            width="100%" 
+            height="550px" 
+            frameborder="0"
+            style="display: block;">
+        </iframe>
+    </div>
+</div>
+
+
+ <!-- H5P Übung -->
+    <div style="border-radius: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin-top: 20px;">
+        <iframe 
+            src="lektion1.html" 
+            width="100%" 
+            height="550px" 
+            frameborder="0"
+            style="display: block;">
+        </iframe>
+    </div>
+</div>
+<iframe src="https://moodle.hs-ansbach.de/mod/hvp/embed.php?id=217100" width="1704" height="1126" frameborder="0" allowfullscreen="allowfullscreen" title="Kapitel 1: Wissenschaft verstehen, Thema finden"></iframe><script src="https://moodle.hs-ansbach.de/mod/hvp/library/js/h5p-resizer.js" charset="UTF-8"></script>
+        
+<iframe src="lektion1.html" width="100%" height="500px" frameborder="0"></iframe>
+        <!-- Navigation Buttons -->
+        <div class="lesson-navigation">
+            <a href="index.html" class="nav-button">
+                ← Zurück zur Startseite
+            </a>
+            <a href="lektion2.html" class="nav-button">
+                Weiter zu Lektion 2 →
+            </a>
+        </div>
+    </main>
+</body>
+</html>
+
+
+
+
+
+
+
