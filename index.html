@@ -1,331 +1,1042 @@
-
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lernplattform - Startseite</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SciNew – Wissenschaftliches Arbeiten in der Psychologie</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,300&display=swap" rel="stylesheet" />
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: linear-gradient(135deg, #f5f7fa 0%, #e8f0f7 100%);
-            min-height: 100vh;
-        }
+  <style>
+    /* ============================================================
+       CSS CUSTOM PROPERTIES – Zentrale Designvariablen
+       Hier kannst du alle Farben, Abstände und Typo-Werte ändern.
+       ============================================================ */
+    :root {
+      --clr-primary:    #74C2A8;      /* Mintgrün – Hauptfarbe */
+      --clr-primary-dk: #5aaa90;      /* Dunkleres Mintgrün für Hover */
+      --clr-dark:       #121616;      /* Fast-Schwarz – Hintergrund & Text */
+      --clr-dark-2:     #1c2222;      /* Etwas helleres Dunkel für Cards */
+      --clr-dark-3:     #242c2c;      /* Card-Hover & Borders */
+      --clr-accent:     #EE7050;      /* Coral – sparsam für CTAs & Highlights */
+      --clr-text:       #e8efed;      /* Heller Text auf dunklem Grund */
+      --clr-text-muted: #8aa89e;      /* Gedimmter Text */
+      --clr-border:     rgba(116,194,168,0.15); /* Subtile Rand-Farbe */
 
-        /* Sidebar Navigation */
-        .sidebar {
-            position: fixed;
-            left: 0;
-            top: 0;
-            width: 250px;
-            height: 100vh;
-            background: linear-gradient(180deg, #2563eb 0%, #1e40af 100%);
-            padding: 30px 20px;
-            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
-            z-index: 1000;
-        }
+      --font-main: 'DM Sans', sans-serif;
 
-        .logo-container {
-            text-align: center;
-            margin-bottom: 40px;
-            padding-bottom: 30px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-        }
+      --radius-sm:  6px;
+      --radius-md:  12px;
+      --radius-lg:  20px;
 
-        .logo-placeholder {
-            width: 80px;
-            height: 80px;
-            background: white;
-            border-radius: 50%;
-            margin: 0 auto 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 32px;
-            color: #2563eb;
-            font-weight: bold;
-        }
+      --drawer-width: 300px;
+      --nav-height:   64px;
 
-        .site-title {
-            color: white;
-            font-size: 18px;
-            font-weight: 600;
-        }
+      --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
 
-        .nav-menu {
-            list-style: none;
-        }
+    /* ============================================================
+       RESET & BASE
+       ============================================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-        .nav-item {
-            margin-bottom: 10px;
-        }
+    html { scroll-behavior: smooth; }
 
-        .nav-link {
-            display: block;
-            color: rgba(255, 255, 255, 0.9);
-            text-decoration: none;
-            padding: 12px 15px;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-            font-size: 15px;
-        }
+    body {
+      font-family: var(--font-main);
+      background-color: var(--clr-dark);
+      color: var(--clr-text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
 
-        .nav-link:hover {
-            background: rgba(255, 255, 255, 0.15);
-            transform: translateX(5px);
-        }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
 
-        .nav-link.active {
-            background: rgba(255, 255, 255, 0.2);
-            font-weight: 600;
-        }
+    /* ============================================================
+       TOPBAR / NAVBAR
+       ============================================================ */
+    .topbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: var(--nav-height);
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 0 24px;
+      background: rgba(18, 22, 22, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--clr-border);
+      z-index: 900;
+    }
 
-        /* Main Content */
-        .main-content {
-            margin-left: 250px;
-            padding: 40px;
-        }
+    .burger-btn {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      width: 40px;
+      height: 40px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      padding: 8px;
+      border-radius: var(--radius-sm);
+      transition: background var(--transition);
+      flex-shrink: 0;
+    }
+    .burger-btn:hover { background: rgba(116,194,168,0.1); }
+    .burger-btn span {
+      display: block;
+      width: 100%;
+      height: 2px;
+      background: var(--clr-primary);
+      border-radius: 2px;
+      transition: transform var(--transition), opacity var(--transition);
+      transform-origin: center;
+    }
+    /* Animated X when drawer is open */
+    body.drawer-open .burger-btn span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    body.drawer-open .burger-btn span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    body.drawer-open .burger-btn span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
-        .hero-section {
-            background: white;
-            border-radius: 16px;
-            padding: 50px;
-            margin-bottom: 40px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
-        }
+    .topbar-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .topbar-logo img {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+    .topbar-logo-text {
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      color: var(--clr-text);
+    }
+    .topbar-logo-text span { color: var(--clr-primary); }
 
-        .hero-title {
-            color: #1e293b;
-            font-size: 42px;
-            font-weight: 700;
-            margin-bottom: 20px;
-        }
+    .topbar-nav {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .topbar-nav a {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--clr-text-muted);
+      padding: 6px 12px;
+      border-radius: var(--radius-sm);
+      transition: color var(--transition), background var(--transition);
+    }
+    .topbar-nav a:hover {
+      color: var(--clr-text);
+      background: rgba(116,194,168,0.08);
+    }
+    .topbar-nav a.active { color: var(--clr-primary); }
 
-        .hero-subtitle {
-            color: #64748b;
-            font-size: 18px;
-            line-height: 1.6;
-            max-width: 700px;
-        }
+    /* ============================================================
+       SIDE DRAWER
+       ============================================================ */
+    .drawer-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.55);
+      z-index: 950;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity var(--transition);
+    }
+    body.drawer-open .drawer-overlay {
+      opacity: 1;
+      pointer-events: all;
+    }
 
-        .section-title {
-            color: #1e293b;
-            font-size: 28px;
-            font-weight: 600;
-            margin-bottom: 25px;
-        }
+    .drawer {
+      position: fixed;
+      top: 0; left: 0;
+      width: var(--drawer-width);
+      height: 100vh;
+      background: var(--clr-dark-2);
+      border-right: 1px solid var(--clr-border);
+      z-index: 960;
+      display: flex;
+      flex-direction: column;
+      transform: translateX(-100%);
+      transition: transform var(--transition);
+      overflow-y: auto;
+    }
+    body.drawer-open .drawer { transform: translateX(0); }
 
-        /* Cards Grid */
-        .cards-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-            margin-bottom: 40px;
-        }
+    .drawer-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 20px 20px 16px;
+      border-bottom: 1px solid var(--clr-border);
+      min-height: var(--nav-height);
+    }
+    .drawer-header img {
+      width: 38px; height: 38px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+    .drawer-header-text strong {
+      display: block;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--clr-text);
+    }
+    .drawer-header-text span {
+      font-size: 0.75rem;
+      color: var(--clr-text-muted);
+    }
 
-        .card {
-            background: white;
-            border-radius: 12px;
-            padding: 30px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-            transition: all 0.3s ease;
-            cursor: pointer;
-            text-decoration: none;
-            color: inherit;
-            display: block;
-        }
+    .drawer-section-label {
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--clr-text-muted);
+      padding: 20px 20px 8px;
+    }
 
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 16px rgba(37, 99, 235, 0.15);
-        }
+    .drawer-nav { flex: 1; padding: 0 10px 20px; }
 
-        .card-icon {
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            margin-bottom: 20px;
-        }
+    .drawer-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 12px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: background var(--transition), color var(--transition);
+      margin-bottom: 2px;
+      color: var(--clr-text-muted);
+      font-size: 0.875rem;
+      font-weight: 500;
+    }
+    .drawer-item:hover { background: rgba(116,194,168,0.08); color: var(--clr-text); }
+    .drawer-item.active { background: rgba(116,194,168,0.12); color: var(--clr-primary); }
 
-        .card-title {
-            color: #1e293b;
-            font-size: 20px;
-            font-weight: 600;
-            margin-bottom: 10px;
-        }
+    .drawer-item-num {
+      width: 24px; height: 24px;
+      border-radius: 6px;
+      background: rgba(116,194,168,0.15);
+      color: var(--clr-primary);
+      font-size: 0.7rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .drawer-item.active .drawer-item-num {
+      background: var(--clr-primary);
+      color: var(--clr-dark);
+    }
 
-        .card-description {
-            color: #64748b;
-            font-size: 14px;
-            line-height: 1.5;
-        }
+    .drawer-divider {
+      height: 1px;
+      background: var(--clr-border);
+      margin: 12px 0;
+    }
 
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .sidebar {
-                width: 100%;
-                height: auto;
-                position: relative;
-            }
+    .drawer-footer {
+      padding: 16px 20px;
+      border-top: 1px solid var(--clr-border);
+    }
+    .drawer-footer a {
+      font-size: 0.8rem;
+      color: var(--clr-text-muted);
+      display: block;
+      padding: 6px 0;
+      transition: color var(--transition);
+    }
+    .drawer-footer a:hover { color: var(--clr-primary); }
 
-            .main-content {
-                margin-left: 0;
-                padding: 20px;
-            }
+    /* ============================================================
+       MAIN CONTENT WRAPPER
+       ============================================================ */
+    .main {
+      padding-top: var(--nav-height);
+      min-height: 100vh;
+    }
 
-            .hero-section {
-                padding: 30px;
-            }
+    /* ============================================================
+       HERO SECTION
+       ============================================================ */
+    .hero {
+      position: relative;
+      width: 100%;
+      height: min(520px, 60vw);
+      min-height: 320px;
+      overflow: hidden;
+    }
 
-            .hero-title {
-                font-size: 32px;
-            }
+    .hero-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 40%;
+      transform: scale(1.04);
+      transition: transform 8s ease-out;
+    }
+    .hero-img.loaded { transform: scale(1); }
 
-            .cards-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(18,22,22,0.2) 0%,
+        rgba(18,22,22,0.45) 50%,
+        rgba(18,22,22,0.92) 100%
+      );
+    }
+
+    .hero-content {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      padding: 40px clamp(20px, 5vw, 80px) 48px;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(116,194,168,0.15);
+      border: 1px solid rgba(116,194,168,0.3);
+      color: var(--clr-primary);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 5px 12px;
+      border-radius: 100px;
+      margin-bottom: 16px;
+    }
+    .hero-badge::before {
+      content: '';
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--clr-primary);
+    }
+
+    .hero-title {
+      font-size: clamp(1.6rem, 4vw, 2.8rem);
+      font-weight: 700;
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+      color: #fff;
+      max-width: 640px;
+      margin-bottom: 12px;
+    }
+    .hero-title em {
+      font-style: normal;
+      color: var(--clr-primary);
+    }
+
+    .hero-sub {
+      font-size: clamp(0.875rem, 1.5vw, 1rem);
+      color: rgba(232,239,237,0.7);
+      max-width: 520px;
+      font-weight: 300;
+      line-height: 1.7;
+    }
+
+    .hero-cta {
+      margin-top: 24px;
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 11px 22px;
+      border-radius: var(--radius-sm);
+      font-size: 0.875rem;
+      font-weight: 600;
+      font-family: var(--font-main);
+      cursor: pointer;
+      border: none;
+      transition: transform var(--transition), box-shadow var(--transition), background var(--transition);
+      text-decoration: none;
+    }
+    .btn:hover { transform: translateY(-1px); }
+
+    .btn-primary {
+      background: var(--clr-accent);
+      color: #fff;
+      box-shadow: 0 4px 20px rgba(238,112,80,0.3);
+    }
+    .btn-primary:hover {
+      background: #e05c3c;
+      box-shadow: 0 6px 28px rgba(238,112,80,0.4);
+    }
+
+    .btn-ghost {
+      background: rgba(116,194,168,0.1);
+      color: var(--clr-primary);
+      border: 1px solid rgba(116,194,168,0.25);
+    }
+    .btn-ghost:hover {
+      background: rgba(116,194,168,0.18);
+    }
+
+    /* ============================================================
+       SECTION COMMON
+       ============================================================ */
+    .section {
+      padding: clamp(48px, 6vw, 80px) clamp(20px, 5vw, 80px);
+    }
+
+    .section-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 36px;
+      flex-wrap: wrap;
+    }
+
+    .section-title {
+      font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      color: var(--clr-text);
+    }
+    .section-title span { color: var(--clr-primary); }
+
+    .section-meta {
+      font-size: 0.8rem;
+      color: var(--clr-text-muted);
+      font-weight: 400;
+    }
+
+    /* ============================================================
+       INTRO STRIP
+       ============================================================ */
+    .intro-strip {
+      background: var(--clr-dark-2);
+      border-top: 1px solid var(--clr-border);
+      border-bottom: 1px solid var(--clr-border);
+      padding: clamp(32px, 4vw, 56px) clamp(20px, 5vw, 80px);
+    }
+
+    .intro-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 32px;
+    }
+
+    .intro-stat {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .intro-stat-num {
+      font-size: clamp(1.8rem, 3vw, 2.4rem);
+      font-weight: 700;
+      color: var(--clr-primary);
+      letter-spacing: -0.04em;
+      line-height: 1;
+    }
+    .intro-stat-label {
+      font-size: 0.8rem;
+      color: var(--clr-text-muted);
+      font-weight: 400;
+    }
+
+    .intro-text-col {
+      grid-column: span 2;
+    }
+    .intro-text-col p {
+      font-size: clamp(0.9rem, 1.4vw, 1rem);
+      color: var(--clr-text-muted);
+      line-height: 1.8;
+      font-weight: 300;
+      max-width: 640px;
+    }
+    .intro-text-col p + p { margin-top: 14px; }
+
+    /* ============================================================
+       LESSON CARDS GRID
+       ============================================================ */
+    .lessons-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(min(280px, 100%), 1fr));
+      gap: 16px;
+    }
+
+    .lesson-card {
+      background: var(--clr-dark-2);
+      border: 1px solid var(--clr-border);
+      border-radius: var(--radius-md);
+      padding: 24px;
+      cursor: pointer;
+      transition: transform var(--transition), background var(--transition), border-color var(--transition), box-shadow var(--transition);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      text-decoration: none;
+      color: inherit;
+      position: relative;
+      overflow: hidden;
+    }
+    .lesson-card::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 3px;
+      background: var(--clr-primary);
+      opacity: 0;
+      transition: opacity var(--transition);
+      border-radius: 0 2px 2px 0;
+    }
+    .lesson-card:hover {
+      transform: translateY(-3px);
+      background: var(--clr-dark-3);
+      border-color: rgba(116,194,168,0.35);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.35);
+    }
+    .lesson-card:hover::before { opacity: 1; }
+
+    .lesson-card-num {
+      width: 36px; height: 36px;
+      border-radius: 10px;
+      background: rgba(116,194,168,0.12);
+      color: var(--clr-primary);
+      font-size: 0.8rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      letter-spacing: 0.03em;
+    }
+
+    .lesson-card-title {
+      font-size: 0.975rem;
+      font-weight: 600;
+      color: var(--clr-text);
+      line-height: 1.35;
+    }
+
+    .lesson-card-desc {
+      font-size: 0.8rem;
+      color: var(--clr-text-muted);
+      line-height: 1.65;
+      font-weight: 300;
+      flex: 1;
+    }
+
+    .lesson-card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 4px;
+    }
+
+    .lesson-card-tag {
+      font-size: 0.7rem;
+      font-weight: 500;
+      color: var(--clr-primary);
+      background: rgba(116,194,168,0.1);
+      padding: 3px 8px;
+      border-radius: 100px;
+    }
+
+    .lesson-card-arrow {
+      color: var(--clr-text-muted);
+      font-size: 1rem;
+      transition: transform var(--transition), color var(--transition);
+    }
+    .lesson-card:hover .lesson-card-arrow {
+      transform: translateX(3px);
+      color: var(--clr-primary);
+    }
+
+    /* ============================================================
+       WELCOME SECTION
+       ============================================================ */
+    .welcome-section {
+      background: var(--clr-dark-2);
+      border-top: 1px solid var(--clr-border);
+      border-bottom: 1px solid var(--clr-border);
+    }
+
+    .welcome-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(32px, 4vw, 64px);
+      align-items: center;
+    }
+
+    .welcome-text h2 {
+      font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      margin-bottom: 16px;
+      line-height: 1.2;
+    }
+    .welcome-text h2 em {
+      font-style: normal;
+      color: var(--clr-primary);
+    }
+    .welcome-text p {
+      font-size: 0.9rem;
+      color: var(--clr-text-muted);
+      line-height: 1.8;
+      font-weight: 300;
+      margin-bottom: 12px;
+    }
+
+    .welcome-features {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .welcome-feature {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+    }
+    .welcome-feature-icon {
+      width: 36px; height: 36px;
+      border-radius: 10px;
+      background: rgba(116,194,168,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+    .welcome-feature-text strong {
+      display: block;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--clr-text);
+      margin-bottom: 2px;
+    }
+    .welcome-feature-text span {
+      font-size: 0.8rem;
+      color: var(--clr-text-muted);
+      line-height: 1.5;
+    }
+
+    /* ============================================================
+       FOOTER
+       ============================================================ */
+    footer {
+      padding: 32px clamp(20px, 5vw, 80px);
+      border-top: 1px solid var(--clr-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    footer p {
+      font-size: 0.8rem;
+      color: var(--clr-text-muted);
+    }
+
+    footer a {
+      font-size: 0.8rem;
+      color: var(--clr-text-muted);
+      transition: color var(--transition);
+    }
+    footer a:hover { color: var(--clr-primary); }
+
+    .footer-links { display: flex; gap: 20px; }
+
+    /* ============================================================
+       RESPONSIVE
+       ============================================================ */
+    @media (max-width: 768px) {
+      .intro-grid {
+        grid-template-columns: 1fr;
+      }
+      .intro-text-col { grid-column: span 1; }
+
+      .welcome-inner {
+        grid-template-columns: 1fr;
+      }
+
+      .topbar-nav a:not(.active) { display: none; }
+
+      footer { flex-direction: column; align-items: flex-start; }
+    }
+
+    @media (max-width: 480px) {
+      .hero-cta { flex-direction: column; }
+      .btn { width: 100%; justify-content: center; }
+    }
+
+    /* ============================================================
+       SCROLL REVEAL ANIMATION
+       ============================================================ */
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
 </head>
 <body>
-    <!-- Sidebar Navigation -->
-    <nav class="sidebar">
-        <div class="logo-container">
-            <div class="logo-placeholder">L</div>
-            <div class="site-title">Lernplattform</div>
-        </div>
-        
-        <ul class="nav-menu">
-            <li class="nav-item">
-                <a href="index.html" class="nav-link active">🏠 Startseite</a>
-            </li>
-            <li class="nav-item">
-                <a href="lektion1.html" class="nav-link">📖 Lektion 1</a>
-            </li>
-            <li class="nav-item">
-                <a href="lektion2.html" class="nav-link">📖 Lektion 2</a>
-            </li>
-            <li class="nav-item">
-                <a href="lektion3.html" class="nav-link">📖 Lektion 3</a>
-            </li>
-            <li class="nav-item">
-                <a href="lektion4.html" class="nav-link">📖 Lektion 4</a>
-            </li>
-            <li class="nav-item">
-                <a href="lektion5.html" class="nav-link">📖 Lektion 5</a>
-            </li>
-            <li class="nav-item">
-                <a href="lektion6.html" class="nav-link">📖 Lektion 6</a>
-            </li>
-            <li class="nav-item">
-                <a href="lektion7.html" class="nav-link">📖 Lektion 7</a>
-            </li>
-            <li class="nav-item">
-                <a href="lektion8.html" class="nav-link">📖 Lektion 8</a>
-            </li>
-            <li class="nav-item">
-                <a href="lektion9.html" class="nav-link">📖 Lektion 9</a>
-            </li>
-        </ul>
+
+  <!-- ============================================================
+       DRAWER OVERLAY
+       ============================================================ -->
+  <div class="drawer-overlay" id="drawerOverlay" onclick="closeDrawer()"></div>
+
+  <!-- ============================================================
+       SIDE DRAWER
+       ============================================================ -->
+  <aside class="drawer" id="drawer" role="navigation" aria-label="Kursnavigation">
+
+    <div class="drawer-header">
+      <img src="01__Wissenschaft_verstehen__Thema_finden.jpg" alt="SciNew Logo" />
+      <div class="drawer-header-text">
+        <strong>SciNew</strong>
+        <span>9 Lektionen · Psychologie</span>
+      </div>
+    </div>
+
+    <nav class="drawer-nav">
+      <div class="drawer-section-label">Navigation</div>
+
+      <a href="index.html" class="drawer-item active">
+        <span class="drawer-item-num">⌂</span>
+        Startseite
+      </a>
+
+      <div class="drawer-divider"></div>
+      <div class="drawer-section-label">Lektionen</div>
+
+      <!-- =========================================================
+           LEKTION-LINKS – Hier einfach href und Text anpassen
+           ========================================================= -->
+      <a href="lektion-01.html" class="drawer-item">
+        <span class="drawer-item-num">01</span>
+        Wissenschaft verstehen & Thema finden
+      </a>
+      <a href="lektion-02.html" class="drawer-item">
+        <span class="drawer-item-num">02</span>
+        Lektion 2
+      </a>
+      <a href="lektion-03.html" class="drawer-item">
+        <span class="drawer-item-num">03</span>
+        Lektion 3
+      </a>
+      <a href="lektion-04.html" class="drawer-item">
+        <span class="drawer-item-num">04</span>
+        Lektion 4
+      </a>
+      <a href="lektion-05.html" class="drawer-item">
+        <span class="drawer-item-num">05</span>
+        Lektion 5
+      </a>
+      <a href="lektion-06.html" class="drawer-item">
+        <span class="drawer-item-num">06</span>
+        Lektion 6
+      </a>
+      <a href="lektion-07.html" class="drawer-item">
+        <span class="drawer-item-num">07</span>
+        Lektion 7
+      </a>
+      <a href="lektion-08.html" class="drawer-item">
+        <span class="drawer-item-num">08</span>
+        Lektion 8
+      </a>
+      <a href="lektion-09.html" class="drawer-item">
+        <span class="drawer-item-num">09</span>
+        Lektion 9
+      </a>
     </nav>
 
-    <!-- Main Content -->
-    <main class="main-content">
-        <!-- Hero Section -->
-        <section class="hero-section">
-            <h1 class="hero-title">Willkommen auf deiner Lernplattform</h1>
-            <p class="hero-subtitle">
-                Diese Plattform bietet dir alle Materialien für dein Studium in 9 strukturierten Lektionen. 
-                Jede Lektion enthält Lerninhalte, Übungen und Ressourcen. Wähle unten eine Lektion aus, um loszulegen.
-            </p>
-        </section>
+    <div class="drawer-footer">
+      <a href="kontakt.html">Kontakt &amp; Impressum</a>
+    </div>
+  </aside>
 
-        <!-- Cards Section -->
-        <h2 class="section-title">Lektionen Übersicht</h2>
-        <div class="cards-grid">
-            <a href="lektion1.html" class="card">
-                <div class="card-icon">1️⃣</div>
-                <h3 class="card-title">Lektion 1</h3>
-                <p class="card-description">
-                    Einführung und Grundlagen - Starte hier mit den Basiskenntnissen.
-                </p>
-            </a>
+  <!-- ============================================================
+       TOPBAR
+       ============================================================ -->
+  <header class="topbar">
+    <button class="burger-btn" id="burgerBtn" onclick="toggleDrawer()" aria-label="Menü öffnen / schließen" aria-expanded="false">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
 
-            <a href="lektion2.html" class="card">
-                <div class="card-icon">2️⃣</div>
-                <h3 class="card-title">Lektion 2</h3>
-                <p class="card-description">
-                    Aufbauende Konzepte und erste praktische Anwendungen.
-                </p>
-            </a>
+    <a href="index.html" class="topbar-logo">
+      <img src="01__Wissenschaft_verstehen__Thema_finden.jpg" alt="SciNew Logo" />
+      <span class="topbar-logo-text"><span>Sci</span>New</span>
+    </a>
 
-            <a href="lektion3.html" class="card">
-                <div class="card-icon">3️⃣</div>
-                <h3 class="card-title">Lektion 3</h3>
-                <p class="card-description">
-                    Vertiefung der Grundlagen mit erweiterten Beispielen.
-                </p>
-            </a>
+    <nav class="topbar-nav">
+      <a href="index.html" class="active">Startseite</a>
+      <a href="lektion-01.html">Lektionen</a>
+      <a href="kontakt.html">Kontakt</a>
+    </nav>
+  </header>
 
-            <a href="lektion4.html" class="card">
-                <div class="card-icon">4️⃣</div>
-                <h3 class="card-title">Lektion 4</h3>
-                <p class="card-description">
-                    Fortgeschrittene Themen und komplexere Aufgabenstellungen.
-                </p>
-            </a>
+  <!-- ============================================================
+       MAIN CONTENT
+       ============================================================ -->
+  <main class="main">
 
-            <a href="lektion5.html" class="card">
-                <div class="card-icon">5️⃣</div>
-                <h3 class="card-title">Lektion 5</h3>
-                <p class="card-description">
-                    Mitte des Kurses - Zusammenführung bisheriger Kenntnisse.
-                </p>
-            </a>
-
-            <a href="lektion6.html" class="card">
-                <div class="card-icon">6️⃣</div>
-                <h3 class="card-title">Lektion 6</h3>
-                <p class="card-description">
-                    Spezialisierung und vertiefende Praxisbeispiele.
-                </p>
-            </a>
-
-            <a href="lektion7.html" class="card">
-                <div class="card-icon">7️⃣</div>
-                <h3 class="card-title">Lektion 7</h3>
-                <p class="card-description">
-                    Erweiterte Techniken und Problemlösungsstrategien.
-                </p>
-            </a>
-
-            <a href="lektion8.html" class="card">
-                <div class="card-icon">8️⃣</div>
-                <h3 class="card-title">Lektion 8</h3>
-                <p class="card-description">
-                    Vorbereitung auf komplexe Szenarien und Anwendungen.
-                </p>
-            </a>
-
-            <a href="lektion9.html" class="card">
-                <div class="card-icon">9️⃣</div>
-                <h3 class="card-title">Lektion 9</h3>
-                <p class="card-description">
-                    Abschluss und Zusammenfassung - Finale Projekte und Übungen.
-                </p>
-            </a>
+    <!-- HERO -->
+    <section class="hero">
+      <img
+        class="hero-img"
+        src="Banner_Kursübersicht.png"
+        alt="Gebirgslandschaft – Wissenschaftliches Arbeiten in der Psychologie"
+        onload="this.classList.add('loaded')"
+      />
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <div class="hero-badge">Psychologie · Wissenschaftliches Arbeiten</div>
+        <h1 class="hero-title">
+          Wissen beginnt mit der richtigen <em>Methode</em>.
+        </h1>
+        <p class="hero-sub">
+          SciNew begleitet dich Schritt für Schritt durch die Grundlagen wissenschaftlichen
+          Arbeitens – strukturiert, verständlich und praxisnah.
+        </p>
+        <div class="hero-cta">
+          <a href="lektion-01.html" class="btn btn-primary">
+            Jetzt starten
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </a>
+          <a href="#lektionen" class="btn btn-ghost">Alle Lektionen ansehen</a>
         </div>
-    </main>
+      </div>
+    </section>
+
+    <!-- INTRO STATS -->
+    <div class="intro-strip reveal">
+      <div class="intro-grid">
+        <div class="intro-stat">
+          <span class="intro-stat-num">9</span>
+          <span class="intro-stat-label">Strukturierte Lektionen</span>
+        </div>
+        <div class="intro-stat">
+          <span class="intro-stat-num">∞</span>
+          <span class="intro-stat-label">Jederzeit verfügbar</span>
+        </div>
+        <div class="intro-stat">
+          <span class="intro-stat-num">100%</span>
+          <span class="intro-stat-label">Kostenlos &amp; offen</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- WELCOME -->
+    <section class="section welcome-section">
+      <div class="welcome-inner">
+        <div class="welcome-text reveal">
+          <h2>Willkommen bei <em>SciNew</em></h2>
+          <p>
+            Diese Plattform wurde entwickelt, um Psychologiestudierenden einen klaren, gut
+            strukturierten Einstieg in das wissenschaftliche Arbeiten zu ermöglichen. Von der
+            ersten Fragestellung bis zur fertigen Arbeit findest du hier alle wichtigen Konzepte.
+          </p>
+          <p>
+            Jede Lektion baut aufeinander auf und enthält Lerninhalte sowie praktische Übungen,
+            die du direkt in deinem Studium anwenden kannst.
+          </p>
+        </div>
+        <div class="welcome-features reveal">
+          <div class="welcome-feature">
+            <div class="welcome-feature-icon">📖</div>
+            <div class="welcome-feature-text">
+              <strong>Strukturierte Lerninhalte</strong>
+              <span>Jede Lektion folgt demselben klaren Aufbau – so weißt du immer, wo du stehst.</span>
+            </div>
+          </div>
+          <div class="welcome-feature">
+            <div class="welcome-feature-icon">✏️</div>
+            <div class="welcome-feature-text">
+              <strong>Übungen zum Vertiefen</strong>
+              <span>Zu jeder Lektion gibt es Übungsaufgaben, die dein Wissen festigen.</span>
+            </div>
+          </div>
+          <div class="welcome-feature">
+            <div class="welcome-feature-icon">🔬</div>
+            <div class="welcome-feature-text">
+              <strong>Wissenschaftlich fundiert</strong>
+              <span>Inhalte orientieren sich an aktuellen Methoden der psychologischen Forschung.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- LESSONS OVERVIEW -->
+    <section class="section" id="lektionen">
+      <div class="section-header reveal">
+        <h2 class="section-title">Alle <span>Lektionen</span></h2>
+        <span class="section-meta">9 Lektionen · Jederzeit frei zugänglich</span>
+      </div>
+
+      <div class="lessons-grid">
+        <!-- =========================================================
+             LEKTIONSKARTEN – Titel und Beschreibung anpassen
+             ========================================================= -->
+        <a href="lektion-01.html" class="lesson-card reveal">
+          <div class="lesson-card-num">01</div>
+          <div class="lesson-card-title">Wissenschaft verstehen &amp; Thema finden</div>
+          <div class="lesson-card-desc">Was ist Wissenschaft? Wie grenzt man ein Forschungsthema ein und formuliert eine erste Fragestellung?</div>
+          <div class="lesson-card-footer">
+            <span class="lesson-card-tag">Einführung</span>
+            <span class="lesson-card-arrow">→</span>
+          </div>
+        </a>
+
+        <a href="lektion-02.html" class="lesson-card reveal">
+          <div class="lesson-card-num">02</div>
+          <div class="lesson-card-title">Lektion 2 – Titel folgt</div>
+          <div class="lesson-card-desc">Kurze Beschreibung des Inhalts dieser Lektion. Hier deinen eigenen Text einfügen.</div>
+          <div class="lesson-card-footer">
+            <span class="lesson-card-tag">Grundlagen</span>
+            <span class="lesson-card-arrow">→</span>
+          </div>
+        </a>
+
+        <a href="lektion-03.html" class="lesson-card reveal">
+          <div class="lesson-card-num">03</div>
+          <div class="lesson-card-title">Lektion 3 – Titel folgt</div>
+          <div class="lesson-card-desc">Kurze Beschreibung des Inhalts dieser Lektion. Hier deinen eigenen Text einfügen.</div>
+          <div class="lesson-card-footer">
+            <span class="lesson-card-tag">Grundlagen</span>
+            <span class="lesson-card-arrow">→</span>
+          </div>
+        </a>
+
+        <a href="lektion-04.html" class="lesson-card reveal">
+          <div class="lesson-card-num">04</div>
+          <div class="lesson-card-title">Lektion 4 – Titel folgt</div>
+          <div class="lesson-card-desc">Kurze Beschreibung des Inhalts dieser Lektion. Hier deinen eigenen Text einfügen.</div>
+          <div class="lesson-card-footer">
+            <span class="lesson-card-tag">Methodik</span>
+            <span class="lesson-card-arrow">→</span>
+          </div>
+        </a>
+
+        <a href="lektion-05.html" class="lesson-card reveal">
+          <div class="lesson-card-num">05</div>
+          <div class="lesson-card-title">Lektion 5 – Titel folgt</div>
+          <div class="lesson-card-desc">Kurze Beschreibung des Inhalts dieser Lektion. Hier deinen eigenen Text einfügen.</div>
+          <div class="lesson-card-footer">
+            <span class="lesson-card-tag">Methodik</span>
+            <span class="lesson-card-arrow">→</span>
+          </div>
+        </a>
+
+        <a href="lektion-06.html" class="lesson-card reveal">
+          <div class="lesson-card-num">06</div>
+          <div class="lesson-card-title">Lektion 6 – Titel folgt</div>
+          <div class="lesson-card-desc">Kurze Beschreibung des Inhalts dieser Lektion. Hier deinen eigenen Text einfügen.</div>
+          <div class="lesson-card-footer">
+            <span class="lesson-card-tag">Vertiefung</span>
+            <span class="lesson-card-arrow">→</span>
+          </div>
+        </a>
+
+        <a href="lektion-07.html" class="lesson-card reveal">
+          <div class="lesson-card-num">07</div>
+          <div class="lesson-card-title">Lektion 7 – Titel folgt</div>
+          <div class="lesson-card-desc">Kurze Beschreibung des Inhalts dieser Lektion. Hier deinen eigenen Text einfügen.</div>
+          <div class="lesson-card-footer">
+            <span class="lesson-card-tag">Vertiefung</span>
+            <span class="lesson-card-arrow">→</span>
+          </div>
+        </a>
+
+        <a href="lektion-08.html" class="lesson-card reveal">
+          <div class="lesson-card-num">08</div>
+          <div class="lesson-card-title">Lektion 8 – Titel folgt</div>
+          <div class="lesson-card-desc">Kurze Beschreibung des Inhalts dieser Lektion. Hier deinen eigenen Text einfügen.</div>
+          <div class="lesson-card-footer">
+            <span class="lesson-card-tag">Abschluss</span>
+            <span class="lesson-card-arrow">→</span>
+          </div>
+        </a>
+
+        <a href="lektion-09.html" class="lesson-card reveal">
+          <div class="lesson-card-num">09</div>
+          <div class="lesson-card-title">Lektion 9 – Titel folgt</div>
+          <div class="lesson-card-desc">Kurze Beschreibung des Inhalts dieser Lektion. Hier deinen eigenen Text einfügen.</div>
+          <div class="lesson-card-footer">
+            <span class="lesson-card-tag">Abschluss</span>
+            <span class="lesson-card-arrow">→</span>
+          </div>
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============================================================
+       FOOTER
+       ============================================================ -->
+  <footer>
+    <p>© 2025 SciNew – Wissenschaftliches Arbeiten in der Psychologie</p>
+    <div class="footer-links">
+      <a href="kontakt.html">Kontakt</a>
+      <a href="kontakt.html">Impressum</a>
+    </div>
+  </footer>
+
+  <!-- ============================================================
+       JAVASCRIPT
+       ============================================================ -->
+  <script>
+    /* ---------- Burger / Drawer ---------- */
+    function openDrawer() {
+      document.body.classList.add('drawer-open');
+      document.getElementById('burgerBtn').setAttribute('aria-expanded', 'true');
+    }
+    function closeDrawer() {
+      document.body.classList.remove('drawer-open');
+      document.getElementById('burgerBtn').setAttribute('aria-expanded', 'false');
+    }
+    function toggleDrawer() {
+      document.body.classList.contains('drawer-open') ? closeDrawer() : openDrawer();
+    }
+
+    /* Close drawer on ESC */
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDrawer(); });
+
+    /* ---------- Scroll Reveal ---------- */
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
 </body>
 </html>
