@@ -3,13 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Lektion 1 – SciNeW</title>
+  <title>Lektion X – SciNeW</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
 
   <style>
-    /* ─── Design Tokens ────────────────────────────────────────────── */
     :root {
       --green:    #74C2A8;
       --dark:     #121616;
@@ -27,7 +26,6 @@
       --mono: 'DM Mono', monospace;
     }
 
-    /* ─── Reset ────────────────────────────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
     body {
@@ -39,7 +37,7 @@
       flex-direction: column;
     }
 
-    /* ─── Top Header ───────────────────────────────────────────────── */
+    /* TOP HEADER */
     .top-header {
       position: fixed; top: 0; left: 0; right: 0;
       height: var(--header-h);
@@ -75,7 +73,7 @@
     }
     .back-link:hover { color: var(--green); }
 
-    /* ─── Sidebar ──────────────────────────────────────────────────── */
+    /* SIDEBAR */
     .sidebar {
       position: fixed; top: var(--header-h); left: 0; bottom: 0;
       width: var(--sidebar-w);
@@ -119,13 +117,12 @@
     }
     .sidebar-overlay.show { display: block; opacity: 1; }
 
-    /* ─── Main Content ─────────────────────────────────────────────── */
+    /* MAIN */
     .main-wrap {
       margin-top: var(--header-h);
       flex: 1; display: flex; flex-direction: column;
     }
 
-    /* Lesson Header */
     .lesson-hero {
       background: var(--surface);
       border-bottom: 1px solid var(--border);
@@ -156,7 +153,7 @@
       max-width: 560px; line-height: 1.6;
     }
 
-    /* Tab Navigation */
+    /* TABS */
     .tab-nav {
       display: flex; gap: 0;
       border-bottom: 1px solid var(--border);
@@ -174,11 +171,8 @@
       position: relative; bottom: -1px;
     }
     .tab-btn:hover { color: var(--dark); }
-    .tab-btn.active {
-      color: var(--dark); border-bottom-color: var(--dark);
-    }
+    .tab-btn.active { color: var(--dark); border-bottom-color: var(--dark); }
 
-    /* Tab Panels */
     .tab-content {
       max-width: 860px; margin: 0 auto; width: 100%;
       padding: 2rem;
@@ -187,7 +181,7 @@
     .tab-panel { display: none; }
     .tab-panel.active { display: block; }
 
-    /* ─── Tab 1: Lernziele ─────────────────────────────────────────── */
+    /* LERNZIELE */
     .info-box {
       background: rgba(116,194,168,0.08);
       border-left: 3px solid var(--green);
@@ -199,7 +193,7 @@
 
     .goal-list { display: flex; flex-direction: column; gap: 0.75rem; }
     .goal-item {
-      display: flex; align-items: center; gap: 1rem;
+      display: flex; align-items: flex-start; gap: 1rem;
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: var(--radius);
@@ -219,6 +213,7 @@
       border-radius: 5px;
       display: flex; align-items: center; justify-content: center;
       transition: background 0.2s, border-color 0.2s;
+      margin-top: 2px;
     }
     .goal-item.checked .goal-checkbox {
       background: var(--green); border-color: var(--green);
@@ -227,24 +222,25 @@
       opacity: 0; transform: scale(0.5);
       transition: opacity 0.15s, transform 0.15s;
     }
-    .goal-item.checked .goal-checkbox svg {
-      opacity: 1; transform: scale(1);
-    }
+    .goal-item.checked .goal-checkbox svg { opacity: 1; transform: scale(1); }
+    .goal-body { display: flex; flex-direction: column; gap: 0.2rem; }
     .goal-text { font-size: 0.92rem; line-height: 1.5; }
-    .goal-item.checked .goal-text {
-      color: var(--muted); text-decoration: line-through;
+    .goal-item.checked .goal-text { color: var(--muted); text-decoration: line-through; }
+    .goal-ref {
+      font-size: 0.73rem;
+      font-family: var(--mono);
+      color: var(--muted);
+      opacity: 0.65;
     }
 
-    /* Progress bar */
+    /* PROGRESS */
     .progress-wrap { margin-bottom: 1.5rem; }
     .progress-label {
       display: flex; justify-content: space-between;
       font-size: 0.78rem; color: var(--muted);
       margin-bottom: 0.4rem;
     }
-    .progress-bar {
-      height: 4px; background: var(--border); border-radius: 99px; overflow: hidden;
-    }
+    .progress-bar { height: 4px; background: var(--border); border-radius: 99px; overflow: hidden; }
     .progress-fill {
       height: 100%; background: var(--green);
       border-radius: 99px;
@@ -252,7 +248,7 @@
       width: 0%;
     }
 
-    /* ─── Tab 2: Kernthemen ────────────────────────────────────────── */
+    /* KERNTHEMEN */
     .topic-list { display: flex; flex-direction: column; gap: 0.5rem; margin-top: 0.5rem; }
     .topic-item {
       display: flex; align-items: flex-start; gap: 1rem;
@@ -265,13 +261,12 @@
     .topic-item:hover { border-color: var(--green); }
     .topic-num {
       font-family: var(--mono); font-size: 0.72rem;
-      color: var(--green); min-width: 1.75rem;
-      margin-top: 2px;
+      color: var(--green); min-width: 1.75rem; margin-top: 2px;
     }
     .topic-title { font-size: 0.95rem; font-weight: 500; line-height: 1.4; }
     .topic-sub { font-size: 0.82rem; color: var(--muted); margin-top: 0.2rem; }
 
-    /* ─── Tab 3: Inhalt ────────────────────────────────────────────── */
+    /* INHALT */
     .content-placeholder {
       background: var(--surface);
       border: 2px dashed var(--border);
@@ -280,72 +275,47 @@
       text-align: center;
       color: var(--muted);
     }
-    .content-placeholder .icon {
-      font-size: 2.5rem; margin-bottom: 1rem; display: block; opacity: 0.4;
-    }
+    .content-placeholder .icon { font-size: 2.5rem; margin-bottom: 1rem; display: block; opacity: 0.4; }
     .content-placeholder p { font-size: 0.9rem; line-height: 1.6; }
 
-    /* Prose styles for future content */
-    .prose h2 {
-      font-size: 1.3rem; font-weight: 600; margin: 2rem 0 0.75rem;
-      letter-spacing: -0.02em;
-    }
+    .prose h2 { font-size: 1.3rem; font-weight: 600; margin: 2rem 0 0.75rem; letter-spacing: -0.02em; }
     .prose p { font-size: 0.95rem; line-height: 1.75; color: #2a2a2a; margin-bottom: 1rem; }
-    .prose audio {
-      width: 100%; margin: 1.25rem 0;
-      border-radius: var(--radius); outline: none;
-    }
+    .prose audio { width: 100%; margin: 1.25rem 0; border-radius: var(--radius); outline: none; }
     .audio-block {
       background: var(--surface); border: 1px solid var(--border);
-      border-radius: var(--radius); padding: 1rem 1.25rem;
-      margin: 1rem 0;
+      border-radius: var(--radius); padding: 1rem 1.25rem; margin: 1rem 0;
     }
     .audio-label {
       font-size: 0.78rem; font-weight: 600; color: var(--muted);
-      text-transform: uppercase; letter-spacing: 0.08em;
-      margin-bottom: 0.5rem;
+      text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.5rem;
     }
 
-    /* ─── Tab 4: Übungen ───────────────────────────────────────────── */
+    /* ÜBUNGEN */
     .uebungen-frame {
       width: 100%; height: calc(100vh - var(--header-h) - var(--tab-h) - 6rem);
-      min-height: 400px;
-      border: none;
-      border-radius: var(--radius);
-      background: var(--surface);
+      min-height: 400px; border: none;
+      border-radius: var(--radius); background: var(--surface);
     }
-    .uebungen-note {
-      font-size: 0.8rem; color: var(--muted);
-      margin-bottom: 0.75rem;
-    }
+    .uebungen-note { font-size: 0.8rem; color: var(--muted); margin-bottom: 0.75rem; }
 
-    /* ─── Section Headings ─────────────────────────────────────────── */
     .section-heading {
       font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em;
-      text-transform: uppercase; color: var(--muted);
-      margin-bottom: 1.25rem;
+      text-transform: uppercase; color: var(--muted); margin-bottom: 1.25rem;
     }
 
-    /* ─── Responsive ───────────────────────────────────────────────── */
+    /* RESPONSIVE */
     @media (min-width: 900px) {
-      /* Sidebar always visible on large screens */
-      .sidebar {
-        transform: translateX(0);
-      }
-      .main-wrap {
-        margin-left: var(--sidebar-w);
-      }
+      .sidebar { transform: translateX(0); }
+      .main-wrap { margin-left: var(--sidebar-w); }
       .burger-btn { display: none; }
       .sidebar-overlay { display: none !important; }
     }
-
     @media (max-width: 600px) {
       .lesson-hero { padding: 1.5rem 1rem 0; }
       .tab-content { padding: 1.25rem 1rem; }
       .tab-btn { padding: 0 0.9rem; font-size: 0.82rem; }
     }
 
-    /* ─── Scrollbar ────────────────────────────────────────────────── */
     ::-webkit-scrollbar { width: 6px; }
     ::-webkit-scrollbar-track { background: transparent; }
     ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 99px; }
@@ -353,9 +323,6 @@
 </head>
 <body>
 
-  <!-- ═══════════════════════════════════════
-       TOP HEADER
-  ════════════════════════════════════════ -->
   <header class="top-header">
     <div class="header-left">
       <button class="burger-btn" id="burgerBtn" aria-label="Menü öffnen">
@@ -368,49 +335,23 @@
     </div>
   </header>
 
-  <!-- ═══════════════════════════════════════
-       SIDEBAR
-  ════════════════════════════════════════ -->
   <aside class="sidebar" id="sidebar">
     <p class="sidebar-label">Lektionen</p>
     <nav>
-      <a href="lektion-01.html" class="active">
-        <span class="num">01</span> Grundlagen wissenschaftlicher Arbeit
-      </a>
-      <a href="lektion-02.html">
-        <span class="num">02</span> Literaturrecherche
-      </a>
-      <a href="lektion-03.html">
-        <span class="num">03</span> Wissenschaftliches Schreiben
-      </a>
-      <a href="lektion-04.html">
-        <span class="num">04</span> Zitieren &amp; Quellenangaben
-      </a>
-      <a href="lektion-05.html">
-        <span class="num">05</span> Forschungsdesign
-      </a>
-      <a href="lektion-06.html">
-        <span class="num">06</span> Datenerhebung
-      </a>
-      <a href="lektion-07.html">
-        <span class="num">07</span> Datenauswertung
-      </a>
-      <a href="lektion-08.html">
-        <span class="num">08</span> Ergebnisse darstellen
-      </a>
-      <a href="lektion-09.html">
-        <span class="num">09</span> Diskussion &amp; Fazit
-      </a>
+      <a href="lektion-01.html" class="active"><span class="num">01</span> Grundlagen wissenschaftlicher Arbeit</a>
+      <a href="lektion-02.html"><span class="num">02</span> Literaturrecherche</a>
+      <a href="lektion-03.html"><span class="num">03</span> Wissenschaftliches Schreiben</a>
+      <a href="lektion-04.html"><span class="num">04</span> Zitieren &amp; Quellenangaben</a>
+      <a href="lektion-05.html"><span class="num">05</span> Forschungsdesign</a>
+      <a href="lektion-06.html"><span class="num">06</span> Datenerhebung</a>
+      <a href="lektion-07.html"><span class="num">07</span> Datenauswertung</a>
+      <a href="lektion-08.html"><span class="num">08</span> Ergebnisse darstellen</a>
+      <a href="lektion-09.html"><span class="num">09</span> Diskussion &amp; Fazit</a>
     </nav>
   </aside>
   <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
-  <!-- ═══════════════════════════════════════
-       MAIN
-  ════════════════════════════════════════ -->
   <main class="main-wrap">
-
-    <!-- Lesson Header + Tabs -->
     <div class="lesson-hero">
       <span class="chapter-badge">Lektion 1</span>
       <h1 class="lesson-title">Grundlagen wissenschaftlicher Arbeit</h1>
@@ -418,7 +359,6 @@
         Was ist Wissenschaft? Erkenntnistheorie, Gütekriterien und der Unterschied
         zwischen Alltagswissen und empirischem Wissen.
       </p>
-
       <div class="tab-nav" role="tablist">
         <button class="tab-btn active" role="tab" data-tab="lernziele">Lernziele</button>
         <button class="tab-btn" role="tab" data-tab="kernthemen">Kernthemen</button>
@@ -427,104 +367,74 @@
       </div>
     </div>
 
-    <!-- Tab Content -->
     <div class="tab-content">
 
-      <!-- ── TAB: Lernziele ── -->
+      <!-- TAB: Lernziele -->
       <div class="tab-panel active" id="tab-lernziele" role="tabpanel">
         <div class="info-box">
           Hake ab, was du bereits weißt oder verstehst. Dein Fortschritt wird
           automatisch gespeichert und bleibt auch nach einem Neuladen erhalten.
         </div>
-
         <div class="progress-wrap">
           <div class="progress-label">
             <span>Fortschritt</span>
-            <span id="progressText">0 / 16</span>
+            <span id="progressText">0 / 15</span>
           </div>
           <div class="progress-bar">
             <div class="progress-fill" id="progressFill"></div>
           </div>
         </div>
-
-        <div class="goal-list" id="goalList">
-          <!-- Goals are rendered by JS below -->
-        </div>
+        <div class="goal-list" id="goalList"></div>
       </div>
 
-      <!-- ── TAB: Kernthemen ── -->
+      <!-- TAB: Kernthemen -->
       <div class="tab-panel" id="tab-kernthemen" role="tabpanel">
         <p class="section-heading">Überblick dieser Lektion</p>
         <div class="topic-list">
           <div class="topic-item">
             <span class="topic-num">01</span>
-            <div>
-              <div class="topic-title">Was ist Wissenschaft?</div>
-              <div class="topic-sub">Definition, Ziele und Abgrenzung zum Alltagswissen</div>
-            </div>
+            <div><div class="topic-title">Was ist Wissenschaft?</div><div class="topic-sub">Definition, Ziele und Abgrenzung zum Alltagswissen</div></div>
           </div>
           <div class="topic-item">
             <span class="topic-num">02</span>
-            <div>
-              <div class="topic-title">Erkenntnistheorie &amp; Grundpositionen</div>
-              <div class="topic-sub">Empirismus, Rationalismus und kritischer Realismus</div>
-            </div>
+            <div><div class="topic-title">Erkenntnistheorie &amp; Grundpositionen</div><div class="topic-sub">Empirismus, Rationalismus und kritischer Realismus</div></div>
           </div>
           <div class="topic-item">
             <span class="topic-num">03</span>
-            <div>
-              <div class="topic-title">Gütekriterien wissenschaftlicher Aussagen</div>
-              <div class="topic-sub">Objektivität, Reliabilität, Validität</div>
-            </div>
+            <div><div class="topic-title">Gütekriterien wissenschaftlicher Aussagen</div><div class="topic-sub">Objektivität, Reliabilität, Validität</div></div>
           </div>
           <div class="topic-item">
             <span class="topic-num">04</span>
-            <div>
-              <div class="topic-title">Das Falsifikationsprinzip</div>
-              <div class="topic-sub">Popper und die Frage: Wann ist eine Aussage wissenschaftlich?</div>
-            </div>
+            <div><div class="topic-title">Das Falsifikationsprinzip</div><div class="topic-sub">Popper und die Frage: Wann ist eine Aussage wissenschaftlich?</div></div>
           </div>
           <div class="topic-item">
             <span class="topic-num">05</span>
-            <div>
-              <div class="topic-title">Induktion vs. Deduktion</div>
-              <div class="topic-sub">Zwei Wege der wissenschaftlichen Schlussfolgerung</div>
-            </div>
+            <div><div class="topic-title">Induktion vs. Deduktion</div><div class="topic-sub">Zwei Wege der wissenschaftlichen Schlussfolgerung</div></div>
           </div>
           <div class="topic-item">
             <span class="topic-num">06</span>
-            <div>
-              <div class="topic-title">Wissenschaftliche Ethik &amp; Integrität</div>
-              <div class="topic-sub">Gute wissenschaftliche Praxis und häufige Fehler</div>
-            </div>
+            <div><div class="topic-title">Wissenschaftliche Ethik &amp; Integrität</div><div class="topic-sub">Gute wissenschaftliche Praxis und häufige Fehler</div></div>
           </div>
           <div class="topic-item">
             <span class="topic-num">07</span>
-            <div>
-              <div class="topic-title">Aufbau einer wissenschaftlichen Arbeit</div>
-              <div class="topic-sub">Von der Fragestellung bis zum Literaturverzeichnis</div>
-            </div>
+            <div><div class="topic-title">Aufbau einer wissenschaftlichen Arbeit</div><div class="topic-sub">Von der Fragestellung bis zum Literaturverzeichnis</div></div>
           </div>
         </div>
       </div>
 
-      <!-- ── TAB: Inhalt ── -->
+      <!-- TAB: Inhalt -->
       <div class="tab-panel" id="tab-inhalt" role="tabpanel">
         <!--
-          ╔══════════════════════════════════════════════════════════════╗
-          ║  INHALT-BEREICH – hier Texte und Audiodateien einfügen       ║
-          ║                                                              ║
-          ║  Beispielstruktur:                                           ║
-          ║                                                              ║
-          ║  <div class="prose">                                         ║
-          ║    <h2>Was ist Wissenschaft?</h2>                            ║
-          ║    <p>Dein Text hier...</p>                                  ║
-          ║    <div class="audio-block">                                 ║
-          ║      <div class="audio-label">Audio zur Einheit</div>       ║
-          ║      <audio controls src="audio/lektion1-teil1.mp3"></audio> ║
-          ║    </div>                                                    ║
-          ║  </div>                                                      ║
-          ╚══════════════════════════════════════════════════════════════╝
+          INHALT-BEREICH – Texte und Audiodateien einfügen:
+
+          <div class="prose">
+            <h2>Was ist Wissenschaft?</h2>
+            <p>Dein Text hier...</p>
+            <div class="audio-block">
+              <div class="audio-label">Audio zur Einheit</div>
+              <audio controls src="audio/lektion1-teil1.mp3"></audio>
+            </div>
+          </div>
         -->
         <div class="content-placeholder">
           <span class="icon">📄</span>
@@ -533,15 +443,10 @@
         </div>
       </div>
 
-      <!-- ── TAB: Übungen ── -->
+      <!-- TAB: Übungen -->
       <div class="tab-panel" id="tab-uebungen" role="tabpanel">
-        <p class="uebungen-note">
-          Die Übungen öffnen sich direkt hier – keine separate Seite nötig.
-        </p>
-        <!--
-          Ersetze den src-Wert mit dem Pfad zur Übungsdatei, z.B.:
-          src="uebungen/lektion-01-uebungen.html"
-        -->
+        <p class="uebungen-note">Die Übungen öffnen sich direkt hier – keine separate Seite nötig.</p>
+        <!-- Pfad zur Übungsdatei anpassen: src="uebungen/lektion-01-uebungen.html" -->
         <iframe
           class="uebungen-frame"
           src="uebungen/lektion-01-uebungen.html"
@@ -550,14 +455,11 @@
         ></iframe>
       </div>
 
-    </div><!-- /tab-content -->
+    </div>
   </main>
 
-  <!-- ═══════════════════════════════════════
-       JAVASCRIPT
-  ════════════════════════════════════════ -->
   <script>
-    /* ── Burger / Sidebar ─────────────────────────────────── */
+    /* Burger / Sidebar */
     const burgerBtn      = document.getElementById('burgerBtn');
     const sidebar        = document.getElementById('sidebar');
     const sidebarOverlay = document.getElementById('sidebarOverlay');
@@ -571,7 +473,7 @@
     burgerBtn.addEventListener('click', toggleSidebar);
     sidebarOverlay.addEventListener('click', toggleSidebar);
 
-    /* ── Tab Navigation ───────────────────────────────────── */
+    /* Tab Navigation */
     const tabBtns   = document.querySelectorAll('.tab-btn');
     const tabPanels = document.querySelectorAll('.tab-panel');
 
@@ -582,32 +484,78 @@
         tabPanels.forEach(p => p.classList.remove('active'));
         btn.classList.add('active');
         document.getElementById('tab-' + target).classList.add('active');
-        // Scroll to top of content on mobile
         window.scrollTo({ top: 0, behavior: 'smooth' });
       });
     });
 
-    /* ── Lernziele mit localStorage ───────────────────────── */
+    /* ── Lernziele ─────────────────────────────────────────────────
+       ANPASSEN pro Lektion:
+         - LESSON_ID  → eindeutige ID (z.B. 'lektion-02')
+         - GOALS      → Array mit { text, ref } Objekten
+    ───────────────────────────────────────────────────────────────── */
+    const LESSON_ID = 'lektion-01';
 
-    // !! ANPASSEN: Lernziele dieser Lektion !!
-    const LESSON_ID = 'lektion-01'; // eindeutige ID pro Lektion
     const GOALS = [
-      'Die Bedeutung und Essenz wissenschaftlichen Arbeitens während des Studiums verstehen (K01 p.5).',
-      'Häufige Fehler bei wissenschaftlichen Arbeiten erkennen und vermeiden (K01 p.6)(K01 p.7).',
-      'Das Prinzip der wissenschaftlichen Qualität ("Input vs. Output") nachvollziehen (K01 p.8)',
-      'Die Definition von Wissenschaft als systematisches Unterfangen zur Wissensgenerierung verstehen (K01 p.28)(K01 p.67)',
-      'Fachsprache und Kernkonzepte wie Falsifizierung, Hypothese, Empirie, Theorien und Modelle erläutern können (K01 p.16).'
-      'Pseudowissenschaft von echter Wissenschaft abgrenzen können (K01 p.17).'
-    'Die Konzepte von Reproduzierbarkeit und Replizierbarkeit im wissenschaftlichen Kontext erklären (K01 p.20).'
-    'Den wissenschaftlichen Erkenntnisprozess von der Frage zur Theorie (inkl. Induktion und Deduktion) beschreiben (K01 p.22)(K01 p.24).'
-    'Die drei Ziele der Wissenschaft (Deskription, Erklärung, Vorhersage) benennen und anwenden können (K01 p.29)(K01 p.30).'
-    'Den Kreislauf der Wissenschaft als unendlichen Prozess darlegen (K01 p.36).'
-    'Den Zusammenhang zwischen Daten, Phänomenen und Theorien verstehen (K01 p.37). '
-    'Die zentralen Aufgaben und den Nutzen der Wissenschaft benennen (K01 p.38).'
-    'Verschiedene Inspirationsquellen für die Themenfindung nutzen können (Medien, Pop-Science Bücher, SciBlogs, Wissenschaftsmagazine) (K01 p.39)(K01 p.41)(K01 p.42)(K01 p.43)(K01 p.44).'
-    'Den Prozess der Themenfindung vom Themengebiet zur Forschungsfrage (inkl. Forschungslücke) beherrschen (K01 p.47)(K01 p.48).'
-    'Kriterien für gute Themenstellungen kennen und anwenden (K01 p.57).'
-    'Strategien zur Entwicklung eines eigenen Themas und zur Identifikation einer Forschungslücke anwenden können (K01 p.51)(K01 p.59)(K01 p.60)(K01 S.61).'
+      {
+        text: 'Die Bedeutung und Essenz wissenschaftlichen Arbeitens während des Studiums verstehen.',
+        ref: 'K01 p.5'
+      },
+      {
+        text: 'Häufige Fehler bei wissenschaftlichen Arbeiten erkennen und vermeiden.',
+        ref: 'K01 p.6 · p.7'
+      },
+      {
+        text: 'Das Prinzip der wissenschaftlichen Qualität ("Input vs. Output") nachvollziehen.',
+        ref: 'K01 p.8'
+      },
+      {
+        text: 'Die Definition von Wissenschaft als systematisches Unterfangen zur Wissensgenerierung verstehen.',
+        ref: 'K01 p.28 · p.67'
+      },
+      {
+        text: 'Fachsprache und Kernkonzepte wie Falsifizierung, Hypothese, Empirie, Theorien und Modelle erläutern können.',
+        ref: 'K01 p.16'
+      },
+      {
+        text: 'Pseudowissenschaft von echter Wissenschaft abgrenzen können.',
+        ref: 'K01 p.17'
+      },
+      {
+        text: 'Die Konzepte von Reproduzierbarkeit und Replizierbarkeit im wissenschaftlichen Kontext erklären.',
+        ref: 'K01 p.20'
+      },
+      {
+        text: 'Den wissenschaftlichen Erkenntnisprozess von der Frage zur Theorie (inkl. Induktion und Deduktion) beschreiben.',
+        ref: 'K01 p.22 · p.24'
+      },
+      {
+        text: 'Die drei Ziele der Wissenschaft (Deskription, Erklärung, Vorhersage) benennen und anwenden können.',
+        ref: 'K01 p.29 · p.30'
+      },
+      {
+        text: 'Den Kreislauf der Wissenschaft als unendlichen Prozess darlegen.',
+        ref: 'K01 p.36'
+      },
+      {
+        text: 'Den Zusammenhang zwischen Daten, Phänomenen und Theorien verstehen sowie die zentralen Aufgaben und den Nutzen der Wissenschaft benennen.',
+        ref: 'K01 p.37 · p.38'
+      },
+      {
+        text: 'Verschiedene Inspirationsquellen für die Themenfindung nutzen können (Medien, Pop-Science Bücher, SciBlogs, Wissenschaftsmagazine).',
+        ref: 'K01 p.39 · p.41 · p.42 · p.43 · p.44'
+      },
+      {
+        text: 'Den Prozess der Themenfindung vom Themengebiet zur Forschungsfrage (inkl. Forschungslücke) beherrschen.',
+        ref: 'K01 p.47 · p.48'
+      },
+      {
+        text: 'Kriterien für gute Themenstellungen kennen und anwenden.',
+        ref: 'K01 p.57'
+      },
+      {
+        text: 'Strategien zur Entwicklung eines eigenen Themas und zur Identifikation einer Forschungslücke anwenden können.',
+        ref: 'K01 p.51 · p.59 · p.60 · p.61'
+      }
     ];
 
     const STORAGE_KEY = `scnew-goals-${LESSON_ID}`;
@@ -619,7 +567,6 @@
     function saveChecked(arr) {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(arr));
     }
-
     function updateProgress(checked) {
       const total = GOALS.length;
       const n     = checked.filter(Boolean).length;
@@ -627,13 +574,11 @@
       document.getElementById('progressText').textContent = `${n} / ${total}`;
       document.getElementById('progressFill').style.width = pct + '%';
     }
-
     function buildGoalList() {
       const list    = document.getElementById('goalList');
       const checked = loadChecked();
-
       list.innerHTML = '';
-      GOALS.forEach((text, i) => {
+      GOALS.forEach((goal, i) => {
         const isChecked = !!checked[i];
         const item = document.createElement('div');
         item.className = 'goal-item' + (isChecked ? ' checked' : '');
@@ -644,7 +589,10 @@
                     stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </div>
-          <span class="goal-text">${text}</span>
+          <div class="goal-body">
+            <div class="goal-text">${goal.text}</div>
+            ${goal.ref ? `<div class="goal-ref">${goal.ref}</div>` : ''}
+          </div>
         `;
         item.addEventListener('click', () => {
           const current = loadChecked();
