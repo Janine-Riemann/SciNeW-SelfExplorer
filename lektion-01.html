@@ -182,44 +182,56 @@
     .tab-panel.active { display: block; }
 
     /* LERNZIELE */
-    
-.info-box {
-  background: rgba(116,194,168,0.08);
-  border-left: 3px solid var(--green);
-  border-radius: 0 var(--radius) var(--radius) 0;
-  padding: 1rem 1.25rem;
-  font-size: 0.88rem; color: var(--muted); line-height: 1.6;
-  margin-bottom: 1.75rem;
-}
+    .info-box {
+      background: rgba(116,194,168,0.08);
+      border-left: 3px solid var(--green);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      padding: 1rem 1.25rem;
+      font-size: 0.88rem; color: var(--muted); line-height: 1.6;
+      margin-bottom: 1.75rem;
+    }
 
-.goal-list { display: flex; flex-direction: column; gap: 0.6rem; padding: 0; }
-.goal-item {
-  padding: 0;
-  background: transparent;
-  border: none;
-  cursor: pointer; /* Klick bleibt möglich, zum Fortschritt markieren */
-}
-.goal-body { display: block; }
-.goal-heading {
-  font-size: 1.2rem; /* etwas größer, fett */
-  font-weight: 700;
-  color: var(--dark);
-  margin-bottom: 0.12rem;
-}
-.goal-subheading {
-  font-size: 0.86rem;
-  color: var(--muted);
-  font-family: var(--mono);
-  opacity: 0.95;
-  margin-bottom: 0.5rem;
-}
-/* dezentes Feedback bei markiertem Ziel */
-.goal-item.checked .goal-heading {
-  color: var(--muted);
-  text-decoration: line-through;
-  opacity: 0.9;
-}
-.goal-checkbox { display: none; } /* Checkbox-Visuals ausblenden, Funktion bleibt */
+    .goal-list { display: flex; flex-direction: column; gap: 0.75rem; }
+    .goal-item {
+      display: flex; align-items: flex-start; gap: 1rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1rem 1.25rem;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+      user-select: none;
+    }
+    .goal-item:hover { border-color: var(--green); }
+    .goal-item.checked {
+      background: rgba(116,194,168,0.07);
+      border-color: var(--green);
+    }
+    .goal-checkbox {
+      width: 20px; height: 20px; flex-shrink: 0;
+      border: 2px solid var(--border);
+      border-radius: 5px;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s, border-color 0.2s;
+      margin-top: 2px;
+    }
+    .goal-item.checked .goal-checkbox {
+      background: var(--green); border-color: var(--green);
+    }
+    .goal-checkbox svg {
+      opacity: 0; transform: scale(0.5);
+      transition: opacity 0.15s, transform 0.15s;
+    }
+    .goal-item.checked .goal-checkbox svg { opacity: 1; transform: scale(1); }
+    .goal-body { display: flex; flex-direction: column; gap: 0.2rem; }
+    .goal-text { font-size: 0.92rem; line-height: 1.5; }
+    .goal-item.checked .goal-text { color: var(--muted); text-decoration: line-through; }
+    .goal-ref {
+      font-size: 0.73rem;
+      font-family: var(--mono);
+      color: var(--muted);
+      opacity: 0.65;
+    }
 
     /* PROGRESS */
     .progress-wrap { margin-bottom: 1.5rem; }
@@ -375,24 +387,45 @@
         <div class="goal-list" id="goalList"></div>
       </div>
 
-    <!-- TAB: Lernziele -->
-<div class="tab-panel active" id="tab-lernziele" role="tabpanel">
-  <div class="info-box">
-    Hake ab, was du bereits weißt oder verstehst. Dein Fortschritt wird
-    automatisch gespeichert und bleibt auch nach einem Neuladen erhalten.
-  </div>
-
-  <div class="progress-wrap">
-    <div class="progress-label">
-      <span>Fortschritt</span>
-      <span id="progressText">0 / 15</span>
+     <div class="tab-panel" id="tab-kernthemen" role="tabpanel">
+  <p class="section-heading">Überblick dieser Lektion</p>
+  <div class="topic-list">
+    <div class="topic-item">
+      <span class="topic-num">01</span>
+      <div><div class="topic-title">Erkenntnisprozess</div><div class="topic-sub">Weg von Beobachtung über Erklärung zur Theorie.</div></div>
     </div>
-    <div class="progress-bar">
-      <div class="progress-fill" id="progressFill"></div>
+    <div class="topic-item">
+      <span class="topic-num">02</span>
+      <div><div class="topic-title">Kreislauf der Wissenschaft</div><div class="topic-sub">Forschung verläuft iterativ: Fragen, planen, durchführen, analysieren, zurück zu neuen Fragen.</div></div>
+    </div>
+    <div class="topic-item">
+      <span class="topic-num">03</span>
+      <div><div class="topic-title">Trichter‑Modell</div><div class="topic-sub">Vom breiten Thema zur präzisen Forschungsfrage.</div></div>
+    </div>
+    <div class="topic-item">
+      <span class="topic-num">04</span>
+      <div><div class="topic-title">Techniken zur Identifikation einer Forschungslücke</div><div class="topic-sub">Systematische Analyse, um relevante offene Fragen zu finden.</div></div>
+    </div>
+    <div class="topic-item">
+      <span class="topic-num">05</span>
+      <div><div class="topic-title">Ziele der Wissenschaft</div><div class="topic-sub">Beschreiben, erklären und vorhersagen von Phänomenen.</div></div>
+    </div>
+    <div class="topic-item">
+      <span class="topic-num">06</span>
+      <div><div class="topic-title">Beziehung zwischen Daten, Phänomenen und Theorien</div><div class="topic-sub">Daten → Phänomene → Theorien, die diese erklären.</div></div>
+    </div>
+
+    <div class="section-heading" style="margin-top:0.6rem;">Wissenschaftsfelder &amp; Klassifikationen</div>
+
+    <div class="topic-item">
+      <span class="topic-num">07</span>
+      <div><div class="topic-title">Nicht‑empirische Wissenschaften</div><div class="topic-sub">Arbeiten ohne Datenerhebung (z. B. Logik, Mathematik).</div></div>
+    </div>
+    <div class="topic-item">
+      <span class="topic-num">08</span>
+      <div><div class="topic-title">Empirische Wissenschaften</div><div class="topic-sub">Nutzen Beobachtung und Messung zur Erkenntnisgewinnung.</div></div>
     </div>
   </div>
-
-  <div class="goal-list" id="goalList"></div>
 </div>
 
       <!-- TAB: Inhalt -->
@@ -548,31 +581,38 @@
       document.getElementById('progressFill').style.width = pct + '%';
     }
     function buildGoalList() {
-  const list    = document.getElementById('goalList');
-  const checked = loadChecked();
-  list.innerHTML = '';
-  GOALS.forEach((goal, i) => {
-    const isChecked = !!checked[i];
-    const item = document.createElement('div');
-    item.className = 'goal-item' + (isChecked ? ' checked' : '');
-    item.innerHTML = `
-      <div class="goal-body">
-        <div class="goal-heading">${goal.text}</div>
-        ${goal.ref ? `<div class="goal-subheading">${goal.ref}</div>` : ''}
-      </div>
-    `;
-    // Klickverhalten beibehalten, aktualisiert Fortschritt
-    item.addEventListener('click', () => {
-      const current = loadChecked();
-      current[i] = !current[i];
-      saveChecked(current);
-      item.classList.toggle('checked', current[i]);
-      updateProgress(current);
-    });
-    list.appendChild(item);
-  });
-  updateProgress(checked);
-}
+      const list    = document.getElementById('goalList');
+      const checked = loadChecked();
+      list.innerHTML = '';
+      GOALS.forEach((goal, i) => {
+        const isChecked = !!checked[i];
+        const item = document.createElement('div');
+        item.className = 'goal-item' + (isChecked ? ' checked' : '');
+        item.innerHTML = `
+          <div class="goal-checkbox">
+            <svg width="12" height="9" viewBox="0 0 12 9" fill="none">
+              <path d="M1 4L4.5 7.5L11 1" stroke="white" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="goal-body">
+            <div class="goal-text">${goal.text}</div>
+            ${goal.ref ? `<div class="goal-ref">${goal.ref}</div>` : ''}
+          </div>
+        `;
+        item.addEventListener('click', () => {
+          const current = loadChecked();
+          current[i] = !current[i];
+          saveChecked(current);
+          item.classList.toggle('checked', current[i]);
+          updateProgress(current);
+        });
+        list.appendChild(item);
+      });
+      updateProgress(checked);
+    }
+
+    buildGoalList();
   </script>
 </body>
 </html>
