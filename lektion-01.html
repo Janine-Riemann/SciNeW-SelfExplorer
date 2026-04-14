@@ -548,38 +548,31 @@
       document.getElementById('progressFill').style.width = pct + '%';
     }
     function buildGoalList() {
-      const list    = document.getElementById('goalList');
-      const checked = loadChecked();
-      list.innerHTML = '';
-      GOALS.forEach((goal, i) => {
-        const isChecked = !!checked[i];
-        const item = document.createElement('div');
-        item.className = 'goal-item' + (isChecked ? ' checked' : '');
-        item.innerHTML = `
-          <div class="goal-checkbox">
-            <svg width="12" height="9" viewBox="0 0 12 9" fill="none">
-              <path d="M1 4L4.5 7.5L11 1" stroke="white" stroke-width="2"
-                    stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </div>
-          <div class="goal-body">
-            <div class="goal-text">${goal.text}</div>
-            ${goal.ref ? `<div class="goal-ref">${goal.ref}</div>` : ''}
-          </div>
-        `;
-        item.addEventListener('click', () => {
-          const current = loadChecked();
-          current[i] = !current[i];
-          saveChecked(current);
-          item.classList.toggle('checked', current[i]);
-          updateProgress(current);
-        });
-        list.appendChild(item);
-      });
-      updateProgress(checked);
-    }
-
-    buildGoalList();
+  const list    = document.getElementById('goalList');
+  const checked = loadChecked();
+  list.innerHTML = '';
+  GOALS.forEach((goal, i) => {
+    const isChecked = !!checked[i];
+    const item = document.createElement('div');
+    item.className = 'goal-item' + (isChecked ? ' checked' : '');
+    item.innerHTML = `
+      <div class="goal-body">
+        <div class="goal-heading">${goal.text}</div>
+        ${goal.ref ? `<div class="goal-subheading">${goal.ref}</div>` : ''}
+      </div>
+    `;
+    // Klickverhalten beibehalten, aktualisiert Fortschritt
+    item.addEventListener('click', () => {
+      const current = loadChecked();
+      current[i] = !current[i];
+      saveChecked(current);
+      item.classList.toggle('checked', current[i]);
+      updateProgress(current);
+    });
+    list.appendChild(item);
+  });
+  updateProgress(checked);
+}
   </script>
 </body>
 </html>
