@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Workbook – Kapitel 1</title>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary:       #4BEBB9;
+    --primary-dark:  #28c898;
+    --primary-text:  #0d6e53;
+    --accent:        #1a5f9e;
+    --bg:            #f4fdf9;
+    --surface:       #ffffff;
+    --border:        #c8eee2;
+    --text:          #1a2d27;
+    --muted:         #5a7a71;
+    --success:       #1a8c5a;
+    --error:         #c0392b;
+    --success-bg:    #e0f8ee;
+    --error-bg:      #fdecea;
+    --radius:        10px;
+    --shadow:        0 2px 12px rgba(75,235,185,.15);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Atkinson Hyperlegible', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 16px;
+    line-height: 1.65;
+  }
+
+  .page-wrapper {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+  }
+
+  /* ── HEADER ── */
+  .page-header {
+    background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+    color: #fff;
+    border-radius: var(--radius);
+    padding: 28px 36px;
+    margin-bottom: 36px;
+    box-shadow: var(--shadow);
+  }
+  .page-header .label {
+    font-size: .75rem;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    opacity: .8;
+    margin-bottom: 6px;
+  }
+  .page-header h1 {
+    font-size: 1.45rem;
+    font-weight: 700;
+    line-height: 1.3;
+  }
+  .page-header .subtitle {
+    margin-top: 10px;
+    font-size: .92rem;
+    opacity: .9;
+    font-style: italic;
+  }
+
+  /* ── INTRO CARD ── */
+  .intro-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 30px 32px;
+    margin-bottom: 36px;
+    box-shadow: var(--shadow);
+  }
+  .intro-card h2 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--primary-text);
+    margin-bottom: 16px;
+  }
+  .speech-bubble-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+  }
+  .avatar-placeholder {
+    flex-shrink: 0;
+    width: 90px;
+    height: 110px;
+    background: linear-gradient(145deg, #b8f0e0, #7de8c8);
+    border-radius: var(--radius);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.4rem;
+    border: 2px solid var(--border);
+  }
+  .bubble {
+    position: relative;
+    background: #edfaf4;
+    border: 2px solid var(--primary);
+    border-radius: 18px;
+    padding: 18px 22px;
+    font-style: italic;
+    font-size: .95rem;
+    line-height: 1.7;
+    flex: 1;
+  }
+  .bubble::before {
+    content: '';
+    position: absolute;
+    left: -14px; top: 24px;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    border-right: 14px solid var(--primary);
+  }
+  .bubble::after {
+    content: '';
+    position: absolute;
+    left: -10px; top: 25px;
+    border-top: 9px solid transparent;
+    border-bottom: 9px solid transparent;
+    border-right: 13px solid #edfaf4;
+  }
+
+  /* ── EXERCISE SECTIONS ── */
+  .exercise {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px 32px;
+    margin-bottom: 30px;
+    box-shadow: var(--shadow);
+  }
+  .exercise-label {
+    display: inline-block;
+    background: var(--primary);
+    color: var(--primary-text);
+    font-size: .72rem;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    padding: 3px 12px;
+    border-radius: 20px;
+    margin-bottom: 12px;
+  }
+  .exercise h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 20px;
+    line-height: 1.5;
+  }
+  hr.divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 28px 0;
+  }
+
+  /* ── MULTIPLE CHOICE ── */
+  .choice-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .choice-item label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--bg);
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 16px;
+    cursor: pointer;
+    transition: border-color .15s, background .15s;
+    font-size: .97rem;
+  }
+  .choice-item label:hover { border-color: var(--primary-dark); background: #e8faf3; }
+  .choice-item input[type="checkbox"] {
+    accent-color: var(--primary-dark);
+    width: 18px; height: 18px;
+    flex-shrink: 0;
+    cursor: pointer;
+  }
+  .choice-item label.correct { border-color: var(--success); background: var(--success-bg); }
+  .choice-item label.wrong   { border-color: var(--error);   background: var(--error-bg);   }
+  .choice-item label.missed  { border-color: var(--success); background: var(--success-bg); opacity: .65; }
+
+  /* ── DRAG & DROP ── */
+  .dnd-layout {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 24px;
+    align-items: start;
+  }
+  .dnd-sentences { display: flex; flex-direction: column; gap: 14px; }
+  .dnd-sentence-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .dnd-sentence-row .sentence-text {
+    font-size: .95rem;
+    line-height: 1.5;
+    flex: 1;
+    min-width: 180px;
+  }
+  .drop-zone {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 170px;
+    min-height: 36px;
+    border: 2px dashed var(--primary-dark);
+    border-radius: 8px;
+    background: #edfaf4;
+    color: var(--muted);
+    font-size: .88rem;
+    padding: 4px 10px;
+    transition: border-color .15s, background .15s;
+    text-align: center;
+  }
+  .drop-zone.drag-over { border-color: var(--accent); background: #dff0ff; }
+  .drop-zone.filled {
+    border-style: solid;
+    border-color: var(--primary-dark);
+    background: #c8f5e8;
+    color: var(--primary-text);
+    font-weight: 700;
+    cursor: grab;
+  }
+  .drop-zone.correct { border-color: var(--success); background: var(--success-bg); color: var(--success); font-weight: 700; }
+  .drop-zone.wrong   { border-color: var(--error);   background: var(--error-bg);   color: var(--error);   font-weight: 700; }
+
+  .dnd-sentence-row.prefix .drop-zone { order: -1; }
+
+  .word-bank { display: flex; flex-direction: column; gap: 8px; min-width: 210px; }
+  .draggable-chip {
+    background: #e4f9f2;
+    border: 2px solid var(--primary);
+    border-radius: 8px;
+    padding: 8px 14px;
+    font-size: .9rem;
+    font-weight: 700;
+    cursor: grab;
+    text-align: center;
+    transition: opacity .15s, box-shadow .15s, transform .1s;
+    user-select: none;
+    color: var(--primary-text);
+  }
+  .draggable-chip:active { cursor: grabbing; transform: scale(1.04); box-shadow: 0 4px 14px rgba(75,235,185,.3); }
+  .draggable-chip.used { opacity: .3; pointer-events: none; }
+
+  /* ── BUTTONS ── */
+  .btn-check {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 20px;
+    background: var(--primary);
+    color: var(--primary-text);
+    border: none;
+    border-radius: 24px;
+    padding: 10px 24px;
+    font-family: inherit;
+    font-size: .95rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background .15s, transform .1s;
+  }
+  .btn-check:hover { background: var(--primary-dark); color: #fff; transform: translateY(-1px); }
+  .btn-reset {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 10px;
+    margin-left: 10px;
+    background: transparent;
+    color: var(--muted);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: 9px 18px;
+    font-family: inherit;
+    font-size: .88rem;
+    cursor: pointer;
+    transition: color .15s, border-color .15s;
+  }
+  .btn-reset:hover { color: var(--text); border-color: var(--muted); }
+
+  .feedback-msg {
+    display: none;
+    margin-top: 14px;
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: .95rem;
+  }
+  .feedback-msg.success { background: var(--success-bg); color: var(--success); display: flex; align-items: center; gap: 8px; }
+  .feedback-msg.error   { background: var(--error-bg);   color: var(--error);   display: flex; align-items: center; gap: 8px; }
+
+  @media (max-width: 640px) {
+    .dnd-layout { grid-template-columns: 1fr; }
+    .word-bank { flex-direction: row; flex-wrap: wrap; }
+    .speech-bubble-row { flex-direction: column; }
+    .bubble::before, .bubble::after { display: none; }
+  }
+</style>
+</head>
+<body>
+<div class="page-wrapper">
+
+  <!-- ============================================================
+       SEITENHEADER  –  Text hier bearbeiten
+       ============================================================ -->
+  <header class="page-header">
+    <div class="label">Workbook · Kapitel 1</div>
+    <h1>Warum wir nicht einfach draufloswandern –<br>Wissenschaft als geplante Expedition</h1>
+    <div class="subtitle">In dieser kleinen Workbook-Einheit werden nochmals die wichtigsten Informationen von Kapitel 1 wiederholt. Das Bearbeiten der Übungen ist freiwillig und soll Ihnen als Selbstlerneinheit dienen.</div>
+  </header>
+
+  <!-- ============================================================
+       INTRO-KARTE  –  Sprechblasentext und Titel hier bearbeiten
+       ============================================================ -->
+  <div class="intro-card">
+    <h2>„Warum wir nicht einfach draufloswandern – Wissenschaft als geplante Expedition"</h2>
+    <div class="speech-bubble-row">
+      <div class="avatar-placeholder" title="Illustration: Forscher AWM">🧗</div>
+      <div class="bubble">
+        Wenn man eine große Wanderung plant, verlässt man sich auf Karten, gutes Schuhwerk und eine klare Route, denn ohne Orientierung wird aus Abenteuern schnell Chaos. In der Forschung ist es ähnlich: Ohne klare Standards weiß niemand, ob man auf dem richtigen Weg ist. Qualitätskriterien helfen, Vertrauen zu schaffen, zwischen Forschenden, Leser*innen, und der Gesellschaft. Sie sorgen dafür, dass Erkenntnisse nicht nur zufällig wirken, sondern nachvollziehbar und belastbar sind. Wie bei einer Wanderung zählt nicht nur das Ziel, sondern auch, wie sicher und ehrlich man es erreicht.
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       AUFGABE 1 – Multiple Choice
+       Richtige Antworten: data-correct="true"
+       ============================================================ -->
+  <section class="exercise" id="ex1">
+    <div class="exercise-label">Aufgabe 1 · Multiple Choice</div>
+    <h3>Was sind hilfreiche Inspirationsquellen für die Ideenfindung bei Seminararbeiten, aber keine zitierfähigen wissenschaftlichen Quellen?</h3>
+
+    <ul class="choice-list" id="mc-list">
+      <!-- ✅ korrekt = true | ❌ falsch = false -->
+      <li class="choice-item"><label><input type="checkbox" data-correct="false">  Instagram-Posts</label></li>
+      <li class="choice-item"><label><input type="checkbox" data-correct="true"> Fachbücher</label></li>
+      <li class="choice-item"><label><input type="checkbox" data-correct="true">  InMind-Beiträge</label></li>
+      <li class="choice-item"><label><input type="checkbox" data-correct="true">  Pop-Science-Bücher</label></li>
+      <li class="choice-item"><label><input type="checkbox" data-correct="true">  Zeitungen</label></li>
+      <li class="choice-item"><label><input type="checkbox" data-correct="true"> Fachartikel</label></li>
+    </ul>
+
+    <div>
+      <button class="btn-check" onclick="checkMC()">✔ Überprüfen</button>
+      <button class="btn-reset" onclick="resetMC()">↺ Zurücksetzen</button>
+    </div>
+    <div class="feedback-msg" id="mc-feedback"></div>
+  </section>
+
+  <!-- ============================================================
+       AUFGABE 2 – Drag & Drop: Erfahrung / Wiss. Aussage / Meinung
+       ============================================================ -->
+  <section class="exercise" id="ex2">
+    <div class="exercise-label">Aufgabe 2 · Zuordnung</div>
+    <h3>Ziehe die Wörter in die richtigen Felder!</h3>
+    <div class="dnd-layout">
+      <div class="dnd-sentences" id="dnd2-sentences"></div>
+      <div class="word-bank" id="dnd2-bank"></div>
+    </div>
+    <div>
+      <button class="btn-check" onclick="checkDnD('dnd2')">✔ Überprüfen</button>
+      <button class="btn-reset" onclick="resetDnD('dnd2')">↺ Zurücksetzen</button>
+    </div>
+    <div class="feedback-msg" id="dnd2-feedback"></div>
+  </section>
+
+  <!-- ============================================================
+       AUFGABE 3 – Drag & Drop: Untersuchungsarten + Fragestellungen
+       ============================================================ -->
+  <section class="exercise" id="ex3">
+    <div class="exercise-label">Aufgabe 3a · Zuordnung</div>
+    <h3>Ziehe die Wörter in die richtigen Felder!</h3>
+    <div class="dnd-layout">
+      <div class="dnd-sentences" id="dnd3-sentences"></div>
+      <div class="word-bank" id="dnd3-bank"></div>
+    </div>
+    <div>
+      <button class="btn-check" onclick="checkDnD('dnd3')">✔ Überprüfen</button>
+      <button class="btn-reset" onclick="resetDnD('dnd3')">↺ Zurücksetzen</button>
+    </div>
+    <div class="feedback-msg" id="dnd3-feedback"></div>
+
+    <hr class="divider">
+
+    <div class="exercise-label">Aufgabe 3b · Zuordnung</div>
+    <h3>Ziehe die Wörter in die richtigen Felder!</h3>
+    <div class="dnd-layout">
+      <div class="dnd-sentences" id="dnd4-sentences"></div>
+      <div class="word-bank" id="dnd4-bank"></div>
+    </div>
+    <div>
+      <button class="btn-check" onclick="checkDnD('dnd4')">✔ Überprüfen</button>
+      <button class="btn-reset" onclick="resetDnD('dnd4')">↺ Zurücksetzen</button>
+    </div>
+    <div class="feedback-msg" id="dnd4-feedback"></div>
+  </section>
+
+</div>
+
+<script>
+/* ================================================================
+   ╔══════════════════════════════════════════════════════════════╗
+   ║   INHALT BEARBEITEN – nur diese Konstanten anpassen         ║
+   ╚══════════════════════════════════════════════════════════════╝
+
+   Jede Zeile in SENTENCES_*:
+     text    → Satztext (HTML erlaubt)
+     answer  → Richtiger Chip-Text (muss EXAKT in CHIPS_* vorkommen)
+     prefix  → true = Lücke steht VOR dem Text, false = danach
+
+   ================================================================ */
+
+/* ── AUFGABE 2: Erfahrung / Wissenschaftliche Aussage / Meinung ── */
+const SENTENCES_EX2 = [
+  { text: 'Ich finde, Gruppenarbeiten fördern nicht nur das Lernen, sondern auch den sozialen Zusammenhalt. →',      answer: 'Meinung',                  prefix: false },
+  { text: 'Als ich meine erste Hausarbeit geschrieben habe, war die Themenfindung das Schwierigste. →',              answer: 'Erfahrung',                prefix: false },
+  { text: 'Studien zeigen, dass regelmäßige Bewegung die kognitive Leistungsfähigkeit steigern kann. →',             answer: 'Wissenschaftliche Aussage', prefix: false },
+  { text: 'Meiner Meinung nach sollte Wissenschaft verständlicher kommuniziert werden. →',                           answer: 'Meinung',                  prefix: false },
+  { text: 'Während meines Praktikums habe ich gelernt, wie wichtig strukturierte Arbeitsprozesse sind. →',           answer: 'Erfahrung',                prefix: false },
+  { text: 'Laut einer Untersuchung der Universität Zürich verbessert Schlaf die Gedächtniskonsolidierung. →',        answer: 'Wissenschaftliche Aussage', prefix: false },
+  { text: 'Ich glaube, dass digitale Tools die Forschung effizienter machen können. →',                              answer: 'Meinung',                  prefix: false },
+];
+const CHIPS_EX2 = [
+  'Erfahrung', 'Wissenschaftliche Aussage', 'Erfahrung',
+  'Wissenschaftliche Aussage', 'Meinung', 'Meinung', 'Meinung',
+];
+
+/* ── AUFGABE 3a: Untersuchungsarten ──
+   Korrekte Zuordnung laut Screenshot:
+   Satz 1 → Explorative Studien
+   Satz 2 → Deskriptive Untersuchungen
+   Satz 3 → Kausale Untersuchungen
+   ────────────────────────────────── */
+const SENTENCES_EX3 = [
+  { text: 'dienen dazu, einen Sachverhalt zu erfassen und besser zu verstehen.',
+    answer: 'Explorative Studien', prefix: true },
+  { text: 'zeichnen sich dadurch aus, dass die für einen bestimmten Untersuchungsgegenstand relevanten Variablen bekannt sind.',
+    answer: 'Deskriptive Untersuchungen', prefix: true },
+  { text: 'Für die Analyse von Ursache-Wirkungs-Zusammenhängen und das Überprüfen von Hypothesen kommen ___ zum Einsatz.',
+    answer: 'Kausale Untersuchungen', prefix: false },
+];
+const CHIPS_EX3 = [
+  'Deskriptive Untersuchungen', 'Explorative Studien', 'Kausale Untersuchungen',
+];
+
+/* ── AUFGABE 3b: Fragestellungsarten ── */
+const SENTENCES_EX4 = [
+  { text: 'Was sind die meistgenutzten Social-Media-Plattformen unter Studierenden in Deutschland im Jahr 2025? →',  answer: 'Deskriptive Fragestellung',  prefix: false },
+  { text: 'Welche Motive bewegen Studierende dazu, Inhalte auf TikTok selbst zu produzieren? →',                    answer: 'Explorative Fragestellung',  prefix: false },
+  { text: 'Beeinflusst die tägliche Nutzung von Instagram das Selbstwertgefühl von Jugendlichen? →',                answer: 'Kausale Fragestellung',      prefix: false },
+  { text: 'Welche Erfahrungen machen Erstsemester mit KI-gestützten Lernplattformen? →',                            answer: 'Explorative Fragestellung',  prefix: false },
+  { text: 'Wie häufig nutzen Studierende in Bayern Podcasts zur Prüfungsvorbereitung? →',                           answer: 'Deskriptive Fragestellung',  prefix: false },
+  { text: 'Führt der Einsatz von Gamification-Elementen in Online-Kursen zu höherer Lernmotivation?',               answer: 'Kausale Fragestellung',      prefix: false },
+];
+const CHIPS_EX4 = [
+  'Deskriptive Fragestellung', 'Explorative Fragestellung', 'Kausale Fragestellung',
+  'Explorative Fragestellung', 'Deskriptive Fragestellung', 'Kausale Fragestellung',
+];
+
+/* ================================================================
+   ENGINE – keine Änderungen notwendig unterhalb dieser Linie
+   ================================================================ */
+
+function checkMC() {
+  const items = document.querySelectorAll('#mc-list .choice-item label');
+  let correct = 0;
+  items.forEach(label => {
+    const cb = label.querySelector('input');
+    const isCorrect = cb.dataset.correct === 'true';
+    label.classList.remove('correct','wrong','missed');
+    if (cb.checked && isCorrect)  { label.classList.add('correct'); correct++; }
+    if (cb.checked && !isCorrect) { label.classList.add('wrong'); }
+    if (!cb.checked && isCorrect) { label.classList.add('missed'); }
+  });
+  const total = document.querySelectorAll('#mc-list input[data-correct="true"]').length;
+  const fb = document.getElementById('mc-feedback');
+  if (correct === total && !document.querySelector('#mc-list label.wrong')) {
+    fb.className = 'feedback-msg success';
+    fb.textContent = '✓ Alle Antworten korrekt!';
+  } else {
+    fb.className = 'feedback-msg error';
+    fb.textContent = `✗ ${correct} von ${total} richtig. Falsche Auswahl = rot | fehlende korrekte Antworten = grün gedimmt.`;
+  }
+}
+function resetMC() {
+  document.querySelectorAll('#mc-list input').forEach(cb => cb.checked = false);
+  document.querySelectorAll('#mc-list label').forEach(l => l.className = '');
+  document.getElementById('mc-feedback').className = 'feedback-msg';
+}
+
+const DND_STATE = {};
+
+function buildDnD(id, sentences, chips) {
+  DND_STATE[id] = { sentences, chips: [...chips], filled: {} };
+  renderDnD(id);
+}
+
+function renderDnD(id) {
+  const { sentences, chips } = DND_STATE[id];
+  const sentCont = document.getElementById(id + '-sentences');
+  const bankCont = document.getElementById(id + '-bank');
+  sentCont.innerHTML = '';
+  bankCont.innerHTML = '';
+
+  sentences.forEach((s, i) => {
+    const row = document.createElement('div');
+    row.className = 'dnd-sentence-row' + (s.prefix ? ' prefix' : '');
+
+    const zone = document.createElement('div');
+    zone.className = 'drop-zone';
+    zone.dataset.index = i;
+    zone.textContent = '…';
+
+    const txt = document.createElement('span');
+    txt.className = 'sentence-text';
+    txt.innerHTML = s.text;
+
+    if (s.prefix) { row.appendChild(zone); row.appendChild(txt); }
+    else          { row.appendChild(txt);  row.appendChild(zone); }
+
+    zone.addEventListener('dragover', e => { e.preventDefault(); zone.classList.add('drag-over'); });
+    zone.addEventListener('dragleave', () => zone.classList.remove('drag-over'));
+    zone.addEventListener('drop', e => {
+      e.preventDefault();
+      zone.classList.remove('drag-over');
+      const chipId = e.dataTransfer.getData('text/plain');
+      const chipEl = document.querySelector(`[data-chip-id="${chipId}"]`);
+      if (!chipEl) return;
+      const prev = DND_STATE[id].filled[i];
+      if (prev !== undefined) returnChip(id, prev);
+      DND_STATE[id].filled[i] = chipId;
+      zone.classList.add('filled');
+      zone.classList.remove('correct','wrong');
+      zone.textContent = chipEl.textContent;
+      chipEl.classList.add('used');
+    });
+    zone.setAttribute('draggable', true);
+    zone.addEventListener('dragstart', e => {
+      if (!zone.classList.contains('filled')) { e.preventDefault(); return; }
+      e.dataTransfer.setData('text/plain', DND_STATE[id].filled[i]);
+      e.dataTransfer.setData('from-zone', i);
+    });
+
+    sentCont.appendChild(row);
+  });
+
+  chips.forEach((label, ci) => {
+    const chip = document.createElement('div');
+    chip.className = 'draggable-chip';
+    chip.textContent = label;
+    chip.setAttribute('draggable', true);
+    chip.dataset.chipId = id + '-chip-' + ci;
+    bankCont.appendChild(chip);
+    chip.addEventListener('dragstart', e => {
+      e.dataTransfer.setData('text/plain', chip.dataset.chipId);
+    });
+  });
+
+  bankCont.addEventListener('dragover', e => e.preventDefault());
+  bankCont.addEventListener('drop', e => {
+    e.preventDefault();
+    const chipId = e.dataTransfer.getData('text/plain');
+    const fromZone = e.dataTransfer.getData('from-zone');
+    if (fromZone !== '') {
+      const zoneIdx = parseInt(fromZone, 10);
+      if (DND_STATE[id].filled[zoneIdx] === chipId) {
+        returnChip(id, chipId);
+        delete DND_STATE[id].filled[zoneIdx];
+        const zEl = document.querySelector(`#${id}-sentences .drop-zone[data-index="${zoneIdx}"]`);
+        if (zEl) { zEl.classList.remove('filled','correct','wrong'); zEl.textContent = '…'; }
+      }
+    }
+  });
+}
+
+function returnChip(id, chipId) {
+  const chip = document.querySelector(`[data-chip-id="${chipId}"]`);
+  if (chip) chip.classList.remove('used');
+}
+
+function checkDnD(id) {
+  const { sentences, filled } = DND_STATE[id];
+  let correct = 0;
+  sentences.forEach((s, i) => {
+    const zoneEl = document.querySelector(`#${id}-sentences .drop-zone[data-index="${i}"]`);
+    if (!zoneEl) return;
+    const chipId = filled[i];
+    if (!chipId) { zoneEl.classList.remove('filled','correct','wrong'); return; }
+    const chipEl = document.querySelector(`[data-chip-id="${chipId}"]`);
+    const placed = chipEl ? chipEl.textContent : '';
+    zoneEl.classList.remove('correct','wrong');
+    if (placed === s.answer) { zoneEl.classList.add('correct'); correct++; }
+    else                      { zoneEl.classList.add('wrong'); }
+  });
+  const fb = document.getElementById(id + '-feedback');
+  const total = sentences.length;
+  if (correct === total) {
+    fb.className = 'feedback-msg success';
+    fb.textContent = `✓ Alle ${total} Zuordnungen korrekt!`;
+  } else {
+    fb.className = 'feedback-msg error';
+    fb.textContent = `✗ ${correct} von ${total} korrekt. Falsche Felder sind rot markiert.`;
+  }
+}
+
+function resetDnD(id) {
+  DND_STATE[id].filled = {};
+  document.getElementById(id + '-feedback').className = 'feedback-msg';
+  renderDnD(id);
+}
+
+buildDnD('dnd2', SENTENCES_EX2, CHIPS_EX2);
+buildDnD('dnd3', SENTENCES_EX3, CHIPS_EX3);
+buildDnD('dnd4', SENTENCES_EX4, CHIPS_EX4);
+</script>
+</body>
+</html>
