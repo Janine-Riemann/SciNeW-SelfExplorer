@@ -1,1 +1,378 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lektion 2 – Literaturrecherche – SciNeW</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
 
+  <style>
+    :root {
+      --green:    #74C2A8;
+      --dark:     #121616;
+      --orange:   #EE7050;
+      --bg:       #F5F5F0;
+      --surface:  #FFFFFF;
+      --border:   #E2E2DC;
+      --text:     #121616;
+      --muted:    #6B7280;
+      --sidebar-w: 260px;
+      --header-h:  64px;
+      --tab-h:     52px;
+      --radius:    10px;
+      --font: 'DM Sans', sans-serif;
+      --mono: 'DM Mono', monospace;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* TOP HEADER */
+    .top-header {
+      position: fixed; top: 0; left: 0; right: 0;
+      height: var(--header-h);
+      background: var(--dark);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 1.5rem;
+      z-index: 100;
+    }
+    .header-left { display: flex; align-items: center; gap: 1rem; }
+    .burger-btn {
+      background: none; border: none; cursor: pointer;
+      display: flex; flex-direction: column; gap: 5px; padding: 4px;
+    }
+    .burger-btn span {
+      display: block; width: 22px; height: 2px;
+      background: #fff; border-radius: 2px;
+      transition: transform 0.25s, opacity 0.25s;
+    }
+    .burger-btn.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .burger-btn.open span:nth-child(2) { opacity: 0; }
+    .burger-btn.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .site-brand {
+      font-size: 1rem; font-weight: 600; color: #fff;
+      letter-spacing: -0.02em; text-decoration: none;
+    }
+    .site-brand span { color: var(--green); }
+
+    .header-right { display: flex; align-items: center; gap: 0.75rem; }
+    .back-link {
+      font-size: 0.82rem; color: rgba(255,255,255,0.55);
+      text-decoration: none; transition: color 0.2s;
+    }
+    .back-link:hover { color: var(--green); }
+
+    /* SIDEBAR */
+    .sidebar {
+      position: fixed; top: var(--header-h); left: 0; bottom: 0;
+      width: var(--sidebar-w);
+      background: var(--dark);
+      padding: 2rem 0 2rem;
+      overflow-y: auto;
+      transform: translateX(-100%);
+      transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
+      z-index: 90;
+    }
+    .sidebar.open { transform: translateX(0); }
+
+    .sidebar-label {
+      font-size: 0.68rem; font-weight: 600; letter-spacing: 0.12em;
+      color: rgba(255,255,255,0.3); text-transform: uppercase;
+      padding: 0 1.5rem; margin-bottom: 0.75rem;
+    }
+    .sidebar nav { display: flex; flex-direction: column; }
+    .sidebar nav a {
+      display: flex; align-items: center; gap: 0.75rem;
+      padding: 0.65rem 1.5rem;
+      font-size: 0.88rem; color: rgba(255,255,255,0.6);
+      text-decoration: none;
+      border-left: 3px solid transparent;
+      transition: all 0.2s;
+    }
+    .sidebar nav a:hover, .sidebar nav a.active {
+      color: #fff;
+      border-left-color: var(--green);
+      background: rgba(116,194,168,0.1);
+    }
+    .sidebar nav a .num {
+      font-family: var(--mono); font-size: 0.72rem;
+      color: var(--green);
+    }
+
+    .sidebar-overlay {
+      position: fixed; top: var(--header-h); left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.5);
+      display: none; z-index: 80;
+    }
+    .sidebar-overlay.show { display: block; }
+
+    /* MAIN */
+    .main-wrap { padding-top: var(--header-h); }
+    .lesson-hero {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 2rem 2rem 0;
+    }
+    .chapter-badge {
+      font-size: 0.68rem; font-weight: 600; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--green); display: inline-block;
+      margin-bottom: 0.5rem;
+    }
+    .lesson-title {
+      font-size: 2rem; font-weight: 600; letter-spacing: -0.02em;
+      margin-bottom: 0.5rem; color: var(--text);
+    }
+    .lesson-subtitle {
+      font-size: 1rem; color: var(--muted); margin-bottom: 2rem;
+      line-height: 1.6;
+    }
+
+    /* TAB NAV */
+    .tab-nav {
+      display: flex; gap: 0; border-bottom: 1px solid var(--border);
+      margin: 0 -2rem; padding: 0 2rem;
+      overflow-x: auto;
+    }
+    .tab-btn {
+      background: none; border: none;
+      padding: 0.75rem 1.25rem;
+      font-size: 0.9rem; font-weight: 500;
+      color: var(--muted);
+      border-bottom: 2px solid transparent;
+      cursor: pointer; transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .tab-btn.active {
+      color: var(--text);
+      border-bottom-color: var(--green);
+    }
+    .tab-btn:hover { color: var(--text); }
+
+    /* TAB CONTENT */
+    .tab-content { padding: 2rem; }
+    .tab-panel {
+      display: none;
+    }
+    .tab-panel.active {
+      display: block;
+      animation: fadeIn 0.2s ease;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    /* INFO BOX */
+    .info-box {
+      background: rgba(116,194,168,0.08);
+      border: 1px solid rgba(116,194,168,0.2);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+      margin-bottom: 2rem;
+      font-size: 0.9rem; line-height: 1.6;
+      color: var(--text);
+    }
+
+    /* IMAGE BLOCK */
+    .image-block {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin: 2rem 0;
+      transition: box-shadow 0.3s ease;
+    }
+    .image-block:hover {
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    .image-block img {
+      display: block;
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+    }
+    .image-caption {
+      padding: 1.25rem;
+      background: var(--bg);
+      border-top: 1px solid var(--border);
+    }
+    .image-caption h3 {
+      font-size: 1.1rem; font-weight: 600;
+      margin-bottom: 0.75rem; color: var(--text);
+    }
+    .image-caption p {
+      font-size: 0.95rem; line-height: 1.6;
+      color: var(--text); margin-bottom: 0.5rem;
+    }
+    .image-caption p:last-child {
+      margin-bottom: 0;
+    }
+    .image-meta {
+      font-size: 0.8rem; color: var(--muted);
+      margin-top: 0.75rem; padding-top: 0.75rem;
+      border-top: 1px solid var(--border);
+      font-style: italic;
+    }
+
+    /* PROSE */
+    .prose h2 { font-size: 1.3rem; font-weight: 600; margin: 2rem 0 0.75rem; letter-spacing: -0.02em; }
+    .prose p { font-size: 0.95rem; line-height: 1.75; color: #2a2a2a; margin-bottom: 1rem; }
+
+    /* RESPONSIVE */
+    @media (min-width: 900px) {
+      .sidebar { transform: translateX(0); }
+      .main-wrap { margin-left: var(--sidebar-w); }
+      .burger-btn { display: none; }
+      .sidebar-overlay { display: none !important; }
+    }
+    @media (max-width: 600px) {
+      .lesson-hero { padding: 1.5rem 1rem 0; }
+      .tab-content { padding: 1.25rem 1rem; }
+      .tab-btn { padding: 0 0.9rem; font-size: 0.82rem; }
+      .lesson-title { font-size: 1.5rem; }
+    }
+
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 99px; }
+  </style>
+</head>
+<body>
+
+  <header class="top-header">
+    <div class="header-left">
+      <button class="burger-btn" id="burgerBtn" aria-label="Menü öffnen">
+        <span></span><span></span><span></span>
+      </button>
+      <a href="index.html" class="site-brand">Sci<span>NeW</span></a>
+    </div>
+    <div class="header-right">
+      <a href="index.html" class="back-link">← Alle Lektionen</a>
+    </div>
+  </header>
+
+  <aside class="sidebar" id="sidebar">
+    <p class="sidebar-label">Lektionen</p>
+    <nav>
+      <a href="lektion-01.html"><span class="num">01</span> Grundlagen wissenschaftlicher Arbeit</a>
+      <a href="lektion-02.html" class="active"><span class="num">02</span> Literaturrecherche</a>
+      <a href="lektion-03.html"><span class="num">03</span> Wissenschaftliches Schreiben</a>
+      <a href="lektion-04.html"><span class="num">04</span> Zitieren &amp; Quellenangaben</a>
+      <a href="lektion-05.html"><span class="num">05</span> Forschungsdesign</a>
+      <a href="lektion-06.html"><span class="num">06</span> Datenerhebung</a>
+      <a href="lektion-07.html"><span class="num">07</span> Datenauswertung</a>
+      <a href="lektion-08.html"><span class="num">08</span> Ergebnisse darstellen</a>
+      <a href="lektion-09.html"><span class="num">09</span> Diskussion &amp; Fazit</a>
+    </nav>
+  </aside>
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <main class="main-wrap">
+    <div class="lesson-hero">
+      <span class="chapter-badge">Lektion 2</span>
+      <h1 class="lesson-title">Literaturrecherche</h1>
+      <p class="lesson-subtitle">
+        Systematische Suche nach wissenschaftlichen Quellen und Literatur für Deine Forschungsarbeit.
+      </p>
+      <div class="tab-nav" role="tablist">
+        <button class="tab-btn active" role="tab" data-tab="inhalt">Inhalt</button>
+      </div>
+    </div>
+
+    <div class="tab-content">
+
+      <!-- TAB: Inhalt -->
+      <div class="tab-panel active" id="tab-inhalt" role="tabpanel">
+        <div class="info-box">
+          Diese Lektion behandelt die Grundlagen der systematischen Literaturrecherche und zeigt Dir, wie Du relevante wissenschaftliche Quellen für Deine Forschungsarbeit findest und bewertest.
+        </div>
+
+        <div class="prose">
+          <h2>Bedeutung von Blumen in der Wissenschaft</h2>
+          <p>
+            Blumen sind nicht nur ästhetisch faszinierend, sondern spielen auch eine wichtige Rolle in der wissenschaftlichen Forschung. Sie sind zentrale Objekte der Botanik, Ökologie und Evolutionsbiologie.
+          </p>
+        </div>
+
+        <!-- BLUMENBILD MIT BESCHREIBUNG -->
+        <div class="image-block">
+          <img src="https://images.unsplash.com/photo-1490750967868-88aa4486c946?w=800&q=80" alt="Schöne rote Rose in voller Blüte" />
+          <div class="image-caption">
+            <h3>Die Rose – Königin der Blumen</h3>
+            <p>
+              <strong>Botanischer Name:</strong> Rosa sp.
+            </p>
+            <p>
+              Die Rose ist eine der bekanntesten und beliebtesten Blumenarten weltweit. Mit ihren eleganten Blütenblättern und ihrer Vielfalt an Farben – von zartem Weiß über kräftiges Rot bis zu tiefem Dunkelrot – verzaubert sie Betrachter und Forschende gleichermaßen.
+            </p>
+            <p>
+              <strong>Wissenschaftliche Bedeutung:</strong> Rosen sind nicht nur ein Symbol der Liebe und Schönheit, sondern auch wichtige Modellpflanzen in der Gentechnik und Züchtungsforschung. Ihre komplexe Genetik und die Fähigkeit zur vegetativen Vermehrung machen sie zu wertvollen Objekten der pflanzenwissenschaftlichen Forschung.
+            </p>
+            <p>
+              <strong>Ökologischer Kontext:</strong> Rosen bieten Nektar und Pollen für verschiedene Bestäuber, insbesondere für Bienen und Schmetterlinge, und tragen somit zur Biodiversität bei.
+            </p>
+            <div class="image-meta">
+              Bildquelle: Unsplash | Fotografin: Jasmine Carter
+            </div>
+          </div>
+        </div>
+
+        <div class="prose">
+          <h2>Literaturrecherche zu Blütenforschung</h2>
+          <p>
+            Wenn Du ein wissenschaftliches Projekt zur Botanik oder Ökologie durchführst, ist eine gründliche Literaturrecherche unerlässlich. Dies könnte Dich zum Studium von Bestäubungsmechanismen, Blütengenetik oder dem Einfluss von Umweltbedingungen auf die Blütenentwicklung führen.
+          </p>
+          <p>
+            Die systematische Suche nach relevanten Fachjournalen, wissenschaftlichen Datenbanken und Forschungsarbeiten hilft Dir, den aktuellen Stand der Forschung zu verstehen und Lücken zu identifizieren, die Du in Deiner eigenen Arbeit adressieren könntest.
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+
+  <script>
+    /* Burger / Sidebar */
+    const burgerBtn      = document.getElementById('burgerBtn');
+    const sidebar        = document.getElementById('sidebar');
+    const sidebarOverlay = document.getElementById('sidebarOverlay');
+
+    function toggleSidebar() {
+      const open = sidebar.classList.toggle('open');
+      burgerBtn.classList.toggle('open', open);
+      sidebarOverlay.classList.toggle('show', open);
+      document.body.style.overflow = open ? 'hidden' : '';
+    }
+    burgerBtn.addEventListener('click', toggleSidebar);
+    sidebarOverlay.addEventListener('click', toggleSidebar);
+
+    /* Tab Navigation */
+    const tabBtns   = document.querySelectorAll('.tab-btn');
+    const tabPanels = document.querySelectorAll('.tab-panel');
+
+    tabBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const target = btn.dataset.tab;
+        tabBtns.forEach(b => b.classList.remove('active'));
+        tabPanels.forEach(p => p.classList.remove('active'));
+        btn.classList.add('active');
+        document.getElementById('tab-' + target).classList.add('active');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    });
+  </script>
+
+</body>
+</html>
