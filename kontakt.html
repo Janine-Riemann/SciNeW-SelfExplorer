@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kontakt & Impressum – SciNeW</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,300&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ============================================================
+       CSS CUSTOM PROPERTIES – identisch zur index.html
+       ============================================================ */
+    :root {
+      --clr-primary:    #74C2A8;
+      --clr-primary-dk: #5aaa90;
+      --clr-dark:       #121616;
+      --clr-dark-2:     #1c2222;
+      --clr-dark-3:     #242c2c;
+      --clr-accent:     #EE7050;
+      --clr-text:       #e8efed;
+      --clr-text-muted: #8aa89e;
+      --clr-border:     rgba(116,194,168,0.15);
+
+      --font-main: 'DM Sans', sans-serif;
+
+      --radius-sm:  6px;
+      --radius-md:  12px;
+      --radius-lg:  20px;
+
+      --drawer-width: 300px;
+      --nav-height:   64px;
+
+      --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* ============================================================
+       RESET & BASE
+       ============================================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-main);
+      background-color: var(--clr-dark);
+      color: var(--clr-text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+
+    /* ============================================================
+       TOPBAR / NAVBAR
+       ============================================================ */
+    .topbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: var(--nav-height);
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 0 24px;
+      background: rgba(18, 22, 22, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--clr-border);
+      z-index: 900;
+    }
+
+    .burger-btn {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      width: 40px;
+      height: 40px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      padding: 8px;
+      border-radius: var(--radius-sm);
+      transition: background var(--transition);
+      flex-shrink: 0;
+    }
+    .burger-btn:hover { background: rgba(116,194,168,0.1); }
+    .burger-btn span {
+      display: block;
+      width: 100%;
+      height: 2px;
+      background: var(--clr-primary);
+      border-radius: 2px;
+      transition: transform var(--transition), opacity var(--transition);
+      transform-origin: center;
+    }
+    body.drawer-open .burger-btn span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    body.drawer-open .burger-btn span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    body.drawer-open .burger-btn span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .topbar-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .topbar-logo img {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+    .topbar-logo-text {
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      color: var(--clr-text);
+    }
+    .topbar-logo-text span { color: #ffffff; }
+
+    .topbar-nav {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .topbar-nav a {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--clr-text-muted);
+      padding: 6px 12px;
+      border-radius: var(--radius-sm);
+      transition: color var(--transition), background var(--transition);
+    }
+    .topbar-nav a:hover {
+      color: var(--clr-text);
+      background: rgba(116,194,168,0.08);
+    }
+    .topbar-nav a.active { color: var(--clr-primary); }
+
+    /* ============================================================
+       SIDE DRAWER
+       ============================================================ */
+    .drawer-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.55);
+      z-index: 950;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity var(--transition);
+    }
+    body.drawer-open .drawer-overlay {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .drawer {
+      position: fixed;
+      top: 0; left: 0;
+      width: var(--drawer-width);
+      height: 100vh;
+      background: var(--clr-dark-2);
+      border-right: 1px solid var(--clr-border);
+      z-index: 960;
+      display: flex;
+      flex-direction: column;
+      transform: translateX(-100%);
+      transition: transform var(--transition);
+      overflow-y: auto;
+    }
+    body.drawer-open .drawer { transform: translateX(0); }
+
+    .drawer-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 20px 20px 16px;
+      border-bottom: 1px solid var(--clr-border);
+      min-height: var(--nav-height);
+    }
+    .drawer-header img {
+      width: 38px; height: 38px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+    .drawer-header-text strong {
+      display: block;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--clr-text);
+    }
+    .drawer-header-text span {
+      font-size: 0.75rem;
+      color: var(--clr-text-muted);
+    }
+
+    .drawer-section-label {
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--clr-text-muted);
+      padding: 20px 20px 8px;
+    }
+
+    .drawer-nav { flex: 1; padding: 0 10px 20px; }
+
+    .drawer-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 12px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: background var(--transition), color var(--transition);
+      margin-bottom: 2px;
+      color: var(--clr-text-muted);
+      font-size: 0.875rem;
+      font-weight: 500;
+    }
+    .drawer-item:hover { background: rgba(116,194,168,0.08); color: var(--clr-text); }
+    .drawer-item.active { background: rgba(116,194,168,0.12); color: var(--clr-primary); }
+
+    .drawer-item-num {
+      width: 24px; height: 24px;
+      border-radius: 6px;
+      background: rgba(116,194,168,0.15);
+      color: var(--clr-primary);
+      font-size: 0.7rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .drawer-item.active .drawer-item-num {
+      background: var(--clr-primary);
+      color: var(--clr-dark);
+    }
+
+    .drawer-divider {
+      height: 1px;
+      background: var(--clr-border);
+      margin: 12px 0;
+    }
+
+    .drawer-footer {
+      padding: 16px 20px;
+      border-top: 1px solid var(--clr-border);
+    }
+    .drawer-footer a {
+      font-size: 0.8rem;
+      color: var(--clr-text-muted);
+      display: block;
+      padding: 6px 0;
+      transition: color var(--transition);
+    }
+    .drawer-footer a:hover { color: var(--clr-primary); }
+
+    /* ============================================================
+       MAIN
+       ============================================================ */
+    .main {
+      padding-top: var(--nav-height);
+      min-height: 100vh;
+    }
+
+    /* ============================================================
+       PAGE HEADER
+       ============================================================ */
+    .page-header {
+      padding: clamp(48px, 6vw, 80px) clamp(20px, 5vw, 80px) clamp(32px, 4vw, 56px);
+      border-bottom: 1px solid var(--clr-border);
+    }
+
+    .page-header-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--clr-primary);
+      margin-bottom: 14px;
+    }
+    .page-header-eyebrow::before {
+      content: '';
+      width: 20px;
+      height: 1px;
+      background: var(--clr-primary);
+    }
+
+    .page-header h1 {
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      line-height: 1.1;
+      color: var(--clr-text);
+      max-width: 600px;
+    }
+    .page-header h1 em {
+      font-style: normal;
+      color: var(--clr-primary);
+    }
+
+    .page-header-sub {
+      margin-top: 14px;
+      font-size: 0.95rem;
+      color: var(--clr-text-muted);
+      font-weight: 300;
+      max-width: 500px;
+      line-height: 1.7;
+    }
+
+    /* ============================================================
+       SECTION COMMON
+       ============================================================ */
+    .section {
+      padding: clamp(48px, 6vw, 80px) clamp(20px, 5vw, 80px);
+    }
+
+    .section-label {
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--clr-primary);
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .section-label::after {
+      content: '';
+      flex: 1;
+      max-width: 40px;
+      height: 1px;
+      background: var(--clr-primary);
+      opacity: 0.4;
+    }
+
+    .section-title {
+      font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      color: var(--clr-text);
+      margin-bottom: 32px;
+    }
+    .section-title span { color: var(--clr-primary); }
+
+    /* ============================================================
+       FÖRDERER STRIP
+       ============================================================ */
+    .foerderer-strip {
+      background: var(--clr-dark-2);
+      border-bottom: 1px solid var(--clr-border);
+      padding: clamp(24px, 3vw, 40px) clamp(20px, 5vw, 80px);
+    }
+
+    .foerderer-inner {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+
+    .foerderer-label {
+      font-size: 0.7rem;
+      font-weight: 500;
+      color: var(--clr-text-muted);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .foerderer-divider {
+      width: 1px;
+      height: 40px;
+      background: var(--clr-border);
+      flex-shrink: 0;
+    }
+
+    .foerderer-card {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      background: rgba(116,194,168,0.05);
+      border: 1px solid var(--clr-border);
+      border-radius: var(--radius-md);
+      padding: 16px 20px;
+      flex: 1;
+      min-width: 240px;
+      max-width: 420px;
+    }
+
+    .foerderer-logo-wrap {
+      width: 56px;
+      height: 56px;
+      border-radius: var(--radius-sm);
+      background: rgba(255,255,255,0.06);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      overflow: hidden;
+    }
+    .foerderer-logo-wrap img {
+      width: 48px;
+      height: 48px;
+      object-fit: contain;
+      filter: brightness(0.9);
+    }
+
+    .foerderer-info strong {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--clr-text);
+      line-height: 1.3;
+    }
+    .foerderer-info span {
+      font-size: 0.75rem;
+      color: var(--clr-text-muted);
+    }
+
+    /* Projektzeitraum Badge */
+    .zeitraum-badge {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      background: rgba(116,194,168,0.08);
+      border: 1px solid rgba(116,194,168,0.2);
+      border-radius: var(--radius-sm);
+      padding: 10px 16px;
+      white-space: nowrap;
+    }
+    .zeitraum-badge span:first-child {
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--clr-primary);
+    }
+    .zeitraum-badge strong {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--clr-text);
+      letter-spacing: -0.02em;
+    }
+
+    /* ============================================================
+       TWO-COLUMN LAYOUT (Kontakt + Impressum)
+       ============================================================ */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(24px, 4vw, 56px);
+      align-items: start;
+    }
+
+    /* Kontakt Card */
+    .contact-card {
+      background: var(--clr-dark-2);
+      border: 1px solid var(--clr-border);
+      border-radius: var(--radius-lg);
+      padding: clamp(24px, 3vw, 40px);
+    }
+
+    .contact-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 16px 0;
+      border-bottom: 1px solid var(--clr-border);
+    }
+    .contact-row:last-child { border-bottom: none; padding-bottom: 0; }
+    .contact-row:first-child { padding-top: 0; }
+
+    .contact-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: rgba(116,194,168,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.95rem;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .contact-detail {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .contact-detail strong {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--clr-text-muted);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .contact-detail span,
+    .contact-detail a {
+      font-size: 0.9rem;
+      color: var(--clr-text);
+      line-height: 1.5;
+      font-weight: 400;
+    }
+    .contact-detail a {
+      color: var(--clr-primary);
+      transition: color var(--transition);
+    }
+    .contact-detail a:hover { color: var(--clr-primary-dk); }
+
+    /* Impressum Card */
+    .impressum-card {
+      background: var(--clr-dark-2);
+      border: 1px solid var(--clr-border);
+      border-radius: var(--radius-lg);
+      padding: clamp(24px, 3vw, 40px);
+    }
+
+    .impressum-card h3 {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--clr-text);
+      margin-bottom: 10px;
+      margin-top: 20px;
+    }
+    .impressum-card h3:first-child { margin-top: 0; }
+
+    .impressum-card p {
+      font-size: 0.82rem;
+      color: var(--clr-text-muted);
+      line-height: 1.75;
+      font-weight: 300;
+    }
+
+    .impressum-card a {
+      color: var(--clr-primary);
+      transition: color var(--transition);
+    }
+    .impressum-card a:hover { color: var(--clr-primary-dk); }
+
+    .impressum-divider {
+      height: 1px;
+      background: var(--clr-border);
+      margin: 20px 0;
+    }
+
+    /* ============================================================
+       TEAM SECTION
+       ============================================================ */
+    .team-section {
+      background: var(--clr-dark-2);
+      border-top: 1px solid var(--clr-border);
+    }
+
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    /* Team Card */
+    .team-card {
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      border: 1px solid var(--clr-border);
+      background: var(--clr-dark-3);
+      transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition);
+      position: relative;
+      cursor: default;
+    }
+    .team-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(116,194,168,0.35);
+      box-shadow: 0 16px 48px rgba(0,0,0,0.4);
+    }
+
+    .team-card-img-wrap {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 3/4;
+      overflow: hidden;
+      background: var(--clr-dark-3);
+    }
+
+    .team-card-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      transition: transform 0.5s ease;
+    }
+    .team-card:hover .team-card-img-wrap img {
+      transform: scale(1.04);
+    }
+
+    /* Gradient overlay on image */
+    .team-card-img-wrap::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 50%;
+      background: linear-gradient(to top, rgba(18,22,22,0.7) 0%, transparent 100%);
+      pointer-events: none;
+    }
+
+    /* Placeholder when no image */
+    .team-card-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      color: rgba(116,194,168,0.2);
+      background: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 10px,
+        rgba(116,194,168,0.03) 10px,
+        rgba(116,194,168,0.03) 20px
+      );
+    }
+
+    .team-card-body {
+      padding: 16px;
+    }
+    .team-card-name {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--clr-text);
+      margin-bottom: 4px;
+    }
+    .team-card-role {
+      font-size: 0.75rem;
+      color: var(--clr-text-muted);
+      font-weight: 300;
+    }
+
+    /* Accent bar on main team members */
+    .team-card.featured::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--clr-primary), transparent);
+    }
+
+    /* ============================================================
+       SCROLL REVEAL
+       ============================================================ */
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Staggered reveals */
+    .reveal-delay-1 { transition-delay: 0.08s; }
+    .reveal-delay-2 { transition-delay: 0.16s; }
+    .reveal-delay-3 { transition-delay: 0.24s; }
+    .reveal-delay-4 { transition-delay: 0.32s; }
+    .reveal-delay-5 { transition-delay: 0.40s; }
+
+    /* ============================================================
+       FOOTER
+       ============================================================ */
+    footer {
+      padding: 32px clamp(20px, 5vw, 80px);
+      border-top: 1px solid var(--clr-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    footer p { font-size: 0.8rem; color: var(--clr-text-muted); }
+    footer a {
+      font-size: 0.8rem;
+      color: var(--clr-text-muted);
+      transition: color var(--transition);
+    }
+    footer a:hover { color: var(--clr-primary); }
+    .footer-links { display: flex; gap: 20px; }
+
+    /* ============================================================
+       RESPONSIVE
+       ============================================================ */
+    @media (max-width: 900px) {
+      .team-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 768px) {
+      .two-col { grid-template-columns: 1fr; }
+      .topbar-nav a:not(.active) { display: none; }
+      .foerderer-inner { gap: 16px; }
+      .foerderer-divider { display: none; }
+      footer { flex-direction: column; align-items: flex-start; }
+    }
+
+    @media (max-width: 560px) {
+      .team-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+    }
+
+    @media (max-width: 380px) {
+      .team-grid { grid-template-columns: 1fr; }
+      .zeitraum-badge { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- DRAWER OVERLAY -->
+  <div class="drawer-overlay" id="drawerOverlay" onclick="closeDrawer()"></div>
+
+  <!-- SIDE DRAWER -->
+  <aside class="drawer" id="drawer" role="navigation" aria-label="Kursnavigation">
+    <div class="drawer-header">
+      <img src="Logo_klein.png" alt="SciNeW Logo" />
+      <div class="drawer-header-text">
+        <strong>SciNeW</strong>
+        <span>9 Lektionen · Psychologie</span>
+      </div>
+    </div>
+
+    <nav class="drawer-nav">
+      <div class="drawer-section-label">Navigation</div>
+
+      <a href="index.html" class="drawer-item">
+        <span class="drawer-item-num">⌂</span>
+        Startseite
+      </a>
+
+      <div class="drawer-divider"></div>
+      <div class="drawer-section-label">Lektionen</div>
+
+      <a href="lektion-01.html" class="drawer-item"><span class="drawer-item-num">01</span>Wissenschaft verstehen &amp; Thema finden</a>
+      <a href="lektion-02.html" class="drawer-item"><span class="drawer-item-num">02</span>Lektion 2</a>
+      <a href="lektion-03.html" class="drawer-item"><span class="drawer-item-num">03</span>Lektion 3</a>
+      <a href="lektion-04.html" class="drawer-item"><span class="drawer-item-num">04</span>Lektion 4</a>
+      <a href="lektion-05.html" class="drawer-item"><span class="drawer-item-num">05</span>Lektion 5</a>
+      <a href="lektion-06.html" class="drawer-item"><span class="drawer-item-num">06</span>Lektion 6</a>
+      <a href="lektion-07.html" class="drawer-item"><span class="drawer-item-num">07</span>Lektion 7</a>
+      <a href="lektion-08.html" class="drawer-item"><span class="drawer-item-num">08</span>Lektion 8</a>
+      <a href="lektion-09.html" class="drawer-item"><span class="drawer-item-num">09</span>Lektion 9</a>
+    </nav>
+
+    <div class="drawer-footer">
+      <a href="kontakt.html">Kontakt &amp; Impressum</a>
+    </div>
+  </aside>
+
+  <!-- TOPBAR -->
+  <header class="topbar">
+    <button class="burger-btn" id="burgerBtn" onclick="toggleDrawer()" aria-label="Menü öffnen / schließen" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <a href="index.html" class="topbar-logo">
+      <img src="Logo_klein.png" alt="SciNeW Logo" />
+      <span class="topbar-logo-text"><span>Sci</span>NeW</span>
+    </a>
+    <nav class="topbar-nav">
+      <a href="index.html">Startseite</a>
+      <a href="lektion-01.html">Lektionen</a>
+      <a href="kontakt.html" class="active">Kontakt</a>
+    </nav>
+  </header>
+
+  <!-- MAIN -->
+  <main class="main">
+
+    <!-- PAGE HEADER -->
+    <div class="page-header">
+      <div class="page-header-eyebrow">SciNeW</div>
+      <h1>Kontakt &amp; <em>Impressum</em></h1>
+      <p class="page-header-sub">
+        Fragen zum Kurs, zum Projekt oder zur Plattform? Wir freuen uns über eure Nachrichten.
+      </p>
+    </div>
+
+    <!-- FÖRDERER STRIP -->
+    <div class="foerderer-strip">
+      <div class="foerderer-inner">
+        <span class="foerderer-label">Gefördert durch</span>
+        <div class="foerderer-divider"></div>
+        <div class="foerderer-card reveal">
+          <div class="foerderer-logo-wrap">
+            <img src="bilder/logo_hochschullehre.png" alt="Stiftung Innovation in der Hochschullehre Logo" />
+          </div>
+          <div class="foerderer-info">
+            <strong>Stiftung Innovation in der Hochschullehre</strong>
+            <span>Förderung innovativer Hochschulprojekte</span>
+          </div>
+        </div>
+        <div class="zeitraum-badge reveal reveal-delay-1">
+          <span>Projektzeitraum</span>
+          <strong>April 2025 – April 2027</strong>
+        </div>
+      </div>
+    </div>
+
+    <!-- KONTAKT & IMPRESSUM -->
+    <section class="section" id="kontakt">
+      <div class="two-col">
+
+        <!-- Kontakt -->
+        <div class="reveal">
+          <div class="section-label">Kontakt</div>
+          <h2 class="section-title">So erreicht <span>ihr uns</span></h2>
+          <div class="contact-card">
+            <div class="contact-row">
+              <div class="contact-icon">🏛️</div>
+              <div class="contact-detail">
+                <strong>Institution</strong>
+                <span>Hochschule Ansbach</span>
+              </div>
+            </div>
+            <div class="contact-row">
+              <div class="contact-icon">👥</div>
+              <div class="contact-detail">
+                <strong>Projektteam</strong>
+                <span>Projektteam SciNeW</span>
+              </div>
+            </div>
+            <div class="contact-row">
+              <div class="contact-icon">✉️</div>
+              <div class="contact-detail">
+                <strong>E-Mail</strong>
+                <a href="mailto:SciNeW@outlook.de">SciNeW@outlook.de</a>
+              </div>
+            </div>
+            <div class="contact-row">
+              <div class="contact-icon">📍</div>
+              <div class="contact-detail">
+                <strong>Adresse</strong>
+                <span>Residenzstraße 8<br>91522 Ansbach, Deutschland</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Impressum -->
+        <div class="reveal reveal-delay-1">
+          <div class="section-label">Impressum</div>
+          <h2 class="section-title">Recht&shy;liche <span>Angaben</span></h2>
+          <div class="impressum-card">
+            <h3>Angaben gemäß § 5 TMG</h3>
+            <p>
+              Hochschule Ansbach<br>
+              Residenzstraße 8<br>
+              91522 Ansbach<br>
+              Deutschland
+            </p>
+
+            <div class="impressum-divider"></div>
+
+            <h3>Vertreten durch</h3>
+            <p>Projektteam SciNeW<br>
+            E-Mail: <a href="mailto:SciNeW@outlook.de">SciNeW@outlook.de</a></p>
+
+            <div class="impressum-divider"></div>
+
+            <h3>Haftungsausschluss</h3>
+            <p>
+              Trotz sorgfältiger inhaltlicher Kontrolle übernehmen wir keine Haftung für die Inhalte
+              externer Links. Für den Inhalt der verlinkten Seiten sind ausschließlich deren Betreiber
+              verantwortlich.
+            </p>
+
+            <div class="impressum-divider"></div>
+
+            <h3>Urheberrecht</h3>
+            <p>
+              Die auf dieser Website veröffentlichten Inhalte unterliegen dem deutschen Urheberrecht.
+              Vervielfältigung, Bearbeitung oder Verbreitung außerhalb der Grenzen des Urheberrechts
+              bedürfen der schriftlichen Zustimmung des Projektteams.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- TEAM SECTION -->
+    <section class="section team-section" id="team">
+      <div class="section-label">Das SciNeW-Team</div>
+      <h2 class="section-title">Menschen hinter <span>SciNeW</span></h2>
+
+      <div class="team-grid">
+
+        <!-- Hauptteam (mit echten Bildern) -->
+        <div class="team-card featured reveal">
+          <div class="team-card-img-wrap">
+            <img src="bilder/Kontakt_Katharina.png" alt="Katharina Klug"
+              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+            <div class="team-card-placeholder" style="display:none;">👩‍🎓</div>
+          </div>
+          <div class="team-card-body">
+            <div class="team-card-name">Katharina Klug</div>
+            <div class="team-card-role">Projektleiterin</div>
+          </div>
+        </div>
+
+        <div class="team-card featured reveal reveal-delay-1">
+          <div class="team-card-img-wrap">
+            <img src="bilder/Kontakt_Janine.png" alt="Janine Riemann"
+              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+            <div class="team-card-placeholder" style="display:none;">👩‍💼</div>
+          </div>
+          <div class="team-card-body">
+            <div class="team-card-name">Janine Riemann</div>
+            <div class="team-card-role">Projektkoordinatorin</div>
+          </div>
+        </div>
+
+        <div class="team-card featured reveal reveal-delay-2">
+          <div class="team-card-img-wrap">
+            <img src="bilder/Kontakt_Sebastian.png" alt="Sebastian Stadler"
+              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+            <div class="team-card-placeholder" style="display:none;">👨‍🔬</div>
+          </div>
+          <div class="team-card-body">
+            <div class="team-card-name">Sebastian Stadler</div>
+            <div class="team-card-role">Externer Projektbetreuer</div>
+          </div>
+        </div>
+
+        <!-- Hilfskräfte (Platzhalter-Bilder, später austauschen) -->
+        <div class="team-card reveal reveal-delay-1">
+          <div class="team-card-img-wrap">
+            <!-- Bild später einfügen: bilder/Kontakt_Lukas.png -->
+            <div class="team-card-placeholder">🎓</div>
+          </div>
+          <div class="team-card-body">
+            <div class="team-card-name">Lukas Binner</div>
+            <div class="team-card-role">Studentische Hilfskraft – VR-Entwicklung</div>
+          </div>
+        </div>
+
+        <div class="team-card reveal reveal-delay-2">
+          <div class="team-card-img-wrap">
+            <!-- Bild später einfügen: bilder/Kontakt_Nele_Fritz.png -->
+            <div class="team-card-placeholder">🎓</div>
+          </div>
+          <div class="team-card-body">
+            <div class="team-card-name">Nele Fritz</div>
+            <div class="team-card-role">Studentische Hilfskraft – Lernen &amp; Tools</div>
+          </div>
+        </div>
+
+        <div class="team-card reveal reveal-delay-3">
+          <div class="team-card-img-wrap">
+            <!-- Bild später einfügen: bilder/Kontakt_Nele_Neshyba.png -->
+            <div class="team-card-placeholder">🎓</div>
+          </div>
+          <div class="team-card-body">
+            <div class="team-card-name">Nele Neshyba</div>
+            <div class="team-card-role">Studentische Hilfskraft</div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2025 SciNeW – Wissenschaftliches Arbeiten in der Psychologie</p>
+    <div class="footer-links">
+      <a href="kontakt.html">Kontakt</a>
+      <a href="kontakt.html">Impressum</a>
+    </div>
+  </footer>
+
+  <script>
+    /* ---------- Burger / Drawer ---------- */
+    function openDrawer() {
+      document.body.classList.add('drawer-open');
+      document.getElementById('burgerBtn').setAttribute('aria-expanded', 'true');
+    }
+    function closeDrawer() {
+      document.body.classList.remove('drawer-open');
+      document.getElementById('burgerBtn').setAttribute('aria-expanded', 'false');
+    }
+    function toggleDrawer() {
+      document.body.classList.contains('drawer-open') ? closeDrawer() : openDrawer();
+    }
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDrawer(); });
+
+    /* ---------- Scroll Reveal ---------- */
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
