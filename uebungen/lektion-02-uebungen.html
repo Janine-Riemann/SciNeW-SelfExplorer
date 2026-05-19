@@ -1,0 +1,1091 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Workbook – Kapitel 2</title>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary:       #4BEBB9;
+    --primary-dark:  #28c898;
+    --primary-text:  #0d6e53;
+    --accent:        #1a5f9e;
+    --bg:            #f4fdf9;
+    --surface:       #ffffff;
+    --border:        #c8eee2;
+    --text:          #1a2d27;
+    --muted:         #5a7a71;
+    --success:       #1a8c5a;
+    --error:         #c0392b;
+    --success-bg:    #e0f8ee;
+    --error-bg:      #fdecea;
+    --radius:        10px;
+    --shadow:        0 2px 12px rgba(75,235,185,.15);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Atkinson Hyperlegible', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 16px;
+    line-height: 1.65;
+  }
+
+  .page-wrapper {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+  }
+
+  /* ── HEADER ── */
+  .page-header {
+    background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+    color: #fff;
+    border-radius: var(--radius);
+    padding: 28px 36px;
+    margin-bottom: 36px;
+    box-shadow: var(--shadow);
+  }
+  .page-header .label {
+    font-size: .75rem;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    opacity: .8;
+    margin-bottom: 6px;
+  }
+  .page-header h1 {
+    font-size: 1.45rem;
+    font-weight: 700;
+    line-height: 1.3;
+  }
+  .page-header .subtitle {
+    margin-top: 10px;
+    font-size: .92rem;
+    opacity: .9;
+    font-style: italic;
+  }
+
+  /* ── INFO CARD ── */
+  .info-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px 32px;
+    margin-bottom: 30px;
+    box-shadow: var(--shadow);
+  }
+  .info-card h2 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--primary-text);
+    margin-bottom: 14px;
+  }
+  .info-card ul {
+    padding-left: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .info-card p { margin-bottom: 10px; }
+  .info-card p:last-child { margin-bottom: 0; }
+
+  /* ── HYPOTHESIS BOX ── */
+  .hypo-box {
+    background: #edfaf4;
+    border: 2px solid var(--primary);
+    border-radius: var(--radius);
+    padding: 20px 24px;
+    margin-bottom: 14px;
+  }
+  .hypo-box .hypo-title {
+    font-size: .8rem;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--primary-text);
+    margin-bottom: 8px;
+  }
+  .hypo-box p { font-size: .97rem; line-height: 1.6; }
+  .example-row { display: flex; flex-direction: column; gap: 8px; margin-top: 12px; }
+  .example-row span { font-size: .95rem; }
+
+  /* ── VIDEO EMBED ── */
+  .video-wrap {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px 32px;
+    margin-bottom: 30px;
+    box-shadow: var(--shadow);
+  }
+  .video-wrap h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--primary-text);
+    margin-bottom: 16px;
+  }
+  .video-responsive {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .video-responsive iframe {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    border: none;
+  }
+
+  /* ── EXERCISE SECTIONS ── */
+  .exercise {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px 32px;
+    margin-bottom: 30px;
+    box-shadow: var(--shadow);
+  }
+  .exercise-label {
+    display: inline-block;
+    background: var(--primary);
+    color: var(--primary-text);
+    font-size: .72rem;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    padding: 3px 12px;
+    border-radius: 20px;
+    margin-bottom: 12px;
+  }
+  .exercise h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 20px;
+    line-height: 1.5;
+  }
+  hr.divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 28px 0;
+  }
+
+  /* ── SINGLE CHOICE QUIZ ── */
+  .quiz-counter {
+    font-size: .82rem;
+    color: var(--muted);
+    margin-bottom: 16px;
+  }
+  .quiz-question-text {
+    font-size: 1.02rem;
+    font-weight: 700;
+    line-height: 1.55;
+    margin-bottom: 18px;
+    padding: 16px 20px;
+    background: var(--bg);
+    border-radius: 8px;
+    border-left: 4px solid var(--primary-dark);
+  }
+  .quiz-options { display: flex; flex-direction: column; gap: 10px; margin-bottom: 18px; }
+  .quiz-option-btn {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--bg);
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 18px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: .97rem;
+    text-align: left;
+    transition: border-color .15s, background .15s;
+    color: var(--text);
+    font-weight: 700;
+  }
+  .quiz-option-btn:hover:not(:disabled) { border-color: var(--primary-dark); background: #e8faf3; }
+  .quiz-option-btn.correct { border-color: var(--success); background: var(--success-bg); color: var(--success); }
+  .quiz-option-btn.wrong   { border-color: var(--error);   background: var(--error-bg);   color: var(--error);   }
+  .quiz-option-btn:disabled { cursor: default; }
+  .quiz-nav { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+  .quiz-score {
+    display: none;
+    margin-top: 18px;
+    padding: 14px 18px;
+    background: var(--success-bg);
+    border-radius: 8px;
+    font-weight: 700;
+    color: var(--success);
+    font-size: .97rem;
+  }
+  .quiz-progress {
+    height: 5px;
+    background: var(--border);
+    border-radius: 10px;
+    margin-bottom: 18px;
+    overflow: hidden;
+  }
+  .quiz-progress-bar {
+    height: 100%;
+    background: var(--primary-dark);
+    border-radius: 10px;
+    transition: width .3s ease;
+  }
+
+  /* ── ESSAY / FREITEXT ── */
+  .essay-textarea {
+    width: 100%;
+    min-height: 130px;
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    padding: 14px 16px;
+    font-family: inherit;
+    font-size: .96rem;
+    line-height: 1.6;
+    color: var(--text);
+    background: var(--bg);
+    resize: vertical;
+    transition: border-color .15s;
+  }
+  .essay-textarea:focus { outline: none; border-color: var(--primary-dark); }
+  .essay-hint {
+    font-size: .87rem;
+    color: var(--muted);
+    margin-top: 8px;
+    margin-bottom: 18px;
+  }
+  .sample-solution {
+    display: none;
+    background: var(--success-bg);
+    border: 1px solid var(--success);
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin-top: 14px;
+    font-size: .95rem;
+  }
+  .sample-solution .sol-label {
+    font-size: .78rem;
+    font-weight: 700;
+    color: var(--success);
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    margin-bottom: 6px;
+  }
+  .essay-prompts {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin-bottom: 18px;
+  }
+  .essay-prompts ol {
+    padding-left: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    font-size: .95rem;
+  }
+
+  /* ── DRAG & DROP ── */
+  .dnd-layout {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 24px;
+    align-items: start;
+  }
+  .dnd-sentences { display: flex; flex-direction: column; gap: 14px; }
+  .dnd-sentence-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .dnd-sentence-row .sentence-text {
+    font-size: .95rem;
+    line-height: 1.5;
+    flex: 1;
+    min-width: 180px;
+  }
+  .drop-zone {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 140px;
+    min-height: 36px;
+    border: 2px dashed var(--primary-dark);
+    border-radius: 8px;
+    background: #edfaf4;
+    color: var(--muted);
+    font-size: .88rem;
+    padding: 4px 10px;
+    transition: border-color .15s, background .15s;
+    text-align: center;
+  }
+  .drop-zone.drag-over { border-color: var(--accent); background: #dff0ff; }
+  .drop-zone.filled {
+    border-style: solid;
+    border-color: var(--primary-dark);
+    background: #c8f5e8;
+    color: var(--primary-text);
+    font-weight: 700;
+    cursor: grab;
+  }
+  .drop-zone.correct { border-color: var(--success); background: var(--success-bg); color: var(--success); font-weight: 700; }
+  .drop-zone.wrong   { border-color: var(--error);   background: var(--error-bg);   color: var(--error);   font-weight: 700; }
+  .dnd-sentence-row.prefix .drop-zone { order: -1; }
+  .word-bank { display: flex; flex-direction: column; gap: 8px; min-width: 160px; }
+  .draggable-chip {
+    background: #e4f9f2;
+    border: 2px solid var(--primary);
+    border-radius: 8px;
+    padding: 8px 14px;
+    font-size: .9rem;
+    font-weight: 700;
+    cursor: grab;
+    text-align: center;
+    transition: opacity .15s, box-shadow .15s, transform .1s;
+    user-select: none;
+    color: var(--primary-text);
+  }
+  .draggable-chip:active { cursor: grabbing; transform: scale(1.04); box-shadow: 0 4px 14px rgba(75,235,185,.3); }
+  .draggable-chip.used { opacity: .3; pointer-events: none; }
+
+  /* ── FLIP CARDS ── */
+  .flipcard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 16px;
+    margin-bottom: 18px;
+  }
+  .flipcard {
+    perspective: 800px;
+    height: 140px;
+    cursor: pointer;
+  }
+  .flipcard-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: transform .5s ease;
+  }
+  .flipcard.flipped .flipcard-inner { transform: rotateY(180deg); }
+  .flipcard-front, .flipcard-back {
+    position: absolute;
+    width: 100%; height: 100%;
+    backface-visibility: hidden;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 14px;
+    font-size: .9rem;
+    font-weight: 700;
+    line-height: 1.4;
+  }
+  .flipcard-front {
+    background: #edfaf4;
+    border: 2px solid var(--primary);
+    color: var(--primary-text);
+  }
+  .flipcard-back {
+    background: var(--success-bg);
+    border: 2px solid var(--success);
+    color: var(--success);
+    transform: rotateY(180deg);
+    font-size: .85rem;
+  }
+  .flipcard-hint {
+    font-size: .8rem;
+    color: var(--muted);
+    text-align: center;
+    margin-bottom: 16px;
+  }
+
+  /* ── MARK THE WORDS ── */
+  .mtw-text {
+    font-size: .97rem;
+    line-height: 1.9;
+    margin-bottom: 18px;
+  }
+  .mtw-word {
+    cursor: pointer;
+    border-radius: 4px;
+    padding: 1px 3px;
+    transition: background .15s;
+  }
+  .mtw-word:hover { background: #d0f5e8; }
+  .mtw-word.selected { background: var(--primary); color: var(--primary-text); font-weight: 700; border-radius: 4px; }
+  .mtw-word.correct { background: var(--success-bg); color: var(--success); font-weight: 700; border-bottom: 2px solid var(--success); }
+  .mtw-word.wrong   { background: var(--error-bg);   color: var(--error);   font-weight: 700; text-decoration: line-through; }
+  .mtw-word.missed  { background: #fff3cd; color: #856404; font-weight: 700; border-bottom: 2px dashed #856404; }
+
+  /* ── BUTTONS ── */
+  .btn-check {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 20px;
+    background: var(--primary);
+    color: var(--primary-text);
+    border: none;
+    border-radius: 24px;
+    padding: 10px 24px;
+    font-family: inherit;
+    font-size: .95rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background .15s, transform .1s;
+  }
+  .btn-check:hover { background: var(--primary-dark); color: #fff; transform: translateY(-1px); }
+  .btn-reset {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 10px;
+    margin-left: 10px;
+    background: transparent;
+    color: var(--muted);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: 9px 18px;
+    font-family: inherit;
+    font-size: .88rem;
+    cursor: pointer;
+    transition: color .15s, border-color .15s;
+  }
+  .btn-reset:hover { color: var(--text); border-color: var(--muted); }
+  .btn-reveal {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 12px;
+    background: transparent;
+    color: var(--accent);
+    border: 1.5px solid var(--accent);
+    border-radius: 24px;
+    padding: 9px 20px;
+    font-family: inherit;
+    font-size: .9rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background .15s, color .15s;
+  }
+  .btn-reveal:hover { background: var(--accent); color: #fff; }
+
+  .feedback-msg {
+    display: none;
+    margin-top: 14px;
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: .95rem;
+  }
+  .feedback-msg.success { background: var(--success-bg); color: var(--success); display: flex; align-items: center; gap: 8px; }
+  .feedback-msg.error   { background: var(--error-bg);   color: var(--error);   display: flex; align-items: center; gap: 8px; }
+
+  @media (max-width: 640px) {
+    .dnd-layout { grid-template-columns: 1fr; }
+    .word-bank { flex-direction: row; flex-wrap: wrap; }
+    .flipcard-grid { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="page-wrapper">
+
+  <!-- ============================================================
+       SEITENHEADER  –  Text hier bearbeiten
+       ============================================================ -->
+  <header class="page-header">
+    <div class="label">Workbook · Kapitel 2</div>
+    <h1>Der erste Schritt zum Gipfel:<br>Warum gute Forschungsfragen und Hypothesen den Weg weisen</h1>
+    <div class="subtitle">In dieser kleinen Workbook-Einheit werden nochmals die wichtigsten Informationen von Kapitel 2 wiederholt. Das Bearbeiten der Übungen ist freiwillig und soll Ihnen als Selbstlerneinheit dienen.</div>
+  </header>
+
+  <!-- ============================================================
+       WISSENSBOX 1 – Was ist eine Hypothese?
+       Text hier anpassen
+       ============================================================ -->
+  <div class="info-card">
+    <h2>💡 Was ist eine gute Hypothese?</h2>
+    <div class="hypo-box">
+      <div class="hypo-title">Definition</div>
+      <p>Eine Hypothese ist eine <strong>überprüfbare Aussage</strong> über einen <strong>vermuteten Zusammenhang zwischen Variablen</strong>.</p>
+      <p style="margin-top:10px;"><strong>Merkmale:</strong> klar · präzise · falsifizierbar · theoriegeleitet</p>
+    </div>
+    <div class="example-row">
+      <span>❌ <em>„Ich glaube, Musik ist gut."</em> → keine Hypothese (nicht überprüfbar, kein Zusammenhang)</span>
+      <span>✅ <em>„Studierende, die beim Lernen Musik hören, erzielen bessere Testergebnisse als jene ohne Musik."</em> → Hypothese</span>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       VIDEO 1 – YouTube-URL hier ändern: src="https://www.youtube.com/embed/VIDEO-ID"
+       ============================================================ -->
+  <div class="video-wrap">
+    <h3>🎬 Erklärvideo: Hypothesen formulieren</h3>
+    <div class="video-responsive">
+      <iframe src="https://www.youtube.com/embed/jMneHx-fG-Q"
+              title="Hypothesen formulieren"
+              allowfullscreen></iframe>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       AUFGABE 1 – Single-Choice-Quiz: Hypothese oder nicht?
+       Fragen und Antworten in QUIZ_DATA unten im Script bearbeiten
+       correct: 0 = erste Antwort ist richtig, 1 = zweite Antwort usw.
+       ============================================================ -->
+  <section class="exercise" id="ex1">
+    <div class="exercise-label">Aufgabe 1 · Quiz</div>
+    <h3>Hypothese oder nicht? Entscheide, ob es sich um eine wissenschaftliche Hypothese handelt.</h3>
+    <div class="quiz-progress"><div class="quiz-progress-bar" id="quiz1-bar" style="width:0%"></div></div>
+    <div class="quiz-counter" id="quiz1-counter">Frage 1 von 7</div>
+    <div class="quiz-question-text" id="quiz1-question"></div>
+    <div class="quiz-options" id="quiz1-options"></div>
+    <div class="quiz-nav">
+      <button class="btn-check" id="quiz1-next" style="display:none" onclick="quizNext('quiz1')">Nächste Frage →</button>
+      <button class="btn-reset" onclick="quizReset('quiz1')">↺ Neu starten</button>
+    </div>
+    <div class="quiz-score" id="quiz1-score"></div>
+  </section>
+
+  <!-- ============================================================
+       AUFGABE 2 – Freitext: Eigene Hypothese formulieren
+       Aufgabentext und Beispiellösung unten im Script bearbeiten
+       ============================================================ -->
+  <section class="exercise" id="ex2">
+    <div class="exercise-label">Aufgabe 2 · Freitext</div>
+    <h3>Formuliere deine eigene Hypothese!</h3>
+    <p style="margin-bottom:14px;">Wähle eine der folgenden Forschungsfragen und formuliere daraus eine wissenschaftliche Hypothese.</p>
+    <!-- ✏️ Forschungsfragen hier bearbeiten -->
+    <div class="essay-prompts">
+      <ol>
+        <li>Beeinflusst Bildschirmzeit die Schlafqualität?</li>
+        <li>Welche Faktoren motivieren Studierende zur Nutzung digitaler Lernplattformen?</li>
+        <li>Wie häufig nutzen Lehrkräfte Gamification-Elemente im Unterricht?</li>
+        <li>Verbessert Musik beim Lernen die Konzentrationsfähigkeit von Studierenden?</li>
+      </ol>
+    </div>
+    <textarea class="essay-textarea" id="essay2" placeholder="Schreibe hier deine Hypothese..."></textarea>
+    <div class="essay-hint">Denke an die Merkmale: klar · präzise · falsifizierbar · Zusammenhang zwischen Variablen erkennbar</div>
+    <div>
+      <!-- ✏️ Beispiellösung unten im Script in ESSAY_SOLUTION anpassen -->
+      <button class="btn-reveal" onclick="toggleSolution('sol2')">💡 Beispiellösung anzeigen</button>
+      <button class="btn-reset" onclick="document.getElementById('essay2').value=''">↺ Zurücksetzen</button>
+    </div>
+    <div class="sample-solution" id="sol2">
+      <div class="sol-label">✓ Beispiellösung</div>
+      <p>„Je höher die tägliche Bildschirmzeit, desto schlechter ist die Schlafqualität bei Jugendlichen."</p>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       WISSENSBOX 2 – Explorativ, Deskriptiv und Kausal
+       Text hier anpassen
+       ============================================================ -->
+  <div class="info-card">
+    <h2>🔍 Einführung: Explorativ, Deskriptiv und Kausal forschen</h2>
+    <p>In der wissenschaftlichen Forschung gibt es unterschiedliche Zielrichtungen, je nachdem, was wir herausfinden wollen.</p>
+    <ul style="margin-top:12px; list-style:none; padding-left:0; gap:14px;">
+      <li style="margin-bottom:12px;">
+        <strong>🔎 Explorativ forschen</strong> – ein Thema erkunden, über das wenig bekannt ist.<br>
+        <span style="color:var(--muted); font-size:.9rem;">🏠 Alltag: Du ziehst in eine neue Stadt und erkundest, welche Cafés es gibt.</span><br>
+        <span style="color:var(--muted); font-size:.9rem;">🎓 Wissenschaft: Eine Studie untersucht erstmals, wie Studierende mit KI-Tools lernen.</span>
+      </li>
+      <li style="margin-bottom:12px;">
+        <strong>📊 Deskriptiv forschen</strong> – etwas systematisch beschreiben.<br>
+        <span style="color:var(--muted); font-size:.9rem;">🏠 Alltag: Du zählst, wie viele Leute morgens mit dem Fahrrad zur Arbeit fahren.</span><br>
+        <span style="color:var(--muted); font-size:.9rem;">🎓 Wissenschaft: Eine Umfrage zeigt, wie viele Studierende Podcasts zur Prüfungsvorbereitung nutzen.</span>
+      </li>
+      <li>
+        <strong>🔗 Kausal forschen</strong> – prüfen, ob ein Faktor einen anderen beeinflusst.<br>
+        <span style="color:var(--muted); font-size:.9rem;">🏠 Alltag: Du willst wissen, ob Kaffee deine Konzentration verbessert.</span><br>
+        <span style="color:var(--muted); font-size:.9rem;">🎓 Wissenschaft: Ein Experiment testet, ob Gamification die Lernmotivation steigert.</span>
+      </li>
+    </ul>
+  </div>
+
+  <!-- ============================================================
+       AUFGABE 3 – Drag & Drop: Prognose / Erklärung / Beschreibung
+       Sätze und Zuordnungen in SENTENCES_EX3 / CHIPS_EX3 im Script anpassen
+       ============================================================ -->
+  <section class="exercise" id="ex3">
+    <div class="exercise-label">Aufgabe 3 · Zuordnung</div>
+    <h3>Prognose, Erklärung oder Beschreibung? Ziehe die richtigen Begriffe in die Felder!</h3>
+    <div class="dnd-layout">
+      <div class="dnd-sentences" id="dnd3-sentences"></div>
+      <div class="word-bank" id="dnd3-bank"></div>
+    </div>
+    <div>
+      <button class="btn-check" onclick="checkDnD('dnd3')">✔ Überprüfen</button>
+      <button class="btn-reset" onclick="resetDnD('dnd3')">↺ Zurücksetzen</button>
+    </div>
+    <div class="feedback-msg" id="dnd3-feedback"></div>
+  </section>
+
+  <!-- ============================================================
+       WISSENSBOX 3 – UV und AV
+       Text hier anpassen
+       ============================================================ -->
+  <div class="info-card">
+    <h2>🔬 Unabhängige Variable (UV) &amp; Abhängige Variable (AV)</h2>
+    <p>Im nächsten Schritt geht es darum zu entscheiden, ob eine Variable im Beispiel eine <strong>UV</strong> oder <strong>AV</strong> ist.</p>
+    <ul style="margin-top:10px;">
+      <li><strong>UV (Unabhängige Variable)</strong> – wird vom Forschenden verändert oder kontrolliert.</li>
+      <li><strong>AV (Abhängige Variable)</strong> – wird gemessen oder beobachtet.</li>
+    </ul>
+    <p style="margin-top:10px;">Das folgende Video erklärt den Unterschied nochmals anschaulich:</p>
+  </div>
+
+  <!-- ============================================================
+       VIDEO 2 – YouTube-URL hier ändern: src="https://www.youtube.com/embed/VIDEO-ID"
+       ============================================================ -->
+  <div class="video-wrap">
+    <h3>🎬 Erklärvideo: UV und AV</h3>
+    <div class="video-responsive">
+      <iframe src="https://www.youtube.com/embed/FQn9mfgf5o0"
+              title="UV und AV"
+              allowfullscreen></iframe>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       AUFGABE 4 – Flip Cards: UV oder AV?
+       Karten in FLIP_CARDS im Script bearbeiten
+       front = Vorderseite (Begriff), back = Rückseite (Lösung)
+       ============================================================ -->
+  <section class="exercise" id="ex4">
+    <div class="exercise-label">Aufgabe 4 · Lernkarten</div>
+    <h3>UV oder AV? Klicke auf die Karte, um die Lösung zu sehen!</h3>
+    <p class="flipcard-hint">👆 Klicke auf eine Karte zum Umdrehen</p>
+    <div class="flipcard-grid" id="flipcard-grid"></div>
+    <button class="btn-reset" onclick="resetFlipCards()" style="margin-top:0;">↺ Alle Karten zurückdrehen</button>
+  </section>
+
+  <!-- ============================================================
+       AUFGABE 5 – Wörter markieren: Finde die UV im Satz
+       Sätze und markierbare Wörter (*Wort*) in MTW_DATA im Script bearbeiten
+       Wörter mit *Sternchen* sind die gesuchten Lösungen
+       ============================================================ -->
+  <section class="exercise" id="ex5">
+    <div class="exercise-label">Aufgabe 5 · Wörter markieren</div>
+    <h3>Markiere in jedem Satz die <strong>Unabhängige Variable (UV)</strong>! Klicke dazu auf das richtige Wort.</h3>
+    <div class="mtw-text" id="mtw-text"></div>
+    <div>
+      <button class="btn-check" onclick="checkMTW()">✔ Überprüfen</button>
+      <button class="btn-reset" onclick="resetMTW()">↺ Zurücksetzen</button>
+    </div>
+    <div class="feedback-msg" id="mtw-feedback"></div>
+  </section>
+
+</div>
+
+<script>
+/* ================================================================
+   ╔══════════════════════════════════════════════════════════════╗
+   ║   INHALT BEARBEITEN – nur diese Abschnitte anpassen         ║
+   ╚══════════════════════════════════════════════════════════════╝
+   ================================================================ */
+
+
+/* ── AUFGABE 1: Quiz-Daten ──────────────────────────────────────
+   question  → Fragetext
+   options   → Antwortmöglichkeiten (Array)
+   correct   → Index der richtigen Antwort (0 = erste Option)
+   ---------------------------------------------------------------- */
+const QUIZ_DATA = {
+  quiz1: [
+    { question: 'Es gibt viele Studierende, die Podcasts hören.',
+      options: ['❌ keine Hypothese', '✅ Hypothese'],
+      correct: 0 },
+    { question: 'Studierende, die regelmäßig meditieren, zeigen eine höhere Konzentrationsfähigkeit.',
+      options: ['✅ Hypothese', '❌ keine Hypothese'],
+      correct: 0 },
+    { question: 'Viele Studierende meditieren regelmäßig.',
+      options: ['❌ keine Hypothese', '✅ Hypothese'],
+      correct: 0 },
+    { question: 'Es wird angenommen, dass Bewegung gut für die Gesundheit ist.',
+      options: ['❌ Keine Hypothese', '✅ Hypothese'],
+      correct: 0 },
+    { question: 'Je mehr Zeit Schülerinnen mit Vokabeltraining verbringen, desto besser schneiden sie im Vokabeltest ab.',
+      options: ['✅ Hypothese', '❌ Keine Hypothese'],
+      correct: 0 },
+    { question: 'Die Umfrage zeigt, dass 60 % der Befragten Podcasts nutzen.',
+      options: ['❌ Keine Hypothese', '✅ Hypothese'],
+      correct: 0 },
+    { question: 'Wenn Schülerinnen vor dem Test Musik hören, sinkt ihre Fehlerquote.',
+      options: ['✅ Hypothese', '❌ Keine Hypothese'],
+      correct: 0 },
+  ]
+};
+
+
+/* ── AUFGABE 3: Drag & Drop – Prognose / Erklärung / Beschreibung ──
+   text    → Satztext
+   answer  → Richtiger Chip (muss exakt in CHIPS_EX3 vorkommen)
+   prefix  → true = Lücke VOR dem Text, false = danach
+   ---------------------------------------------------------------- */
+const SENTENCES_EX3 = [
+  { text: 'Wie wird sich die Medienkompetenz von Jugendlichen durch gezielte Schulprogramme in Zukunft verändern? →',
+    answer: 'Prognose',      prefix: false },
+  { text: 'Warum erzielen emotionale Inhalte besonders hohe Klickzahlen im Netz? →',
+    answer: 'Erklärung',     prefix: false },
+  { text: 'Wie wird sich die Nutzung von KI-gestützten Lernplattformen in den nächsten Jahren entwickeln? →',
+    answer: 'Prognose',      prefix: false },
+  { text: 'Warum greifen Studierende unter Zeitdruck häufig zu Zusammenfassungen? →',
+    answer: 'Erklärung',     prefix: false },
+  { text: 'Welche Altersgruppe wurde in der Studie befragt und wie viele Teilnehmende gab es? →',
+    answer: 'Beschreibung',  prefix: false },
+];
+const CHIPS_EX3 = [
+  'Prognose', 'Erklärung', 'Prognose', 'Erklärung', 'Beschreibung',
+];
+
+
+/* ── AUFGABE 4: Flip Cards – UV oder AV? ────────────────────────
+   front → Vorderseite der Karte (Begriff / Beispiel)
+   back  → Rückseite mit Lösung
+   ---------------------------------------------------------------- */
+const FLIP_CARDS = [
+  { front: 'Koffeinkonsum vor dem Lernen',          back: '☑️ UV – wird vom Forschenden verändert' },
+  { front: 'Testergebnis in der Prüfung',           back: '📏 AV – wird gemessen' },
+  { front: 'Lernmethode: Zusammenfassung vs. Karteikarten', back: '☑️ UV – experimentelle Bedingung' },
+  { front: 'Konzentrationsdauer in Minuten',        back: '📏 AV – beobachtetes Ergebnis' },
+];
+
+
+/* ── AUFGABE 5: Wörter markieren – UV im Satz finden ────────────
+   Schreibe den Satztext. Das gesuchte Wort mit *Sternchen* umschließen.
+   Mehrere Sätze durch eine Leerzeile trennen.
+   ---------------------------------------------------------------- */
+const MTW_SENTENCES = [
+  'In einer Studie wird untersucht, ob *Koffeinkonsum* die Konzentrationsdauer beeinflusst.',
+  'Die Forschenden analysieren, ob die *Nutzungsdauer* von Social Media mit dem Selbstwertgefühl zusammenhängt.',
+  'Es wird untersucht, ob das *Musikhören* beim Lernen die Fehlerquote in einem Abschlusstest verändert.',
+  'Die Studie untersucht, ob die *Schlafdauer* vor einer Prüfung die Fehlerquote im Test beeinflusst.',
+  'Es wird erforscht, ob die *Raumtemperatur* in einem Klassenzimmer die Lernleistung der Schüler*innen verändert.',
+];
+
+
+/* ================================================================
+   ENGINE – keine Änderungen notwendig unterhalb dieser Linie
+   ================================================================ */
+
+/* ── Quiz Engine ── */
+const QUIZ_STATE = {};
+
+function quizInit(id) {
+  QUIZ_STATE[id] = { current: 0, score: 0, answered: false };
+  renderQuiz(id);
+}
+
+function renderQuiz(id) {
+  const state = QUIZ_STATE[id];
+  const data = QUIZ_DATA[id];
+  const q = data[state.current];
+  const total = data.length;
+
+  document.getElementById(id + '-bar').style.width = (state.current / total * 100) + '%';
+  document.getElementById(id + '-counter').textContent = `Frage ${state.current + 1} von ${total}`;
+  document.getElementById(id + '-question').textContent = q.question;
+
+  const optDiv = document.getElementById(id + '-options');
+  optDiv.innerHTML = '';
+  q.options.forEach((opt, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'quiz-option-btn';
+    btn.textContent = opt;
+    btn.onclick = () => answerQuiz(id, i);
+    optDiv.appendChild(btn);
+  });
+
+  document.getElementById(id + '-next').style.display = 'none';
+  document.getElementById(id + '-score').style.display = 'none';
+  state.answered = false;
+}
+
+function answerQuiz(id, chosen) {
+  const state = QUIZ_STATE[id];
+  if (state.answered) return;
+  state.answered = true;
+
+  const q = QUIZ_DATA[id][state.current];
+  const btns = document.querySelectorAll('#' + id + '-options .quiz-option-btn');
+  btns.forEach((btn, i) => {
+    btn.disabled = true;
+    if (i === q.correct) btn.classList.add('correct');
+    else if (i === chosen) btn.classList.add('wrong');
+  });
+  if (chosen === q.correct) state.score++;
+
+  const isLast = state.current === QUIZ_DATA[id].length - 1;
+  if (isLast) {
+    document.getElementById(id + '-bar').style.width = '100%';
+    const scoreEl = document.getElementById(id + '-score');
+    scoreEl.style.display = 'block';
+    scoreEl.textContent = `🎯 Ergebnis: ${state.score} von ${QUIZ_DATA[id].length} richtig!`;
+  } else {
+    document.getElementById(id + '-next').style.display = 'inline-flex';
+  }
+}
+
+function quizNext(id) {
+  QUIZ_STATE[id].current++;
+  renderQuiz(id);
+}
+
+function quizReset(id) {
+  quizInit(id);
+}
+
+/* ── Essay / Sample Solution ── */
+function toggleSolution(id) {
+  const el = document.getElementById(id);
+  const isVisible = el.style.display === 'block';
+  el.style.display = isVisible ? 'none' : 'block';
+}
+
+/* ── Drag & Drop Engine ── */
+const DND_STATE = {};
+
+function buildDnD(id, sentences, chips) {
+  DND_STATE[id] = { sentences, chips: [...chips], filled: {} };
+  renderDnD(id);
+}
+
+function renderDnD(id) {
+  const { sentences, chips } = DND_STATE[id];
+  const sentCont = document.getElementById(id + '-sentences');
+  const bankCont = document.getElementById(id + '-bank');
+  sentCont.innerHTML = '';
+  bankCont.innerHTML = '';
+
+  sentences.forEach((s, i) => {
+    const row = document.createElement('div');
+    row.className = 'dnd-sentence-row' + (s.prefix ? ' prefix' : '');
+    const zone = document.createElement('div');
+    zone.className = 'drop-zone';
+    zone.dataset.index = i;
+    zone.textContent = '…';
+    const txt = document.createElement('span');
+    txt.className = 'sentence-text';
+    txt.innerHTML = s.text;
+    if (s.prefix) { row.appendChild(zone); row.appendChild(txt); }
+    else          { row.appendChild(txt);  row.appendChild(zone); }
+
+    zone.addEventListener('dragover', e => { e.preventDefault(); zone.classList.add('drag-over'); });
+    zone.addEventListener('dragleave', () => zone.classList.remove('drag-over'));
+    zone.addEventListener('drop', e => {
+      e.preventDefault();
+      zone.classList.remove('drag-over');
+      const chipId = e.dataTransfer.getData('text/plain');
+      const chipEl = document.querySelector(`[data-chip-id="${chipId}"]`);
+      if (!chipEl) return;
+      const prev = DND_STATE[id].filled[i];
+      if (prev !== undefined) returnChip(id, prev);
+      DND_STATE[id].filled[i] = chipId;
+      zone.classList.add('filled');
+      zone.classList.remove('correct', 'wrong');
+      zone.textContent = chipEl.textContent;
+      chipEl.classList.add('used');
+    });
+    zone.setAttribute('draggable', true);
+    zone.addEventListener('dragstart', e => {
+      if (!zone.classList.contains('filled')) { e.preventDefault(); return; }
+      e.dataTransfer.setData('text/plain', DND_STATE[id].filled[i]);
+      e.dataTransfer.setData('from-zone', i);
+    });
+    sentCont.appendChild(row);
+  });
+
+  chips.forEach((label, ci) => {
+    const chip = document.createElement('div');
+    chip.className = 'draggable-chip';
+    chip.textContent = label;
+    chip.setAttribute('draggable', true);
+    chip.dataset.chipId = id + '-chip-' + ci;
+    bankCont.appendChild(chip);
+    chip.addEventListener('dragstart', e => { e.dataTransfer.setData('text/plain', chip.dataset.chipId); });
+  });
+
+  bankCont.addEventListener('dragover', e => e.preventDefault());
+  bankCont.addEventListener('drop', e => {
+    e.preventDefault();
+    const chipId = e.dataTransfer.getData('text/plain');
+    const fromZone = e.dataTransfer.getData('from-zone');
+    if (fromZone !== '') {
+      const zoneIdx = parseInt(fromZone, 10);
+      if (DND_STATE[id].filled[zoneIdx] === chipId) {
+        returnChip(id, chipId);
+        delete DND_STATE[id].filled[zoneIdx];
+        const zEl = document.querySelector(`#${id}-sentences .drop-zone[data-index="${zoneIdx}"]`);
+        if (zEl) { zEl.classList.remove('filled','correct','wrong'); zEl.textContent = '…'; }
+      }
+    }
+  });
+}
+
+function returnChip(id, chipId) {
+  const chip = document.querySelector(`[data-chip-id="${chipId}"]`);
+  if (chip) chip.classList.remove('used');
+}
+
+function checkDnD(id) {
+  const { sentences, filled } = DND_STATE[id];
+  let correct = 0;
+  sentences.forEach((s, i) => {
+    const zoneEl = document.querySelector(`#${id}-sentences .drop-zone[data-index="${i}"]`);
+    if (!zoneEl) return;
+    const chipId = filled[i];
+    if (!chipId) { zoneEl.classList.remove('filled','correct','wrong'); return; }
+    const chipEl = document.querySelector(`[data-chip-id="${chipId}"]`);
+    const placed = chipEl ? chipEl.textContent : '';
+    zoneEl.classList.remove('correct','wrong');
+    if (placed === s.answer) { zoneEl.classList.add('correct'); correct++; }
+    else                      { zoneEl.classList.add('wrong'); }
+  });
+  const fb = document.getElementById(id + '-feedback');
+  const total = sentences.length;
+  if (correct === total) {
+    fb.className = 'feedback-msg success';
+    fb.textContent = `✓ Alle ${total} Zuordnungen korrekt!`;
+  } else {
+    fb.className = 'feedback-msg error';
+    fb.textContent = `✗ ${correct} von ${total} korrekt. Falsche Felder sind rot markiert.`;
+  }
+}
+
+function resetDnD(id) {
+  DND_STATE[id].filled = {};
+  document.getElementById(id + '-feedback').className = 'feedback-msg';
+  renderDnD(id);
+}
+
+/* ── Flip Cards Engine ── */
+function buildFlipCards() {
+  const grid = document.getElementById('flipcard-grid');
+  grid.innerHTML = '';
+  FLIP_CARDS.forEach((card, i) => {
+    const fc = document.createElement('div');
+    fc.className = 'flipcard';
+    fc.innerHTML = `
+      <div class="flipcard-inner">
+        <div class="flipcard-front">${card.front}</div>
+        <div class="flipcard-back">${card.back}</div>
+      </div>`;
+    fc.addEventListener('click', () => fc.classList.toggle('flipped'));
+    grid.appendChild(fc);
+  });
+}
+
+function resetFlipCards() {
+  document.querySelectorAll('.flipcard').forEach(fc => fc.classList.remove('flipped'));
+}
+
+/* ── Mark the Words Engine ── */
+let MTW_CORRECT = new Set();
+let MTW_SELECTED = new Set();
+let MTW_CHECKED = false;
+
+function buildMTW() {
+  const container = document.getElementById('mtw-text');
+  container.innerHTML = '';
+  MTW_CORRECT = new Set();
+  MTW_SELECTED = new Set();
+  MTW_CHECKED = false;
+
+  MTW_SENTENCES.forEach((sentence, si) => {
+    const p = document.createElement('p');
+    p.style.marginBottom = '10px';
+    const parts = sentence.split(/(\*[^*]+\*)/g);
+    parts.forEach(part => {
+      if (part.startsWith('*') && part.endsWith('*')) {
+        const word = part.slice(1, -1);
+        const id = `mtw-${si}-${word}`;
+        const span = document.createElement('span');
+        span.className = 'mtw-word';
+        span.textContent = word;
+        span.dataset.id = id;
+        span.dataset.correct = 'true';
+        MTW_CORRECT.add(id);
+        span.addEventListener('click', () => toggleMTWWord(span));
+        p.appendChild(span);
+      } else {
+        // split part into individual words for click targets
+        const words = part.split(/(\s+)/);
+        words.forEach(w => {
+          if (/^\s+$/.test(w) || w === '') {
+            p.appendChild(document.createTextNode(w));
+          } else {
+            const span = document.createElement('span');
+            span.className = 'mtw-word';
+            span.textContent = w;
+            span.dataset.correct = 'false';
+            const wid = `mtw-${si}-wrong-${Math.random().toString(36).slice(2)}`;
+            span.dataset.id = wid;
+            span.addEventListener('click', () => toggleMTWWord(span));
+            p.appendChild(span);
+          }
+        });
+      }
+    });
+    container.appendChild(p);
+  });
+}
+
+function toggleMTWWord(span) {
+  if (MTW_CHECKED) return;
+  const id = span.dataset.id;
+  if (MTW_SELECTED.has(id)) {
+    MTW_SELECTED.delete(id);
+    span.classList.remove('selected');
+  } else {
+    MTW_SELECTED.add(id);
+    span.classList.add('selected');
+  }
+}
+
+function checkMTW() {
+  MTW_CHECKED = true;
+  let correct = 0;
+  const allWords = document.querySelectorAll('.mtw-word');
+  allWords.forEach(span => {
+    span.classList.remove('selected', 'correct', 'wrong', 'missed');
+    const id = span.dataset.id;
+    const isCorrect = span.dataset.correct === 'true';
+    const isSelected = MTW_SELECTED.has(id);
+    if (isCorrect && isSelected)  { span.classList.add('correct'); correct++; }
+    if (!isCorrect && isSelected) { span.classList.add('wrong'); }
+    if (isCorrect && !isSelected) { span.classList.add('missed'); }
+  });
+  const fb = document.getElementById('mtw-feedback');
+  if (correct === MTW_CORRECT.size && document.querySelectorAll('.mtw-word.wrong').length === 0) {
+    fb.className = 'feedback-msg success';
+    fb.textContent = `✓ Alle ${MTW_CORRECT.size} UV korrekt markiert!`;
+  } else {
+    fb.className = 'feedback-msg error';
+    fb.textContent = `✗ ${correct} von ${MTW_CORRECT.size} UV richtig. Gelb = nicht markiert | Rot = falsch markiert.`;
+  }
+}
+
+function resetMTW() {
+  document.getElementById('mtw-feedback').className = 'feedback-msg';
+  buildMTW();
+}
+
+/* ── INIT ── */
+quizInit('quiz1');
+buildDnD('dnd3', SENTENCES_EX3, CHIPS_EX3);
+buildFlipCards();
+buildMTW();
+</script>
+</body>
+</html>
