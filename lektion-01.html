@@ -143,14 +143,13 @@
     .main-wrap {
       margin-top: var(--header-h);
       flex: 1; display: flex; flex-direction: column;
+      background: #EFF7F4;
     }
 
     .lesson-hero {
       background: var(--surface);
       border-bottom: 1px solid var(--border);
       padding: 2.5rem 2rem 0;
-      max-width: 1100px;
-      margin: 0 auto;
       width: 100%;
     }
     .chapter-badge {
@@ -196,7 +195,7 @@
     .tab-btn.active { color: var(--dark); border-bottom-color: var(--dark); }
 
     .tab-content {
-      max-width: 1100px; margin: 0 auto; width: 100%;
+      width: 100%;
       padding: 2rem;
       flex: 1;
     }
@@ -322,6 +321,40 @@
       border-radius: var(--radius);
       outline: none;
     }
+    .video-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+.video-card {
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  text-decoration: none;
+  color: var(--text);
+  transition: border-color 0.2s, transform 0.2s;
+  display: block;
+}
+.video-card:hover { border-color: var(--green); transform: translateY(-2px); }
+.video-thumb {
+  position: relative;
+  aspect-ratio: 16/9;
+  background: #000;
+}
+.video-thumb img { width: 100%; height: 100%; object-fit: cover; }
+.play-icon {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+}
+.play-icon svg { filter: drop-shadow(0 2px 6px rgba(0,0,0,0.5)); }
+.video-label {
+  padding: 0.6rem 0.75rem;
+  font-size: 0.82rem;
+  font-weight: 500;
+  line-height: 1.4;
+}
 
     /* ÜBUNGEN */
     /* Übungen Tab – kein Innenabstand damit H5P randlos sitzt */
@@ -494,37 +527,151 @@
           <span class="icon">📄</span>
           <p><strong> Zusätzliche Literatur. </strong><br>
           
-    
-Jhangiani, R. S., Chiang, I. C. A., Cuttler, C., & Leighton, D. C. (2019). Research methods in psychology Kwantlen Polytechnic University. - Chapter I The Science of Psychology (pp.3-21)
-
-Zusätzliche Links:
-
-        Folgende Sammlung kann Ihnen weiterhelfen, falls Sie zu gewissen Themen noch mehr Wissen wollen. Diese Inhalte sind jedoch nicht Prüfungsrelevant. 
+Jhangiani, R. S., Chiang, I. C. A., Cuttler, C., & Leighton, D. C. (2019). Research methods in psychology Kwantlen Polytechnic University. - Chapter I The Science of Psychology (pp.3-21) Zusätzliche Links: Folgende Sammlung kann Ihnen weiterhelfen, falls Sie zu gewissen Themen noch mehr Wissen wollen. Diese Inhalte sind jedoch nicht Prüfungsrelevant. Mindmapping Scribbr: Forschungsfrage formulieren Zusätzliche Videos
             
-<a href="https://www.deine-zielseite.de">Kreativtechnik: Mindmapping</a> 
-Scribbr: Forschungsfrage formulieren
-Zusätzliche Videos
+            <div class="video-grid">
 
-Shribe: Wissenschaftstheorie Shribe: Was ist ein Modell?
+  <a class="video-card" href="https://www.youtube.com/watch?v=rMkulFSorkk" target="_blank" rel="noopener">
+    <div class="video-thumb">
+      <img src="https://img.youtube.com/vi/rMkulFSorkk/hqdefault.jpg" alt="Was ist eine Theorie?" loading="lazy">
+      <div class="play-icon">
+        <svg width="48" height="48" viewBox="0 0 48 48">
+          <circle cx="24" cy="24" r="24" fill="rgba(0,0,0,0.55)"/>
+          <polygon points="19,15 37,24 19,33" fill="white"/>
+        </svg>
+      </div>
+    </div>
+    <div class="video-label">Shribe: Was ist eine Theorie?</div>
+  </a>
 
-Shribe: Was ist eine Theorie?
+  <!-- weiteres Video: einfach den Block kopieren und VIDEO_ID + Titel anpassen -->
+  <a class="video-card" href="https://www.youtube.com/watch?v=RbljxXTedr8&list=PLh8TR0YQogH_JCWX3o4gO8u0LQt6vYGhR" target="_blank" rel="noopener">
+    <div class="video-thumb">
+      <img src="https://img.youtube.com/vi/RbljxXTedr8/hqdefault.jpg" alt="Was ist ein Modell?" loading="lazy">
+      <div class="play-icon">
+        <svg width="48" height="48" viewBox="0 0 48 48">
+          <circle cx="24" cy="24" r="24" fill="rgba(0,0,0,0.55)"/>
+          <polygon points="19,15 37,24 19,33" fill="white"/>
+        </svg>
+      </div>
+    </div>
+    <div class="video-label">Shribe: Was ist ein Modell?</div>
+  </a>
 
-SCIENCE IN A MINUTE: Peer Reviewed
 
-Shribe: Induktion vs. Deduktion
+  <a class="video-card" href="https://www.youtube.com/watch?v=9Tq37Vl0QRc" target="_blank" rel="noopener">
+    <div class="video-thumb">
+      <img src="https://img.youtube.com/vi/9Tq37Vl0QRc/hqdefault.jpg" alt="SCIENCE IN A MINUTE: Was ist Peer-Reviewed?" loading="lazy">
+      <div class="play-icon">
+        <svg width="48" height="48" viewBox="0 0 48 48">
+          <circle cx="24" cy="24" r="24" fill="rgba(0,0,0,0.55)"/>
+          <polygon points="19,15 37,24 19,33" fill="white"/>
+        </svg>
+      </div>
+    </div>
+    <div class="video-label">SCIENCE IN A MINUTE: Was ist Peer-Reviewed?</div>
+  </a>
 
-3sat NANO: Induktion vs. Deduktion
+  <a class="video-card" href="https://www.youtube.com/watch?v=sDG5YLbCvU8" target="_blank" rel="noopener">
+    <div class="video-thumb">
+      <img src="https://img.youtube.com/vi/sDG5YLbCvU8/hqdefault.jpg" alt="Shribe: Induktion vs. Deduktion" loading="lazy">
+      <div class="play-icon">
+        <svg width="48" height="48" viewBox="0 0 48 48">
+          <circle cx="24" cy="24" r="24" fill="rgba(0,0,0,0.55)"/>
+          <polygon points="19,15 37,24 19,33" fill="white"/>
+        </svg>
+      </div>
+    </div>
+    <div class="video-label">Shribe: Induktion vs. Deduktion</div>
+  </a>
 
-Wenzel: Thema eingrenzen
+  <a class="video-card" href="https://www.youtube.com/watch?v=x0-yRHJmOkM&t=2s" target="_blank" rel="noopener">
+    <div class="video-thumb">
+      <img src="https://img.youtube.com/vi/x0-yRHJmOkM/hqdefault.jpg" alt="Wann Wissenschaft wahr ist nach Karl Popper | Gert Scobel" loading="lazy">
+      <div class="play-icon">
+        <svg width="48" height="48" viewBox="0 0 48 48">
+          <circle cx="24" cy="24" r="24" fill="rgba(0,0,0,0.55)"/>
+          <polygon points="19,15 37,24 19,33" fill="white"/>
+        </svg>
+      </div>
+    </div>
+    <div class="video-label">Wann Wissenschaft wahr ist nach Karl Popper | Gert Scobel</div>
+  </a>
 
-Research Topic entwickeln
+  <a class="video-card" href="https://www.youtube.com/watch?v=fgNzPwktBV0&t=1s" target="_blank" rel="noopener">
+    <div class="video-thumb">
+      <img src="https://img.youtube.com/vi/fgNzPwktBV0/hqdefault.jpg" alt="Wissenschaftliches Arbeiten: Themeneingrenzung" loading="lazy">
+      <div class="play-icon">
+        <svg width="48" height="48" viewBox="0 0 48 48">
+          <circle cx="24" cy="24" r="24" fill="rgba(0,0,0,0.55)"/>
+          <polygon points="19,15 37,24 19,33" fill="white"/>
+        </svg>
+      </div>
+    </div>
+    <div class="video-label">Wissenschaftliches Arbeiten: Themeneingrenzung</div>
+  </a>
 
-Research Problem identifizieren
+  <a class="video-card" href="https://www.youtube.com/watch?v=nXNztCLYgxc&t=1s" target="_blank" rel="noopener">
+    <div class="video-thumb">
+      <img src="https://img.youtube.com/vi/nXNztCLYgxc/hqdefault.jpg" alt="How to Develop a Good Research Topic" loading="lazy">
+      <div class="play-icon">
+        <svg width="48" height="48" viewBox="0 0 48 48">
+          <circle cx="24" cy="24" r="24" fill="rgba(0,0,0,0.55)"/>
+          <polygon points="19,15 37,24 19,33" fill="white"/>
+        </svg>
+      </div>
+    </div>
+    <div class="video-label">How to Develop a Good Research Topic</div>
+  </a>
 
-Research Gap - Forschungslücke finden
+  <a class="video-card" href="https://www.youtube.com/watch?v=Pmwx3gL0g38&t=12s" target="_blank" rel="noopener">
+    <div class="video-thumb">
+      <img src="https://img.youtube.com/vi/Pmwx3gL0g38/hqdefault.jpg" alt="Roter Faden 1. Schritt: die Problemstellung" loading="lazy">
+      <div class="play-icon">
+        <svg width="48" height="48" viewBox="0 0 48 48">
+          <circle cx="24" cy="24" r="24" fill="rgba(0,0,0,0.55)"/>
+          <polygon points="19,15 37,24 19,33" fill="white"/>
+        </svg>
+      </div>
+    </div>
+    <div class="video-label">Roter Faden 1. Schritt: die Problemstellung</div>
+  </a>
 
-Stableton: Research Gap - Forschungslücke finden
+  <a class="video-card" href="https://www.youtube.com/watch?v=vBJhYYsw5gA&t=1s" target="_blank" rel="noopener">
+    <div class="video-thumb">
+      <img src="https://img.youtube.com/vi/vBJhYYsw5gA/hqdefault.jpg" alt="How to Identify a Research Gap?" loading="lazy">
+      <div class="play-icon">
+        <svg width="48" height="48" viewBox="0 0 48 48">
+          <circle cx="24" cy="24" r="24" fill="rgba(0,0,0,0.55)"/>
+          <polygon points="19,15 37,24 19,33" fill="white"/>
+        </svg>
+      </div>
+    </div>
+    <div class="video-label">How to Identify a Research Gap?</div>
+  </a>
 
+  <a class="video-card" href="https://www.youtube.com/watch?v=VpkwpLK4z3U&t=2s" target="_blank" rel="noopener">
+    <div class="video-thumb">
+      <img src="https://img.youtube.com/vi/VpkwpLK4z3U/hqdefault.jpg" alt="4 Effortless Ways to Spot Hidden Research Gaps [with examples]" loading="lazy">
+      <div class="play-icon">
+        <svg width="48" height="48" viewBox="0 0 48 48">
+          <circle cx="24" cy="24" r="24" fill="rgba(0,0,0,0.55)"/>
+          <polygon points="19,15 37,24 19,33" fill="white"/>
+        </svg>
+      </div>
+    </div>
+    <div class="video-label">4 Effortless Ways to Spot Hidden Research Gaps [with examples]</div>
+  </a>
+
+</div>
+    
+
+</div>
+
+
+
+
+        
 
 
           
