@@ -274,22 +274,26 @@
     }
 
     /* KERNTHEMEN */
-    .topic-list { display: flex; flex-direction: column; gap: 0.5rem; margin-top: 0.5rem; }
-    .topic-item {
-      display: flex; align-items: flex-start; gap: 1rem;
-      padding: 1.1rem 1.25rem;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      transition: border-color 0.2s;
-    }
-    .topic-item:hover { border-color: var(--green); }
-    .topic-num {
-      font-family: var(--mono); font-size: 0.72rem;
-      color: var(--green); min-width: 1.75rem; margin-top: 2px;
-    }
-    .topic-title { font-size: 0.95rem; font-weight: 500; line-height: 1.4; }
-    .topic-sub { font-size: 0.82rem; color: var(--muted); margin-top: 0.2rem; }
+  
+.topic-list { display: flex; flex-direction: column; gap: 0.75rem; margin-top: 0.5rem; }
+.topic-item {
+  display: grid;
+  grid-template-columns: 2rem 1fr;
+  gap: 0.75rem 1rem;
+  padding: 1.25rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  transition: border-color 0.2s;
+}
+.topic-item:hover { border-color: var(--green); }
+.topic-num {
+  font-family: var(--mono); font-size: 0.75rem;
+  color: var(--green); padding-top: 3px;
+}
+.topic-body {}
+.topic-title { font-size: 0.95rem; font-weight: 600; margin-bottom: 0.35rem; line-height: 1.4; }
+.topic-sub { font-size: 0.85rem; color: var(--muted); line-height: 1.6; }
 
     /* INHALT */
     .content-placeholder {
@@ -456,7 +460,7 @@
       <!-- TAB: Lernziele -->
       <div class="tab-panel active" id="tab-lernziele" role="tabpanel">
         <div class="info-box">
-          Hake ab, was du bereits weißt oder verstehst. Dein Fortschritt wird
+          Haken Sie ab, was Sie bereits wissen oder verstehst. Ihr Fortschritt wird
           automatisch gespeichert und bleibt auch nach einem Neuladen erhalten.
         </div>
         <div class="progress-wrap">
@@ -473,29 +477,56 @@
 
  <div class="tab-panel" id="tab-kernthemen" role="tabpanel">
     <p class="section-heading">Kernthemen</p>
-    <div class="topic-item">
-        <h3>Grundlagen und Abgrenzung des wissenschaftlichen Arbeitens</h3>
-        <p>Dieses Thema definiert wissenschaftliches Arbeiten als Prozess der systematischen Erkenntnisgewinnung, der auf Regelbasiertheit, Nachvollziehbarkeit und Objektivität beruht. 
-          Ein wesentlicher Aspekt ist dabei die Abgrenzung zur Pseudowissenschaft, die sich durch fehlende empirische Evidenz und mangelnde Falsifizierbarkeit auszeichnet.
-</p>
-    </div>
-    <div class="topic-item">
-        <h3>Wissenschaftliche Denkweisen und Qualitätskriterien </h3>
-        <p>Hier stehen die zwei grundlegenden Ansätze des Erkenntnisprozesses im Fokus: die Induktion (Schluss vom Besonderen auf das Allgemeine) und die Deduktion (Schluss vom Allgemeinen auf das Besondere)</p>
-    </div>
-    <div class="topic-item">
-        <h3>Die drei Ziele der Wissenschaft und der Erkenntnisprozess</h3>
-        <p>Wissenschaft verfolgt die Ziele der Beschreibung (systematische Erfassung), Erklärung (Identifikation von Ursachen) und Vorhersage (Prognose zukünftiger Ereignisse) Dieser Prozess ist zyklisch aufgebaut und reicht von der ersten Beobachtung der Realität bis hin zur Prüfung entwickelter Theorien und Modelle</p>
-    </div>
-    <div class="topic-item">
-        <h3>Strategische Themenfindung und die Identifikation der Forschungslücke</h3>
-        <p> Die Entwicklung einer wissenschaftlichen Arbeit beginnt mit der Inspiration und führt über das Trichter-Modell zu einer präzisen Eingrenzung des Themas. Die Forschungslücke bildet dabei das Fundament, da sie ein bisher ungelöstes Problem adressiert und die Relevanz der eigenen Forschung sichert. </p>
-    </div>
-    <div class="topic-item">
-        <h3>Wissenschaftliche Qualität und Fehlerprävention</h3>
-        <p>Die Qualität einer Arbeit folgt dem Prinzip „Input vs. Output“, wonach das Verständnis der wissenschaftlichen Technik für hochwertige Ergebnisse unerlässlich ist. Gleichzeitig gilt es, typische Fehler wie Plagiate, fehlende „rote Fäden“ oder eine unklare Themeneingrenzung strikt zu vermeiden. </p>
-    </div>
+ <div class="topic-item">
+  <span class="topic-num">01</span>
+  <div class="topic-body">
+    <div class="topic-title">Grundlagen und Abgrenzung des wissenschaftlichen Arbeitens</div>
+    <div class="topic-sub">Dieses Thema definiert wissenschaftliches Arbeiten als Prozess der systematischen Erkenntnisgewinnung, der auf Regelbasiertheit, Nachvollziehbarkeit und Objektivität beruht.Ein wesentlicher Aspekt ist dabei die Abgrenzung zur Pseudowissenschaft, die sich durch fehlende empirische Evidenz und mangelnde Falsifizierbarkeit auszeichnet.</div>
+  </div>
 </div>
+
+<div class="topic-item">
+  <span class="topic-num">02</span>
+  <div class="topic-body">
+    <div class="topic-title">Wissenschaftliche Denkweisen und Qualitätskriterien</div>
+    <div class="topic-sub">Hier stehen die zwei grundlegenden Ansätze des Erkenntnisprozesses im Fokus: die Induktion (Schluss vom Besonderen auf das Allgemeine) und die Deduktion (Schluss vom Allgemeinen auf das Besondere).
+</div>
+  </div>
+</div>
+
+<div class="topic-item">
+  <span class="topic-num">03</span>
+  <div class="topic-body">
+    <div class="topic-title">Die drei Ziele der Wissenschaft und der Erkenntnisprozess</div>
+    <div class="topic-sub"> Wissenschaft verfolgt die Ziele der Beschreibung (systematische Erfassung), Erklärung (Identifikation von Ursachen) und Vorhersage (Prognose zukünftiger Ereignisse) Dieser Prozess ist zyklisch aufgebaut und reicht von der ersten Beobachtung der Realität bis hin zur Prüfung entwickelter Theorien und Modelle.
+
+</div>
+  </div>
+</div>
+
+<div class="topic-item">
+  <span class="topic-num">04</span>
+  <div class="topic-body">
+    <div class="topic-title">Strategische Themenfindung und die Identifikation der Forschungslücke</div>
+    <div class="topic-sub">Die Entwicklung einer wissenschaftlichen Arbeit beginnt mit der Inspiration und führt über das Trichter-Modell zu einer präzisen Eingrenzung des Themas. Die Forschungslücke bildet dabei das Fundament, da sie ein bisher ungelöstes Problem adressiert und die Relevanz der eigenen Forschung sichert.
+
+
+</div>
+  </div>
+</div>
+
+<div class="topic-item">
+  <span class="topic-num">05</span>
+  <div class="topic-body">
+    <div class="topic-title">Wissenschaftliche Qualität und Fehlerprävention</div>
+    <div class="topic-sub">Die Qualität einer Arbeit folgt dem Prinzip „Input vs. Output“, wonach das Verständnis der wissenschaftlichen Technik für hochwertige Ergebnisse unerlässlich ist. Gleichzeitig gilt es, typische Fehler wie Plagiate, fehlende „rote Fäden“ oder eine unklare Themeneingrenzung strikt zu vermeiden.
+
+
+</div>
+  </div>
+</div>
+
+     
 
       <!-- TAB: Inhalt -->
       <div class="tab-panel" id="tab-inhalt" role="tabpanel">
