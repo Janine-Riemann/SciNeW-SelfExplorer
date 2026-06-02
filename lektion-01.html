@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Lektion 1 – Self-Explorer</title>
+  <title>Etappe 1 – Self-Explorer</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
@@ -448,7 +448,73 @@
   .sg-table td:empty {
     display: none;
   }
-}
+}.study-guide { display: flex; flex-direction: column; gap: 1.5rem; margin: 1.5rem 0 2rem; }
+    .phase-block {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-sm);
+    }
+    .phase-header {
+      display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap;
+      padding: 1.1rem 1.5rem; background: rgba(116,194,168,0.06);
+      border-bottom: 1px solid var(--border);
+    }
+    .phase-badge {
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      background: var(--green); color: var(--dark); border-radius: 20px; padding: 0.3rem 0.85rem;
+    }
+    .phase-badge--orange { background: var(--orange); color: #fff; }
+    .phase-badge--purple { background: #7C6FCD; color: #fff; }
+    .phase-title { font-size: 1.05rem; font-weight: 600; color: var(--dark); }
+    .phase-time { font-size: 0.85rem; color: var(--muted); margin-left: auto; }
+    .phase-body { padding: 1.5rem; display: flex; flex-direction: column; gap: 1.25rem; }
+    .phase-body > p { font-size: 1rem; line-height: 1.7; color: #333; }
+
+    .sg-section-title {
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted);
+      margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border);
+    }
+    .sg-def-list { display: flex; flex-direction: column; gap: 0.75rem; }
+    .sg-def-item {
+      display: grid; grid-template-columns: 240px 1fr; gap: 0.5rem 1.5rem;
+      padding: 1rem 1.25rem; background: #F9F9F6; border-radius: 8px; font-size: 0.95rem; border: 1px solid var(--border);
+    }
+    @media(max-width:640px){ .sg-def-item { grid-template-columns: 1fr; } }
+    .sg-term { font-weight: 600; color: var(--dark); line-height: 1.5; }
+    .sg-def { color: #333; line-height: 1.6; }
+
+    .sg-card {
+      background: #F9F9F6; border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem;
+    }
+    .sg-card-title { font-size: 1.05rem; font-weight: 600; color: var(--dark); margin-bottom: 1rem; }
+    .sg-ul, .sg-ol { padding-left: 1.5rem; display: flex; flex-direction: column; gap: 0.5rem; }
+    .sg-ul li, .sg-ol li { font-size: 0.95rem; line-height: 1.65; color: #333; }
+    .sg-flow {
+      font-size: 1rem; font-weight: 600; color: var(--dark);
+      background: rgba(116,194,168,0.1); border-radius: 8px; padding: 0.8rem 1.25rem; text-align: center;
+    }
+    .sg-table-wrap { overflow-x: auto; border-radius: 12px; border: 1px solid var(--border); box-shadow: var(--shadow-sm); }
+    .sg-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; background: var(--surface); }
+    .sg-table thead tr { background: var(--dark); color: #fff; }
+    .sg-table th { padding: 1rem 1.25rem; text-align: left; font-weight: 600; font-size: 0.85rem; letter-spacing: 0.05em; text-transform: uppercase; }
+    .sg-table td { padding: 1rem 1.25rem; vertical-align: top; border-bottom: 1px solid var(--border); line-height: 1.6; color: #333; }
+    .sg-table tbody tr:last-child td { border-bottom: none; }
+    .sg-table tbody tr:nth-child(even) { background: rgba(116,194,168,0.02); }
+
+    .sg-repeat-list { display: flex; flex-direction: column; gap: 1rem; margin-top: 0.5rem; }
+    .sg-repeat-item {
+      display: flex; gap: 1.25rem; align-items: flex-start; padding: 1.25rem;
+      background: #F9F9F6; border-radius: 12px; font-size: 0.95rem; line-height: 1.6; color: #333; border: 1px solid var(--border);
+    }
+    .sg-repeat-badge {
+      flex-shrink: 0; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;
+      background: var(--green); color: var(--dark); border-radius: 20px; padding: 0.25rem 0.75rem; margin-top: 2px;
+    }
+    .sg-repeat-badge--light { background: #7C6FCD; color: #fff; }
+
+    .text-placeholder-box {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1.5rem; margin-top: 1rem; box-shadow: var(--shadow-sm);
+    }
   </style>
 </head>
 <body>
@@ -471,7 +537,7 @@
 
   <!-- SLIDE-IN BURGER MENU SIDEBAR -->
   <aside class="sidebar" id="sidebar">
-    <p class="sidebar-label">Lektionen</p>
+    <p class="sidebar-label">Etappen</p>
     <nav>
       <a href="lektion-01.html" class="active"><span class="num">01</span> Grundlagen wissenschaftlicher Arbeit</a>
       <a href="lektion-02.html"><span class="num">02</span> Fragen schärfen, Hypothesen schmieden</a>
@@ -595,147 +661,171 @@
               </details>
 
               <!-- ACCORDION 2: Zum Lesen -->
+                         
               <details class="accordion-item">
-                <summary>Zum Lesen 📖</summary>
-                <div class="accordion-content" style="padding-top: 0.5rem;">
+                <summary>Zum Lesen 📚</summary>
+                <div class="accordion-content">
                   
-                  <!-- Sektion 1: Schlüsselkonzepte erklärt -->
-                  <div class="sg-reading-section">
-                    <h3 class="sg-reading-title">Schlüsselkonzepte erklärt</h3>
-                    <ul class="sg-inner-list">
-                      <li><strong>Wissenschaftliches Arbeiten:</strong> Bezieht sich auf den Prozess der systematischen Erkenntnisgewinnung, der kontinuierliches Lesen, Schreiben und Üben erfordert und essenziell für das gesamte Studium ist<span class="sg-citation">(K01 p.5)</span>. Es geht darum, Wissen zu sammeln, zu ordnen und zu erklären, wobei Regelbasiertheit, Nachvollziehbarkeit und Objektivität zentrale Kriterien sind<span class="sg-citation">(K01 p.18)</span>.</li>
-                      <li><strong>Pseudowissenschaft:</strong> Beschreibt Theorien, Methoden oder Behauptungen, die den Anschein wissenschaftlicher Vorgehensweise erwecken, jedoch nicht den Standards der echten Wissenschaft entsprechen, oft durch fehlende empirische Evidenz oder Nicht-Falsifizierbarkeit gekennzeichnet<span class="sg-citation">(K01 p.17)</span>.</li>
-                      <li><strong>Induktion vs. Deduktion:</strong> Dies sind zwei grundlegende Denkansätze im wissenschaftlichen Erkenntnisprozess. <strong>Induktion</strong> schließt vom Besonderen (Beobachtungen/Empirie) auf das Allgemeine (Theorie), während <strong>Deduktion</strong> vom Allgemeinen (Theorie) auf das Besondere (Beobachtungen/Empirie) schließt<span class="sg-citation">(K01 p.24)</span>.</li>
-                      <li><strong>Ziele der Wissenschaft:</strong> Die drei Hauptebenen wissenschaftlicher Forschung umfassen die <strong>Beschreibung</strong> (systematische Erfassung von Merkmalen), die <strong>Erklärung</strong> (Identifikation von Ursache-Wirkungs-Zusammenhängen) und die <strong>Vorhersage</strong> (Prognose zukünftigen Verhaltens oder Ereignissen auf Basis gesicherter Zusammenhänge)<span class="sg-citation">(K01 p.29)</span>.</li>
-                      <li><strong>Forschungslücke (Research Gap):</strong> Definiert ein ungelöstes Problem oder einen Bereich, der in der bisherigen Forschung nicht ausreichend behandelt wurde und als Grundlage für eine neue, relevante wissenschaftliche Arbeit dient<span class="sg-citation">(K01 p.60)</span>.</li>
-                    </ul>
-                  </div>
+                  <!-- STUDY GUIDE INTEGRATION -->
+                  <div class="study-guide">
 
-                  <!-- Sektion 2: Schlüsselbegriffe -->
-                  <div class="sg-reading-section">
-                    <h3 class="sg-reading-title">Schlüsselbegriffe</h3>
-                    <ul class="sg-inner-list">
-                      <li><strong>Wissenschaftliches Arbeiten:</strong> Systematische Erkenntnisgewinnung; kontinuierliches Lesen und Schreiben; essenziell während des gesamten Studiums<span class="sg-citation">(K01 p.5)</span>.</li>
-                      <li><strong>Pseudowissenschaft:</strong> Theorien, Methoden oder Behauptungen, die den Anschein wissenschaftlicher Vorgehensweise erwecken, aber den Standards und Methoden der echten Wissenschaft nicht entsprechen<span class="sg-citation">(K01 p.17)</span>.</li>
-                      <li><strong>Systematisch (im wiss. Arbeiten):</strong> Regelbasiert und methodisch vorgehen; Wissen sammeln, ordnen und erklären<span class="sg-citation">(K01 p.18)</span>.</li>
-                      <li><strong>Objektiv prübbar (im wiss. Arbeiten):</strong> Unabhängig von persönlichen Meinungen<span class="sg-citation">(K01 p.18)</span>.</li>
-                      <li><strong>Falsizifierung:</strong> Das Kennzeichen wissenschaftlichen Fortschritts; liefert nur eine vorläufige Bestätigung ohne endgültige Sicherheit; Ablehnung bzw. Modifikation einer Theorie<span class="sg-citation">(K01 p.16)(K01 p.24)(K01 p.67)</span>.</li>
-                      <li><strong>Verifizieren:</strong> Vorläufige Bestätigung einer Theorie; wird von vielen als kein starkes Mittel wissenschaftlichen Fortschritts angesehen<span class="sg-citation">(K01 p.16)(K01 p.24)(K01 p.67)</span>.</li>
-                      <li><strong>Empirie:</strong> Die Grundlage, um Annahmen über das Verhalten von Menschen zu überprüfen (in der Psychologie)<span class="sg-citation">(K01 p.16)</span>.</li>
-                      <li><strong>Modell:</strong> Eine vereinfachte (aber kohärente) Auffassung eines Forschungsgegenstands (ein Auszug der Realität), die komplexe Sachverhalte verständlich macht<span class="sg-citation">(K01 p.16)(K01 p.69)</span>.</li>
-                      <li><strong>Theorie:</strong> Das systematische, nach bestimmten Prinzipien geordnete Beobachten und Erklären der Realität; schafft Erkenntnisse als Instrument zur Ordnung und Bewältigung des Alltags<span class="sg-citation">(K01 p.16)(K01 p.70)</span>.</li>
-                      <li><strong>Angewandte Wissenschaft:</strong> Disziplinen, die wissenschaftliche Erkenntnisse zur Lösung praktischer Probleme nutzen (z.B. Medizin, Wirtschaftspsychologie)<span class="sg-citation">(K01 p.67)</span>.</li>
-                      <li><strong>Grundlagenwissenschaft:</strong> Wissenschaftszweige mit weniger Anwendungsbezug<span class="sg-citation">(K01 p.67)</span>.</li>
-                      <li><strong>Forschung:</strong> Aspekte der Wissenschaft, die die Erzeugung von Wissen in den Vordergrund stellen<span class="sg-citation">(K01 p.67)</span>.</li>
-                      <li><strong>Wissenschaftliche Methode:</strong> Geprägt von dem Versuch, das Universum objektiv und reproduzierbar zu erklären<span class="sg-citation">(K01 p.67)</span>.</li>
-                      <li><strong>Reproduzieren:</strong> Prüfen des Vorgehens und der Berechnungen einer Studie<span class="sg-citation">(K01 p.20)(K01 p.74)</span>.</li>
-                      <li><strong>Replizieren:</strong> Wiederholen einer Studie exakt wie beschrieben und zum selben Ergebnis kommen<span class="sg-citation">(K01 p.20)(K01 p.74)</span>.</li>
-                      <li><strong>Induktion:</strong> Schlussfolgern vom Besonderen (Beobachtungen/Empirie) auf das Allgemeine (Theorie)<span class="sg-citation">(K01 p.24)(K01 p.74)</span>.</li>
-                      <li><strong>Deduktion:</strong> Schlussfolgern vom Allgemeinen (Theorie) auf das Besondere (Beobachtungen/Empirie)<span class="sg-citation">(K01 p.24)(K01 p.74)</span>.</li>
-                      <li><strong>Forschungslücke (Research Gap):</strong> Ein "Problem", das der Forscher angehen möchte; ungelöste Sachverhalte oder bislang nicht untersuchte Bereiche im Forschungsfeld<span class="sg-citation">(K01 p.60)(K01 p.62)</span>.</li>
-                      <li><strong>Ursache (U):</strong> Eine notwendige und/oder hinreichende Bedingung für das Eintreten eines Ereignisses E (Wirkung)<span class="sg-citation">(K01 p.71)</span>.</li>
-                      <li><strong>Zufall:</strong> Keine Ursache, sondern eine Umschreibung für die Tatsache, dass die Ursache unbekannt ist<span class="sg-citation">(K01 p.71)</span>.</li>
-                    </ul>
-                  </div>
-
-                  <!-- Sektion 3: Kernprozesse, Modelle & Regeln -->
-                  <div class="sg-reading-section">
-                    <h3 class="sg-reading-title">Kernprozesse, Modelle & Regeln</h3>
-                    
-                    <h4 style="margin: 1rem 0 0.5rem; font-size: 1.05rem; color: var(--dark);">Erkenntnisprozess: Von der Frage zur Theorie<span class="sg-citation">(K01 p.22)</span></h4>
-                    <ul class="sg-inner-list numbered">
-                      <li>Realität beschreiben (Was sehen wir?)</li>
-                      <li>Zusammenhänge erkennen (Warum passiert es?)</li>
-                      <li>Theorien & Modelle entwickeln (Erklärungsrahmen schaffen)</li>
-                      <li>Theorien & Modelle prüfen (Validieren & generalisieren)</li>
-                    </ul>
-
-                    <!-- Grafik: Ziele der Wissenschaft (Pyramide) -->
-                    <img src="{79699B30-26AB-4349-8156-6EDBB21E42DC}.png" alt="Ziele der Wissenschaft Pyramide" class="sg-reading-img" />
-
-                    <div class="sg-infobox">
-                      <h4>Beziehung zwischen Daten, Phänomenen und Theorien<span class="sg-citation">(K01 p.37)</span></h4>
-                      <ul class="sg-inner-list">
-                        <li><strong>Daten:</strong> Direkt messbar, aber flüchtig und nicht Gegenstand von Theorien (z.B. IQ-Testwerte).</li>
-                        <li><strong>Phänomene:</strong> Aus Daten erschlossen, stabil, klar und Gegenstand von Theorien (z.B. Flynn-Effekt).</li>
-                        <li><strong>Theorien:</strong> Erklären Phänomene (nicht Daten) und finden Ursachen oder erklären Streuungen (z.B. Ursachen des Flynn-Effekts).</li>
-                      </ul>
+                    <!-- PHASE 1 -->
+                    <div class="phase-block">
+                      <div class="phase-header">
+                        <span class="phase-badge">Phase 1</span>
+                        <span class="phase-title">Überprüfen &amp; Lernen</span>
+                        <span class="phase-time">&#9201; 60–90 Min.</span>
+                      </div>
+                      <div class="phase-body">
+                        <p>Beginne damit, den gesamten Inhalt in den nächsten 10–15 Minuten einmal zu überfliegen, um einen Überblick zu bekommen. Notiere dir dabei 3–5 Kernlernziele, die für dich am wichtigsten erscheinen oder am schwierigsten sind.</p>
+                        <p>Widme dich dann fokussierten Lernblöcken, z. B. <strong>25 Minuten Lernen, 5 Minuten Pause</strong> (Pomodoro-Technik), um die folgenden Schlüsselthemen zu vertiefen.</p>
+                      </div>
                     </div>
 
-                    <!-- Kettensymbol Grafik unter Erkenntnisprozess -->
-                    <img src="{CD615B7B-7219-4250-B97D-949DBF479878}.png" alt="Verknüpfung Symbol" class="sg-reading-img" style="max-width: 150px; opacity: 0.5;" />
+                    <!-- PHASE 2 -->
+                    <div class="phase-block">
+                      <div class="phase-header">
+                        <span class="phase-badge phase-badge--orange">Phase 2</span>
+                        <span class="phase-title">Schlüsselthemen &amp; Definitionen</span>
+                      </div>
+                      <div class="phase-body">
 
-                    <h4 style="margin: 1.25rem 0 0.5rem; font-size: 1.05rem; color: var(--dark);">Identifikation einer Forschungslücke (Techniken)<span class="sg-citation">(K01 p.61)</span></h4>
-                    
-                    <!-- Grafik: Trichter-Modell Kaffeefilter -->
-                    <img src="{6D50BE20-9FD9-4FF3-8E4F-8B0ADE3346CC}.png" alt="Identifikation einer Forschungslücke Kaffeefilter Modell" class="sg-reading-img" />
-                    
-                    <ul class="sg-inner-list">
-                      <li><strong>Passion:</strong> Interesse und Leidenschaft für das Thema.</li>
-                      <li><strong>Timely:</strong> Adressierung aktueller Diskussionen.</li>
-                      <li><strong>Necessary:</strong> Bearbeitung eines ernsthaften Problems (aus Forschung oder Praxis).</li>
-                      <li><strong>Gap:</strong> Identifikation durch tiefgreifende Literaturanalyse.</li>
-                    </ul>
+                        <h3 class="sg-section-title">Schlüsselbegriffe</h3>
+                        <div class="sg-def-list">
+                          <div class="sg-def-item"><span class="sg-term">Wissenschaftliches Arbeiten</span><span class="sg-def">Systematische Erkenntnisgewinnung durch kontinuierliches Lesen und Schreiben; essenziell während des gesamten Studiums.</span></div>
+                          <div class="sg-def-item"><span class="sg-term">Pseudowissenschaft</span><span class="sg-def">Theorien, Methoden oder Behauptungen, die den Anschein wissenschaftlicher Vorgehensweise erwecken, aber den Standards der echten Wissenschaft nicht entsprechen.</span></div>
+                          <div class="sg-def-item"><span class="sg-term">Falsifizierung</span><span class="sg-def">Das Kennzeichen wissenschaftlichen Fortschritts; liefert nur eine vorläufige Bestätigung ohne endgültige Sicherheit; Ablehnung bzw. Modifikation einer Theorie.</span></div>
+                          <div class="sg-def-item"><span class="sg-term">Verifizierung</span><span class="sg-def">Vorläufige Bestätigung einer Theorie; wird von vielen als kein starkes Mittel wissenschaftlichen Fortschritts angesehen.</span></div>
+                          <div class="sg-def-item"><span class="sg-term">Empirie</span><span class="sg-def">Die Grundlage, um Annahmen über das Verhalten von Menschen zu überprüfen (in der Psychologie).</span></div>
+                          <div class="sg-def-item"><span class="sg-term">Modell</span><span class="sg-def">Eine vereinfachte (aber kohärente) Auffassung eines Forschungsgegenstands (ein Auszug der Realität), die komplexe Sachverhalte verständlich macht.</span></div>
+                          <div class="sg-def-item"><span class="sg-term">Theorie</span><span class="sg-def">Das systematische, nach bestimmten Prinzipien geordnete Beobachten und Erklären der Realität; schafft Erkenntnisse als Instrument zur Ordnung und Bewältigung des Alltags.</span></div>
+                          <div class="sg-def-item"><span class="sg-term">Induktion</span><span class="sg-def">Schlussfolgern vom Besonderen (Beobachtungen/Empirie) auf das Allgemeine (Theorie).</span></div>
+                          <div class="sg-def-item"><span class="sg-term">Deduktion</span><span class="sg-def">Schlussfolgern vom Allgemeinen (Theorie) auf das Besondere (Beobachtungen/Empirie).</span></div>
+                          <div class="sg-def-item"><span class="sg-term">Forschungslücke (Research Gap)</span><span class="sg-def">Ein „Problem", das der Forscher angehen möchte; ungelöste Sachverhalte oder bislang nicht untersuchte Bereiche im Forschungsfeld.</span></div>
+                          <div class="sg-def-item"><span class="sg-term">Reproduzieren</span><span class="sg-def">Prüfen des Vorgehens und der Berechnungen einer Studie.</span></div>
+                          <div class="sg-def-item"><span class="sg-term">Replizieren</span><span class="sg-def">Wiederholen einer Studie exakt wie beschrieben und zum selben Ergebnis kommen.</span></div>
+                        </div>
 
-                    <h4 style="margin: 1.25rem 0 0.5rem; font-size: 1.05rem; color: var(--dark);">Ziele der Wissenschaft auf drei Ebenen<span class="sg-citation">(K01 p.29)</span></h4>
-                    <ul class="sg-inner-list numbered">
-                      <li><strong>Beschreibung (Deskription):</strong> Systematische Erfassung und Darstellung von Merkmalen oder Verhaltensweisen.</li>
-                      <li><strong>Erklärung (Kausalität):</strong> Identifikation von Ursache-Wirkungs-Zusammenhängen.</li>
-                      <li><strong>Vorhersage (Prognose):</strong> Vorhersage zukünftigen Verhaltens oder Ereignissen auf Basis gesicherter Zusammenhänge.</li>
-                    </ul>
+                        <h3 class="sg-section-title" style="margin-top:1.75rem;">Kernprozesse, Modelle &amp; Regeln</h3>
 
-                    <h4 style="margin: 1.25rem 0 0.5rem; font-size: 1.05rem; color: var(--dark);">Kreislauf der Wissenschaft<span class="sg-citation">(K01 p.36)</span></h4>
-                    <ul class="sg-inner-list">
-                      <li>Ein unendlicher Prozess, der mit einer Forschungsfrage beginnt und iterativ durch Literaturrecherche, Versuchsplanung, Durchführung, Datenanalyse und Interpretation verläuft.</li>
-                      <li>Vereinfacht: Fragen → Recherchieren → Planen → Durchführen → Analysieren → Antworten → (zurück zu) Fragen.</li>
-                    </ul>
+                        <div class="sg-card">
+                          <div class="sg-card-title">Erkenntnisprozess: Von der Frage zur Theorie</div>
+                          <ol class="sg-ol">
+                            <li>Realität beschreiben (Was sehen wir?)</li>
+                            <li>Zusammenhänge erkennen (Warum passiert es?)</li>
+                            <li>Theorien &amp; Modelle entwickeln (Erklärungsrahmen schaffen)</li>
+                            <li>Theorien &amp; Modelle prüfen (Validieren &amp; generalisieren)</li>
+                          </ol>
+                        </div>
 
-                    <!-- Grafik: Kreislauf Strahl Zeitachse -->
-                    <img src="{F1B8A8E1-B292-45E9-AFE0-5A5378A38119}.png" alt="Kreislauf der Wissenschaft Zeitachse" class="sg-reading-img" />
+                        <div class="sg-card">
+                          <div class="sg-card-title">Kreislauf der Wissenschaft</div>
+                          <p class="sg-flow">Fragen &rarr; Recherchieren &rarr; Planen &rarr; Durchführen &rarr; Analysieren &rarr; Antworten &rarr; (zurück zu) Fragen</p>
+                        </div>
 
-                    <h4 style="margin: 1.25rem 0 0.5rem; font-size: 1.05rem; color: var(--dark);">Vom Themengebiet zur Forschungsfrage (Trichter-Modell)<span class="sg-citation">(K01 p.47)</span></h4>
-                    <ul class="sg-inner-list">
-                      <li>Ein breites Themengebiet wird sukzessive durch Forschungslücke, Forschungsziel und schließlich eine präzise Forschungsfrage mit Hypothesen eingegrenzt, um die Exaktheit zu erhöhen.</li>
-                    </ul>
+                        <div class="sg-card">
+                          <div class="sg-card-title">Ziele der Wissenschaft (drei Ebenen)</div>
+                          <ul class="sg-ul">
+                            <li><strong>Beschreibung (Deskription):</strong> Systematische Erfassung und Darstellung von Merkmalen oder Verhaltensweisen. Leitfrage: „Was ist der Fall?"</li>
+                            <li><strong>Erklärung (Kausalität):</strong> Identifikation von Ursache-Wirkungs-Zusammenhängen. Leitfrage: „Warum ist es so?"</li>
+                            <li><strong>Vorhersage (Prognose):</strong> Vorhersage zukünftigen Verhaltens oder Ereignissen auf Basis gesicherter Zusammenhänge. Leitfrage: „Was wird passieren?"</li>
+                          </ul>
+                        </div>
+
+                        <div class="sg-card">
+                          <div class="sg-card-title">Vom Themengebiet zur Forschungsfrage (Trichter-Modell)</div>
+                          <ol class="sg-ol">
+                            <li><strong>Breites Themengebiet:</strong> Erste Inspirationen sammeln (aus Medien, Blogs, Fachliteratur).</li>
+                            <li><strong>Forschungslücke identifizieren (Research Gap):</strong> Einen bisher ungelösten oder unzureichend erforschten Bereich finden.</li>
+                            <li><strong>Forschungsziel festlegen:</strong> Definieren, was die eigene Arbeit konkret leisten soll.</li>
+                            <li><strong>Präzise Forschungsfrage &amp; Hypothesen:</strong> Exakte Fragestellung und operationalisierbare Annahmen formulieren.</li>
+                          </ol>
+                        </div>
+
+                        <div class="sg-card">
+                          <div class="sg-card-title">Identifikation einer Forschungslücke (Techniken)</div>
+                          <ul class="sg-ul">
+                            <li><strong>Passion:</strong> Persönliches Interesse und Leidenschaft für das Thema.</li>
+                            <li><strong>Timely:</strong> Adressierung aktueller Diskussionen.</li>
+                            <li><strong>Necessary:</strong> Bearbeitung eines ernsthaften Problems (aus Forschung oder Praxis).</li>
+                            <li><strong>Gap:</strong> Identifikation durch tiefgreifende Literaturanalyse.</li>
+                          </ul>
+                        </div>
+
+                        <h3 class="sg-section-title" style="margin-top:1.75rem;">Beziehung zwischen Daten, Phänomenen und Theorien</h3>
+                        <div class="sg-table-wrap">
+                          <table class="sg-table">
+                            <thead>
+                              <tr>
+                                <th>Begriff</th>
+                                <th>Beschreibung</th>
+                                <th>Beispiel</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td><strong>Daten</strong></td>
+                                <td>Direkt messbar, aber flüchtig und nicht Gegenstand von Theorien.</td>
+                                <td>IQ-Testwerte</td>
+                              </tr>
+                              <tr>
+                                <td><strong>Phänomene</strong></td>
+                                <td>Aus Daten erschlossen, stabil, klar und Gegenstand von Theorien.</td>
+                                <td>Flynn-Effekt</td>
+                              </tr>
+                              <tr>
+                                <td><strong>Theorien</strong></td>
+                                <td>Erklären Phänomene (nicht Daten) und finden Ursachen oder erklären Streuungen.</td>
+                                <td>Ursachen des Flynn-Effekts</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+
+                        <h3 class="sg-section-title" style="margin-top:1.75rem;">Wesentliche Fakten &amp; Daten</h3>
+                        <ul class="sg-ul">
+                          <li>Wissenschaftliche Qualität beruht auf dem Prinzip „Input vs. Output": Ein solides Verständnis der wissenschaftlichen Technik und Regeln ist für hochwertige Ergebnisse entscheidend.</li>
+                          <li>Häufige Fehler in wissenschaftlichen Arbeiten: fehlendes roter Faden, übermäßige direkte Zitate, Plagiat – unbedingt zu vermeiden.</li>
+                          <li>Wissenschaft ist ein systematischer und methodischer Prozess zur Gewinnung objektiv überprüfbarer Erkenntnisse über die Welt.</li>
+                          <li>Modelle dienen der Vereinfachung komplexer Sachverhalte; Theorien erklären Phänomene (nicht Rohdaten) durch die Suche nach Ursachen.</li>
+                          <li>Eine Forschungslücke ist die zentrale Grundlage für eine gute und einzigartige wissenschaftliche Arbeit.</li>
+                          <li>Grundlagenwissenschaft hat weniger Anwendungsbezug; angewandte Wissenschaft (z. B. Medizin, Wirtschaftspsychologie) nutzt wissenschaftliche Erkenntnisse zur Lösung praktischer Probleme.</li>
+                        </ul>
+
+                      </div>
+                    </div>
+
+                    <!-- PHASE 3 -->
+                    <div class="phase-block">
+                      <div class="phase-header">
+                        <span class="phase-badge phase-badge--purple">Phase 3</span>
+                        <span class="phase-title">Festigen &amp; Erinnern</span>
+                        <span class="phase-time">Nächste Schritte</span>
+                      </div>
+                      <div class="phase-body">
+                        <p>Um dein Wissen langfristig zu sichern, wende die Methode der <strong>gestaffelten Wiederholung</strong> an:</p>
+                        <div class="sg-repeat-list">
+                          <div class="sg-repeat-item">
+                            <span class="sg-repeat-badge">Morgen</span>
+                            <div><strong>10 Min.:</strong> Überprüfe deine „unklarsten Punkte" und versuche, sie vollständig zu klären. Beantworte die „Active Recall"-Aufforderungen erneut. Nutze dazu deine eigenen Worte.</div>
+                          </div>
+                          <div class="sg-repeat-item">
+                            <span class="sg-repeat-badge sg-repeat-badge--light">In 3 Tagen</span>
+                            <div><strong>5 Min.:</strong> Gehe die Liste der „Schlüsselthemen &amp; Definitionen" schnell durch. Versuche, die wichtigsten Begriffe aus dem Gedächtnis zu definieren, bevor du deine Notizen konsultierst.</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div><!-- /study-guide -->
+
+                  <div class="text-placeholder-box">
+                    <h3 style="font-size: 1.05rem; margin-bottom: 0.5rem; color: var(--dark);">Ergänzende Materialien:</h3>
+                    <p style="font-size: 0.92rem; color: var(--muted); line-height: 1.6;">Kornmeier, M. (2013). Wissenschaftlich schreiben leicht gemacht: Für Bachelor, Master und Dissertation (6. Aufl.). Haupt Verlag. – Kapitel 1 Grundlagen wissenschaftlicher Arbeit</p>
                   </div>
-
-                  <!-- Sektion 4: Hauptargumente & Kernaussagen -->
-                  <div class="sg-reading-section">
-                    <h3 class="sg-reading-title">Hauptargumente & Kernaussagen</h3>
-                    <ul class="sg-inner-list">
-                      <li><strong>Wissenschaftliche Qualität</strong> beruht auf dem Prinzip "Input vs. Output", was bedeutet, dass ein solides Verständnis der wissenschaftlichen "Technik" und Regeln für hochwertige Ergebnisse entscheidend ist<span class="sg-citation">(K01 p.8)</span>.</li>
-                      <li><strong>Wissenschaft</strong> ist ein systematischer und methodischer Prozess zur Gewinnung objektiv überprüfbarer Erkenntnisse über die Welt<span class="sg-citation">(K01 p.28)</span>.</li>
-                      <li>Der <strong>wissenschaftliche Erkenntnisprozess</strong> ist zyklisch, beginnend mit der Beschreibung der Realität, über das Erkennen von Zusammenhängen, die Entwicklung und Prüfung von Theorien und Modellen<span class="sg-citation">(K01 p.22)</span>.</li>
-                      <li><strong>Modelle</strong> dienen der Vereinfachung komplexer Sachverhalte und Theorien erklären Phänomene (nicht Rohdaten) durch die Suche nach Ursachen<span class="sg-citation">(K01 p.37)(K01 p.69)(K01 p.70)</span>.</li>
-                      <li>Die <strong>Themenfindung</strong> für wissenschaftliche Arbeiten erfordert Inspiration (z.B. aus Medien, Pop-Science-Büchern, Science Blogs) und eine präzise Eingrenzung des Themas auf Basis einer identifizierten Forschungslücke<span class="sg-citation">(K01 p.39)(K01 p.47)</span>.</li>
-                      <li>Eine <strong>Forschungslücke</strong> ist die zentrale Grundlage für eine gute und einzigartige wissenschaftliche Arbeit, da sie ein bisher unbeantwortetes Problem adressiert und die Relevanz der eigenen Forschung demonstriert<span class="sg-citation">(K01 p.60)(K01 p.62)</span>.</li>
-                      <li>Wissenschaftliches Arbeiten ist eine <strong>erlernbare Fähigkeit</strong>, die kontinuierliches Engagement erfordert und während des gesamten Studiums unerlässlich ist<span class="sg-citation">(K01 p.5)</span>.</li>
-                      <li>Es gibt <strong>häufige Fehler</strong> in wissenschaftlichen Arbeiten, wie das Fehlen eines roten Fadens, übermäßige direkte Zitate oder Plagiat, die unbedingt zu vermeiden sind<span class="sg-citation">(K01 p.6)(K01 p.7)</span>.</li>
-                    </ul>
-                    
-                    <!-- Zusätzliche Vorlagen-Grafiken als unterstützende Elemente platziert -->
-                    <img src="{E61A400B-4955-4896-B927-74E4E30BD566}.png" alt="Wissenschaftliche Qualität Grafik" class="sg-reading-img" />
-                    <img src="{601E8105-3348-4EB4-86E0-9330776405C7}.png" alt="Schlüsselbegriffe Übersicht" class="sg-reading-img" />
-                  </div>
-
-                  <!-- Sektion 5: Kontext & Bedeutung -->
-                  <div class="sg-reading-section">
-                    <h3 class="sg-reading-title">Kontext & Bedeutung</h3>
-                    <ul class="sg-inner-list">
-                      <li>Die Auseinandersetzung mit diesen Konzepten ist <strong>grundlegend</strong> für Studierende, um die Anforderungen an wissenschaftliche Arbeiten zu verstehen und die Fähigkeit zur kritischen Analyse und systematischen Erkenntnisgewinnung zu entwickeln.</li>
-                      <li>Das Wissen um wissenschaftliche Methoden und Fehlerquellen <strong>ermöglicht es, valide und replizierbare Forschung zu betreiben</strong>, was die Glaubwürdigkeit und den Wert akademischer Leistungen sichert.</li>
-                      <li>Die Betonung der <strong>Forschungslücke</strong> als Ausgangspunkt jeder Arbeit leitet zu relevanten und originellen Beiträgen zum jeweiligen Fachgebiet an, anstatt bereits Bekanntes zu wiederholen.</li>
-                      <li>Das Verständnis der <strong>Ziele der Wissenschaft</strong> hilft dabei, präzise Forschungsfragen zu formulieren und die Art der angestrebten Erkenntnisse klar zu definieren.</li>
-                    </ul>
-                    
-                    <!-- Letzte Vorlagen-Grafiken am Ende der Seite platziert -->
-                    <img src="{B5B83343-AAB7-449D-8A9D-2A889207B668}.png" alt="Kontext der Forschung" class="sg-reading-img" />
-                    <img src="{0D3F9AF5-969A-4839-8E5B-030AA03E4ED5}.png" alt="Zusammenfassung Bedeutung" class="sg-reading-img" />
-                  </div>
-
                 </div>
               </details>
-              
+
               <!-- ACCORDION 3: Zum sehen -->
               <details class="accordion-item">
                 <summary>Zm Sehen 👀
@@ -801,7 +891,7 @@
             <iframe
               class="uebungen-frame"
               src="uebungen/lektion-01-uebungen.html"
-              title="Übungen zu Lektion 1"
+              title="Übungen zu Etappe 1"
               loading="lazy"
             ></iframe>
           </div>
