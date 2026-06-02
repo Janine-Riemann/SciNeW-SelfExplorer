@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lektion 1 – SciNeW</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --green:    #74C2A8;
+      --dark:     #121616;
+      --orange:   #EE7050;
+      --bg:       #F5F5F0;
+      --surface:  #FFFFFF;
+      --border:   #E2E2DC;
+      --text:     #121616;
+      --muted:    #6B7280;
+      --sidebar-w: 320px;
+      --header-h:  72px;
+      --tab-h:     56px;
+      --radius:    16px;
+      --font: 'DM Sans', sans-serif;
+      --mono: 'DM Mono', monospace;
+      
+      --shadow-sm: 0 2px 8px rgba(18, 22, 22, 0.04);
+      --shadow-md: 0 10px 30px rgba(18, 22, 22, 0.05);
+      --shadow-lg: 0 20px 40px rgba(18, 22, 22, 0.12);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* TOP HEADER */
+    .top-header {
+      position: fixed; top: 0; left: 0; right: 0;
+      height: var(--header-h);
+      background: rgba(18, 22, 22, 0.9);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      display: flex; align-items: center; gap: 16px;
+      padding: 0 2rem;
+      border-bottom: 1px solid rgba(116,194,168,0.12);
+      z-index: 100;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    }
+    .header-left { display: flex; align-items: center; gap: 1.25rem; }
+    
+    /* BURGER-BUTTON */
+    .burger-btn {
+      background: none; border: none; cursor: pointer;
+      display: flex; flex-direction: column; gap: 6px; padding: 8px;
+      border-radius: 8px;
+      transition: background 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .burger-btn:hover { background: rgba(116,194,168,0.12); }
+    .burger-btn span {
+      display: block; width: 22px; height: 2px;
+      background: var(--green); border-radius: 2px;
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s;
+    }
+    .burger-btn.open span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+    .burger-btn.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .burger-btn.open span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+    .site-brand {
+      display: flex; align-items: center; gap: 12px;
+      font-size: 1.1rem; font-weight: 700; color: #fff;
+      letter-spacing: -0.03em; text-decoration: none;
+    }
+    .site-brand img {
+      width: 36px; height: 36px;
+      border-radius: 50%; object-fit: cover;
+      box-shadow: 0 0 0 2px rgba(114, 194, 168, 0.4);
+    }
+
+    .topbar-nav { margin-left: auto; }
+    .topbar-nav a {
+      font-size: 0.9rem; font-weight: 500;
+      color: rgba(255, 255, 255, 0.9);
+      padding: 8px 16px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: all 0.25s ease;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    .topbar-nav a:hover {
+      color: #fff;
+      background: rgba(116,194,168,0.15);
+      border-color: rgba(116,194,168,0.3);
+    }
+
+    /* SIDEBAR (HOHER KONTRAST FÜR SONNENLICHT) */
+    .sidebar {
+      position: fixed; top: var(--header-h); 
+      left: calc(-1 * var(--sidebar-w));
+      bottom: 0;
+      width: var(--sidebar-w);
+      background: var(--dark);
+      padding: 2.5rem 0;
+      overflow-y: auto;
+      transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+      z-index: 90;
+      box-shadow: var(--shadow-lg);
+    }
+    .sidebar.open { transform: translateX(var(--sidebar-w)); }
+
+    .sidebar-label {
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 0.15em;
+      color: rgba(255, 255, 255, 0.6); /* Helleres Label für bessere Lesbarkeit */
+      text-transform: uppercase;
+      padding: 0 2rem; margin-bottom: 1.25rem;
+    }
+    .sidebar nav { display: flex; flex-direction: column; gap: 6px; padding: 0 1rem; }
+    
+    /* Inaktive Links: Kontrast massiv erhöht */
+    .sidebar nav a {
+      display: flex; align-items: center; gap: 1rem;
+      padding: 0.95rem 1.25rem;
+      font-size: 0.95rem; 
+      color: rgba(255, 255, 255, 0.95); /* Fast reines Weiß für maximalen Kontrast */
+      text-decoration: none;
+      border-radius: 10px;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .sidebar nav a:hover { 
+      background: rgba(255, 255, 255, 0.1); 
+      color: #fff; 
+    }
+    
+    /* Aktiver Link: Starker Kontrast (Dunkle Schrift auf Mintgrün) */
+    .sidebar nav a.active {
+      color: var(--dark);
+      background: var(--green);
+      font-weight: 700;
+    }
+    
+    /* Inaktive Nummern: Verwenden jetzt das helle Mintgrün für bessere Sichtbarkeit */
+    .sidebar nav a .num {
+      font-size: 0.8rem; font-family: var(--mono); font-weight: 600;
+      color: var(--green); min-width: 1.5rem;
+      opacity: 0.9;
+    }
+    /* Aktive Nummer: Wird dunkel auf hellem Grund */
+    .sidebar nav a.active .num { 
+      color: var(--dark); 
+      opacity: 0.8; 
+    }
+
+    /* OVERLAY */
+    .sidebar-overlay {
+      display: none; position: fixed; inset: 0; background: rgba(18, 22, 22, 0.3);
+      z-index: 80; opacity: 0; transition: opacity 0.4s ease;
+      backdrop-filter: blur(4px);
+    }
+    .sidebar-overlay.show { display: block; opacity: 1; }
+
+    /* MAIN AREA */
+    .main-wrap {
+      margin-top: var(--header-h);
+      flex: 1; display: flex; flex-direction: column;
+      background: #F8FAF9;
+    }
+
+    .lesson-content-container {
+      width: 100%;
+      max-width: 960px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      padding: 2rem 1.5rem;
+    }
+
+    /* HERO BEREICH */
+    .lesson-hero {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 3rem 3rem 0;
+      width: 100%;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-sm);
+      margin-bottom: 1.5rem;
+    }
+    .chapter-badge {
+      display: inline-block;
+      font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em;
+      text-transform: uppercase;
+      background: rgba(116,194,168,0.1);
+      color: #4f9880;
+      border: 1px solid rgba(116,194,168,0.25);
+      border-radius: 30px;
+      padding: 0.35rem 1rem;
+      margin-bottom: 1.25rem;
+    }
+    .lesson-title {
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      font-weight: 700; letter-spacing: -0.04em;
+      color: var(--dark); margin-bottom: 0.75rem;
+      line-height: 1.15;
+    }
+    .lesson-subtitle {
+      font-size: 1rem; color: var(--muted); margin-bottom: 2.5rem;
+      max-width: 700px; line-height: 1.6;
+    }
+
+    /* TABS */
+    .tab-nav {
+      display: flex; gap: 8px;
+      border-bottom: 1px solid var(--border);
+      overflow-x: auto; scrollbar-width: none;
+    }
+    .tab-nav::-webkit-scrollbar { display: none; }
+    .tab-btn {
+      background: none; border: none; cursor: pointer;
+      font-family: var(--font); font-size: 0.95rem; font-weight: 500;
+      color: var(--muted);
+      padding: 0 1.5rem; height: var(--tab-h);
+      white-space: nowrap;
+      border-bottom: 3px solid transparent;
+      transition: all 0.2s ease;
+      position: relative; bottom: -1px;
+    }
+    .tab-btn:hover { color: var(--dark); }
+    .tab-btn.active { 
+      color: var(--dark); 
+      border-bottom-color: var(--green); 
+      font-weight: 600;
+    }
+
+    .tab-content { width: 100%; flex: 1; }
+    .tab-panel { display: none; animation: fadeIn 0.4s ease-out; }
+    .tab-panel.active { display: block; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* KERNTHEMEN LISTE */
+    .topic-list { display: flex; flex-direction: column; gap: 1rem; }
+    .topic-item {
+      display: grid;
+      grid-template-columns: auto auto 1fr;
+      gap: 0.5rem 1.25rem;
+      padding: 1.5rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-sm);
+      cursor: pointer;
+      transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.25s, box-shadow 0.25s;
+    }
+    .topic-item:hover { 
+      border-color: var(--green); 
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+    
+    .topic-checkbox {
+      width: 1.5rem; height: 1.5rem;
+      border: 2px solid var(--border);
+      border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.2s ease;
+      margin-top: 2px;
+    }
+    .topic-item:hover .topic-checkbox { border-color: var(--green); }
+    
+    .topic-item.checked {
+      background: rgba(116,194,168,0.03);
+      border-color: rgba(116,194,168,0.3);
+      box-shadow: none;
+    }
+    .topic-item.checked .topic-checkbox {
+      background: var(--green);
+      border-color: var(--green);
+    }
+    .topic-item.checked .topic-checkbox::before {
+      content: '✓'; color: var(--dark); font-size: 0.9rem; font-weight: bold;
+    }
+    .topic-item.checked .topic-title {
+      color: var(--muted); text-decoration: line-through; opacity: 0.7;
+    }
+    .topic-item.checked .topic-sub { opacity: 0.6; }
+
+    .topic-num {
+      font-family: var(--mono); font-size: 0.8rem; font-weight: 500;
+      color: var(--green); padding-top: 4px;
+    }
+    .topic-title { font-size: 1.05rem; font-weight: 600; margin-bottom: 0.4rem; color: var(--dark); letter-spacing: -0.01em; }
+    .topic-sub { font-size: 0.9rem; color: var(--muted); line-height: 1.6; }
+
+    /* ACCORDIONS (INPUT TAB) */
+    .accordion-container { display: flex; flex-direction: column; gap: 1rem; margin-top: 1rem; }
+    .accordion-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-sm);
+      overflow: hidden;
+      transition: all 0.25s ease;
+    }
+    .accordion-item:hover { border-color: var(--green); box-shadow: var(--shadow-md); }
+    
+    .accordion-item summary {
+      padding: 1.5rem; font-size: 1.1rem; font-weight: 600; color: var(--dark);
+      cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; user-select: none;
+    }
+    .accordion-item summary::-webkit-details-marker { display: none; }
+    .accordion-item summary::after {
+      content: '＋'; font-size: 1.1rem; color: var(--green); font-weight: bold; transition: transform 0.3s ease;
+    }
+    .accordion-item[open] summary::after { content: '－'; transform: rotate(180deg); }
+    
+    .accordion-content {
+      padding: 0 1.5rem 1.5rem 1.5rem;
+      border-top: 1px solid var(--border);
+      background: #FCFDFD;
+    }
+    
+    .audio-summary-placeholder {
+      font-size: 0.9rem; color: var(--muted);
+      background: #F5F5F0; border-left: 3px solid var(--green);
+      padding: 1rem; margin-top: 0.75rem; border-radius: 0 10px 10px 0;
+      line-height: 1.5;
+    }
+    .text-placeholder-box {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1.5rem; margin-top: 1rem; box-shadow: var(--shadow-sm);
+    }
+
+    .prose h2 { font-size: 1.5rem; font-weight: 700; margin: 0.5rem 0 1rem; letter-spacing: -0.03em; color: var(--dark); }
+    .prose p { font-size: 1rem; line-height: 1.75; color: #333; margin-bottom: 1.25rem; }
+    
+    /* AUDIO BLOCK */
+    .audio-block {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1.25rem; margin: 1.25rem 0; box-shadow: var(--shadow-sm);
+    }
+    .audio-label {
+      font-size: 0.75rem; font-weight: 700; color: var(--muted);
+      text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.25rem;
+    }
+    .audio-block audio { display: block; width: 100%; margin-top: 0.75rem; outline: none; }
+
+    /* MEDIEN-GRID */
+    .video-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.25rem; margin-top: 1.25rem; }
+    .video-card {
+      border-radius: 12px; overflow: hidden;
+      border: 1px solid var(--border); background: var(--surface); text-decoration: none; color: var(--text);
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1); display: block; box-shadow: var(--shadow-sm);
+    }
+    .video-card:hover { border-color: var(--green); transform: translateY(-3px); box-shadow: var(--shadow-md); }
+    .video-thumb { position: relative; aspect-ratio: 16/9; background: #000; }
+    .video-thumb img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease; }
+    .video-card:hover .video-thumb img { transform: scale(1.03); }
+    .play-icon { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
+    .play-icon circle { transition: fill 0.2s ease; }
+    .video-card:hover .play-icon circle { fill: var(--green); }
+    .video-card:hover .play-icon polygon { fill: var(--dark); }
+    .video-label { padding: 0.85rem 1rem; font-size: 0.9rem; font-weight: 600; line-height: 1.4; color: var(--dark); }
+
+    /* ÜBUNGEN */
+    .uebungen-wrapper {
+      overflow: hidden; border-radius: var(--radius);
+      background: var(--surface); border: 1px solid var(--border); box-shadow: var(--shadow-sm);
+    }
+    .uebungen-frame { width: 100%; min-height: 600px; border: none; display: block; background: var(--surface); }
+
+    .section-heading {
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--muted); margin: 0.5rem 0 1.5rem;
+    }
+
+    /* RESPONSIVITÄT */
+    @media (max-width: 1000px) {
+      .lesson-content-container { padding: 1rem 0; }
+      .lesson-hero { border-radius: 0; border-left: none; border-right: none; padding: 2.5rem 1.5rem 0; }
+      .tab-content { padding: 1.5rem 1rem; }
+    }
+    @media (max-width: 600px) {
+      .top-header { padding: 0 1rem; }
+      .lesson-hero { padding: 2rem 1rem 0; }
+      .tab-btn { padding: 0 1rem; font-size: 0.88rem; }
+      .topic-item { padding: 1.25rem; grid-template-columns: auto 1fr; }
+      .topic-num { display: none; }
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 8px; height: 8px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: rgba(18, 22, 22, 0.1); border-radius: 99px; }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(116, 194, 168, 0.4); }
+  </style>
+</head>
+<body>
+
+  <!-- PLATFORM HEADER -->
+  <header class="top-header">
+    <div class="header-left">
+      <button class="burger-btn" id="burgerBtn" aria-label="Menü öffnen/schließen">
+        <span></span><span></span><span></span>
+      </button>
+      <a href="index.html" class="site-brand">
+        <img src="Logo_klein.png" alt="SciNeW Logo" />
+        <span>SciNeW</span>
+      </a>
+    </div>
+    <nav class="topbar-nav">
+      <a href="index.html">Startseite</a>
+    </nav>
+  </header>
+
+  <!-- SLIDE-IN BURGER MENU SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <p class="sidebar-label">Lektionen</p>
+    <nav>
+      <a href="lektion-01.html" class="active"><span class="num">01</span> Grundlagen wissenschaftlicher Arbeit</a>
+      <a href="lektion-02.html"><span class="num">02</span> Fragen schärfen, Hypothesen schmieden</a>
+      <a href="lektion-03.html"><span class="num">03</span> Zielsicher recherchieren</a>
+      <a href="lektion-04.html"><span class="num">04</span> Klug lesen</a>
+      <a href="lektion-05.html"><span class="num">05</span> Theorie fundiert aufbauen</a>
+      <a href="lektion-06.html"><span class="num">06</span> Sauber zitieren</a>
+      <a href="lektion-07.html"><span class="num">07</span> Methoden und Daten überblicken</a>
+      <a href="lektion-08.html"><span class="num">08</span> Ergebnisse deuten</a>
+      <a href="lektion-09.html"><span class="num">09</span> Abschluss feinschleifen</a>
+    </nav>
+  </aside>
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <!-- ARBEITSBEREICH -->
+  <main class="main-wrap">
+    <div class="lesson-content-container">
+      
+      <!-- HERO BEREICH -->
+      <div class="lesson-hero">
+        <span class="chapter-badge">Lektion 1</span>
+        <h1 class="lesson-title">Grundlagen wissenschaftlicher Arbeit</h1>
+        <p class="lesson-subtitle">
+          Was ist Wissenschaft? Erkenntnistheorie, Gütekriterien und der Unterschied
+          zwischen Alltagswissen und empirischem Wissen.
+        </p>
+        <div class="tab-nav" role="tablist">
+          <button class="tab-btn active" role="tab" data-tab="kernthemen">Kernthemen</button>
+          <button class="tab-btn" role="tab" data-tab="input">Input</button>
+          <button class="tab-btn" role="tab" data-tab="uebungen">Übungen</button>
+        </div>
+      </div>
+
+      <!-- INHALTE-TABS -->
+      <div class="tab-content">
+
+        <!-- TAB PANEL 1: KERNTHEMEN -->
+        <div class="tab-panel active" id="tab-kernthemen" role="tabpanel">
+          <p class="section-heading">Kernthemen</p>
+          <div class="topic-list">
+            
+            <div class="topic-item">
+              <span class="topic-num">01</span>
+              <div class="topic-body">
+                <div class="topic-title">Grundlagen und Abgrenzung des wissenschaftlichen Arbeitens</div>
+                <div class="topic-sub">Dieses Thema definiert wissenschaftliches Arbeiten als Prozess der systematischen Erkenntnisgewinnung, der auf Regelbasiertheit, Nachvollziehbarkeit und Objektivität beruht. Ein wesentlicher Aspekt ist dabei die Abgrenzung zur Pseudowissenschaft, die sich durch fehlende empirische Evidenz und mangelnde Falsifizierbarkeit auszeichnet.</div>
+              </div>
+            </div>
+
+            <div class="topic-item">
+              <span class="topic-num">02</span>
+              <div class="topic-body">
+                <div class="topic-title">Wissenschaftliche Denkweisen und Qualitätskriterien</div>
+                <div class="topic-sub">Hier stehen die zwei grundlegenden Ansätze des Erkenntnisprozesses im Fokus: die Induktion (Schluss vom Besonderen auf das Allgemeine) und die Deduktion (Schluss vom Allgemeinen auf das Besondere).</div>
+              </div>
+            </div>
+
+            <div class="topic-item">
+              <span class="topic-num">03</span>
+              <div class="topic-body">
+                <div class="topic-title">Die drei Ziele der Wissenschaft und der Erkenntnisprozess</div>
+                <div class="topic-sub">Wissenschaft verfolgt die Ziele der Beschreibung (systematische Erfassung), Erklärung (Identifikation von Ursachen) und Vorhersage (Prognose zukünftiger Ereignisse). Dieser Prozess ist zyklisch aufgebaut und reicht von der ersten Beobachtung der Realität bis hin zur Prüfung entwickelter Theorien und Modelle.</div>
+              </div>
+            </div>
+
+            <div class="topic-item">
+              <span class="topic-num">04</span>
+              <div class="topic-body">
+                <div class="topic-title">Strategische Themenfindung und die Identifikation der Forschungslücke</div>
+                <div class="topic-sub">Die Entwicklung einer wissenschaftlichen Arbeit beginnt mit der Inspiration und führt über das Trichter-Modell zu einer präzisen Eingrenzung des Themas. Die Forschungslücke bildet dabei das Fundament, da sie ein bisher ungelöstes Problem adressiert und die Relevanz der eigenen Forschung sichert.</div>
+              </div>
+            </div>
+
+            <div class="topic-item">
+              <span class="topic-num">05</span>
+              <div class="topic-body">
+                <div class="topic-title">Wissenschaftliche Qualität und Fehlerprävention</div>
+                <div class="topic-sub">Die Qualität einer Arbeit folgt dem Prinzip „Input vs. Output“, wonach das Verständnis der wissenschaftlichen Technik für hochwertige Ergebnisse unerlässlich ist. Gleichzeitig gilt es, typische Fehler wie Plagiate, fehlende „rote Fäden“ oder eine unklare Themeneingrenzung strikt zu vermeiden.</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        
+        <!-- TAB PANEL 2: INPUT ACCORDIONS -->
+        <div class="tab-panel" id="tab-input" role="tabpanel">
+          <div class="prose">
+            <h2>Was ist Wissenschaft?</h2>
+            <p>Hier finden Sie alle Lernmaterialien für diese Lektion, aufgeteilt in übersichtliche Kategorien.</p>
+            
+            <div class="accordion-container">
+              
+              <!-- ACCORDION 1: Zum Anhören -->
+              <details class="accordion-item">
+                <summary>Zum Anhören</summary>
+                <div class="accordion-content">
+                  <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--muted);">Dieser Inhalt wird Ihnen als Podcasts zur Verfügung gestellt.</p>
+                  
+                  <div class="audio-block">
+                    <div class="audio-label">Teil 1</div>
+                    <audio controls preload="metadata" src="audio/lektion1-teil1.mp3"></audio>
+                    <div class="audio-summary-placeholder">
+                      <strong>Zusammenfassung (Platzhalter):</strong> Hier folgt eine kurze Beschreibung der Kernpunkte und Themen, die in der ersten Audiodatei besprochen werden.
+                    </div>
+                  </div>
+
+                  <div class="audio-block">
+                    <div class="audio-label">Teil 2</div>
+                    <audio controls preload="metadata" src="audio/lektion1-teil2.mp3"></audio>
+                    <div class="audio-summary-placeholder">
+                      <strong>Zusammenfassung (Platzhalter):</strong> Hier folgt eine kurze Beschreibung der Kernpunkte und Themen, die in der zweiten Audiodatei besprochen werden.
+                    </div>
+                  </div>
+
+                  <div class="audio-block">
+                    <div class="audio-label">Teil 3</div>
+                    <audio controls preload="metadata" src="audio/lektion1-teil3.mp3"></audio>
+                    <div class="audio-summary-placeholder">
+                      <strong>Zusammenfassung (Platzhalter):</strong> Hier folgt eine kurze Beschreibung der Kernpunkte und Themen, die in der dritten Audiodatei besprochen werden.
+                    </div>
+                  </div>
+                </div>
+              </details>
+
+              <!-- ACCORDION 2: Zum Lesen -->
+              <details class="accordion-item">
+                <summary>Zum Lesen</summary>
+                <div class="accordion-content">
+                  <div class="text-placeholder-box">
+                    <h3 style="font-size: 1.05rem; margin-bottom: 0.5rem; color: var(--dark);">Textblock 1: Einführung & Definitionen (Platzhalter)</h3>
+                    <p style="font-size: 0.92rem; color: var(--muted); line-height: 1.6;">Hier kannst du zukünftig Begleitkapitel, Skripte oder wichtige Definitionen als Text hinterlegen. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                  </div>
+                  
+                  <div class="text-placeholder-box">
+                    <h3 style="font-size: 1.05rem; margin-bottom: 0.5rem; color: var(--dark);">Textblock 2: Vertiefung des Wochenthemas (Platzhalter)</h3>
+                    <p style="font-size: 0.92rem; color: var(--muted); line-height: 1.6;">Ein weiterer Bereich für zusätzliche Lektüre, Erklärungen oder Leitfäden zum wissenschaftlichen Arbeiten. Ut enim ad minim veniam, quis nostrud exercitation.</p>
+                  </div>
+                </div>
+              </details>
+
+              <!-- ACCORDION 3: Zusätzliche Materialien & Medien -->
+              <details class="accordion-item">
+                <summary>Zusätzliche Materialien</summary>
+                <div class="accordion-content" style="padding-top: 1.25rem;">
+                  
+                  <div style="background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem; margin-bottom: 1.5rem; box-shadow: var(--shadow-sm);">
+                    <p style="font-size: 0.95rem; line-height: 1.6;">
+                      <strong>Ergänzende Materialien:</strong><br>
+                      Jhangiani, R. S., Chiang, I. C. A., Cuttler, C., & Leighton, D. C. (2019). Research methods in psychology Kwantlen Polytechnic University. - Chapter I The Science of Psychology (pp.3-21)
+                    </p>
+                    <hr style="border: 0; border-top: 1px solid var(--border); margin: 1rem 0;">
+                    <p style="font-size: 0.95rem; line-height: 1.6;">
+                      <strong>Zusätzliche Links:</strong><br>
+                      <a href="https://xn--kreativittstechniken-jzb.info/problem-verstehen/mindmapping/" target="_blank" style="color: var(--green); text-decoration: underline;">Kreativtechnik: Mindmapping</a><br>
+                      <a href="https://www.scribbr.de/anfang-abschlussarbeit/forschungsfrage-formulieren/" target="_blank" style="color: var(--green); text-decoration: underline;">Forschungsfragen formulieren</a>
+                    </p>
+                  </div>
+
+                  <p style="font-size: 0.95rem; font-weight: 600; margin-bottom: 0.5rem; color: var(--dark);">Zusätzliche Videos:</p>
+                  
+                  <div class="video-grid">
+                    <a class="video-card" href="https://www.youtube.com/watch?v=rMkulFSorkk" target="_blank" rel="noopener">
+                      <div class="video-thumb">
+                        <img src="https://img.youtube.com/vi/rMkulFSorkk/hqdefault.jpg" alt="Was ist eine Theorie?" loading="lazy">
+                        <div class="play-icon">
+                          <svg width="48" height="48" viewBox="0 0 48 48"><circle cx="24" cy="24" r="24" fill="rgba(18,22,22,0.7)"/><polygon points="19,15 37,24 19,33" fill="#74C2A8"/></svg>
+                        </div>
+                      </div>
+                      <div class="video-label">Shribe: Was ist eine Theorie?</div>
+                    </a>
+
+                    <a class="video-card" href="https://www.youtube.com/watch?v=RbljxXTedr8&list=PLh8TR0YQogH_JCWX3o4gO8u0LQt6vYGhR" target="_blank" rel="noopener">
+                      <div class="video-thumb">
+                        <img src="https://img.youtube.com/vi/RbljxXTedr8/hqdefault.jpg" alt="Was ist ein Modell?" loading="lazy">
+                        <div class="play-icon">
+                          <svg width="48" height="48" viewBox="0 0 48 48"><circle cx="24" cy="24" r="24" fill="rgba(18,22,22,0.7)"/><polygon points="19,15 37,24 19,33" fill="#74C2A8"/></svg>
+                        </div>
+                      </div>
+                      <div class="video-label">Shribe: Was ist ein Modell?</div>
+                    </a>
+
+                    <a class="video-card" href="https://www.youtube.com/watch?v=9Tq37Vl0QRc" target="_blank" rel="noopener">
+                      <div class="video-thumb">
+                        <img src="https://img.youtube.com/vi/9Tq37Vl0QRc/hqdefault.jpg" alt="SCIENCE IN A MINUTE" loading="lazy">
+                        <div class="play-icon">
+                          <svg width="48" height="48" viewBox="0 0 48 48"><circle cx="24" cy="24" r="24" fill="rgba(18,22,22,0.7)"/><polygon points="19,15 37,24 19,33" fill="#74C2A8"/></svg>
+                        </div>
+                      </div>
+                      <div class="video-label">SCIENCE IN A MINUTE: Peer-Reviewed?</div>
+                    </a>
+
+                    <a class="video-card" href="https://www.youtube.com/watch?v=sDG5YLbCvU8" target="_blank" rel="noopener">
+                      <div class="video-thumb">
+                        <img src="https://img.youtube.com/vi/sDG5YLbCvU8/hqdefault.jpg" alt="Induktion vs Deduktion" loading="lazy">
+                        <div class="play-icon">
+                          <svg width="48" height="48" viewBox="0 0 48 48"><circle cx="24" cy="24" r="24" fill="rgba(18,22,22,0.7)"/><polygon points="19,15 37,24 19,33" fill="#74C2A8"/></svg>
+                        </div>
+                      </div>
+                      <div class="video-label">Shribe: Induktion vs. Deduktion</div>
+                    </a>
+                  </div>
+
+                </div>
+              </details>
+
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB PANEL 3: ÜBUNGEN -->
+        <div class="tab-panel" id="tab-uebungen" role="tabpanel">
+          <div class="uebungen-wrapper">
+            <iframe
+              class="uebungen-frame"
+              src="uebungen/lektion-01-uebungen.html"
+              title="Übungen zu Lektion 1"
+              loading="lazy"
+            ></iframe>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+
+  <script>
+    /* Burger-Button & Slide-In Navigation */
+    const burgerBtn      = document.getElementById('burgerBtn');
+    const sidebar        = document.getElementById('sidebar');
+    const sidebarOverlay = document.getElementById('sidebarOverlay');
+
+    function toggleSidebar() {
+      const open = sidebar.classList.toggle('open');
+      burgerBtn.classList.toggle('open', open);
+      sidebarOverlay.classList.toggle('show', open);
+      document.body.style.overflow = open ? 'hidden' : '';
+    }
+    burgerBtn.addEventListener('click', toggleSidebar);
+    sidebarOverlay.addEventListener('click', toggleSidebar);
+
+    /* Tab-Umschaltung */
+    const tabBtns   = document.querySelectorAll('.tab-btn');
+    const tabPanels = document.querySelectorAll('.tab-panel');
+
+    tabBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const target = btn.dataset.tab;
+        tabBtns.forEach(b => b.classList.remove('active'));
+        tabPanels.forEach(p => p.classList.remove('active'));
+        btn.classList.add('active');
+        document.getElementById('tab-' + target).classList.add('active');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    });
+
+    /* Kernthemen Checkbox LocalStorage Sync */
+    const TOPIC_STORAGE_KEY = 'scnew-kernthemen-checked';
+    const topicItems = document.querySelectorAll('#tab-kernthemen .topic-item');
+
+    function loadTopicState() {
+      try { return JSON.parse(localStorage.getItem(TOPIC_STORAGE_KEY)) || []; }
+      catch { return []; }
+    }
+
+    function saveTopicState(state) {
+      localStorage.setItem(TOPIC_STORAGE_KEY, JSON.stringify(state));
+    }
+
+    function syncTopicState() {
+      const checked = loadTopicState();
+      topicItems.forEach((item, index) => {
+        item.dataset.topicIndex = index;
+        item.classList.toggle('checked', !!checked[index]);
+        item.setAttribute('role', 'button');
+        item.setAttribute('tabindex', '0');
+        item.setAttribute('aria-pressed', checked[index] ? 'true' : 'false');
+        if (!item.querySelector('.topic-checkbox')) {
+          const checkbox = document.createElement('span');
+          checkbox.className = 'topic-checkbox';
+          item.prepend(checkbox);
+        }
+      });
+    }
+
+    function toggleTopicItem(item) {
+      const index = Number(item.dataset.topicIndex);
+      const current = loadTopicState();
+      current[index] = !current[index];
+      saveTopicState(current);
+      item.classList.toggle('checked', !!current[index]);
+      item.setAttribute('aria-pressed', current[index] ? 'true' : 'false');
+    }
+
+    topicItems.forEach(item => {
+      item.addEventListener('click', () => toggleTopicItem(item));
+      item.addEventListener('keydown', event => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          toggleTopicItem(item);
+        }
+      });
+    });
+
+    syncTopicState();
+
+    /* iframe Auto-Resize */
+    function resizeIframe(iframe) {
+      try {
+        const h = iframe.contentWindow.document.documentElement.scrollHeight
+                  || iframe.contentWindow.document.body.scrollHeight;
+        if (h > 100) iframe.style.height = h + 'px';
+      } catch(e) {}
+    }
+    const ubungsFrame = document.querySelector('.uebungen-frame');
+    if (ubungsFrame) {
+      ubungsFrame.addEventListener('load', function() { resizeIframe(this); });
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          if (btn.dataset.tab === 'uebungen') {
+            setTimeout(() => resizeIframe(ubungsFrame), 300);
+          }
+        });
+      });
+    }
+  </script>
+</body>
+</html>
