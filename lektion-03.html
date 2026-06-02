@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Lektion 1 – SciNeW</title>
+  <title>Lektion 3 – Self-Explorer</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
 
   <style>
     :root {
@@ -18,12 +18,16 @@
       --border:   #E2E2DC;
       --text:     #121616;
       --muted:    #6B7280;
-      --sidebar-w: 260px;
-      --header-h:  64px;
-      --tab-h:     52px;
-      --radius:    10px;
+      --sidebar-w: 320px;
+      --header-h:  72px;
+      --tab-h:     56px;
+      --radius:    16px;
       --font: 'DM Sans', sans-serif;
       --mono: 'DM Mono', monospace;
+      
+      --shadow-sm: 0 2px 8px rgba(18, 22, 22, 0.04);
+      --shadow-md: 0 10px 30px rgba(18, 22, 22, 0.05);
+      --shadow-lg: 0 20px 40px rgba(18, 22, 22, 0.12);
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -35,467 +39,485 @@
       min-height: 100vh;
       display: flex;
       flex-direction: column;
+      -webkit-font-smoothing: antialiased;
     }
 
     /* TOP HEADER */
     .top-header {
       position: fixed; top: 0; left: 0; right: 0;
       height: var(--header-h);
-      background: #121616;
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+      background: rgba(18, 22, 22, 0.9);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
       display: flex; align-items: center; gap: 16px;
-      padding: 0 1.5rem;
-      border-bottom: 1px solid rgba(116,194,168,0.15);
+      padding: 0 2rem;
+      border-bottom: 1px solid rgba(116,194,168,0.12);
       z-index: 100;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     }
-    .header-left { display: flex; align-items: center; gap: 1rem; }
+    .header-left { display: flex; align-items: center; gap: 1.25rem; }
+    
+    /* BURGER-BUTTON */
     .burger-btn {
       background: none; border: none; cursor: pointer;
-      display: flex; flex-direction: column; gap: 5px; padding: 4px;
-      border-radius: 6px;
-      transition: background 0.25s;
+      display: flex; flex-direction: column; gap: 6px; padding: 8px;
+      border-radius: 8px;
+      transition: background 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
-    .burger-btn:hover { background: rgba(116,194,168,0.1); }
+    .burger-btn:hover { background: rgba(116,194,168,0.12); }
     .burger-btn span {
       display: block; width: 22px; height: 2px;
       background: var(--green); border-radius: 2px;
-      transition: transform 0.25s, opacity 0.25s;
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s;
     }
-    .burger-btn.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-    .burger-btn.open span:nth-child(2) { opacity: 0; }
-    .burger-btn.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    .burger-btn.open span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+    .burger-btn.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .burger-btn.open span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
 
     .site-brand {
-      display: flex; align-items: center; gap: 10px;
-      font-size: 1rem; font-weight: 600; color: #fff;
-      letter-spacing: -0.02em; text-decoration: none;
+      display: flex; align-items: center; gap: 12px;
+      font-size: 1.1rem; font-weight: 700; color: #fff;
+      letter-spacing: -0.03em; text-decoration: none;
     }
     .site-brand img {
-      width: 32px; height: 32px;
+      width: 36px; height: 36px;
       border-radius: 50%; object-fit: cover;
+      box-shadow: 0 0 0 2px rgba(114, 194, 168, 0.4);
     }
-    .site-brand span { color: #fff; }
 
-    .topbar-nav {
-      margin-left: auto;
-      display: flex; align-items: center; gap: 8px;
-    }
+    .topbar-nav { margin-left: auto; }
     .topbar-nav a {
-      font-size: 0.875rem; font-weight: 500;
-      color: rgba(232,239,237,0.75);
-      padding: 6px 12px;
-      border-radius: 6px;
+      font-size: 0.9rem; font-weight: 500;
+      color: rgba(255, 255, 255, 0.9);
+      padding: 8px 16px;
+      border-radius: 8px;
       text-decoration: none;
-      transition: color 0.2s, background 0.2s;
+      transition: all 0.25s ease;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.05);
     }
     .topbar-nav a:hover {
       color: #fff;
-      background: rgba(116,194,168,0.08);
+      background: rgba(116,194,168,0.15);
+      border-color: rgba(116,194,168,0.3);
     }
-    .topbar-nav a.active { color: var(--green); }
 
     /* SIDEBAR */
     .sidebar {
-      position: fixed; top: var(--header-h); left: 0; bottom: 0;
+      position: fixed; top: var(--header-h); 
+      left: calc(-1 * var(--sidebar-w));
+      bottom: 0;
       width: var(--sidebar-w);
       background: var(--dark);
-      padding: 2rem 0 2rem;
+      padding: 2.5rem 0;
       overflow-y: auto;
-      transform: translateX(-100%);
-      transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
+      transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
       z-index: 90;
+      box-shadow: var(--shadow-lg);
     }
-    .sidebar.open { transform: translateX(0); }
+    .sidebar.open { transform: translateX(var(--sidebar-w)); }
 
     .sidebar-label {
-      font-size: 0.68rem; font-weight: 600; letter-spacing: 0.12em;
-      color: rgba(255,255,255,0.65); text-transform: uppercase;
-      padding: 0 1.5rem; margin-bottom: 0.75rem;
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 0.15em;
+      color: rgba(255, 255, 255, 0.6);
+      text-transform: uppercase;
+      padding: 0 2rem; margin-bottom: 1.25rem;
     }
-    .sidebar nav { display: flex; flex-direction: column; }
+    .sidebar nav { display: flex; flex-direction: column; gap: 6px; padding: 0 1rem; }
+    
     .sidebar nav a {
-      display: flex; align-items: center; gap: 0.75rem;
-      padding: 0.65rem 1.5rem;
-      font-size: 0.88rem; color: rgba(255,255,255,0.85);
+      display: flex; align-items: center; gap: 1rem;
+      padding: 0.95rem 1.25rem;
+      font-size: 0.95rem; 
+      color: rgba(255, 255, 255, 0.95);
       text-decoration: none;
-      border-left: 3px solid transparent;
-      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      border-radius: 10px;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     }
-    .sidebar nav a:hover { background: rgba(255,255,255,0.08); color: #fff; }
+    .sidebar nav a:hover { 
+      background: rgba(255, 255, 255, 0.1); 
+      color: #fff; 
+    }
+    
     .sidebar nav a.active {
-      color: var(--green); border-left-color: var(--green);
-      background: rgba(116,194,168,0.08);
+      color: var(--dark);
+      background: var(--green);
+      font-weight: 700;
     }
+    
     .sidebar nav a .num {
-      font-size: 0.72rem; font-family: var(--mono);
-      color: #fff; min-width: 1.5rem;
+      font-size: 0.8rem; font-family: var(--mono); font-weight: 600;
+      color: var(--green); min-width: 1.5rem;
+      opacity: 0.9;
     }
-    .sidebar nav a.active .num { color: var(--green); }
+    .sidebar nav a.active .num { 
+      color: var(--dark); 
+      opacity: 0.8; 
+    }
 
+    /* OVERLAY */
     .sidebar-overlay {
-      display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5);
-      z-index: 80; opacity: 0; transition: opacity 0.3s;
+      display: none; position: fixed; inset: 0; background: rgba(18, 22, 22, 0.3);
+      z-index: 80; opacity: 0; transition: opacity 0.4s ease;
+      backdrop-filter: blur(4px);
     }
     .sidebar-overlay.show { display: block; opacity: 1; }
 
-    /* MAIN */
+    /* MAIN AREA */
     .main-wrap {
       margin-top: var(--header-h);
       flex: 1; display: flex; flex-direction: column;
-      background: #EFF7F4;
+      background: #F8FAF9;
     }
 
+    .lesson-content-container {
+      width: 100%;
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      padding: 2rem 1.5rem;
+    }
+
+    /* HERO BEREICH */
     .lesson-hero {
       background: var(--surface);
-      border-bottom: 1px solid var(--border);
-      padding: 2.5rem 2rem 0;
+      border: 1px solid var(--border);
+      padding: 3rem 3rem 0;
       width: 100%;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-sm);
+      margin-bottom: 1.5rem;
     }
     .chapter-badge {
       display: inline-block;
-      font-size: 0.72rem; font-weight: 600; letter-spacing: 0.08em;
+      font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em;
       text-transform: uppercase;
-      background: rgba(116,194,168,0.12);
-      color: var(--green);
-      border: 1px solid rgba(116,194,168,0.3);
-      border-radius: 20px;
-      padding: 0.3rem 0.85rem;
-      margin-bottom: 1rem;
+      background: rgba(116,194,168,0.1);
+      color: #4f9880;
+      border: 1px solid rgba(116,194,168,0.25);
+      border-radius: 30px;
+      padding: 0.35rem 1rem;
+      margin-bottom: 1.25rem;
     }
     .lesson-title {
-      font-size: clamp(1.6rem, 4vw, 2.2rem);
-      font-weight: 600; letter-spacing: -0.03em;
-      color: var(--dark); margin-bottom: 0.5rem;
-      line-height: 1.2;
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      font-weight: 700; letter-spacing: -0.04em;
+      color: var(--dark); margin-bottom: 0.75rem;
+      line-height: 1.15;
     }
     .lesson-subtitle {
-      font-size: 0.95rem; color: var(--muted); margin-bottom: 1.75rem;
-      max-width: 560px; line-height: 1.6;
+      font-size: 1rem; color: var(--muted); margin-bottom: 2.5rem;
+      max-width: 700px; line-height: 1.6;
     }
 
     /* TABS */
     .tab-nav {
-      display: flex; gap: 0;
+      display: flex; gap: 8px;
       border-bottom: 1px solid var(--border);
       overflow-x: auto; scrollbar-width: none;
     }
     .tab-nav::-webkit-scrollbar { display: none; }
     .tab-btn {
       background: none; border: none; cursor: pointer;
-      font-family: var(--font); font-size: 0.88rem; font-weight: 500;
+      font-family: var(--font); font-size: 0.95rem; font-weight: 500;
       color: var(--muted);
-      padding: 0 1.25rem; height: var(--tab-h);
+      padding: 0 1.5rem; height: var(--tab-h);
       white-space: nowrap;
-      border-bottom: 2px solid transparent;
-      transition: color 0.2s, border-color 0.2s;
+      border-bottom: 3px solid transparent;
+      transition: all 0.2s ease;
       position: relative; bottom: -1px;
     }
     .tab-btn:hover { color: var(--dark); }
-    .tab-btn.active { color: var(--dark); border-bottom-color: var(--dark); }
+    .tab-btn.active { 
+      color: var(--dark); 
+      border-bottom-color: var(--green); 
+      font-weight: 600;
+    }
 
-    .tab-content {
-      width: 100%;
-      padding: 2rem;
-      flex: 1;
-    }
-    /* Übungen-Tab: volle Breite, kein Padding */
-    #tab-uebungen {
-      margin: 0 -2rem -2rem -2rem; /* zieht über das tab-content padding hinaus */
-    }
-    .tab-panel { display: none; }
+    .tab-content { width: 100%; flex: 1; }
+    .tab-panel { display: none; animation: fadeIn 0.4s ease-out; }
     .tab-panel.active { display: block; }
 
-    /* LERNZIELE */
-    .info-box {
-      background: rgba(116,194,168,0.08);
-      border-left: 3px solid var(--green);
-      border-radius: 0 var(--radius) var(--radius) 0;
-      padding: 1rem 1.25rem;
-      font-size: 0.88rem; color: var(--muted); line-height: 1.6;
-      margin-bottom: 1.75rem;
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
-    .goal-list { display: flex; flex-direction: column; gap: 0.75rem; }
-    .goal-item {
-      display: flex; align-items: flex-start; gap: 1rem;
+    /* KERNTHEMEN LISTE */
+    .topic-list { display: flex; flex-direction: column; gap: 1rem; }
+    .topic-item {
+      display: grid;
+      grid-template-columns: auto auto 1fr;
+      gap: 0.5rem 1.25rem;
+      padding: 1.5rem;
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 1rem 1.25rem;
+      box-shadow: var(--shadow-sm);
       cursor: pointer;
-      transition: border-color 0.2s, background 0.2s;
-      user-select: none;
+      transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.25s, box-shadow 0.25s;
     }
-    .goal-item:hover { border-color: var(--green); }
-    .goal-item.checked {
-      background: rgba(116,194,168,0.07);
-      border-color: var(--green);
+    .topic-item:hover { 
+      border-color: var(--green); 
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
     }
-    .goal-checkbox {
-      width: 20px; height: 20px; flex-shrink: 0;
+    
+    .topic-checkbox {
+      width: 1.5rem; height: 1.5rem;
       border: 2px solid var(--border);
-      border-radius: 5px;
+      border-radius: 6px;
       display: flex; align-items: center; justify-content: center;
-      transition: background 0.2s, border-color 0.2s;
+      transition: all 0.2s ease;
       margin-top: 2px;
     }
-    .goal-item.checked .goal-checkbox {
-      background: var(--green); border-color: var(--green);
+    .topic-item:hover .topic-checkbox { border-color: var(--green); }
+    
+    .topic-item.checked {
+      background: rgba(116,194,168,0.03);
+      border-color: rgba(116,194,168,0.3);
+      box-shadow: none;
     }
-    .goal-checkbox svg {
-      opacity: 0; transform: scale(0.5);
-      transition: opacity 0.15s, transform 0.15s;
+    .topic-item.checked .topic-checkbox {
+      background: var(--green);
+      border-color: var(--green);
     }
-    .goal-item.checked .goal-checkbox svg { opacity: 1; transform: scale(1); }
-    .goal-body { display: flex; flex-direction: column; gap: 0.2rem; }
-    .goal-text { font-size: 0.92rem; line-height: 1.5; }
-    .goal-item.checked .goal-text { color: var(--muted); text-decoration: line-through; }
-    .goal-ref {
-      font-size: 0.73rem;
-      font-family: var(--mono);
-      color: var(--muted);
-      opacity: 0.65;
+    .topic-item.checked .topic-checkbox::before {
+      content: '✓'; color: var(--dark); font-size: 0.9rem; font-weight: bold;
     }
+    .topic-item.checked .topic-title {
+      color: var(--muted); text-decoration: line-through; opacity: 0.7;
+    }
+    .topic-item.checked .topic-sub { opacity: 0.6; }
 
-    /* PROGRESS */
-    .progress-wrap { margin-bottom: 1.5rem; }
-    .progress-label {
-      display: flex; justify-content: space-between;
-      font-size: 0.78rem; color: var(--muted);
-      margin-bottom: 0.4rem;
+    .topic-num {
+      font-family: var(--mono); font-size: 0.8rem; font-weight: 500;
+      color: var(--green); padding-top: 4px;
     }
-    .progress-bar { height: 4px; background: var(--border); border-radius: 99px; overflow: hidden; }
-    .progress-fill {
-      height: 100%; background: var(--green);
-      border-radius: 99px;
-      transition: width 0.4s ease;
-      width: 0%;
-    }
+    .topic-title { font-size: 1.05rem; font-weight: 600; margin-bottom: 0.4rem; color: var(--dark); letter-spacing: -0.01em; }
+    .topic-sub { font-size: 0.9rem; color: var(--muted); line-height: 1.6; }
 
-    /* KERNTHEMEN */
-  
-.topic-list { display: flex; flex-direction: column; gap: 0.75rem; margin-top: 0.5rem; }
-.topic-item {
-  display: grid;
-  grid-template-columns: 2rem 1fr;
-  gap: 0.75rem 1rem;
-  padding: 1.25rem;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  transition: border-color 0.2s;
-}
-.topic-item:hover { border-color: var(--green); }
-.topic-num {
-  font-family: var(--mono); font-size: 0.75rem;
-  color: var(--green); padding-top: 3px;
-}
-
-.topic-title { font-size: 0.95rem; font-weight: 600; margin-bottom: 0.35rem; line-height: 1.4; }
-.topic-sub { font-size: 0.85rem; color: var(--muted); line-height: 1.6; }
-
-    /* INHALT */
-    .content-placeholder {
-      background: var(--surface);
-      border: 2px dashed var(--border);
-      border-radius: var(--radius);
-      padding: 3rem 2rem;
-      text-align: center;
-      color: var(--muted);
-    }
-    .content-placeholder .icon { font-size: 2.5rem; margin-bottom: 1rem; display: block; opacity: 0.4; }
-    .content-placeholder p { font-size: 0.9rem; line-height: 1.6; }
-
-    .prose h2 { font-size: 1.3rem; font-weight: 600; margin: 2rem 0 0.75rem; letter-spacing: -0.02em; }
-    .prose p { font-size: 0.95rem; line-height: 1.75; color: #2a2a2a; margin-bottom: 1rem; }
-    .prose audio { width: 100%; margin: 1.25rem 0; border-radius: var(--radius); outline: none; }
-    .audio-block {
-      background: var(--surface); border: 1px solid var(--border);
-      border-radius: var(--radius); padding: 1rem 1.25rem; margin: 1rem 0;
-    }
-    .audio-label {
-      font-size: 0.78rem; font-weight: 600; color: var(--muted);
-      text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.5rem;
-    }
-    .audio-block audio {
-      display: block;
-      width: 100%;
-      margin-top: 0.5rem;
-      border-radius: var(--radius);
-      outline: none;
-    }
-    .video-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 1rem;
-  margin-top: 1rem;
-}
-.video-card {
-  border-radius: var(--radius);
-  overflow: hidden;
-  border: 1px solid var(--border);
-  background: var(--surface);
-  text-decoration: none;
-  color: var(--text);
-  transition: border-color 0.2s, transform 0.2s;
-  display: block;
-}
-.video-card:hover { border-color: var(--green); transform: translateY(-2px); }
-.video-thumb {
-  position: relative;
-  aspect-ratio: 16/9;
-  background: #000;
-}
-.video-thumb img { width: 100%; height: 100%; object-fit: cover; }
-.play-icon {
-  position: absolute; inset: 0;
-  display: flex; align-items: center; justify-content: center;
-}
-.play-icon svg { filter: drop-shadow(0 2px 6px rgba(0,0,0,0.5)); }
-.video-label {
-  padding: 0.6rem 0.75rem;
-  font-size: 0.82rem;
-  font-weight: 500;
-  line-height: 1.4;
-}
-
-    /* ÜBUNGEN */
-    /* Übungen Tab – kein Innenabstand damit H5P randlos sitzt */
-    #tab-uebungen { padding: 0 !important; }
-
-    .uebungen-frame {
-      width: 100%;
-      min-height: 560px;
-      border: none;
-      display: block;
-      background: var(--surface);
-    }
-    .uebungen-wrapper {
-      margin: -1px;
-      overflow: hidden;
-      border-radius: var(--radius);
-      background: var(--surface);
-    }
-
-    .section-heading {
-      font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em;
-      text-transform: uppercase; color: var(--muted); margin-bottom: 1.25rem;
-    }
-
-    /* RESPONSIVE */
-    @media (min-width: 900px) {
-      .sidebar { transform: translateX(0); }
-      .main-wrap { margin-left: var(--sidebar-w); }
-      .burger-btn { display: none; }
-      .sidebar-overlay { display: none !important; }
-    }
-    @media (max-width: 768px) {
-      .topbar-nav a:not(.active) { display: none; }
-    }
-    @media (max-width: 600px) {
-      .lesson-hero { padding: 1.5rem 1rem 0; }
-      .tab-content { padding: 1.25rem 1rem; }
-      .tab-btn { padding: 0 0.9rem; font-size: 0.82rem; }
-    }
-
-    ::-webkit-scrollbar { width: 6px; }
-    ::-webkit-scrollbar-track { background: transparent; }
-    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 99px; }
-
-    /* STUDY GUIDE */
-    .study-guide { display: flex; flex-direction: column; gap: 1.5rem; margin-bottom: 2rem; }
-    .phase-block {
+    /* ACCORDIONS (INPUT TAB) */
+    .accordion-container { display: flex; flex-direction: column; gap: 1rem; margin-top: 1rem; }
+    .accordion-item {
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: var(--radius);
+      box-shadow: var(--shadow-sm);
       overflow: hidden;
+      transition: all 0.25s ease;
+    }
+    .accordion-item:hover { border-color: var(--green); box-shadow: var(--shadow-md); }
+    
+    .accordion-item summary {
+      padding: 1.5rem; font-size: 1.1rem; font-weight: 600; color: var(--dark);
+      cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; user-select: none;
+    }
+    .accordion-item summary::-webkit-details-marker { display: none; }
+    .accordion-item summary::after {
+      content: '＋'; font-size: 1.1rem; color: var(--green); font-weight: bold; transition: transform 0.3s ease;
+    }
+    .accordion-item[open] summary::after { content: '－'; transform: rotate(180deg); }
+    
+    .accordion-content {
+      padding: 0 1.5rem 1.5rem 1.5rem;
+      border-top: 1px solid var(--border);
+      background: #FCFDFD;
+    }
+    
+    .audio-summary-placeholder {
+      font-size: 0.9rem; color: var(--muted);
+      background: #F5F5F0; border-left: 3px solid var(--green);
+      padding: 1rem; margin-top: 0.75rem; border-radius: 0 10px 10px 0;
+      line-height: 1.5;
+    }
+    .text-placeholder-box {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1.5rem; margin-top: 1rem; box-shadow: var(--shadow-sm);
+    }
+
+    .prose h2 { font-size: 1.5rem; font-weight: 700; margin: 0.5rem 0 1rem; letter-spacing: -0.03em; color: var(--dark); }
+    .prose p { font-size: 1rem; line-height: 1.75; color: #333; margin-bottom: 1.25rem; }
+    
+    /* AUDIO BLOCK */
+    .audio-block {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1.25rem; margin: 1.25rem 0; box-shadow: var(--shadow-sm);
+    }
+    .audio-label {
+      font-size: 0.75rem; font-weight: 700; color: var(--muted);
+      text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.25rem;
+    }
+    .audio-block audio { display: block; width: 100%; margin-top: 0.75rem; outline: none; }
+
+    /* MEDIEN-GRID */
+    .video-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.25rem; margin-top: 1.25rem; }
+    .video-card {
+      border-radius: 12px; overflow: hidden;
+      border: 1px solid var(--border); background: var(--surface); text-decoration: none; color: var(--text);
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1); display: block; box-shadow: var(--shadow-sm);
+    }
+    .video-card:hover { border-color: var(--green); transform: translateY(-3px); box-shadow: var(--shadow-md); }
+    .video-thumb { position: relative; aspect-ratio: 16/9; background: #000; }
+    .video-thumb img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease; }
+    .video-card:hover .video-thumb img { transform: scale(1.03); }
+    .play-icon { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
+    .play-icon circle { transition: fill 0.2s ease; }
+    .video-card:hover .play-icon circle { fill: var(--green); }
+    .video-card:hover .play-icon polygon { fill: var(--dark); }
+    .video-label { padding: 0.85rem 1rem; font-size: 0.9rem; font-weight: 600; line-height: 1.4; color: var(--dark); }
+
+    /* STUDY GUIDE */
+    .study-guide { display: flex; flex-direction: column; gap: 1.5rem; margin: 1.5rem 0 2rem; }
+    .phase-block {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-sm);
     }
     .phase-header {
       display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap;
-      padding: 0.9rem 1.25rem;
-      background: rgba(116,194,168,0.06);
+      padding: 1.1rem 1.5rem; background: rgba(116,194,168,0.06);
       border-bottom: 1px solid var(--border);
     }
     .phase-badge {
-      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em;
-      text-transform: uppercase;
-      background: var(--green); color: #fff;
-      border-radius: 20px; padding: 0.25rem 0.7rem;
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      background: var(--green); color: var(--dark); border-radius: 20px; padding: 0.3rem 0.85rem;
     }
-    .phase-badge--orange { background: var(--orange); }
-    .phase-badge--purple { background: #7C6FCD; }
-    .phase-title { font-size: 0.95rem; font-weight: 600; color: var(--dark); }
-    .phase-time { font-size: 0.78rem; color: var(--muted); margin-left: auto; }
-    .phase-body { padding: 1.25rem 1.5rem; display: flex; flex-direction: column; gap: 1rem; }
-    .phase-body > p { font-size: 0.9rem; line-height: 1.7; color: #2a2a2a; }
+    .phase-badge--orange { background: var(--orange); color: #fff; }
+    .phase-badge--purple { background: #7C6FCD; color: #fff; }
+    .phase-title { font-size: 1.05rem; font-weight: 600; color: var(--dark); }
+    .phase-time { font-size: 0.85rem; color: var(--muted); margin-left: auto; }
+    .phase-body { padding: 1.5rem; display: flex; flex-direction: column; gap: 1.25rem; }
+    .phase-body > p { font-size: 1rem; line-height: 1.7; color: #333; }
 
     .sg-section-title {
-      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em;
-      text-transform: uppercase; color: var(--muted);
-      margin-bottom: 0.75rem; padding-bottom: 0.4rem;
-      border-bottom: 1px solid var(--border);
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted);
+      margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border);
     }
-    .sg-def-list { display: flex; flex-direction: column; gap: 0.5rem; }
+    .sg-def-list { display: flex; flex-direction: column; gap: 0.75rem; }
     .sg-def-item {
-      display: grid; grid-template-columns: 220px 1fr;
-      gap: 0.5rem 1rem;
-      padding: 0.65rem 0.9rem;
-      background: var(--bg); border-radius: 6px;
-      font-size: 0.875rem;
+      display: grid; grid-template-columns: 240px 1fr; gap: 0.5rem 1.5rem;
+      padding: 1rem 1.25rem; background: #F9F9F6; border-radius: 8px; font-size: 0.95rem; border: 1px solid var(--border);
     }
     @media(max-width:640px){ .sg-def-item { grid-template-columns: 1fr; } }
     .sg-term { font-weight: 600; color: var(--dark); line-height: 1.5; }
-    .sg-def { color: #3a3a3a; line-height: 1.6; }
-    .sg-ref { font-size: 0.72rem; font-family: var(--mono); color: var(--muted); opacity: 0.8; }
+    .sg-def { color: #333; line-height: 1.6; }
 
     .sg-card {
-      background: var(--bg); border: 1px solid var(--border);
-      border-radius: 8px; padding: 1rem 1.25rem;
+      background: #F9F9F6; border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem;
     }
-    .sg-card-title {
-      font-size: 0.88rem; font-weight: 600; color: var(--dark);
-      margin-bottom: 0.75rem; line-height: 1.4;
-    }
-    .sg-ul, .sg-ol { padding-left: 1.4rem; display: flex; flex-direction: column; gap: 0.45rem; }
-    .sg-ul li, .sg-ol li { font-size: 0.875rem; line-height: 1.65; color: #2a2a2a; }
+    .sg-card-title { font-size: 1.05rem; font-weight: 600; color: var(--dark); margin-bottom: 1rem; }
+    .sg-ul, .sg-ol { padding-left: 1.5rem; display: flex; flex-direction: column; gap: 0.5rem; }
+    .sg-ul li, .sg-ol li { font-size: 0.95rem; line-height: 1.65; color: #333; }
     .sg-flow {
-      font-size: 0.9rem; font-weight: 500; color: var(--dark);
-      background: rgba(116,194,168,0.1); border-radius: 6px;
-      padding: 0.6rem 1rem; text-align: center;
+      font-size: 1rem; font-weight: 600; color: var(--dark);
+      background: rgba(116,194,168,0.1); border-radius: 8px; padding: 0.8rem 1.25rem; text-align: center;
     }
 
-    .sg-table-wrap { overflow-x: auto; border-radius: 8px; border: 1px solid var(--border); }
-    .sg-table { width: 100%; border-collapse: collapse; font-size: 0.83rem; }
+    .sg-table-wrap { overflow-x: auto; border-radius: 12px; border: 1px solid var(--border); box-shadow: var(--shadow-sm); }
+    .sg-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; background: var(--surface); }
     .sg-table thead tr { background: var(--dark); color: #fff; }
-    .sg-table th { padding: 0.65rem 0.9rem; text-align: left; font-weight: 600; font-size: 0.78rem; letter-spacing: 0.04em; }
-    .sg-table td { padding: 0.7rem 0.9rem; vertical-align: top; border-bottom: 1px solid var(--border); line-height: 1.55; }
+    .sg-table th { padding: 1rem 1.25rem; text-align: left; font-weight: 600; font-size: 0.85rem; letter-spacing: 0.05em; text-transform: uppercase; }
+    .sg-table td { padding: 1rem 1.25rem; vertical-align: top; border-bottom: 1px solid var(--border); line-height: 1.6; color: #333; }
     .sg-table tbody tr:last-child td { border-bottom: none; }
-    .sg-table tbody tr:nth-child(even) { background: rgba(116,194,168,0.04); }
+    .sg-table tbody tr:nth-child(even) { background: rgba(116,194,168,0.02); }
 
-    .sg-repeat-list { display: flex; flex-direction: column; gap: 0.75rem; margin-top: 0.5rem; }
+    .sg-repeat-list { display: flex; flex-direction: column; gap: 1rem; margin-top: 0.5rem; }
     .sg-repeat-item {
-      display: flex; gap: 1rem; align-items: flex-start;
-      padding: 0.8rem 1rem;
-      background: var(--bg); border-radius: 8px;
-      font-size: 0.875rem; line-height: 1.6; color: #2a2a2a;
+      display: flex; gap: 1.25rem; align-items: flex-start; padding: 1.25rem;
+      background: #F9F9F6; border-radius: 12px; font-size: 0.95rem; line-height: 1.6; color: #333; border: 1px solid var(--border);
     }
     .sg-repeat-badge {
-      flex-shrink: 0; font-size: 0.72rem; font-weight: 700;
-      text-transform: uppercase; letter-spacing: 0.08em;
-      background: var(--green); color: #fff;
-      border-radius: 20px; padding: 0.2rem 0.65rem;
-      margin-top: 2px;
+      flex-shrink: 0; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;
+      background: var(--green); color: var(--dark); border-radius: 20px; padding: 0.25rem 0.75rem; margin-top: 2px;
     }
-    .sg-repeat-badge--light { background: #7C6FCD; }
+    .sg-repeat-badge--light { background: #7C6FCD; color: #fff; }
 
+    /* ÜBUNGEN */
+    .uebungen-wrapper {
+      overflow: hidden; border-radius: var(--radius);
+      background: var(--surface); border: 1px solid var(--border); box-shadow: var(--shadow-sm);
+    }
+    .uebungen-frame { width: 100%; min-height: 600px; border: none; display: block; background: var(--surface); }
+
+    .section-heading {
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--muted); margin: 0.5rem 0 1.5rem;
+    }
+
+    /* RESPONSIVITÄT */
+    @media (max-width: 1000px) {
+      .lesson-content-container { padding: 1rem 0; }
+      .lesson-hero { border-radius: 0; border-left: none; border-right: none; padding: 2.5rem 1.5rem 0; }
+      .tab-content { padding: 1.5rem 1rem; }
+    }
+    @media (max-width: 600px) {
+      .top-header { padding: 0 1rem; }
+      .lesson-hero { padding: 2rem 1rem 0; }
+      .tab-btn { padding: 0 1rem; font-size: 0.88rem; }
+      .topic-item { padding: 1.25rem; grid-template-columns: auto 1fr; }
+      .topic-num { display: none; }
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 8px; height: 8px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: rgba(18, 22, 22, 0.1); border-radius: 99px; }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(116, 194, 168, 0.4); }
+    @media (max-width: 768px) {
+  /* Blendet den Tabellenkopf auf dem Handy aus */
+  .sg-table thead {
+    display: none;
+  }
+  
+  /* Macht aus jeder Tabellenzeile eine eigene Karte */
+  .sg-table, .sg-table tbody, .sg-table tr, .sg-table td {
+    display: block;
+    width: 100%;
+  }
+  
+  .sg-table tr {
+    margin-bottom: 1.5rem;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: var(--surface);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+  }
+  
+  /* Gibt den Zellen Platz und fügt ein Label hinzu */
+  .sg-table td {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid rgba(18, 22, 22, 0.05);
+    position: relative;
+    font-size: 0.95rem;
+  }
+  
+  .sg-table td:last-child {
+    border-bottom: none;
+  }
+  
+  /* Die erste Spalte (Art der Hypothese) heben wir optisch als Titel hervor */
+  .sg-table td:first-child {
+    background: var(--dark);
+    color: #fff;
+    font-weight: 600;
+  }
+  
+  /* Optional: Wenn du leere Zellen als Abstandshalter nutzt, blende sie mobil aus */
+  .sg-table td:empty {
+    display: none;
+  }
+}
   </style>
 </head>
 <body>
 
+  <!-- PLATFORM HEADER -->
   <header class="top-header">
     <div class="header-left">
-      <button class="burger-btn" id="burgerBtn" aria-label="Menü öffnen">
+      <button class="burger-btn" id="burgerBtn" aria-label="Menü öffnen/schließen">
         <span></span><span></span><span></span>
       </button>
       <a href="index.html" class="site-brand">
@@ -505,17 +527,16 @@
     </div>
     <nav class="topbar-nav">
       <a href="index.html">Startseite</a>
-      <a href="lektion-02.html" class="active">Lektionen</a>
-      <a href="kontakt.html">Kontakt</a>
     </nav>
   </header>
 
+  <!-- SLIDE-IN BURGER MENU SIDEBAR -->
   <aside class="sidebar" id="sidebar">
     <p class="sidebar-label">Lektionen</p>
     <nav>
       <a href="lektion-01.html"><span class="num">01</span> Grundlagen wissenschaftlicher Arbeit</a>
-      <a href="lektion-02.html" class="active"><span class="num">02</span> Fragen schärfen, Hypothesen schmieden</a>
-      <a href="lektion-03.html"><span class="num">03</span> Zielsicher recherchieren</a>
+      <a href="lektion-02.html"><span class="num">02</span> Fragen schärfen, Hypothesen schmieden</a>
+      <a href="lektion-03.html"class="active"><span class="num">03</span> Zielsicher recherchieren</a>
       <a href="lektion-04.html"><span class="num">04</span> Klug lesen</a>
       <a href="lektion-05.html"><span class="num">05</span> Theorie fundiert aufbauen</a>
       <a href="lektion-06.html"><span class="num">06</span> Sauber zitieren</a>
@@ -526,342 +547,367 @@
   </aside>
   <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
+  <!-- ARBEITSBEREICH -->
   <main class="main-wrap">
-    <div class="lesson-hero">
-      <span class="chapter-badge">Lektion 2</span>
-      <h1 class="lesson-title">Frage schärfen, Hypothesen schmieden</h1>
-      <p class="lesson-subtitle">
-        Wie formuliert man eine wissenschaftliche Fragestellung? Was machen gute Hypothesen aus? 
-      </p>
-      <div class="tab-nav" role="tablist">
-        <button class="tab-btn active" role="tab" data-tab="lernziele">Lernziele</button>
-        <button class="tab-btn" role="tab" data-tab="kernthemen">Kernthemen</button>
-        <button class="tab-btn" role="tab" data-tab="input">Input</button>
-        <button class="tab-btn" role="tab" data-tab="uebungen">Übungen</button>
-      </div>
-    </div>
-
-    <div class="tab-content">
-
-      <!-- TAB: Lernziele -->
-      <div class="tab-panel active" id="tab-lernziele" role="tabpanel">
-        <div class="info-box">
-          Haken Sie ab, was Sie bereits wissen oder verstehst. Ihr Fortschritt wird
-          automatisch gespeichert und bleibt auch nach einem Neuladen erhalten.
-        </div>
-        <div class="progress-wrap">
-          <div class="progress-label">
-            <span>Fortschritt</span>
-            <span id="progressText">0 / 11</span>
-          </div>
-          <div class="progress-bar">
-            <div class="progress-fill" id="progressFill"></div>
-          </div>
-        </div>
-        <div class="goal-list" id="goalList"></div>
-      </div>
-
- <div class="tab-panel" id="tab-kernthemen" role="tabpanel">
-    <p class="section-heading">Kernthemen</p>
- <div class="topic-item">
-  <span class="topic-num">01</span>
-  <div class="topic-body">
-    <div class="topic-title">Forschungsfrage</div>
-    <div class="topic-sub">Die Forschungsfrage ist der „Leitstern“ jeder wissenschaftlichen Arbeit, die ein breites Thema in eine präzise, beantwortbare Fragestellung überführt (K02 S.49). Sie ist übergeordneter Natur und bestimmt die finale Forschungsmethode, ohne bereits eine vermutete Antwort zu enthalten (K02 S.13)(K02 S.23).</div>
-  </div>
-</div>
-
-<div class="topic-item">
-  <span class="topic-num">02</span>
-  <div class="topic-body">
-    <div class="topic-title">Forschungsziele (Explorativ, Deskriptiv, Kausal): </div>
-    <div class="topic-sub">  Diese definieren den primären Zweck einer Studie. Explorative Studien zielen darauf ab, erste Einsichten zu gewinnen und neue Zusammenhänge zu entdecken (K02 S.8). Deskriptive Studien beschreiben Sachverhalte und deren Häufigkeit oder Korrelationen (K02 S.9). Kausale (experimentelle) Studien überprüfen Ursache-Wirkungs-Beziehungen (K02 S.10).
-</div>
-  </div>
-</div>
-
-<div class="topic-item">
-  <span class="topic-num">03</span>
-  <div class="topic-body">
-    <div class="topic-title">Hypothesen</div>
-    <div class="topic-sub"> Eine Hypothese ist eine vorläufige, vermutete Antwort auf eine Forschungsfrage, die als Aussage formuliert wird und Zusammenhänge zwischen mindestens zwei Variablen unterstellt (K02 S.20)(K02 S.23). Sie dient dazu, die Realität zu erklären und wird typischerweise in quantitativen Studien zur Bestätigung oder Widerlegung herangezogen. Operationalisierbarkeit: Bezieht sich auf die Fähigkeit, abstrakte Begriffe innerhalb einer Hypothese erfassbar und messbar zu machen (K02 S.32). Dies ist eine grundlegende Anforderung für die empirische Überprüfbarkeit einer Hypothese.
-
-</div>
-  </div>
-</div>
-
-<div class="topic-item">
-  <span class="topic-num">04</span>
-  <div class="topic-body">
-    <div class="topic-title">Widerlegbarkeit (Falsifizierbarkeit)</div>
-    <div class="topic-sub"> Eine wesentliche Anforderung an wissenschaftliche Hypothesen ist, dass sie prinzipiell widerlegbar sein müssen (K02 S.25). Dies bedeutet, dass sie so formuliert sein müssen, dass sie durch empirische Beobachtungen potenziell als falsch erwiesen werden können, wodurch ihr wissenschaftlicher Gehalt sichergestellt wird
-
-
-</div>
-  </div>
-</div>
-
-
-     </div>
+    <div class="lesson-content-container">
       
-
-          <!-- LERNHILFE -->
-          <div class="study-guide">
-
-            <!-- PHASE 1 -->
-            <div class="phase-block">
-              <div class="phase-header">
-                <span class="phase-badge">Phase 1</span>
-                <span class="phase-title">Überprüfen &amp; Lernen</span>
-                <span class="phase-time">&#9201; 60–90 Min.</span>
-              </div>
-              <div class="phase-body">
-                <p>Beginne damit, den gesamten Inhalt in den nächsten 10–15 Minuten einmal zu überfliegen, um einen Überblick zu bekommen. Notiere dir dabei 3–5 Kernlernziele, die für dich am wichtigsten erscheinen oder am schwierigsten sind.</p>
-                <p>Widme dich dann fokussierten Lernblöcken, z. B. <strong>25 Minuten Lernen, 5 Minuten Pause</strong> (Pomodoro-Technik), um die folgenden Schlüsselthemen zu vertiefen.</p>
-              </div>
-            </div>
-
-            <!-- PHASE 2 -->
-            <div class="phase-block">
-              <div class="phase-header">
-                <span class="phase-badge phase-badge--orange">Phase 2</span>
-                <span class="phase-title">Schlüsselthemen &amp; Definitionen</span>
-              </div>
-              <div class="phase-body">
-
-                <h3 class="sg-section-title">Schlüsselbegriffe</h3>
-                <div class="sg-def-list">
-                  <div class="sg-def-item"><span class="sg-term">Forschungsfrage (RQ)</span><span class="sg-def">Als Frage formulierte Präzisierung eines Themas, die das Problem einer Arbeit definiert und den „Leitstern" darstellt.</span></div>
-                  <div class="sg-def-item"><span class="sg-term">Hypothese (H)</span><span class="sg-def">Als Aussage formulierte, vorläufige (vermutete) Antwort auf eine Forschungsfrage, die einen Zusammenhang zwischen mindestens zwei Variablen unterstellt und die Realität erklären soll.</span></div>
-                  <div class="sg-def-item"><span class="sg-term">Nullhypothese (H₀)</span><span class="sg-def">Verneint in der Regel den interessierten Sachverhalt; bei Ablehnung gilt der postulierte Zusammenhang als bestätigt.</span></div>
-                  <div class="sg-def-item"><span class="sg-term">Alternativhypothese (H₁)</span><span class="sg-def">Wird bei Widerlegung der Nullhypothese angenommen. <span class="sg-ref"></span></div>
-                  <div class="sg-def-item"><span class="sg-term">Operationalisierung</span><span class="sg-def">Das Erfassen und Messen von abstrakten Begriffen in einer Hypothese, um sie empirisch überprüfbar zu machen.</span></div>
-                  <div class="sg-def-item"><span class="sg-term">Unabhängige Variable (UV)</span><span class="sg-def">Die Ursache in einer Wirkungs-/Kausalhypothese, die einen Einfluss auf eine abhängige Variable hat.</span></div>
-                  <div class="sg-def-item"><span class="sg-term">Abhängige Variable (AV)</span><span class="sg-def">Die Wirkung in einer Wirkungs-/Kausalhypothese, die durch die unabhängige Variable beeinflusst wird.</span></div>
-                  <div class="sg-def-item"><span class="sg-term">Research Gap (Forschungslücke)</span><span class="sg-def">Ein ungelöstes Problem oder eine unbeantwortete Frage, die den Ausgangspunkt wissenschaftlicher Arbeit bildet.</span></div>
-                </div>
-
-                <h3 class="sg-section-title" style="margin-top:1.75rem;">Kernprozesse, Modelle &amp; Regeln</h3>
-
-                <div class="sg-card">
-                  <div class="sg-card-title">Prozess der wissenschaftlichen Studienplanung </div>
-                  <ol class="sg-ol">
-                    <li><strong>Themenfindung:</strong> Ausgangspunkt.</li>
-                    <li><strong>Forschungslücken identifizieren:</strong> Problemstellung.</li>
-                    <li><strong>Thema eingrenzen:</strong> Präzisierung (zeitlich, örtlich).</li>
-                    <li><strong>Forschungsziel wählen:</strong> Z.B. Ursachen suchen (Erklären).</li>
-                    <li><strong>Forschungsfrage entwickeln:</strong> Dreh- und Angelpunkt der Studie, präzise Formulierung des Erkenntnisinteresses.</li>
-                    <li><strong>Hypothesen formulieren:</strong> Wenn für die Studie relevant (oft quantitativ).</li>
-                  </ol>
-                </div>
-
-                <div class="sg-card">
-                  <div class="sg-card-title">Ziele der Wissenschaft</div>
-                  <ul class="sg-ul">
-                    <li><strong>Vorhersage (Prognose):</strong> Welche Auswirkungen hat der Einsatz von ChatGPT auf die künftige kognitive Leistungsfähigkeit von Studierenden?</li>
-                    <li><strong>Erklärung (Kausalität):</strong> Warum nutzen Studierende ChatGPT, auch wenn sie skeptisch sind?</li>
-                    <li><strong>Beschreibung (Deskription):</strong> Wofür nutzen Studierende ChatGPT?</li>
-                  </ul>
-                </div>
-
-                <div class="sg-card">
-                  <div class="sg-card-title">Typen von Untersuchungen nach Forschungsziel</div>
-                  <ul class="sg-ul">
-                    <li><strong>Explorative Untersuchung:</strong> Ziel ist es, Neues zu entdecken und erste Einsichten zu gewinnen; oft qualitative Studien (z.B. Interviews).</li>
-                    <li><strong>Deskriptive Untersuchung:</strong> Ziel ist es, Sachverhalte genau zu beschreiben und Häufigkeiten sowie Korrelationen zu ermitteln; quantitative Studien.</li>
-                    <li><strong>Kausal-(experimentelle) Untersuchung:</strong> Ziel ist es, Ursache-Wirkungs-Beziehungen zu testen und zu erklären; quantitative Studien. </li>
-                  </ul>
-                </div>
-
-                <div class="sg-card">
-                  <div class="sg-card-title">Merkmale einer Kausalbeziehung </div>
-                  <ol class="sg-ol">
-                    <li>Theoretische Begründung des Zusammenhangs.</li>
-                    <li>Gemeinsame Variation von „Grund" (Ursache) und „Effekt" (Wirkung).</li>
-                    <li>Veränderung des „Grundes" geht der Veränderung des „Effekts" voraus.</li>
-                    <li>Ausschluss alternativer Erklärungsmöglichkeiten für den beobachteten Zusammenhang.</li>
-                  </ol>
-                </div>
-
-                <div class="sg-card">
-                  <div class="sg-card-title">Entwicklung von Forschungsfrage zu Hypothese </div>
-                  <p class="sg-flow">Thema &rarr; Forschungsziel &rarr; Forschungsfrage(n) &rarr; Hypothesen</p>
-                </div>
-
-                <div class="sg-card">
-                  <div class="sg-card-title">Kriterien guter Forschungsfragen </div>
-                  <ul class="sg-ul">
-                    <li><strong>Klarheit:</strong> Eindeutig verständlich, ohne Mehrdeutigkeiten oder vage Begriffe.</li>
-                    <li><strong>Forschungsrelevanz:</strong> Bezug zur Theorie oder Praxis, Beitrag zur wissenschaftlichen Diskussion.</li>
-                    <li><strong>Empirische Überprüfbarkeit:</strong> Mit wissenschaftlichen Methoden beantwortbar.</li>
-                    <li><strong>Eingrenzung / Präzision:</strong> Innerhalb von gegebenen Rahmenbedingungen bearbeitbar.</li>
-                    <li><strong>Neutralität / Offenheit:</strong> Ergebnisoffen und nicht suggestiv formuliert.</li>
-                    <li><strong>Forschungslogik:</strong> Erkennbarer Zusammenhang.</li>
-                  </ul>
-                </div>
-
-                <div class="sg-card">
-                  <div class="sg-card-title">Anforderungen an Hypothesen </div>
-                  <ul class="sg-ul">
-                    <li><strong>Präzise und widerspruchsfrei formuliert:</strong> Idealerweise lässt die Formulierung die Art der Hypothese erkennen. Widersprüchliche Hypothesen sind nicht wissenschaftlich.</li>
-                    <li><strong>Prinzipiell widerlegbar:</strong> Muss falsifizierbar sein, um empirischen Gehalt zu besitzen (z.B. gerichtete Kausalhypothesen besser als ungerichtete Zusammenhangshypothesen).</li>
-                    <li><strong>Operationalisierbar:</strong> Die abstrakten Begriffe müssen messbar sein.</li>
-                    <li><strong>Begründbar:</strong> Muss unter Einbeziehung theoretischer Grundlagen und des empirischen Forschungsstands gut begründet sein.</li>
-                  </ul>
-                </div>
-
-                <div class="sg-card">
-                  <div class="sg-card-title">Gerichtetheit von Hypothesen </div>
-                  <ul class="sg-ul">
-                    <li><strong>Ungerichtet:</strong> Beschreibt einen Unterschied oder Zusammenhang ohne spezifische Richtung (z.B. „Krankmeldungen unterscheiden sich im Semesterverlauf"). Besitzt niedrigen empirischen Gehalt.</li>
-                    <li><strong>Gerichtet:</strong> Postuliert eine spezifische Richtung des Zusammenhangs oder der Wirkung (z.B. „In der Prüfungswoche erkranken <em>mehr</em> Studenten…"). Besitzt hohen empirischen Gehalt.</li>
-                  </ul>
-                </div>
-
-                <h3 class="sg-section-title" style="margin-top:1.75rem;">Arten von Hypothesen und zugehörige Analyseverfahren </h3>
-                <div class="sg-table-wrap">
-                  <table class="sg-table">
-                    <thead>
-                      <tr>
-                        <th>Art der Hypothese</th>
-                        <th>Formale Beschreibung</th>
-                        <th>Beispiel (Werbepsychologie)</th>
-                        <th>Analyseverfahren</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td><strong>Zusammenhangshypothese</strong></td>
-                        <td>Zwischen zwei Merkmalen X und Y besteht ein Zusammenhang.</td>
-                        <td>Zwischen der Länge eines Werbespots und der Sympathie mit dem Produkt besteht ein positiver Zusammenhang.</td>
-                        <td>Korrelation</td>
-                      </tr>
-                      <tr>
-                        <td></td>
-                        <td>Zusammenhänge zwischen vielen untersuchten Variablen lassen sich auf wenige hypothetische Faktoren zurückführen.</td>
-                        <td>Die Zusammenhänge zwischen mehreren Merkmalen eines Werbespots gehen auf die Faktoren „Glaubwürdigkeit" und „Sympathie" zurück.</td>
-                        <td>Faktorenanalyse</td>
-                      </tr>
-                      <tr>
-                        <td><strong>Wirkungs-/Kausalhypothese</strong></td>
-                        <td>Eine Maßnahme (UV) hat einen Einfluss auf eine abhängige Variable (AV).</td>
-                        <td>Je emotionaler die Botschaft ist, desto sympathischer beurteilen die Konsumenten das Produkt.</td>
-                        <td>Regressionsanalyse</td>
-                      </tr>
-                      <tr>
-                        <td><strong>Unterschiedshypothese</strong></td>
-                        <td>Zwei Maßnahmen A1 und A2 unterscheiden sich in ihrer Wirkung auf eine abhängige Variable.</td>
-                        <td>Ein humorvoller Werbespot steigert die Sympathie mit einem Produkt mehr als ein informativer Spot.</td>
-                        <td>t-Test</td>
-                      </tr>
-                      <tr>
-                        <td></td>
-                        <td>Zwei (oder mehrere) Populationen unterscheiden sich in Bezug auf eine Variable.</td>
-                        <td>Ältere Konsumenten finden den Werbespot weniger sympathisch als jüngere Konsumenten.</td>
-                        <td>t-Test; ANOVA</td>
-                      </tr>
-                      <tr>
-                        <td><strong>Interaktionshypothese</strong></td>
-                        <td>Zwischen zwei unabhängigen Variablen besteht eine Interaktion.</td>
-                        <td>Emotionale Werbung wirkt bei geringem Involvement sympathischer als bei hohem Involvement.</td>
-                        <td>Mehrfaktorielle Varianzanalyse</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-
-                <h3 class="sg-section-title" style="margin-top:1.75rem;">Wesentliche Fakten &amp; Daten</h3>
-                <ul class="sg-ul">
-                  <li>Wissenschaftliches Arbeiten erfordert ständige Übung; Sünden wie fehlender roter Faden, Umgangssprache und Plagiate sind zu vermeiden.</li>
-                  <li>Eine Forschungsfrage ist übergeordneter Natur und keine Detailfrage. </li>
-                  <li>Die finale Forschungsmethode (Qualitativ vs. Quantitativ) wird durch die Forschungsfrage bestimmt. </li>
-                  <li>Forschungsfragen werden als Frage formuliert, Hypothesen als Aussage.</li>
-                  <li>Bei quantitativen empirischen Studien ist i.d.R. eine Forschungsfrage pro Arbeit ausreichend, und es sind mehrere Hypothesen erforderlich. </li>
-                  <li>Bei qualitativen empirischen Studien können mehr als eine Forschungsfrage, aber keine Hypothesen erforderlich sein. </li>
-                  <li>Die Wahl zwischen Forschungsfrage und Hypothese hängt vom bestehenden Wissen ab: Bei fehlender Theorie eher Forschungsfrage (Qualitative Forschung → Induktion), bei ausreichendem Wissen eher Hypothese (Quantitative Forschung → Deduktion). </li>
-                  <li>Eine Arbeit sollte nur eine (Haupt-)Forschungsfrage haben.</li>
-                  <li>Forschungsfragen sind weniger konkret (operationalisiert) als Hypothesen, aber verständlicher und drücken das Wesentliche aus. </li>
-                </ul>
-
-              </div>
-            </div>
-
-            <!-- PHASE 3 -->
-            <div class="phase-block">
-              <div class="phase-header">
-                <span class="phase-badge phase-badge--purple">Phase 3</span>
-                <span class="phase-title">Festigen &amp; Erinnern</span>
-                <span class="phase-time">Nächste Schritte</span>
-              </div>
-              <div class="phase-body">
-                <p>Um dein Wissen langfristig zu sichern, wende die Methode der <strong>gestaffelten Wiederholung</strong> an:</p>
-                <div class="sg-repeat-list">
-                  <div class="sg-repeat-item">
-                    <span class="sg-repeat-badge">Morgen</span>
-                    <div><strong>10 Min.:</strong> Überprüfe deine „unklarsten Punkte" und versuche, sie vollständig zu klären. Beantworte die „Active Recall"-Aufforderungen erneut. Nutze dazu deine eigenen Worte.</div>
-                  </div>
-                  <div class="sg-repeat-item">
-                    <span class="sg-repeat-badge sg-repeat-badge--light">In 3 Tagen</span>
-                    <div><strong>5 Min.:</strong> Gehe die Liste der „Schlüsselthemen &amp; Definitionen" schnell durch. Versuche, die wichtigsten Begriffe aus dem Gedächtnis zu definieren, bevor du deine Notizen konsultierst.</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-          </div><!-- /study-guide -->
-
-          <div class="content-placeholder" style="margin-top:2rem;">
-            <span class="icon">&#128196;</span>
-            <p><strong>Zusätzliche Literatur.</strong><br>
-            Jhangiani, R. S., Chiang, I. C. A., Cuttler, C., &amp; Leighton, D. C. (2019). Research methods in psychology Kwantlen Polytechnic University. – Chapter II The Science of Psychology (pp. 25–58)</p>
-            <p style="margin-top:1rem;"><strong>Zusätzliche Videos</strong></p>
-            <div class="video-grid">
-              <a class="video-card" href="https://www.youtube.com/watch?v=mrWeLJZydUU&t" target="_blank" rel="noopener">
-                <div class="video-thumb">
-                  <img src="https://img.youtube.com/vi/mrWeLJZydUU/hqdefault.jpg" alt="Developing a research question" loading="lazy">
-                  <div class="play-icon">
-                    <svg width="48" height="48" viewBox="0 0 48 48">
-                      <circle cx="24" cy="24" r="24" fill="rgba(0,0,0,0.55)"/>
-                      <polygon points="19,15 37,24 19,33" fill="white"/>
-                    </svg>
-                  </div>
-                </div>
-                <div class="video-label">Developing a research question</div>
-              </a>
-              <a class="video-card" href="https://www.youtube.com/watch?v=PczRoi0JNc8" target="_blank" rel="noopener">
-                <div class="video-thumb">
-                  <img src="https://img.youtube.com/vi/PczRoi0JNc8/hqdefault.jpg" alt="Warum ist die Banane krumm?" loading="lazy">
-                  <div class="play-icon">
-                    <svg width="48" height="48" viewBox="0 0 48 48">
-                      <circle cx="24" cy="24" r="24" fill="rgba(0,0,0,0.55)"/>
-                      <polygon points="19,15 37,24 19,33" fill="white"/>
-                    </svg>
-                  </div>
-                </div>
-                <div class="video-label">Warum ist die Banane krumm?</div>
-              </a>
-            </div>
-          </div>
+      <!-- HERO BEREICH -->
+      <div class="lesson-hero">
+        <span class="chapter-badge">Lektion 3</span>
+        <h1 class="lesson-title">Zielsicher recherchieren</h1>
+        <p class="lesson-subtitle">
+          Wie recherchiert man Informationen?
+        </p>
+        <div class="tab-nav" role="tablist">
+          <button class="tab-btn active" role="tab" data-tab="kernthemen">Kernthemen</button>
+          <button class="tab-btn" role="tab" data-tab="input">Input</button>
+          <button class="tab-btn" role="tab" data-tab="uebungen">Übungen</button>
         </div>
       </div>
 
-      <!-- TAB: Übungen -->
-      <div class="tab-panel" id="tab-uebungen" role="tabpanel">
-        <div class="uebungen-wrapper">
-          <iframe
-            class="uebungen-frame"
-            src="uebungen/lektion-02-uebungen.html"
-            title="Übungen zu Lektion 2"
-            loading="lazy"
-          ></iframe>
+      <!-- INHALTE-TABS -->
+      <div class="tab-content">
+
+        <!-- TAB PANEL 1: KERNTHEMEN (JETZT ZUM ABHAKEN) -->
+        <div class="tab-panel active" id="tab-kernthemen" role="tabpanel">
+          
+          <div class="topic-list">
+            
+            <div class="topic-item">
+              <span class="topic-num">01</span>
+              <div class="topic-body">
+                <div class="topic-title">Forschungsfrage</div>
+                <div class="topic-sub">Die Forschungsfrage ist der „Leitstern“ jeder wissenschaftlichen Arbeit, die ein breites Thema in eine präzise, beantwortbare Fragestellung überführt. Sie ist übergeordneter Natur und bestimmt die finale Forschungsmethode, ohne bereits eine vermutete Antwort zu enthalten.</div>
+              </div>
+            </div>
+
+            <div class="topic-item">
+              <span class="topic-num">02</span>
+              <div class="topic-body">
+                <div class="topic-title">Forschungsziele (Explorativ, Deskriptiv, Kausal)</div>
+                <div class="topic-sub">Diese definieren den primären Zweck einer Studie. Explorative Studien zielen darauf ab, erste Einsichten zu gewinnen und neue Zusammenhänge zu entdecken. Deskriptive Studien beschreiben Sachverhalte und deren Häufigkeit oder Korrelationen. Kausale (experimentelle) Studien überprüfen Ursache-Wirkungs-Beziehungen.</div>
+              </div>
+            </div>
+
+            <div class="topic-item">
+              <span class="topic-num">03</span>
+              <div class="topic-body">
+                <div class="topic-title">Hypothesen & Operationalisierbarkeit</div>
+                <div class="topic-sub">Eine Hypothese ist eine vorläufige, vermutete Antwort auf eine Forschungsfrage, die als Aussage formuliert wird und Zusammenhänge zwischen mindestens zwei Variablen unterstellt. Sie dient dazu, die Realität zu erklären und wird typischerweise in quantitativen Studien zur Bestätigung oder Widerlegung herangezogen. Operationalisierbarkeit: Bezieht sich auf die Fähigkeit, abstrakte Begriffe innerhalb einer Hypothese erfassbar und messbar zu machen. Dies ist eine grundlegende Anforderung für die empirische Überprüfbarkeit einer Hypothese.</div>
+              </div>
+            </div>
+
+            <div class="topic-item">
+              <span class="topic-num">04</span>
+              <div class="topic-body">
+                <div class="topic-title">Widerlegbarkeit (Falsifizierbarkeit)</div>
+                <div class="topic-sub">Eine wesentliche Anforderung an wissenschaftliche Hypothesen ist, dass sie prinzipiell widerlegbar sein müssen. Dies bedeutet, dass sie so formuliert sein müssen, dass sie durch empirische Beobachtungen potenziell als falsch erwiesen werden können, wodurch ihr wissenschaftlicher Gehalt sichergestellt wird.</div>
+              </div>
+            </div>
+
+          </div>
         </div>
+        
+        <!-- TAB PANEL 2: INPUT (JETZT ALS ACCORDION) -->
+        <div class="tab-panel" id="tab-input" role="tabpanel">
+          <div class="prose">
+          
+            <div class="accordion-container">
+              
+              <!-- ACCORDION 1: Zum Anhören -->
+              <details class="accordion-item">
+                <summary>Zum Anhören 👂</summary>
+                <div class="accordion-content">
+                  <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--muted);">Dieser Inhalt wird Ihnen als Podcasts zur Verfügung gestellt.</p>
+                  
+                  <div class="audio-block">
+                    <div class="audio-label">Teil 1: Forschungsfragen entwickeln</div>
+                    <audio controls preload="metadata" src="audio/lektion2-teil1.mp3"></audio>
+                    <div class="audio-summary-placeholder">
+                      <strong>Zusammenfassung (Platzhalter):</strong> Hier folgt eine kurze Beschreibung der Kernpunkte und Themen zur Entstehung präziser Forschungsfragen.
+                    </div>
+                  </div>
+
+                  <div class="audio-block">
+                    <div class="audio-label">Teil 2: Hypothesen aufstellen</div>
+                    <audio controls preload="metadata" src="audio/lektion2-teil2.mp3"></audio>
+                    <div class="audio-summary-placeholder">
+                      <strong>Zusammenfassung (Platzhalter):</strong> Hier folgt eine kurze Beschreibung der Strukturierung und Ausrichtung von gerichteten und ungerichteten Hypothesen.
+                    </div>
+                  </div>
+                </div>
+              </details>
+
+              <!-- ACCORDION 2: Zum Lesen & Study Guide -->
+              <details class="accordion-item">
+                <summary>Zum Lesen 📚</summary>
+                <div class="accordion-content">
+                  
+                  <!-- STUDY GUIDE INTEGRATION -->
+                  <div class="study-guide">
+
+                    <!-- PHASE 1 -->
+                    <div class="phase-block">
+                      <div class="phase-header">
+                        <span class="phase-badge">Phase 1</span>
+                        <span class="phase-title">Überprüfen &amp; Lernen</span>
+                        <span class="phase-time">&#9201; 60–90 Min.</span>
+                      </div>
+                      <div class="phase-body">
+                        <p>Beginne damit, den gesamten Inhalt in den nächsten 10–15 Minuten einmal zu überfliegen, um einen Überblick zu bekommen. Notiere dir dabei 3–5 Kernlernziele, die für dich am wichtigsten erscheinen oder am schwierigsten sind.</p>
+                        <p>Widme dich dann fokussierten Lernblöcken, z. B. <strong>25 Minuten Lernen, 5 Minuten Pause</strong> (Pomodoro-Technik), um die folgenden Schlüsselthemen zu vertiefen.</p>
+                      </div>
+                    </div>
+
+                    <!-- PHASE 2 -->
+                    <div class="phase-block">
+                      <div class="phase-header">
+                        <span class="phase-badge phase-badge--orange">Phase 2</span>
+                        <span class="phase-title">Schlüsselthemen &amp; Definitionen</span>
+                      </div>
+                      <div class="phase-body">
+
+                        <h3 class="sg-section-title">Schlüsselbegriffe</h3>
+                        <div class="sg-def-list">
+                          <div class="sg-def-item"><span class="sg-term">Forschungsfrage (RQ)</span><span class="sg-def">Als Frage formulierte Präzisierung eines Themas, die das Problem einer Arbeit definiert und den „Leitstern" darstellt.</span></div>
+                          <div class="sg-def-item"><span class="sg-term">Hypothese (H)</span><span class="sg-def">Als Aussage formulierte, vorläufige (vermutete) Antwort auf eine Forschungsfrage, die einen Zusammenhang zwischen mindestens zwei Variablen unterstellt und die Realität erklären soll.</span></div>
+                          <div class="sg-def-item"><span class="sg-term">Nullhypothese (H₀)</span><span class="sg-def">Verneint in der Regel den interessierten Sachverhalt; bei Ablehnung gilt der postulierte Zusammenhang als bestätigt.</span></div>
+                          <div class="sg-def-item"><span class="sg-term">Alternativhypothese (H₁)</span><span class="sg-def">Wird bei Widerlegung der Nullhypothese angenommen.</span></div>
+                          <div class="sg-def-item"><span class="sg-term">Operationalisierung</span><span class="sg-def">Das Erfassen und Messen von abstrakten Begriffen in einer Hypothese, um sie empirisch überprüfbar zu machen.</span></div>
+                          <div class="sg-def-item"><span class="sg-term">Unabhängige Variable (UV)</span><span class="sg-def">Die Ursache in einer Wirkungs-/Kausalhypothese, die einen Einfluss auf eine abhängige Variable hat.</span></div>
+                          <div class="sg-def-item"><span class="sg-term">Abhängige Variable (AV)</span><span class="sg-def">Die Wirkung in einer Wirkungs-/Kausalhypothese, die durch die unabhängige Variable beeinflusst wird.</span></div>
+                          <div class="sg-def-item"><span class="sg-term">Research Gap (Forschungslücke)</span><span class="sg-def">Ein ungelöstes Problem oder eine unbeantwortete Frage, die den Ausgangspunkt wissenschaftlicher Arbeit bildet.</span></div>
+                        </div>
+
+                        <h3 class="sg-section-title" style="margin-top:1.75rem;">Kernprozesse, Modelle &amp; Regeln</h3>
+
+                        <div class="sg-card">
+                          <div class="sg-card-title">Prozess der wissenschaftlichen Studienplanung</div>
+                          <ol class="sg-ol">
+                            <li><strong>Themenfindung:</strong> Ausgangspunkt.</li>
+                            <li><strong>Forschungslücken identifizieren:</strong> Problemstellung.</li>
+                            <li><strong>Thema eingrenzen:</strong> Präzisierung (zeitlich, örtlich).</li>
+                            <li><strong>Forschungsziel wählen:</strong> Z.B. Ursachen suchen (Erklären).</li>
+                            <li><strong>Forschungsfrage entwickeln:</strong> Dreh- und Angelpunkt der Studie, präzise Formulierung des Erkenntnisinteresses.</li>
+                            <li><strong>Hypothesen formulieren:</strong> Wenn für die Studie relevant (oft quantitativ).</li>
+                          </ol>
+                        </div>
+
+                        <div class="sg-card">
+                          <div class="sg-card-title">Ziele der Wissenschaft</div>
+                          <ul class="sg-ul">
+                            <li><strong>Vorhersage (Prognose):</strong> Welche Auswirkungen hat der Einsatz von ChatGPT auf die künftige kognitive Leistungsfähigkeit von Studierenden?</li>
+                            <li><strong>Erklärung (Kausalität):</strong> Warum nutzen Studierende ChatGPT, auch wenn sie skeptisch sind?</li>
+                            <li><strong>Beschreibung (Deskription):</strong> Wofür nutzen Studierende ChatGPT?</li>
+                          </ul>
+                        </div>
+
+                        <div class="sg-card">
+                          <div class="sg-card-title">Typen von Untersuchungen nach Forschungsziel</div>
+                          <ul class="sg-ul">
+                            <li><strong>Explorative Untersuchung:</strong> Ziel ist es, Neues zu entdecken und erste Einsichten zu gewinnen; oft qualitative Studien (z.B. Interviews).</li>
+                            <li><strong>Deskriptive Untersuchung:</strong> Ziel ist es, Sachverhalte genau zu beschreiben und Häufigkeiten sowie Korrelationen zu ermitteln; quantitative Studien.</li>
+                            <li><strong>Kausal-(experimentelle) Untersuchung:</strong> Ziel ist es, Ursache-Wirkungs-Beziehungen zu testen und zu erklären; quantitative Studien.</li>
+                          </ul>
+                        </div>
+
+                        <div class="sg-card">
+                          <div class="sg-card-title">Merkmale einer Kausalbeziehung</div>
+                          <ol class="sg-ol">
+                            <li>Theoretische Begründung des Zusammenhangs.</li>
+                            <li>Gemeinsame Variation von „Grund" (Ursache) und „Effekt" (Wirkung).</li>
+                            <li>Veränderung des „Grundes" geht der Veränderung des „Effekts" voraus.</li>
+                            <li>Ausschluss alternativer Erklärungsmöglichkeiten für den beobachteten Zusammenhang.</li>
+                          </ol>
+                        </div>
+
+                        <div class="sg-card">
+                          <div class="sg-card-title">Entwicklung von Forschungsfrage zu Hypothese</div>
+                          <p class="sg-flow">Thema &rarr; Forschungsziel &rarr; Forschungsfrage(n) &rarr; Hypothesen</p>
+                        </div>
+
+                        <div class="sg-card">
+                          <div class="sg-card-title">Kriterien guter Forschungsfragen</div>
+                          <ul class="sg-ul">
+                            <li><strong>Klarheit:</strong> Eindeutig verständlich, ohne Mehrdeutigkeiten oder vage Begriffe.</li>
+                            <li><strong>Forschungsrelevanz:</strong> Bezug zur Theorie oder Praxis, Beitrag zur wissenschaftlichen Diskussion.</li>
+                            <li><strong>Empirische Überprüfbarkeit:</strong> Mit wissenschaftlichen Methoden beantwortbar.</li>
+                            <li><strong>Eingrenzung / Präzision:</strong> Innerhalb von gegebenen Rahmenbedingungen bearbeitbar.</li>
+                            <li><strong>Neutralität / Offenheit:</strong> Ergebnisoffen und nicht suggestiv formuliert.</li>
+                            <li><strong>Forschungslogik:</strong> Erkennbarer Zusammenhang.</li>
+                          </ul>
+                        </div>
+
+                        <div class="sg-card">
+                          <div class="sg-card-title">Anforderungen an Hypothesen</div>
+                          <ul class="sg-ul">
+                            <li><strong>Präzise und widerspruchsfrei formuliert:</strong> Idealerweise lässt die Formulierung die Art der Hypothese erkennen. Widersprüchliche Hypothesen sind nicht wissenschaftlich.</li>
+                            <li><strong>Prinzipiell widerlegbar:</strong> Muss falsifizierbar sein, um empirischen Gehalt zu besitzen (z.B. gerichtete Kausalhypothesen besser als ungerichtete Zusammenhangshypothesen).</li>
+                            <li><strong>Operationalisierbar:</strong> Die abstrakten Begriffe müssen messbar sein.</li>
+                            <li><strong>Begründbar:</strong> Muss unter Einbeziehung theoretischer Grundlagen und des empirischen Forschungsstands gut begründet sein.</li>
+                          </ul>
+                        </div>
+
+                        <div class="sg-card">
+                          <div class="sg-card-title">Gerichtetheit von Hypothesen</div>
+                          <ul class="sg-ul">
+                            <li><strong>Ungerichtet:</strong> Beschreibt einen Unterschied oder Zusammenhang ohne spezifische Richtung (z.B. „Krankmeldungen unterscheiden sich im Semesterverlauf"). Besitzt niedrigen empirischen Gehalt.</li>
+                            <li><strong>Gerichtet:</strong> Postuliert eine spezifische Richtung des Zusammenhangs oder der Wirkung (z.B. „In der Prüfungswoche erkranken <em>mehr</em> Studenten…"). Besitzt hohen empirischen Gehalt.</li>
+                          </ul>
+                        </div>
+
+                        <h3 class="sg-section-title" style="margin-top:1.75rem;">Arten von Hypothesen und Analyseverfahren</h3>
+                        <div class="sg-table-wrap">
+                          <table class="sg-table">
+                            <thead>
+                              <tr>
+                                <th>Art der Hypothese</th>
+                                <th>Formale Beschreibung</th>
+                                <th>Beispiel (Werbepsychologie)</th>
+                                <th>Analyseverfahren</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td><strong>Zusammenhangshypothese</strong></td>
+                                <td>Zwischen zwei Merkmalen X und Y besteht ein Zusammenhang.</td>
+                                <td>Zwischen der Länge eines Werbespots und der Sympathie mit dem Produkt besteht ein positiver Zusammenhang.</td>
+                                <td>Mechanische Korrelation</td>
+                              </tr>
+                              <tr>
+                                <td></td>
+                                <td>Zusammenhänge zwischen vielen Variablen lassen sich auf wenige hypothetische Faktoren zurückführen.</td>
+                                <td>Die Zusammenhänge zwischen mehreren Merkmalen eines Werbespots gehen auf die Faktoren „Glaubwürdigkeit" und „Sympathie" zurück.</td>
+                                <td>Faktorenanalyse</td>
+                              </tr>
+                              <tr>
+                                <td><strong>Wirkungs-/Kausalhypothese</strong></td>
+                                <td>Eine Maßnahme (UV) hat einen Einfluss auf eine abhängige Variable (AV).</td>
+                                <td>Je emotionaler die Botschaft ist, desto sympathischer beurteilen die Konsumenten das Produkt.</td>
+                                <td>Regressionsanalyse</td>
+                              </tr>
+                              <tr>
+                                <td><strong>Unterschiedshypothese</strong></td>
+                                <td>Zwei Maßnahmen A1 und A2 unterscheiden sich in ihrer Wirkung auf eine abhängige Variable.</td>
+                                <td>Ein humorvoller Werbespot steigert die Sympathie mit einem Produkt mehr als ein informativer Spot.</td>
+                                <td>t-Test</td>
+                              </tr>
+                              <tr>
+                                <td></td>
+                                <td>Zwei (oder mehrere) Populationen unterscheiden sich in Bezug auf eine Variable.</td>
+                                <td>Ältere Konsumenten finden den Werbespot weniger sympathisch als jüngere Konsumenten.</td>
+                                <td>t-Test; ANOVA</td>
+                              </tr>
+                              <tr>
+                                <td><strong>Interaktionshypothese</strong></td>
+                                <td>Zwischen zwei unabhängigen Variablen besteht eine Interaktion.</td>
+                                <td>Emotionale Werbung wirkt bei geringem Involvement sympathischer als bei hohem Involvement.</td>
+                                <td>Mehrfaktorielle Varianzanalyse</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+
+                        <h3 class="sg-section-title" style="margin-top:1.75rem;">Wesentliche Fakten &amp; Daten</h3>
+                        <ul class="sg-ul">
+                          <li>Wissenschaftliches Arbeiten erfordert ständige Übung; Sünden wie fehlender rote Faden, Umgangssprache und Plagiate sind zu vermeiden.</li>
+                          <li>Eine Forschungsfrage ist übergeordneter Natur und keine Detailfrage.</li>
+                          <li>Die finale Forschungsmethode (Qualitativ vs. Quantitativ) wird durch die Forschungsfrage bestimmt.</li>
+                          <li>Forschungsfragen werden als Frage formuliert, Hypothesen als Aussage.</li>
+                          <li>Bei quantitativen empirischen Studien ist i.d.R. eine Forschungsfrage pro Arbeit ausreichend, und es sind mehrere Hypothesen erforderlich.</li>
+                          <li>Bei qualitativen empirischen Studien können mehr als eine Forschungsfrage, aber keine Hypothesen erforderlich sein.</li>
+                          <li>Die Wahl zwischen Forschungsfrage und Hypothese hängt vom bestehenden Wissen ab: Bei fehlender Theorie eher Forschungsfrage (Qualitative Forschung → Induktion), bei ausreichendem Wissen eher Hypothese (Quantitative Forschung → Deduktion).</li>
+                          <li>Eine Arbeit sollte nur eine (Haupt-)Forschungsfrage haben.</li>
+                          <li>Forschungsfragen sind weniger konkret (operationalisiert) als Hypothesen, aber verständlicher und drücken das Wesentliche aus.</li>
+                        </ul>
+
+                      </div>
+                    </div>
+
+                    <!-- PHASE 3 -->
+                    <div class="phase-block">
+                      <div class="phase-header">
+                        <span class="phase-badge phase-badge--purple">Phase 3</span>
+                        <span class="phase-title">Festigen &amp; Erinnern</span>
+                        <span class="phase-time">Nächste Schritte</span>
+                      </div>
+                      <div class="phase-body">
+                        <p>Um dein Wissen langfristig zu sichern, wende die Methode der <strong>gestaffelten Wiederholung</strong> an:</p>
+                        <div class="sg-repeat-list">
+                          <div class="sg-repeat-item">
+                            <span class="sg-repeat-badge">Morgen</span>
+                            <div><strong>10 Min.:</strong> Überprüfe deine „unklarsten Punkte" und versuche, sie vollständig zu klären. Beantworte die „Active Recall"-Aufforderungen erneut. Nutze dazu deine eigenen Worte.</div>
+                          </div>
+                          <div class="sg-repeat-item">
+                            <span class="sg-repeat-badge sg-repeat-badge--light">In 3 Tagen</span>
+                            <div><strong>5 Min.:</strong> Gehe die Liste der „Schlüsselthemen &amp; Definitionen" schnell durch. Versuche, die wichtigsten Begriffe aus dem Gedächtnis zu definieren, bevor du deine Notizen konsultierst.</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div><!-- /study-guide -->
+
+                  <div class="text-placeholder-box">
+                    <h3 style="font-size: 1.05rem; margin-bottom: 0.5rem; color: var(--dark);">Ergänzende Materialien:</h3>
+                    <p style="font-size: 0.92rem; color: var(--muted); line-height: 1.6;">Jhangiani, R. S., Chiang, I. C. A., Cuttler, C., &amp; Leighton, D. C. (2019). Research methods in psychology Kwantlen Polytechnic University. – Chapter II The Science of Psychology (pp. 25–58)</p>
+                  </div>
+                </div>
+              </details>
+
+              <!-- ACCORDION 3: Zum Sehen -->
+              <details class="accordion-item">
+                <summary>Zum Sehen 👀</summary>
+                <div class="accordion-content" style="padding-top: 1.25rem;">
+                  <p style="font-size: 0.95rem; font-weight: 600; margin-bottom: 0.5rem; color: var(--dark);">Videos:</p>
+                  
+                  <div class="video-grid">
+                    <a class="video-card" href="https://www.youtube.com/watch?v=mrWeLJZydUU" target="_blank" rel="noopener">
+                      <div class="video-thumb">
+                        <img src="https://img.youtube.com/vi/mrWeLJZydUU/hqdefault.jpg" alt="Developing a research question" loading="lazy">
+                        <div class="play-icon">
+                          <svg width="48" height="48" viewBox="0 0 48 48"><circle cx="24" cy="24" r="24" fill="rgba(18,22,22,0.7)"/><polygon points="19,15 37,24 19,33" fill="#74C2A8"/></svg>
+                        </div>
+                      </div>
+                      <div class="video-label">Developing a research question</div>
+                    </a>
+
+                    <a class="video-card" href="https://www.youtube.com/watch?v=PczRoi0JNc8" target="_blank" rel="noopener">
+                      <div class="video-thumb">
+                        <img src="https://img.youtube.com/vi/PczRoi0JNc8/hqdefault.jpg" alt="Warum ist die Banane krumm?" loading="lazy">
+                        <div class="play-icon">
+                          <svg width="48" height="48" viewBox="0 0 48 48"><circle cx="24" cy="24" r="24" fill="rgba(18,22,22,0.7)"/><polygon points="19,15 37,24 19,33" fill="#74C2A8"/></svg>
+                        </div>
+                      </div>
+                      <div class="video-label">Warum ist die Banane krumm?</div>
+                    </a>
+                  </div>
+                </div>
+              </details>
+
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB PANEL 3: ÜBUNGEN -->
+        <div class="tab-panel" id="tab-uebungen" role="tabpanel">
+          <div class="uebungen-wrapper">
+            <iframe
+              class="uebungen-frame"
+              src="uebungen/lektion-02-uebungen.html"
+              title="Übungen zu Lektion 2"
+              loading="lazy"
+            ></iframe>
+          </div>
+        </div>
+
       </div>
 
     </div>
   </main>
 
   <script>
-    /* Burger / Sidebar */
+    /* Burger-Button & Slide-In Navigation */
     const burgerBtn      = document.getElementById('burgerBtn');
     const sidebar        = document.getElementById('sidebar');
     const sidebarOverlay = document.getElementById('sidebarOverlay');
@@ -875,7 +921,7 @@
     burgerBtn.addEventListener('click', toggleSidebar);
     sidebarOverlay.addEventListener('click', toggleSidebar);
 
-    /* Tab Navigation */
+    /* Tab-Umschaltung */
     const tabBtns   = document.querySelectorAll('.tab-btn');
     const tabPanels = document.querySelectorAll('.tab-panel');
 
@@ -890,116 +936,57 @@
       });
     });
 
-    /* ── LLernziele ─────────────────────────────────────────────────
-       ANPASSEN pro Lektion:
-         - LESSON_ID  → eindeutige ID (z.B. 'lektion-02')
-         - GOALS      → Array mit { text, ref } Objekten
-    ───────────────────────────────────────────────────────────────── */
-    const LESSON_ID = 'lektion-02';
+    /* Kernthemen Checkbox LocalStorage Sync (Aus Lektion 1 übernommen) */
+    const TOPIC_STORAGE_KEY = 'scnew-lektion02-kernthemen-checked';
+    const topicItems = document.querySelectorAll('#tab-kernthemen .topic-item');
 
-    const GOALS = [
-      {
-        text: 'Die Entwicklung von Forschungsfragen aus einem Thema verstehen.',
-        ref: 'K02 S.5'
-      },
-      {
-        text: 'Die Ziele der Wissenschaft (Vorhersage, Erklärung, Beschreibung) kennen und Forschungsfragen entsprechend formulieren können.',
-        ref: 'K02 S.6'
-      },
-      {
-        text: 'Die drei wichtigsten Typen von Untersuchungen (explorativ, deskriptiv, kausal) und ihre jeweiligen Ziele benennen können.', 
-        ref: 'K02 S.7'
-      },
-      {
-        text: 'Kriterien guter Forschungsfragen identifizieren und anwenden können (Klarheit, Relevanz, Überprüfbarkeit, Präzision, Neutralität, Logik). (K02 S.15)',
-        ref: 'K02 S.15'
-      },
-      {
-        text: 'Den Unterschied zwischen einer Forschungsfrage und einer Hypothese erklären können.',
-        ref: 'K02 S.20'
-      },
-      {
-        text: 'Die Rolle von Nullhypothesen ( ) und Alternativhypothesen ( ) in der quantitativen Forschung H1 verstehen. ',
-        ref: 'K02 S.21'
-      },
-      {
-        text: 'Die Definition einer Hypothese als vorläufige, vermutete Antwort kennen. ',
-        ref: 'K02 S.23'
-      },
-      {
-        text: 'Die vier wesentlichen Anforderungen an wissenschaftliche Hypothesen (präzise/widerspruchsfrei, prinzipiell widerlegbar, operationalisierbar, begründbar) erläutern können.',
-        ref: 'K02 S.25'
-      },
-      {
-        text: 'Den Unterschied zwischen gerichteten und ungerichteten Hypothesen verstehen und ihre Bedeutung für den empirischen Gehalt.',
-        ref: 'K02 S.27'
-      },
-      {
-        text: ' Verschiedene Arten von Hypothesen (Zusammenhangs-, Wirkungs-/Kausal-, Unterschiedshypothesen) und die zugehörigen Analyseverfahren kennen.',
-        ref: 'K02 S.39'
-      },
-      {
-        text: 'Unabhängige und abhängige Variablen in Wirkungs- und Kausalhypothesen identifizieren können',
-        ref: 'K02 S.40'
-      },
-    
-      
-    ];
-
-    const STORAGE_KEY = `scnew-goals-${LESSON_ID}`;
-
-    function loadChecked() {
-      try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; }
+    function loadTopicState() {
+      try { return JSON.parse(localStorage.getItem(TOPIC_STORAGE_KEY)) || []; }
       catch { return []; }
     }
-    function saveChecked(arr) {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(arr));
+
+    function saveTopicState(state) {
+      localStorage.setItem(TOPIC_STORAGE_KEY, JSON.stringify(state));
     }
-    function updateProgress(checked) {
-      const total = GOALS.length;
-      const n     = checked.filter(Boolean).length;
-      const pct   = total > 0 ? Math.round((n / total) * 100) : 0;
-      document.getElementById('progressText').textContent = `${n} / ${total}`;
-      document.getElementById('progressFill').style.width = pct + '%';
-    }
-    function buildGoalList() {
-      const list    = document.getElementById('goalList');
-      const checked = loadChecked();
-      list.innerHTML = '';
-      GOALS.forEach((goal, i) => {
-        const isChecked = !!checked[i];
-        const item = document.createElement('div');
-        item.className = 'goal-item' + (isChecked ? ' checked' : '');
-        item.innerHTML = `
-          <div class="goal-checkbox">
-            <svg width="12" height="9" viewBox="0 0 12 9" fill="none">
-              <path d="M1 4L4.5 7.5L11 1" stroke="white" stroke-width="2"
-                    stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </div>
-          <div class="goal-body">
-            <div class="goal-text">${goal.text}</div>
-            ${goal.ref ? `<div class="goal-ref">${goal.ref}</div>` : ''}
-          </div>
-        `;
-        item.addEventListener('click', () => {
-          const current = loadChecked();
-          current[i] = !current[i];
-          saveChecked(current);
-          item.classList.toggle('checked', current[i]);
-          updateProgress(current);
-        });
-        list.appendChild(item);
+
+    function syncTopicState() {
+      const checked = loadTopicState();
+      topicItems.forEach((item, index) => {
+        item.dataset.topicIndex = index;
+        item.classList.toggle('checked', !!checked[index]);
+        item.setAttribute('role', 'button');
+        item.setAttribute('tabindex', '0');
+        item.setAttribute('aria-pressed', checked[index] ? 'true' : 'false');
+        if (!item.querySelector('.topic-checkbox')) {
+          const checkbox = document.createElement('span');
+          checkbox.className = 'topic-checkbox';
+          item.prepend(checkbox);
+        }
       });
-      updateProgress(checked);
     }
 
-    buildGoalList();
+    function toggleTopicItem(item) {
+      const index = Number(item.dataset.topicIndex);
+      const current = loadTopicState();
+      current[index] = !current[index];
+      saveTopicState(current);
+      item.classList.toggle('checked', !!current[index]);
+      item.setAttribute('aria-pressed', current[index] ? 'true' : 'false');
+    }
 
-    /* ── iframe Auto-Resize ─────────────────────────────────────────
-       Passt die Höhe des Übungen-iFrames automatisch an den Inhalt an,
-       damit kein Scroll-in-Scroll entsteht.
-    ───────────────────────────────────────────────────────────────── */
+    topicItems.forEach(item => {
+      item.addEventListener('click', () => toggleTopicItem(item));
+      item.addEventListener('keydown', event => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          toggleTopicItem(item);
+        }
+      });
+    });
+
+    syncTopicState();
+
+    /* iframe Auto-Resize */
     function resizeIframe(iframe) {
       try {
         const h = iframe.contentWindow.document.documentElement.scrollHeight
@@ -1010,7 +997,6 @@
     const ubungsFrame = document.querySelector('.uebungen-frame');
     if (ubungsFrame) {
       ubungsFrame.addEventListener('load', function() { resizeIframe(this); });
-      // Auch nach Tab-Wechsel erneut prüfen
       document.querySelectorAll('.tab-btn').forEach(btn => {
         btn.addEventListener('click', () => {
           if (btn.dataset.tab === 'uebungen') {
@@ -1022,4 +1008,3 @@
   </script>
 </body>
 </html>
-

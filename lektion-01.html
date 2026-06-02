@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Lektion 1 – SciNeW</title>
+  <title>Lektion 1 – Self-Explorer</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
@@ -176,7 +176,7 @@
 
     .lesson-content-container {
       width: 100%;
-      max-width: 960px;
+      max-width: 1400px;
       margin: 0 auto;
       display: flex;
       flex-direction: column;
@@ -303,39 +303,44 @@
     .topic-title { font-size: 1.05rem; font-weight: 600; margin-bottom: 0.4rem; color: var(--dark); letter-spacing: -0.01em; }
     .topic-sub { font-size: 0.9rem; color: var(--muted); line-height: 1.6; }
 
-    /* KERNTHEMEN */
-  
-.topic-list { display: flex; flex-direction: column; gap: 0.75rem; margin-top: 0.5rem; }
-.topic-item {
-  display: grid;
-  grid-template-columns: 2rem 1fr;
-  gap: 0.75rem 1rem;
-  padding: 1.25rem;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  transition: border-color 0.2s;
-}
-.topic-item:hover { border-color: var(--green); }
-.topic-num {
-  font-family: var(--mono); font-size: 0.75rem;
-  color: var(--green); padding-top: 3px;
-}
-
-.topic-title { font-size: 0.95rem; font-weight: 600; margin-bottom: 0.35rem; line-height: 1.4; }
-.topic-sub { font-size: 0.85rem; color: var(--muted); line-height: 1.6; }
-
-    /* INHALT */
-    .content-placeholder {
+    /* ACCORDIONS (INPUT TAB) */
+    .accordion-container { display: flex; flex-direction: column; gap: 1rem; margin-top: 1rem; }
+    .accordion-item {
       background: var(--surface);
-      border: 2px dashed var(--border);
+      border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 3rem 2rem;
-      text-align: center;
-      color: var(--muted);
+      box-shadow: var(--shadow-sm);
+      overflow: hidden;
+      transition: all 0.25s ease;
     }
-    .content-placeholder .icon { font-size: 2.5rem; margin-bottom: 1rem; display: block; opacity: 0.4; }
-    .content-placeholder p { font-size: 0.9rem; line-height: 1.6; }
+    .accordion-item:hover { border-color: var(--green); box-shadow: var(--shadow-md); }
+    
+    .accordion-item summary {
+      padding: 1.5rem; font-size: 1.1rem; font-weight: 600; color: var(--dark);
+      cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; user-select: none;
+    }
+    .accordion-item summary::-webkit-details-marker { display: none; }
+    .accordion-item summary::after {
+      content: '＋'; font-size: 1.1rem; color: var(--green); font-weight: bold; transition: transform 0.3s ease;
+    }
+    .accordion-item[open] summary::after { content: '－'; transform: rotate(180deg); }
+    
+    .accordion-content {
+      padding: 0 1.5rem 1.5rem 1.5rem;
+      border-top: 1px solid var(--border);
+      background: #FCFDFD;
+    }
+    
+    .audio-summary-placeholder {
+      font-size: 0.9rem; color: var(--muted);
+      background: #F5F5F0; border-left: 3px solid var(--green);
+      padding: 1rem; margin-top: 0.75rem; border-radius: 0 10px 10px 0;
+      line-height: 1.5;
+    }
+    .text-placeholder-box {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1.5rem; margin-top: 1rem; box-shadow: var(--shadow-sm);
+    }
 
     .prose h2 { font-size: 1.5rem; font-weight: 700; margin: 0.5rem 0 1rem; letter-spacing: -0.03em; color: var(--dark); }
     .prose p { font-size: 1rem; line-height: 1.75; color: #333; margin-bottom: 1.25rem; }
@@ -399,6 +404,51 @@
     ::-webkit-scrollbar-track { background: transparent; }
     ::-webkit-scrollbar-thumb { background: rgba(18, 22, 22, 0.1); border-radius: 99px; }
     ::-webkit-scrollbar-thumb:hover { background: rgba(116, 194, 168, 0.4); }
+    @media (max-width: 768px) {
+  /* Blendet den Tabellenkopf auf dem Handy aus */
+  .sg-table thead {
+    display: none;
+  }
+  
+  /* Macht aus jeder Tabellenzeile eine eigene Karte */
+  .sg-table, .sg-table tbody, .sg-table tr, .sg-table td {
+    display: block;
+    width: 100%;
+  }
+  
+  .sg-table tr {
+    margin-bottom: 1.5rem;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: var(--surface);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+  }
+  
+  /* Gibt den Zellen Platz und fügt ein Label hinzu */
+  .sg-table td {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid rgba(18, 22, 22, 0.05);
+    position: relative;
+    font-size: 0.95rem;
+  }
+  
+  .sg-table td:last-child {
+    border-bottom: none;
+  }
+  
+  /* Die erste Spalte (Art der Hypothese) heben wir optisch als Titel hervor */
+  .sg-table td:first-child {
+    background: var(--dark);
+    color: #fff;
+    font-weight: 600;
+  }
+  
+  /* Optional: Wenn du leere Zellen als Abstandshalter nutzt, blende sie mobil aus */
+  .sg-table td:empty {
+    display: none;
+  }
+}
   </style>
 </head>
 <body>
@@ -438,51 +488,38 @@
 
   <!-- ARBEITSBEREICH -->
   <main class="main-wrap">
-    <div class="lesson-hero">
-      <span class="chapter-badge">Lektion 1</span>
-      <h1 class="lesson-title">Grundlagen wissenschaftlicher Arbeit</h1>
-      <p class="lesson-subtitle">
-        Was ist Wissenschaft? Erkenntnistheorie, Gütekriterien und der Unterschied
-        zwischen Alltagswissen und empirischem Wissen.
-      </p>
-      <div class="tab-nav" role="tablist">
-        <button class="tab-btn active" role="tab" data-tab="lernziele">Lernziele</button>
-        <button class="tab-btn" role="tab" data-tab="kernthemen">Kernthemen</button>
-        <button class="tab-btn" role="tab" data-tab="input">Input</button>
-        <button class="tab-btn" role="tab" data-tab="uebungen">Übungen</button>
+    <div class="lesson-content-container">
+      
+      <!-- HERO BEREICH -->
+      <div class="lesson-hero">
+        <span class="chapter-badge">Lektion 1</span>
+        <h1 class="lesson-title">Grundlagen wissenschaftlicher Arbeit</h1>
+        <p class="lesson-subtitle">
+          Was ist Wissenschaft? Erkenntnistheorie, Gütekriterien und der Unterschied
+          zwischen Alltagswissen und empirischem Wissen.
+        </p>
+        <div class="tab-nav" role="tablist">
+          <button class="tab-btn active" role="tab" data-tab="kernthemen">Kernthemen</button>
+          <button class="tab-btn" role="tab" data-tab="input">Input</button>
+          <button class="tab-btn" role="tab" data-tab="uebungen">Übungen</button>
+        </div>
       </div>
-    </div>
 
       <!-- INHALTE-TABS -->
       <div class="tab-content">
 
-      <!-- TAB: Lernziele -->
-      <div class="tab-panel active" id="tab-lernziele" role="tabpanel">
-        <div class="info-box">
-          Haken Sie ab, was Sie bereits wissen oder verstehst. Ihr Fortschritt wird
-          automatisch gespeichert und bleibt auch nach einem Neuladen erhalten.
-        </div>
-        <div class="progress-wrap">
-          <div class="progress-label">
-            <span>Fortschritt</span>
-            <span id="progressText">0 / 5</span>
-          </div>
-          <div class="progress-bar">
-            <div class="progress-fill" id="progressFill"></div>
-          </div>
-        </div>
-        <div class="goal-list" id="goalList"></div>
-      </div>
-
- <div class="tab-panel" id="tab-kernthemen" role="tabpanel">
-    <p class="section-heading">Kernthemen</p>
- <div class="topic-item">
-  <span class="topic-num">01</span>
-  <div class="topic-body">
-    <div class="topic-title">Grundlagen und Abgrenzung des wissenschaftlichen Arbeitens</div>
-    <div class="topic-sub">Dieses Thema definiert wissenschaftliches Arbeiten als Prozess der systematischen Erkenntnisgewinnung, der auf Regelbasiertheit, Nachvollziehbarkeit und Objektivität beruht.Ein wesentlicher Aspekt ist dabei die Abgrenzung zur Pseudowissenschaft, die sich durch fehlende empirische Evidenz und mangelnde Falsifizierbarkeit auszeichnet.</div>
-  </div>
-</div>
+        <!-- TAB PANEL 1: KERNTHEMEN -->
+        <div class="tab-panel active" id="tab-kernthemen" role="tabpanel">
+          <p class="section-heading">Kernthemen</p>
+          <div class="topic-list">
+            
+            <div class="topic-item">
+              <span class="topic-num">01</span>
+              <div class="topic-body">
+                <div class="topic-title">Grundlagen und Abgrenzung des wissenschaftlichen Arbeitens</div>
+                <div class="topic-sub">Dieses Thema definiert wissenschaftliches Arbeiten als Prozess der systematischen Erkenntnisgewinnung, der auf Regelbasiertheit, Nachvollziehbarkeit und Objektivität beruht. Ein wesentlicher Aspekt ist dabei die Abgrenzung zur Pseudowissenschaft, die sich durch fehlende empirische Evidenz und mangelnde Falsifizierbarkeit auszeichnet.</div>
+              </div>
+            </div>
 
             <div class="topic-item">
               <span class="topic-num">02</span>
@@ -522,14 +559,12 @@
         <!-- TAB PANEL 2: INPUT ACCORDIONS -->
         <div class="tab-panel" id="tab-input" role="tabpanel">
           <div class="prose">
-            <h2>Was ist Wissenschaft?</h2>
-            <p>Hier finden Sie alle Lernmaterialien für diese Lektion, aufgeteilt in übersichtliche Kategorien.</p>
-            
+          
             <div class="accordion-container">
               
               <!-- ACCORDION 1: Zum Anhören -->
               <details class="accordion-item">
-                <summary>Zum Anhören</summary>
+                <summary>Zum Anhören👂</summary>
                 <div class="accordion-content">
                   <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--muted);">Dieser Inhalt wird Ihnen als Podcasts zur Verfügung gestellt.</p>
                   
@@ -561,39 +596,153 @@
 
               <!-- ACCORDION 2: Zum Lesen -->
               <details class="accordion-item">
-                <summary>Zum Lesen</summary>
-                <div class="accordion-content">
-                  <div class="text-placeholder-box">
-                    <h3 style="font-size: 1.05rem; margin-bottom: 0.5rem; color: var(--dark);">Textblock 1: Einführung & Definitionen (Platzhalter)</h3>
-                    <p style="font-size: 0.92rem; color: var(--muted); line-height: 1.6;">Hier kannst du zukünftig Begleitkapitel, Skripte oder wichtige Definitionen als Text hinterlegen. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                  </div>
+                <summary>Zum Lesen 📖</summary>
+                <div class="accordion-content" style="padding-top: 0.5rem;">
                   
-                  <div class="text-placeholder-box">
-                    <h3 style="font-size: 1.05rem; margin-bottom: 0.5rem; color: var(--dark);">Textblock 2: Vertiefung des Wochenthemas (Platzhalter)</h3>
-                    <p style="font-size: 0.92rem; color: var(--muted); line-height: 1.6;">Ein weiterer Bereich für zusätzliche Lektüre, Erklärungen oder Leitfäden zum wissenschaftlichen Arbeiten. Ut enim ad minim veniam, quis nostrud exercitation.</p>
+                  <!-- Sektion 1: Schlüsselkonzepte erklärt -->
+                  <div class="sg-reading-section">
+                    <h3 class="sg-reading-title">Schlüsselkonzepte erklärt</h3>
+                    <ul class="sg-inner-list">
+                      <li><strong>Wissenschaftliches Arbeiten:</strong> Bezieht sich auf den Prozess der systematischen Erkenntnisgewinnung, der kontinuierliches Lesen, Schreiben und Üben erfordert und essenziell für das gesamte Studium ist<span class="sg-citation">(K01 p.5)</span>. Es geht darum, Wissen zu sammeln, zu ordnen und zu erklären, wobei Regelbasiertheit, Nachvollziehbarkeit und Objektivität zentrale Kriterien sind<span class="sg-citation">(K01 p.18)</span>.</li>
+                      <li><strong>Pseudowissenschaft:</strong> Beschreibt Theorien, Methoden oder Behauptungen, die den Anschein wissenschaftlicher Vorgehensweise erwecken, jedoch nicht den Standards der echten Wissenschaft entsprechen, oft durch fehlende empirische Evidenz oder Nicht-Falsifizierbarkeit gekennzeichnet<span class="sg-citation">(K01 p.17)</span>.</li>
+                      <li><strong>Induktion vs. Deduktion:</strong> Dies sind zwei grundlegende Denkansätze im wissenschaftlichen Erkenntnisprozess. <strong>Induktion</strong> schließt vom Besonderen (Beobachtungen/Empirie) auf das Allgemeine (Theorie), während <strong>Deduktion</strong> vom Allgemeinen (Theorie) auf das Besondere (Beobachtungen/Empirie) schließt<span class="sg-citation">(K01 p.24)</span>.</li>
+                      <li><strong>Ziele der Wissenschaft:</strong> Die drei Hauptebenen wissenschaftlicher Forschung umfassen die <strong>Beschreibung</strong> (systematische Erfassung von Merkmalen), die <strong>Erklärung</strong> (Identifikation von Ursache-Wirkungs-Zusammenhängen) und die <strong>Vorhersage</strong> (Prognose zukünftigen Verhaltens oder Ereignissen auf Basis gesicherter Zusammenhänge)<span class="sg-citation">(K01 p.29)</span>.</li>
+                      <li><strong>Forschungslücke (Research Gap):</strong> Definiert ein ungelöstes Problem oder einen Bereich, der in der bisherigen Forschung nicht ausreichend behandelt wurde und als Grundlage für eine neue, relevante wissenschaftliche Arbeit dient<span class="sg-citation">(K01 p.60)</span>.</li>
+                    </ul>
                   </div>
+
+                  <!-- Sektion 2: Schlüsselbegriffe -->
+                  <div class="sg-reading-section">
+                    <h3 class="sg-reading-title">Schlüsselbegriffe</h3>
+                    <ul class="sg-inner-list">
+                      <li><strong>Wissenschaftliches Arbeiten:</strong> Systematische Erkenntnisgewinnung; kontinuierliches Lesen und Schreiben; essenziell während des gesamten Studiums<span class="sg-citation">(K01 p.5)</span>.</li>
+                      <li><strong>Pseudowissenschaft:</strong> Theorien, Methoden oder Behauptungen, die den Anschein wissenschaftlicher Vorgehensweise erwecken, aber den Standards und Methoden der echten Wissenschaft nicht entsprechen<span class="sg-citation">(K01 p.17)</span>.</li>
+                      <li><strong>Systematisch (im wiss. Arbeiten):</strong> Regelbasiert und methodisch vorgehen; Wissen sammeln, ordnen und erklären<span class="sg-citation">(K01 p.18)</span>.</li>
+                      <li><strong>Objektiv prübbar (im wiss. Arbeiten):</strong> Unabhängig von persönlichen Meinungen<span class="sg-citation">(K01 p.18)</span>.</li>
+                      <li><strong>Falsizifierung:</strong> Das Kennzeichen wissenschaftlichen Fortschritts; liefert nur eine vorläufige Bestätigung ohne endgültige Sicherheit; Ablehnung bzw. Modifikation einer Theorie<span class="sg-citation">(K01 p.16)(K01 p.24)(K01 p.67)</span>.</li>
+                      <li><strong>Verifizieren:</strong> Vorläufige Bestätigung einer Theorie; wird von vielen als kein starkes Mittel wissenschaftlichen Fortschritts angesehen<span class="sg-citation">(K01 p.16)(K01 p.24)(K01 p.67)</span>.</li>
+                      <li><strong>Empirie:</strong> Die Grundlage, um Annahmen über das Verhalten von Menschen zu überprüfen (in der Psychologie)<span class="sg-citation">(K01 p.16)</span>.</li>
+                      <li><strong>Modell:</strong> Eine vereinfachte (aber kohärente) Auffassung eines Forschungsgegenstands (ein Auszug der Realität), die komplexe Sachverhalte verständlich macht<span class="sg-citation">(K01 p.16)(K01 p.69)</span>.</li>
+                      <li><strong>Theorie:</strong> Das systematische, nach bestimmten Prinzipien geordnete Beobachten und Erklären der Realität; schafft Erkenntnisse als Instrument zur Ordnung und Bewältigung des Alltags<span class="sg-citation">(K01 p.16)(K01 p.70)</span>.</li>
+                      <li><strong>Angewandte Wissenschaft:</strong> Disziplinen, die wissenschaftliche Erkenntnisse zur Lösung praktischer Probleme nutzen (z.B. Medizin, Wirtschaftspsychologie)<span class="sg-citation">(K01 p.67)</span>.</li>
+                      <li><strong>Grundlagenwissenschaft:</strong> Wissenschaftszweige mit weniger Anwendungsbezug<span class="sg-citation">(K01 p.67)</span>.</li>
+                      <li><strong>Forschung:</strong> Aspekte der Wissenschaft, die die Erzeugung von Wissen in den Vordergrund stellen<span class="sg-citation">(K01 p.67)</span>.</li>
+                      <li><strong>Wissenschaftliche Methode:</strong> Geprägt von dem Versuch, das Universum objektiv und reproduzierbar zu erklären<span class="sg-citation">(K01 p.67)</span>.</li>
+                      <li><strong>Reproduzieren:</strong> Prüfen des Vorgehens und der Berechnungen einer Studie<span class="sg-citation">(K01 p.20)(K01 p.74)</span>.</li>
+                      <li><strong>Replizieren:</strong> Wiederholen einer Studie exakt wie beschrieben und zum selben Ergebnis kommen<span class="sg-citation">(K01 p.20)(K01 p.74)</span>.</li>
+                      <li><strong>Induktion:</strong> Schlussfolgern vom Besonderen (Beobachtungen/Empirie) auf das Allgemeine (Theorie)<span class="sg-citation">(K01 p.24)(K01 p.74)</span>.</li>
+                      <li><strong>Deduktion:</strong> Schlussfolgern vom Allgemeinen (Theorie) auf das Besondere (Beobachtungen/Empirie)<span class="sg-citation">(K01 p.24)(K01 p.74)</span>.</li>
+                      <li><strong>Forschungslücke (Research Gap):</strong> Ein "Problem", das der Forscher angehen möchte; ungelöste Sachverhalte oder bislang nicht untersuchte Bereiche im Forschungsfeld<span class="sg-citation">(K01 p.60)(K01 p.62)</span>.</li>
+                      <li><strong>Ursache (U):</strong> Eine notwendige und/oder hinreichende Bedingung für das Eintreten eines Ereignisses E (Wirkung)<span class="sg-citation">(K01 p.71)</span>.</li>
+                      <li><strong>Zufall:</strong> Keine Ursache, sondern eine Umschreibung für die Tatsache, dass die Ursache unbekannt ist<span class="sg-citation">(K01 p.71)</span>.</li>
+                    </ul>
+                  </div>
+
+                  <!-- Sektion 3: Kernprozesse, Modelle & Regeln -->
+                  <div class="sg-reading-section">
+                    <h3 class="sg-reading-title">Kernprozesse, Modelle & Regeln</h3>
+                    
+                    <h4 style="margin: 1rem 0 0.5rem; font-size: 1.05rem; color: var(--dark);">Erkenntnisprozess: Von der Frage zur Theorie<span class="sg-citation">(K01 p.22)</span></h4>
+                    <ul class="sg-inner-list numbered">
+                      <li>Realität beschreiben (Was sehen wir?)</li>
+                      <li>Zusammenhänge erkennen (Warum passiert es?)</li>
+                      <li>Theorien & Modelle entwickeln (Erklärungsrahmen schaffen)</li>
+                      <li>Theorien & Modelle prüfen (Validieren & generalisieren)</li>
+                    </ul>
+
+                    <!-- Grafik: Ziele der Wissenschaft (Pyramide) -->
+                    <img src="{79699B30-26AB-4349-8156-6EDBB21E42DC}.png" alt="Ziele der Wissenschaft Pyramide" class="sg-reading-img" />
+
+                    <div class="sg-infobox">
+                      <h4>Beziehung zwischen Daten, Phänomenen und Theorien<span class="sg-citation">(K01 p.37)</span></h4>
+                      <ul class="sg-inner-list">
+                        <li><strong>Daten:</strong> Direkt messbar, aber flüchtig und nicht Gegenstand von Theorien (z.B. IQ-Testwerte).</li>
+                        <li><strong>Phänomene:</strong> Aus Daten erschlossen, stabil, klar und Gegenstand von Theorien (z.B. Flynn-Effekt).</li>
+                        <li><strong>Theorien:</strong> Erklären Phänomene (nicht Daten) und finden Ursachen oder erklären Streuungen (z.B. Ursachen des Flynn-Effekts).</li>
+                      </ul>
+                    </div>
+
+                    <!-- Kettensymbol Grafik unter Erkenntnisprozess -->
+                    <img src="{CD615B7B-7219-4250-B97D-949DBF479878}.png" alt="Verknüpfung Symbol" class="sg-reading-img" style="max-width: 150px; opacity: 0.5;" />
+
+                    <h4 style="margin: 1.25rem 0 0.5rem; font-size: 1.05rem; color: var(--dark);">Identifikation einer Forschungslücke (Techniken)<span class="sg-citation">(K01 p.61)</span></h4>
+                    
+                    <!-- Grafik: Trichter-Modell Kaffeefilter -->
+                    <img src="{6D50BE20-9FD9-4FF3-8E4F-8B0ADE3346CC}.png" alt="Identifikation einer Forschungslücke Kaffeefilter Modell" class="sg-reading-img" />
+                    
+                    <ul class="sg-inner-list">
+                      <li><strong>Passion:</strong> Interesse und Leidenschaft für das Thema.</li>
+                      <li><strong>Timely:</strong> Adressierung aktueller Diskussionen.</li>
+                      <li><strong>Necessary:</strong> Bearbeitung eines ernsthaften Problems (aus Forschung oder Praxis).</li>
+                      <li><strong>Gap:</strong> Identifikation durch tiefgreifende Literaturanalyse.</li>
+                    </ul>
+
+                    <h4 style="margin: 1.25rem 0 0.5rem; font-size: 1.05rem; color: var(--dark);">Ziele der Wissenschaft auf drei Ebenen<span class="sg-citation">(K01 p.29)</span></h4>
+                    <ul class="sg-inner-list numbered">
+                      <li><strong>Beschreibung (Deskription):</strong> Systematische Erfassung und Darstellung von Merkmalen oder Verhaltensweisen.</li>
+                      <li><strong>Erklärung (Kausalität):</strong> Identifikation von Ursache-Wirkungs-Zusammenhängen.</li>
+                      <li><strong>Vorhersage (Prognose):</strong> Vorhersage zukünftigen Verhaltens oder Ereignissen auf Basis gesicherter Zusammenhänge.</li>
+                    </ul>
+
+                    <h4 style="margin: 1.25rem 0 0.5rem; font-size: 1.05rem; color: var(--dark);">Kreislauf der Wissenschaft<span class="sg-citation">(K01 p.36)</span></h4>
+                    <ul class="sg-inner-list">
+                      <li>Ein unendlicher Prozess, der mit einer Forschungsfrage beginnt und iterativ durch Literaturrecherche, Versuchsplanung, Durchführung, Datenanalyse und Interpretation verläuft.</li>
+                      <li>Vereinfacht: Fragen → Recherchieren → Planen → Durchführen → Analysieren → Antworten → (zurück zu) Fragen.</li>
+                    </ul>
+
+                    <!-- Grafik: Kreislauf Strahl Zeitachse -->
+                    <img src="{F1B8A8E1-B292-45E9-AFE0-5A5378A38119}.png" alt="Kreislauf der Wissenschaft Zeitachse" class="sg-reading-img" />
+
+                    <h4 style="margin: 1.25rem 0 0.5rem; font-size: 1.05rem; color: var(--dark);">Vom Themengebiet zur Forschungsfrage (Trichter-Modell)<span class="sg-citation">(K01 p.47)</span></h4>
+                    <ul class="sg-inner-list">
+                      <li>Ein breites Themengebiet wird sukzessive durch Forschungslücke, Forschungsziel und schließlich eine präzise Forschungsfrage mit Hypothesen eingegrenzt, um die Exaktheit zu erhöhen.</li>
+                    </ul>
+                  </div>
+
+                  <!-- Sektion 4: Hauptargumente & Kernaussagen -->
+                  <div class="sg-reading-section">
+                    <h3 class="sg-reading-title">Hauptargumente & Kernaussagen</h3>
+                    <ul class="sg-inner-list">
+                      <li><strong>Wissenschaftliche Qualität</strong> beruht auf dem Prinzip "Input vs. Output", was bedeutet, dass ein solides Verständnis der wissenschaftlichen "Technik" und Regeln für hochwertige Ergebnisse entscheidend ist<span class="sg-citation">(K01 p.8)</span>.</li>
+                      <li><strong>Wissenschaft</strong> ist ein systematischer und methodischer Prozess zur Gewinnung objektiv überprüfbarer Erkenntnisse über die Welt<span class="sg-citation">(K01 p.28)</span>.</li>
+                      <li>Der <strong>wissenschaftliche Erkenntnisprozess</strong> ist zyklisch, beginnend mit der Beschreibung der Realität, über das Erkennen von Zusammenhängen, die Entwicklung und Prüfung von Theorien und Modellen<span class="sg-citation">(K01 p.22)</span>.</li>
+                      <li><strong>Modelle</strong> dienen der Vereinfachung komplexer Sachverhalte und Theorien erklären Phänomene (nicht Rohdaten) durch die Suche nach Ursachen<span class="sg-citation">(K01 p.37)(K01 p.69)(K01 p.70)</span>.</li>
+                      <li>Die <strong>Themenfindung</strong> für wissenschaftliche Arbeiten erfordert Inspiration (z.B. aus Medien, Pop-Science-Büchern, Science Blogs) und eine präzise Eingrenzung des Themas auf Basis einer identifizierten Forschungslücke<span class="sg-citation">(K01 p.39)(K01 p.47)</span>.</li>
+                      <li>Eine <strong>Forschungslücke</strong> ist die zentrale Grundlage für eine gute und einzigartige wissenschaftliche Arbeit, da sie ein bisher unbeantwortetes Problem adressiert und die Relevanz der eigenen Forschung demonstriert<span class="sg-citation">(K01 p.60)(K01 p.62)</span>.</li>
+                      <li>Wissenschaftliches Arbeiten ist eine <strong>erlernbare Fähigkeit</strong>, die kontinuierliches Engagement erfordert und während des gesamten Studiums unerlässlich ist<span class="sg-citation">(K01 p.5)</span>.</li>
+                      <li>Es gibt <strong>häufige Fehler</strong> in wissenschaftlichen Arbeiten, wie das Fehlen eines roten Fadens, übermäßige direkte Zitate oder Plagiat, die unbedingt zu vermeiden sind<span class="sg-citation">(K01 p.6)(K01 p.7)</span>.</li>
+                    </ul>
+                    
+                    <!-- Zusätzliche Vorlagen-Grafiken als unterstützende Elemente platziert -->
+                    <img src="{E61A400B-4955-4896-B927-74E4E30BD566}.png" alt="Wissenschaftliche Qualität Grafik" class="sg-reading-img" />
+                    <img src="{601E8105-3348-4EB4-86E0-9330776405C7}.png" alt="Schlüsselbegriffe Übersicht" class="sg-reading-img" />
+                  </div>
+
+                  <!-- Sektion 5: Kontext & Bedeutung -->
+                  <div class="sg-reading-section">
+                    <h3 class="sg-reading-title">Kontext & Bedeutung</h3>
+                    <ul class="sg-inner-list">
+                      <li>Die Auseinandersetzung mit diesen Konzepten ist <strong>grundlegend</strong> für Studierende, um die Anforderungen an wissenschaftliche Arbeiten zu verstehen und die Fähigkeit zur kritischen Analyse und systematischen Erkenntnisgewinnung zu entwickeln.</li>
+                      <li>Das Wissen um wissenschaftliche Methoden und Fehlerquellen <strong>ermöglicht es, valide und replizierbare Forschung zu betreiben</strong>, was die Glaubwürdigkeit und den Wert akademischer Leistungen sichert.</li>
+                      <li>Die Betonung der <strong>Forschungslücke</strong> als Ausgangspunkt jeder Arbeit leitet zu relevanten und originellen Beiträgen zum jeweiligen Fachgebiet an, anstatt bereits Bekanntes zu wiederholen.</li>
+                      <li>Das Verständnis der <strong>Ziele der Wissenschaft</strong> hilft dabei, präzise Forschungsfragen zu formulieren und die Art der angestrebten Erkenntnisse klar zu definieren.</li>
+                    </ul>
+                    
+                    <!-- Letzte Vorlagen-Grafiken am Ende der Seite platziert -->
+                    <img src="{B5B83343-AAB7-449D-8A9D-2A889207B668}.png" alt="Kontext der Forschung" class="sg-reading-img" />
+                    <img src="{0D3F9AF5-969A-4839-8E5B-030AA03E4ED5}.png" alt="Zusammenfassung Bedeutung" class="sg-reading-img" />
+                  </div>
+
                 </div>
               </details>
-
-               <div style="background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem; margin-bottom: 1.5rem; box-shadow: var(--shadow-sm);">
-                    <p style="font-size: 0.95rem; line-height: 1.6;">
-                      <strong>Ergänzende Materialien:</strong><br>
-                      Jhangiani, R. S., Chiang, I. C. A., Cuttler, C., & Leighton, D. C. (2019). Research methods in psychology Kwantlen Polytechnic University. - Chapter I The Science of Psychology (pp.3-21)
-                    </p>
-                    <hr style="border: 0; border-top: 1px solid var(--border); margin: 1rem 0;">
-                    <p style="font-size: 0.95rem; line-height: 1.6;">
-                      <strong>Zusätzliche Links:</strong><br>
-                      <a href="https://xn--kreativittstechniken-jzb.info/problem-verstehen/mindmapping/" target="_blank" style="color: var(--green); text-decoration: underline;">Kreativtechnik: Mindmapping</a><br>
-                      <a href="https://www.scribbr.de/anfang-abschlussarbeit/forschungsfrage-formulieren/" target="_blank" style="color: var(--green); text-decoration: underline;">Forschungsfragen formulieren</a>
-                    </p>
-                  </div>
-
+              
               <!-- ACCORDION 3: Zum sehen -->
               <details class="accordion-item">
-                <summary>Zum Sehen</summary>
+                <summary>Zm Sehen 👀
+                </summary>
                 <div class="accordion-content" style="padding-top: 1.25rem;">
                   
-                
+                  
 
                   <p style="font-size: 0.95rem; font-weight: 600; margin-bottom: 0.5rem; color: var(--dark);">Videos:</p>
                   
@@ -693,131 +842,57 @@
       });
     });
 
-    /* ── Lernziele ─────────────────────────────────────────────────
-       ANPASSEN pro Lektion:
-         - LESSON_ID  → eindeutige ID (z.B. 'lektion-02')
-         - GOALS      → Array mit { text, ref } Objekten
-    ───────────────────────────────────────────────────────────────── */
-    const LESSON_ID = 'lektion-01';
+    /* Kernthemen Checkbox LocalStorage Sync */
+    const TOPIC_STORAGE_KEY = 'scnew-kernthemen-checked';
+    const topicItems = document.querySelectorAll('#tab-kernthemen .topic-item');
 
-    const GOALS = [
-      {
-        text: 'Die Bedeutung und Essenz wissenschaftlichen Arbeitens während des Studiums verstehen.',
-        ref: 'K01 S.5'
-      },
-      {
-        text: 'Häufige Fehler bei wissenschaftlichen Arbeiten erkennen und vermeiden.',
-        ref: 'K01 S.6 · S.7'
-      },
-      {
-        text: 'Das Prinzip der wissenschaftlichen Qualität ("Input vs. Output") nachvollziehen.',
-        ref: 'K01 S.8'
-      },
-      {
-        text: 'Die Definition von Wissenschaft als systematisches Unterfangen zur Wissensgenerierung verstehen.',
-        ref: 'K01 S.28 · S.67'
-      },
-      {
-        text: 'Fachsprache und Kernkonzepte wie Falsifizierung, Hypothese, Empirie, Theorien und Modelle erläutern können.',
-        ref: 'K01 S.16'
-      },
-      {
-        text: 'Pseudowissenschaft von echter Wissenschaft abgrenzen können.',
-        ref: 'K01 S.17'
-      },
-      {
-        text: 'Die Konzepte von Reproduzierbarkeit und Replizierbarkeit im wissenschaftlichen Kontext erklären.',
-        ref: 'K01 S.20'
-      },
-      {
-        text: 'Den wissenschaftlichen Erkenntnisprozess von der Frage zur Theorie (inkl. Induktion und Deduktion) beschreiben.',
-        ref: 'K01 S.22 · S.24'
-      },
-      {
-        text: 'Die drei Ziele der Wissenschaft (Deskription, Erklärung, Vorhersage) benennen und anwenden können.',
-        ref: 'K01 S.29 · S.30'
-      },
-      {
-        text: 'Den Kreislauf der Wissenschaft als unendlichen Prozess darlegen.',
-        ref: 'K01 S.36'
-      },
-      {
-        text: 'Den Zusammenhang zwischen Daten, Phänomenen und Theorien verstehen sowie die zentralen Aufgaben und den Nutzen der Wissenschaft benennen.',
-        ref: 'K01 S.37 · S.38'
-      },
-      {
-        text: 'Verschiedene Inspirationsquellen für die Themenfindung nutzen können (Medien, Pop-Science Bücher, SciBlogs, Wissenschaftsmagazine).',
-        ref: 'K01 S.39 · S.41 · S.42 · S.43 · S.44'
-      },
-      {
-        text: 'Den Prozess der Themenfindung vom Themengebiet zur Forschungsfrage (inkl. Forschungslücke) beherrschen.',
-        ref: 'K01 S.47 · S.48'
-      },
-      {
-        text: 'Kriterien für gute Themenstellungen kennen und anwenden.',
-        ref: 'K01 S.57'
-      },
-      {
-        text: 'Strategien zur Entwicklung eines eigenen Themas und zur Identifikation einer Forschungslücke anwenden können.',
-        ref: 'K01 S.51 · S.59 · S.60 · S.61'
-      }
-    ];
-
-    const STORAGE_KEY = `scnew-goals-${LESSON_ID}`;
-
-    function loadChecked() {
-      try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; }
+    function loadTopicState() {
+      try { return JSON.parse(localStorage.getItem(TOPIC_STORAGE_KEY)) || []; }
       catch { return []; }
     }
 
     function saveTopicState(state) {
       localStorage.setItem(TOPIC_STORAGE_KEY, JSON.stringify(state));
     }
-    function updateProgress(checked) {
-      const total = GOALS.length;
-      const n     = checked.filter(Boolean).length;
-      const pct   = total > 0 ? Math.round((n / total) * 100) : 0;
-      document.getElementById('progressText').textContent = `${n} / ${total}`;
-      document.getElementById('progressFill').style.width = pct + '%';
-    }
-    function buildGoalList() {
-      const list    = document.getElementById('goalList');
-      const checked = loadChecked();
-      list.innerHTML = '';
-      GOALS.forEach((goal, i) => {
-        const isChecked = !!checked[i];
-        const item = document.createElement('div');
-        item.className = 'goal-item' + (isChecked ? ' checked' : '');
-        item.innerHTML = `
-          <div class="goal-checkbox">
-            <svg width="12" height="9" viewBox="0 0 12 9" fill="none">
-              <path d="M1 4L4.5 7.5L11 1" stroke="white" stroke-width="2"
-                    stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </div>
-          <div class="goal-body">
-            <div class="goal-text">${goal.text}</div>
-            ${goal.ref ? `<div class="goal-ref">${goal.ref}</div>` : ''}
-          </div>
-        `;
-        item.addEventListener('click', () => {
-          const current = loadChecked();
-          current[i] = !current[i];
-          saveChecked(current);
-          item.classList.toggle('checked', current[i]);
-          updateProgress(current);
-        });
-        list.appendChild(item);
+
+    function syncTopicState() {
+      const checked = loadTopicState();
+      topicItems.forEach((item, index) => {
+        item.dataset.topicIndex = index;
+        item.classList.toggle('checked', !!checked[index]);
+        item.setAttribute('role', 'button');
+        item.setAttribute('tabindex', '0');
+        item.setAttribute('aria-pressed', checked[index] ? 'true' : 'false');
+        if (!item.querySelector('.topic-checkbox')) {
+          const checkbox = document.createElement('span');
+          checkbox.className = 'topic-checkbox';
+          item.prepend(checkbox);
+        }
       });
-      updateProgress(checked);
     }
 
-    buildGoalList();
+    function toggleTopicItem(item) {
+      const index = Number(item.dataset.topicIndex);
+      const current = loadTopicState();
+      current[index] = !current[index];
+      saveTopicState(current);
+      item.classList.toggle('checked', !!current[index]);
+      item.setAttribute('aria-pressed', current[index] ? 'true' : 'false');
+    }
 
-    /* ── iframe Auto-Resize ─────────────────────────────────────────
-       Passt die Höhe des Übungen-iFrames automatisch an den Inhalt an,
-       damit kein Scroll-in-Scroll entsteht.
-    ───────────────────────────────────────────────────────────────── */
+    topicItems.forEach(item => {
+      item.addEventListener('click', () => toggleTopicItem(item));
+      item.addEventListener('keydown', event => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          toggleTopicItem(item);
+        }
+      });
+    });
+
+    syncTopicState();
+
+    /* iframe Auto-Resize */
     function resizeIframe(iframe) {
       try {
         const h = iframe.contentWindow.document.documentElement.scrollHeight
