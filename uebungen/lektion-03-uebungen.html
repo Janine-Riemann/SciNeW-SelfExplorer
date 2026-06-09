@@ -1,1059 +1,567 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Übungen – Etappe 3: Zielsicher recherchieren</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Workbook – Kapitel 3</title>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary:       #4BEBB9;
+    --primary-dark:  #28c898;
+    --primary-text:  #0d6e53;
+    --accent:        #1a5f9e;
+    --bg:            #f4fdf9;
+    --surface:       #ffffff;
+    --border:        #c8eee2;
+    --text:          #1a2d27;
+    --muted:         #5a7a71;
+    --success:       #1a8c5a;
+    --error:         #c0392b;
+    --success-bg:    #e0f8ee;
+    --error-bg:      #fdecea;
+    --radius:        10px;
+    --shadow:        0 2px 12px rgba(75,235,185,.15);
+  }
 
-  <style>
-    :root {
-      --green:   #74C2A8;
-      --dark:    #121616;
-      --orange:  #EE7050;
-      --bg:      #F5F5F0;
-      --surface: #FFFFFF;
-      --border:  #E2E2DC;
-      --text:    #121616;
-      --muted:   #6B7280;
-      --radius:  16px;
-      --font:    'DM Sans', sans-serif;
-      --mono:    'DM Mono', monospace;
-      --shadow-sm: 0 2px 8px rgba(18,22,22,0.04);
-      --shadow-md: 0 10px 30px rgba(18,22,22,0.08);
-    }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Atkinson Hyperlegible', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 16px;
+    line-height: 1.65;
+  }
 
-    body {
-      font-family: var(--font);
-      background: var(--bg);
-      color: var(--text);
-      padding: 2rem 1.5rem 4rem;
-      -webkit-font-smoothing: antialiased;
-    }
+  .page-wrapper {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+  }
 
-    /* ── PROGRESS BAR ── */
-    .progress-bar-wrap {
-      position: sticky;
-      top: 0;
-      z-index: 50;
-      background: var(--bg);
-      padding: 0.75rem 0 1rem;
-      margin-bottom: 1.5rem;
-    }
-    .progress-bar-label {
-      font-size: 0.78rem;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 0.5rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .progress-bar-label span { color: var(--green); font-family: var(--mono); }
-    .progress-bar-track {
-      height: 6px;
-      background: var(--border);
-      border-radius: 99px;
-      overflow: hidden;
-    }
-    .progress-bar-fill {
-      height: 100%;
-      background: linear-gradient(90deg, var(--green), #5aab91);
-      border-radius: 99px;
-      width: 0%;
-      transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-    }
+  /* ── HEADER ── */
+  .page-header {
+    background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+    color: #fff;
+    border-radius: var(--radius);
+    padding: 28px 36px;
+    margin-bottom: 36px;
+    box-shadow: var(--shadow);
+  }
+  .page-header .label {
+    font-size: .75rem;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    opacity: .8;
+    margin-bottom: 6px;
+  }
+  .page-header h1 {
+    font-size: 1.45rem;
+    font-weight: 700;
+    line-height: 1.3;
+  }
+  .page-header .subtitle {
+    margin-top: 10px;
+    font-size: .92rem;
+    opacity: .9;
+    font-style: italic;
+  }
 
-    /* ── PAGE / CHAPTER ── */
-    .page { display: none; flex-direction: column; gap: 1.5rem; animation: fadeIn 0.35s ease-out; }
-    .page.active { display: flex; }
+  /* ── INFO CARD ── */
+  .info-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px 32px;
+    margin-bottom: 30px;
+    box-shadow: var(--shadow);
+  }
+  .info-card h2 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--primary-text);
+    margin-bottom: 14px;
+  }
+  .info-card h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--primary-text);
+    margin: 18px 0 6px;
+  }
+  .info-card p { margin-bottom: 10px; }
+  .info-card p:last-child { margin-bottom: 0; }
+  .info-card ul {
+    padding-left: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
+  /* ── CRAAP BOX ── */
+  .craap-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 14px;
+  }
+  .craap-item {
+    background: #edfaf4;
+    border: 2px solid var(--primary);
+    border-radius: var(--radius);
+    padding: 14px 20px;
+  }
+  .craap-item .craap-letter {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--primary-text);
+    margin-bottom: 4px;
+  }
+  .craap-item p { font-size: .95rem; line-height: 1.6; margin: 0; }
 
-    /* ── CHAPTER HEADER ── */
-    .chapter-header {
-      background: var(--dark);
-      border-radius: var(--radius);
-      padding: 2rem 2rem 1.75rem;
-      color: #fff;
-    }
-    .chapter-eyebrow {
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--green);
-      margin-bottom: 0.75rem;
-    }
-    .chapter-title {
-      font-size: clamp(1.4rem, 3.5vw, 2rem);
-      font-weight: 700;
-      letter-spacing: -0.03em;
-      line-height: 1.2;
-      margin-bottom: 1rem;
-    }
-    .chapter-intro {
-      font-size: 1rem;
-      line-height: 1.7;
-      color: rgba(255,255,255,0.8);
-    }
+  /* ── VIDEO EMBED ── */
+  .video-wrap {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px 32px;
+    margin-bottom: 30px;
+    box-shadow: var(--shadow);
+  }
+  .video-wrap h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--primary-text);
+    margin-bottom: 6px;
+  }
+  .video-wrap .video-desc {
+    font-size: .9rem;
+    color: var(--muted);
+    margin-bottom: 16px;
+  }
+  .video-responsive {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .video-responsive iframe {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    border: none;
+  }
 
-    /* ── CONTENT CARD ── */
-    .content-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 1.75rem;
-      box-shadow: var(--shadow-sm);
-    }
-    .content-card h3 {
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: var(--dark);
-      margin-bottom: 1rem;
-      letter-spacing: -0.02em;
-    }
-    .content-card p {
-      font-size: 0.97rem;
-      line-height: 1.75;
-      color: #333;
-      margin-bottom: 1rem;
-    }
-    .content-card p:last-child { margin-bottom: 0; }
+  /* ── EXERCISE SECTIONS ── */
+  .exercise {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px 32px;
+    margin-bottom: 30px;
+    box-shadow: var(--shadow);
+  }
+  .exercise-label {
+    display: inline-block;
+    background: var(--primary);
+    color: var(--primary-text);
+    font-size: .72rem;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    padding: 3px 12px;
+    border-radius: 20px;
+    margin-bottom: 12px;
+  }
+  .exercise h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 20px;
+    line-height: 1.5;
+  }
+  hr.divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 28px 0;
+  }
 
-    /* ── INTRO HERO (page 1) ── */
-    .intro-hero {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 2rem;
-      box-shadow: var(--shadow-sm);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      gap: 1rem;
-    }
-    .intro-hero-icon {
-      font-size: 3rem;
-      line-height: 1;
-      filter: drop-shadow(0 4px 12px rgba(116,194,168,0.3));
-    }
-    .intro-hero h2 {
-      font-size: 1.4rem;
-      font-weight: 700;
-      color: var(--dark);
-      letter-spacing: -0.03em;
-    }
-    .intro-hero p {
-      font-size: 0.97rem;
-      color: var(--muted);
-      line-height: 1.7;
-      max-width: 480px;
-    }
+  /* ── SINGLE CHOICE QUIZ (Summary-style) ── */
+  .quiz-question-text {
+    font-size: 1.02rem;
+    font-weight: 700;
+    line-height: 1.55;
+    margin-bottom: 18px;
+    padding: 16px 20px;
+    background: var(--bg);
+    border-radius: 8px;
+    border-left: 4px solid var(--primary-dark);
+  }
+  .quiz-options { display: flex; flex-direction: column; gap: 10px; margin-bottom: 18px; }
+  .quiz-option-btn {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--bg);
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 18px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: .97rem;
+    text-align: left;
+    transition: border-color .15s, background .15s;
+    color: var(--text);
+    font-weight: 700;
+  }
+  .quiz-option-btn:hover:not(:disabled) { border-color: var(--primary-dark); background: #e8faf3; }
+  .quiz-option-btn.correct { border-color: var(--success); background: var(--success-bg); color: var(--success); }
+  .quiz-option-btn.wrong   { border-color: var(--error);   background: var(--error-bg);   color: var(--error);   }
+  .quiz-option-btn:disabled { cursor: default; }
+  .quiz-feedback {
+    display: none;
+    margin-top: 12px;
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: .95rem;
+  }
+  .quiz-feedback.success { background: var(--success-bg); color: var(--success); display: flex; align-items: center; gap: 8px; }
+  .quiz-feedback.error   { background: var(--error-bg);   color: var(--error);   display: flex; align-items: center; gap: 8px; }
 
-    /* ── COVER IMAGE ── */
-    .cover-image-wrap {
-      border-radius: var(--radius);
-      overflow: hidden;
-      border: 1px solid var(--border);
-      box-shadow: var(--shadow-sm);
-      background: var(--dark);
-      position: relative;
-    }
-    .cover-image-wrap img {
-      width: 100%;
-      display: block;
-      object-fit: cover;
-    }
-    .cover-image-placeholder {
-      background: linear-gradient(135deg, #1a2020 0%, #0f1a17 100%);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: 220px;
-      gap: 0.75rem;
-      padding: 2rem;
-      text-align: center;
-    }
-    .cover-image-placeholder p {
-      font-size: 0.85rem;
-      color: rgba(255,255,255,0.5);
-      font-family: var(--mono);
-    }
-    .cover-image-placeholder .img-icon { font-size: 2.5rem; }
+  /* ── GUESS THE ANSWER (Flip-Reveal) ── */
+  .gta-card {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 18px 22px;
+    margin-bottom: 16px;
+  }
+  .gta-card .gta-task {
+    font-size: .95rem;
+    line-height: 1.6;
+    margin-bottom: 14px;
+  }
+  .gta-card .gta-task em { font-style: italic; }
+  .gta-answer {
+    display: none;
+    background: var(--success-bg);
+    border: 1.5px solid var(--success);
+    border-radius: 8px;
+    padding: 12px 18px;
+    margin-top: 10px;
+    font-weight: 700;
+    color: var(--success);
+    font-size: .97rem;
+  }
 
-    /* ── VIDEO EMBED ── */
-    .video-embed-wrap {
-      background: var(--dark);
-      border-radius: var(--radius);
-      overflow: hidden;
-      border: 1px solid rgba(116,194,168,0.15);
-      box-shadow: var(--shadow-md);
-    }
-    .video-label-bar {
-      padding: 0.85rem 1.25rem;
-      background: rgba(255,255,255,0.04);
-      border-bottom: 1px solid rgba(255,255,255,0.06);
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-    }
-    .video-label-bar span {
-      font-size: 0.8rem;
-      font-weight: 600;
-      color: rgba(255,255,255,0.5);
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-    }
-    .video-label-bar strong {
-      font-size: 0.92rem;
-      font-weight: 600;
-      color: rgba(255,255,255,0.9);
-      letter-spacing: -0.01em;
-    }
-    .video-dot {
-      width: 8px; height: 8px;
-      background: var(--green);
-      border-radius: 50%;
-      flex-shrink: 0;
-    }
-    .video-iframe-wrap {
-      position: relative;
-      padding-bottom: 56.25%;
-      height: 0;
-    }
-    .video-iframe-wrap iframe {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      border: none;
-      display: block;
-    }
+  /* ── BUTTONS ── */
+  .btn-check {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 8px;
+    background: var(--primary);
+    color: var(--primary-text);
+    border: none;
+    border-radius: 24px;
+    padding: 10px 24px;
+    font-family: inherit;
+    font-size: .95rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background .15s, transform .1s;
+  }
+  .btn-check:hover { background: var(--primary-dark); color: #fff; transform: translateY(-1px); }
+  .btn-reset {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 10px;
+    margin-left: 10px;
+    background: transparent;
+    color: var(--muted);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: 9px 18px;
+    font-family: inherit;
+    font-size: .88rem;
+    cursor: pointer;
+    transition: color .15s, border-color .15s;
+  }
+  .btn-reset:hover { color: var(--text); border-color: var(--muted); }
+  .btn-reveal {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 8px;
+    background: transparent;
+    color: var(--accent);
+    border: 1.5px solid var(--accent);
+    border-radius: 24px;
+    padding: 9px 20px;
+    font-family: inherit;
+    font-size: .9rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background .15s, color .15s;
+  }
+  .btn-reveal:hover { background: var(--accent); color: #fff; }
 
-    /* ── QUIZ ── */
-    .quiz-label {
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 0.75rem;
-    }
-    .quiz-question {
-      font-size: 1rem;
-      font-weight: 600;
-      color: var(--dark);
-      margin-bottom: 1.25rem;
-      line-height: 1.5;
-    }
-    .quiz-options { display: flex; flex-direction: column; gap: 0.65rem; }
+  .feedback-msg {
+    display: none;
+    margin-top: 14px;
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: .95rem;
+  }
+  .feedback-msg.success { background: var(--success-bg); color: var(--success); display: flex; align-items: center; gap: 8px; }
+  .feedback-msg.error   { background: var(--error-bg);   color: var(--error);   display: flex; align-items: center; gap: 8px; }
 
-    .quiz-option {
-      display: flex;
-      align-items: flex-start;
-      gap: 1rem;
-      padding: 1rem 1.25rem;
-      background: #F8F8F5;
-      border: 1.5px solid var(--border);
-      border-radius: 10px;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      text-align: left;
-      font-family: var(--font);
-      font-size: 0.95rem;
-      line-height: 1.55;
-      color: var(--dark);
-      width: 100%;
-    }
-    .quiz-option:hover:not(:disabled) {
-      border-color: var(--green);
-      background: rgba(116,194,168,0.05);
-      transform: translateY(-1px);
-      box-shadow: var(--shadow-sm);
-    }
-    .quiz-option:disabled { cursor: default; transform: none; }
+  /* ── LINK BOX ── */
+  .link-box {
+    background: #e8f4ff;
+    border: 1.5px solid var(--accent);
+    border-radius: var(--radius);
+    padding: 16px 22px;
+    margin-top: 18px;
+    font-size: .97rem;
+  }
+  .link-box a {
+    color: var(--accent);
+    font-weight: 700;
+    text-decoration: underline;
+  }
+  .link-box a:hover { color: var(--primary-text); }
 
-    .quiz-option .opt-indicator {
-      width: 28px; height: 28px;
-      border-radius: 50%;
-      border: 2px solid var(--border);
-      display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0;
-      font-size: 0.75rem; font-weight: 700;
-      font-family: var(--mono);
-      color: var(--muted);
-      transition: all 0.2s ease;
-      margin-top: 1px;
-    }
-    .quiz-option:hover:not(:disabled) .opt-indicator {
-      border-color: var(--green);
-      color: var(--green);
-    }
-
-    .quiz-option.correct {
-      border-color: var(--green);
-      background: rgba(116,194,168,0.08);
-    }
-    .quiz-option.correct .opt-indicator {
-      background: var(--green);
-      border-color: var(--green);
-      color: var(--dark);
-    }
-    .quiz-option.wrong {
-      border-color: var(--orange);
-      background: rgba(238,112,80,0.06);
-    }
-    .quiz-option.wrong .opt-indicator {
-      background: var(--orange);
-      border-color: var(--orange);
-      color: #fff;
-    }
-
-    .quiz-feedback {
-      margin-top: 1rem;
-      padding: 0.85rem 1.1rem;
-      border-radius: 10px;
-      font-size: 0.92rem;
-      font-weight: 500;
-      line-height: 1.5;
-      display: none;
-    }
-    .quiz-feedback.show { display: block; }
-    .quiz-feedback.correct-fb {
-      background: rgba(116,194,168,0.1);
-      border: 1px solid rgba(116,194,168,0.3);
-      color: #2d6e57;
-    }
-    .quiz-feedback.wrong-fb {
-      background: rgba(238,112,80,0.08);
-      border: 1px solid rgba(238,112,80,0.25);
-      color: #a03822;
-    }
-
-    /* ── GUESS-THE-ANSWER ── */
-    .gta-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      overflow: hidden;
-      box-shadow: var(--shadow-sm);
-      transition: border-color 0.25s;
-    }
-    .gta-card:hover { border-color: rgba(116,194,168,0.4); }
-
-    .gta-number {
-      display: inline-block;
-      font-family: var(--mono);
-      font-size: 0.75rem;
-      font-weight: 600;
-      color: var(--green);
-      margin-bottom: 0.6rem;
-    }
-    .gta-task {
-      font-size: 0.97rem;
-      line-height: 1.7;
-      color: #222;
-      padding: 1.5rem 1.5rem 1.25rem;
-    }
-    .gta-task em { font-style: italic; color: var(--dark); }
-    .gta-divider { height: 1px; background: var(--border); }
-
-    .gta-reveal-btn {
-      width: 100%;
-      display: flex;
-      align-items: center;
-      gap: 0.85rem;
-      padding: 1rem 1.5rem;
-      background: none;
-      border: none;
-      cursor: pointer;
-      font-family: var(--font);
-      font-size: 0.92rem;
-      font-weight: 600;
-      color: var(--green);
-      text-align: left;
-      transition: background 0.2s ease;
-    }
-    .gta-reveal-btn:hover { background: rgba(116,194,168,0.06); }
-    .gta-reveal-btn .btn-icon {
-      width: 28px; height: 28px;
-      border-radius: 50%;
-      background: rgba(116,194,168,0.12);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 0.85rem;
-      flex-shrink: 0;
-      transition: all 0.25s ease;
-    }
-    .gta-reveal-btn.revealed .btn-icon {
-      background: var(--green);
-      color: var(--dark);
-    }
-
-    .gta-answer {
-      display: none;
-      padding: 0 1.5rem 1.5rem;
-    }
-    .gta-answer.show { display: block; }
-    .gta-answer-inner {
-      background: rgba(116,194,168,0.07);
-      border: 1px solid rgba(116,194,168,0.25);
-      border-radius: 10px;
-      padding: 1rem 1.25rem;
-      font-size: 0.97rem;
-      font-weight: 600;
-      color: var(--dark);
-      letter-spacing: -0.01em;
-    }
-
-    /* ── CRAAP INFO CARDS ── */
-    .craap-grid {
-      display: flex;
-      flex-direction: column;
-      gap: 0.85rem;
-    }
-    .craap-item {
-      display: flex;
-      gap: 1.1rem;
-      align-items: flex-start;
-      background: #F9F9F6;
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 1.1rem 1.25rem;
-      transition: all 0.2s ease;
-    }
-    .craap-item:hover {
-      border-color: var(--green);
-      background: rgba(116,194,168,0.04);
-      transform: translateX(3px);
-    }
-    .craap-badge {
-      flex-shrink: 0;
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      background: var(--green);
-      color: var(--dark);
-      border-radius: 6px;
-      padding: 0.3rem 0.65rem;
-      margin-top: 2px;
-      min-width: 70px;
-      text-align: center;
-    }
-    .craap-text strong {
-      display: block;
-      font-size: 0.95rem;
-      font-weight: 700;
-      color: var(--dark);
-      margin-bottom: 0.3rem;
-    }
-    .craap-text p {
-      font-size: 0.9rem;
-      line-height: 1.6;
-      color: #444;
-      margin: 0;
-    }
-
-    /* Link highlight */
-    .link-highlight {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      background: rgba(116,194,168,0.1);
-      border: 1px solid rgba(116,194,168,0.3);
-      border-radius: 8px;
-      padding: 0.65rem 1.1rem;
-      font-size: 0.95rem;
-      font-weight: 600;
-      color: #2d6e57;
-      text-decoration: none;
-      transition: all 0.2s ease;
-      margin-top: 1rem;
-      display: inline-flex;
-    }
-    .link-highlight:hover {
-      background: rgba(116,194,168,0.2);
-      border-color: var(--green);
-      transform: translateY(-1px);
-      box-shadow: var(--shadow-sm);
-    }
-
-    /* ── NAVIGATION BUTTONS ── */
-    .nav-wrap {
-      display: flex;
-      gap: 0.75rem;
-      justify-content: space-between;
-      align-items: center;
-      margin-top: 0.5rem;
-    }
-    .nav-btn {
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-      padding: 0.85rem 1.5rem;
-      border-radius: 10px;
-      border: none;
-      cursor: pointer;
-      font-family: var(--font);
-      font-size: 0.92rem;
-      font-weight: 600;
-      transition: all 0.2s ease;
-    }
-    .nav-btn-secondary {
-      background: var(--surface);
-      border: 1.5px solid var(--border);
-      color: var(--muted);
-    }
-    .nav-btn-secondary:hover {
-      border-color: var(--dark);
-      color: var(--dark);
-    }
-    .nav-btn-primary {
-      background: var(--dark);
-      color: #fff;
-      flex: 1;
-      justify-content: center;
-    }
-    .nav-btn-primary:hover { background: #1e2626; transform: translateY(-1px); box-shadow: var(--shadow-md); }
-    .nav-btn-primary:disabled { background: var(--border); color: var(--muted); cursor: default; transform: none; box-shadow: none; }
-    .nav-btn-finish {
-      background: var(--green);
-      color: var(--dark);
-      flex: 1;
-      justify-content: center;
-    }
-    .nav-btn-finish:hover { background: #5aab91; transform: translateY(-1px); box-shadow: var(--shadow-md); }
-
-    /* ── PAGE INDICATOR DOTS ── */
-    .dot-row {
-      display: flex;
-      gap: 6px;
-      justify-content: center;
-      align-items: center;
-    }
-    .dot {
-      width: 8px; height: 8px;
-      border-radius: 50%;
-      background: var(--border);
-      transition: all 0.3s ease;
-    }
-    .dot.active { background: var(--green); transform: scale(1.35); }
-    .dot.done   { background: rgba(116,194,168,0.45); }
-
-    /* ── COMPLETION SCREEN ── */
-    .completion-screen {
-      display: none;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      gap: 1.5rem;
-      padding: 3rem 1.5rem;
-      animation: fadeIn 0.4s ease-out;
-    }
-    .completion-screen.active { display: flex; }
-    .completion-icon {
-      width: 80px; height: 80px;
-      border-radius: 50%;
-      background: var(--green);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 2.2rem;
-      box-shadow: 0 8px 30px rgba(116,194,168,0.35);
-    }
-    .completion-screen h2 {
-      font-size: 1.75rem;
-      font-weight: 700;
-      color: var(--dark);
-      letter-spacing: -0.03em;
-    }
-    .completion-screen p {
-      font-size: 1rem;
-      color: var(--muted);
-      line-height: 1.7;
-      max-width: 400px;
-    }
-    .completion-restart {
-      background: var(--dark);
-      color: #fff;
-      border: none;
-      border-radius: 10px;
-      padding: 0.9rem 2rem;
-      font-family: var(--font);
-      font-size: 0.95rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-    .completion-restart:hover { background: #1e2626; transform: translateY(-1px); }
-
-    /* ── SCROLLBAR ── */
-    ::-webkit-scrollbar { width: 6px; }
-    ::-webkit-scrollbar-track { background: transparent; }
-    ::-webkit-scrollbar-thumb { background: rgba(18,22,22,0.1); border-radius: 99px; }
-  </style>
+  @media (max-width: 640px) {
+    .page-header { padding: 22px 20px; }
+    .exercise, .info-card, .video-wrap { padding: 20px 18px; }
+  }
+</style>
 </head>
 <body>
+<div class="page-wrapper">
 
-  <!-- PROGRESS BAR -->
-  <div class="progress-bar-wrap">
-    <div class="progress-bar-label">
-      <span id="progressLabel">Seite 1 von 6</span>
-      <span id="progressPct">0 %</span>
-    </div>
-    <div class="progress-bar-track">
-      <div class="progress-bar-fill" id="progressFill"></div>
-    </div>
-  </div>
+  <!-- ============================================================
+       SEITENHEADER
+       ============================================================ -->
+  <header class="page-header">
+    <div class="label">Workbook · Kapitel 3</div>
+    <h1>🏔️ Sicher recherchieren –<br>unterwegs zum Gipfel der Erkenntnis</h1>
+    <div class="subtitle">In dieser kleinen Workbook-Einheit werden nochmals die wichtigsten Informationen von Kapitel 3 wiederholt. Das Bearbeiten der Übungen ist freiwillig und soll Ihnen als Selbstlerneinheit dienen.</div>
+  </header>
 
-  <!-- ═══════════════════════════════════════════
-       PAGE 1 – EINFÜHRUNG
-  ════════════════════════════════════════════ -->
-  <div class="page active" id="page-1">
-
-    <div class="chapter-header">
-      <div class="chapter-eyebrow">Etappe 3 · Übungen</div>
-      <h1 class="chapter-title">🏔️ Sicher recherchieren – unterwegs zum Gipfel der Erkenntnis</h1>
-      <p class="chapter-intro">In dieser Workbook-Einheit werden die wichtigsten Informationen von Kapitel 3 wiederholt. Schritt für Schritt besteigen wir den Gipfel – viel Erfolg!</p>
-    </div>
-
-    <div class="intro-hero">
-      <div class="intro-hero-icon">🔍</div>
-      <h2>Was erwartet dich?</h2>
-      <p>Videos zu guten Informationsquellen, interaktive Quiz-Fragen zu wissenschaftlichen Fachartikeln, eine praktische Recherche-Aufgabe und der CRAAP-Test zur Quellenbewertung.</p>
-    </div>
-
-    <!-- Cover image: place the file at images/lektion3-cover.png next to this HTML -->
-    <div class="cover-image-wrap">
-      <div class="cover-image-placeholder">
-        <div class="img-icon">🗻</div>
-        <p>Titelbild: images/lektion3-cover.png</p>
-        <p style="font-size:0.75rem; opacity:0.6;">Lege die Bilddatei aus dem H5P-Export (file-69416a7d2ddc0.png) unter dem Pfad <code>images/lektion3-cover.png</code> ab.</p>
-      </div>
-    </div>
-
-    <div class="nav-wrap">
-      <div class="dot-row" id="dots"></div>
-      <button class="nav-btn nav-btn-primary" onclick="goTo(2)">Los geht's →</button>
+  <!-- ============================================================
+       VIDEO 1 – Gute Informationen
+       ============================================================ -->
+  <div class="video-wrap">
+    <h3>🎬 Was sind gute Informationen?</h3>
+    <div class="video-desc">Dieses Video erläutert Ihnen, warum es wichtig ist zu verstehen, was <strong>gute Informationen</strong> sind.</div>
+    <div class="video-responsive">
+      <iframe src="https://www.youtube.com/embed/5Jjuvp6qtWc"
+              title="Gute Informationen"
+              allowfullscreen></iframe>
     </div>
   </div>
 
-  <!-- ═══════════════════════════════════════════
-       PAGE 2 – VIDEO: GUTE INFORMATIONEN
-  ════════════════════════════════════════════ -->
-  <div class="page" id="page-2">
-
-    <div class="content-card">
-      <div class="quiz-label">Video</div>
-      <h3>Was sind gute Informationen?</h3>
-      <p>Dieses Video erläutert dir, warum es wichtig ist zu verstehen, was <strong>gute Informationen</strong> sind – und wie du sie erkennst.</p>
-    </div>
-
-    <div class="video-embed-wrap">
-      <div class="video-label-bar">
-        <div class="video-dot"></div>
-        <strong>Gute Informationen</strong>
-        <span>· YouTube</span>
-      </div>
-      <div class="video-iframe-wrap">
-        <iframe
-          src="https://www.youtube-nocookie.com/embed/5Jjuvp6qtWc"
-          title="Was sind gute Informationen?"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen
-          loading="lazy">
-        </iframe>
-      </div>
-    </div>
-
-    <div class="nav-wrap">
-      <button class="nav-btn nav-btn-secondary" onclick="goTo(1)">← Zurück</button>
-      <div class="dot-row" id="dots"></div>
-      <button class="nav-btn nav-btn-primary" onclick="goTo(3)">Weiter →</button>
+  <!-- ============================================================
+       VIDEO 2 – Gute Literatur
+       ============================================================ -->
+  <div class="video-wrap">
+    <h3>🎬 Was ist gute Literatur für die wissenschaftliche Arbeit?</h3>
+    <div class="video-desc">Im folgenden Video wird erklärt, woran man <strong>gute Literatur für die wissenschaftliche Arbeit</strong> erkennen kann.</div>
+    <div class="video-responsive">
+      <iframe src="https://www.youtube.com/embed/X606hXvZTRI"
+              title="Gute Literatur erkennen"
+              allowfullscreen></iframe>
     </div>
   </div>
 
-  <!-- ═══════════════════════════════════════════
-       PAGE 3 – VIDEO: GUTE LITERATUR
-  ════════════════════════════════════════════ -->
-  <div class="page" id="page-3">
+  <!-- ============================================================
+       AUFGABE 1 – Wissenschaftliche Fachzeitschriften (Summary-Quiz)
+       ============================================================ -->
+  <section class="exercise" id="ex1">
+    <div class="exercise-label">Aufgabe 1 · Quiz</div>
+    <h3>Wähle jeweils die korrekte Aussage zu wissenschaftlichen Fachzeitschriften und -artikeln.</h3>
 
-    <div class="content-card">
-      <div class="quiz-label">Video</div>
-      <h3>Was ist gute Literatur?</h3>
-      <p>Im folgenden Video wird erklärt, woran man <strong>gute Literatur für die wissenschaftliche Arbeit</strong> erkennen kann.</p>
+    <!-- Frage 1 -->
+    <div class="quiz-question-text" id="q1-text">Warum sind wissenschaftliche Fachzeitschriften so zitierwerdig?</div>
+    <div class="quiz-options" id="q1-options">
+      <button class="quiz-option-btn" onclick="checkAnswer('q1', this, true)">
+        Wissenschaftliche Fachzeitschriften sind deshalb so zitierwürdig, weil sie seriös und verlässlich sind.
+      </button>
+      <button class="quiz-option-btn" onclick="checkAnswer('q1', this, false)">
+        Wissenschaftliche Fachzeitschriften sind deshalb so zitierwürdig, da dort nur bekannte Forschende Artikel veröffentlichen dürfen.
+      </button>
     </div>
+    <div class="quiz-feedback" id="q1-feedback"></div>
+    <button class="btn-reset" onclick="resetQuestion('q1')">↺ Zurücksetzen</button>
 
-    <div class="video-embed-wrap">
-      <div class="video-label-bar">
-        <div class="video-dot"></div>
-        <strong>Gute Literatur für wissenschaftliche Arbeiten</strong>
-        <span>· YouTube</span>
-      </div>
-      <div class="video-iframe-wrap">
-        <iframe
-          src="https://www.youtube-nocookie.com/embed/X606hXvZTRI"
-          title="Was ist gute Literatur?"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen
-          loading="lazy">
-        </iframe>
-      </div>
+    <hr class="divider">
+
+    <!-- Frage 2 -->
+    <div class="quiz-question-text" id="q2-text">Wer sind die Autoren wissenschaftlicher Fachartikel?</div>
+    <div class="quiz-options" id="q2-options">
+      <button class="quiz-option-btn" onclick="checkAnswer('q2', this, true)">
+        Wissenschaftliche Fachartikel haben immer die Forschenden selbst als Autoren.
+      </button>
+      <button class="quiz-option-btn" onclick="checkAnswer('q2', this, false)">
+        Wissenschaftliche Fachartikel werden von fachfremden Autoren auf Anweisung der Forschenden geschrieben.
+      </button>
     </div>
+    <div class="quiz-feedback" id="q2-feedback"></div>
+    <button class="btn-reset" onclick="resetQuestion('q2')">↺ Zurücksetzen</button>
 
-    <div class="nav-wrap">
-      <button class="nav-btn nav-btn-secondary" onclick="goTo(2)">← Zurück</button>
-      <div class="dot-row" id="dots"></div>
-      <button class="nav-btn nav-btn-primary" onclick="goTo(4)">Weiter →</button>
+    <hr class="divider">
+
+    <!-- Frage 3 -->
+    <div class="quiz-question-text" id="q3-text">Was bedeutet „Peer-Reviewed" bei wissenschaftlichen Fachzeitschriften?</div>
+    <div class="quiz-options" id="q3-options">
+      <button class="quiz-option-btn" onclick="checkAnswer('q3', this, true)">
+        Wissenschaftliche Fachzeitschriften sind Peer-Reviewed. Das heißt, dass die Arbeiten von unabhängigen Experten aus demselben Fachgebiet evaluiert werden.
+      </button>
+      <button class="quiz-option-btn" onclick="checkAnswer('q3', this, false)">
+        Wissenschaftliche Fachzeitschriften sind meist Peer-Reviewed. Das heißt, dass die Arbeiten von unabhängigen Experten aus einem anderen Fachgebiet evaluiert werden.
+      </button>
     </div>
-  </div>
+    <div class="quiz-feedback" id="q3-feedback"></div>
+    <button class="btn-reset" onclick="resetQuestion('q3')">↺ Zurücksetzen</button>
 
-  <!-- ═══════════════════════════════════════════
-       PAGE 4 – QUIZ: WÄHLE DIE RICHTIGE AUSSAGE
-  ════════════════════════════════════════════ -->
-  <div class="page" id="page-4">
+    <hr class="divider">
 
-    <div class="content-card">
-      <div class="quiz-label">Wissenscheck</div>
-      <h3>Wähle jeweils die korrekte Aussage</h3>
-      <p>Klicke auf die Antwort, die du für richtig hältst. Du siehst sofort, ob du richtig lagst.</p>
+    <!-- Frage 4 -->
+    <div class="quiz-question-text" id="q4-text">Was ist bei der Angabe von Quellen besonders wichtig?</div>
+    <div class="quiz-options" id="q4-options">
+      <button class="quiz-option-btn" onclick="checkAnswer('q4', this, true)">
+        Es muss möglich sein, dass beispielsweise der Betreuer meiner Arbeit die Literatur durch meine Quellenangabe finden kann.
+      </button>
+      <button class="quiz-option-btn" onclick="checkAnswer('q4', this, false)">
+        Es ist nicht so wichtig, ob die benutzte Quelle später noch aufrufbar ist.
+      </button>
     </div>
+    <div class="quiz-feedback" id="q4-feedback"></div>
+    <button class="btn-reset" onclick="resetQuestion('q4')">↺ Zurücksetzen</button>
+  </section>
 
-    <!-- Quiz 1 -->
-    <div class="content-card" id="q1">
-      <div class="quiz-label">Frage 1 von 4</div>
-      <div class="quiz-question">Warum sind wissenschaftliche Fachzeitschriften so zitierwürdig?</div>
-      <div class="quiz-options">
-        <button class="quiz-option" onclick="answerQuiz('q1',0,1)" id="q1-opt0">
-          <span class="opt-indicator">A</span>
-          <span>Sie sind seriös und verlässlich.</span>
-        </button>
-        <button class="quiz-option" onclick="answerQuiz('q1',1,1)" id="q1-opt1">
-          <span class="opt-indicator">B</span>
-          <span>Nur bekannte Forschende dürfen dort Artikel veröffentlichen.</span>
-        </button>
-      </div>
-      <div class="quiz-feedback" id="q1-fb"></div>
-    </div>
-
-    <!-- Quiz 2 -->
-    <div class="content-card" id="q2">
-      <div class="quiz-label">Frage 2 von 4</div>
-      <div class="quiz-question">Wer verfasst wissenschaftliche Fachartikel?</div>
-      <div class="quiz-options">
-        <button class="quiz-option" onclick="answerQuiz('q2',0,0)" id="q2-opt0">
-          <span class="opt-indicator">A</span>
-          <span>Immer die Forschenden selbst als Autoren.</span>
-        </button>
-        <button class="quiz-option" onclick="answerQuiz('q2',1,0)" id="q2-opt1">
-          <span class="opt-indicator">B</span>
-          <span>Fachfremde Autoren auf Anweisung der Forschenden.</span>
-        </button>
-      </div>
-      <div class="quiz-feedback" id="q2-fb"></div>
-    </div>
-
-    <!-- Quiz 3 -->
-    <div class="content-card" id="q3">
-      <div class="quiz-label">Frage 3 von 4</div>
-      <div class="quiz-question">Was bedeutet „Peer-Reviewed" bei wissenschaftlichen Fachzeitschriften?</div>
-      <div class="quiz-options">
-        <button class="quiz-option" onclick="answerQuiz('q3',0,0)" id="q3-opt0">
-          <span class="opt-indicator">A</span>
-          <span>Die Arbeiten werden von unabhängigen Experten aus demselben Fachgebiet evaluiert.</span>
-        </button>
-        <button class="quiz-option" onclick="answerQuiz('q3',1,0)" id="q3-opt1">
-          <span class="opt-indicator">B</span>
-          <span>Die Arbeiten werden von unabhängigen Experten aus einem anderen Fachgebiet evaluiert.</span>
-        </button>
-      </div>
-      <div class="quiz-feedback" id="q3-fb"></div>
-    </div>
-
-    <!-- Quiz 4 -->
-    <div class="content-card" id="q4">
-      <div class="quiz-label">Frage 4 von 4</div>
-      <div class="quiz-question">Warum ist die Auffindbarkeit einer Quelle wichtig?</div>
-      <div class="quiz-options">
-        <button class="quiz-option" onclick="answerQuiz('q4',0,0)" id="q4-opt0">
-          <span class="opt-indicator">A</span>
-          <span>Der Betreuer der Arbeit muss die Literatur durch meine Quellenangabe finden können.</span>
-        </button>
-        <button class="quiz-option" onclick="answerQuiz('q4',1,0)" id="q4-opt1">
-          <span class="opt-indicator">B</span>
-          <span>Es ist nicht so wichtig, ob die benutzte Quelle später noch aufrufbar ist.</span>
-        </button>
-      </div>
-      <div class="quiz-feedback" id="q4-fb"></div>
-    </div>
-
-    <div class="nav-wrap">
-      <button class="nav-btn nav-btn-secondary" onclick="goTo(3)">← Zurück</button>
-      <div class="dot-row" id="dots"></div>
-      <button class="nav-btn nav-btn-primary" onclick="goTo(5)">Weiter →</button>
-    </div>
-  </div>
-
-  <!-- ═══════════════════════════════════════════
-       PAGE 5 – GUESS THE ANSWER: JOURNAL IMPACT FACTOR
-  ════════════════════════════════════════════ -->
-  <div class="page" id="page-5">
-
-    <div class="content-card">
-      <div class="quiz-label">Solo-Aufgabe</div>
-      <h3>🎯 Zeit für Solo-Ranked!</h3>
-      <p>Um einen Fachartikel zu bewerten gibt es verschiedene Bewertungsmetriken, die meist von den Journals selbst angegeben werden. <strong>Finde für die folgenden Fachartikel den Journal Impact Factor (JIF).</strong></p>
-      <p style="font-size:0.88rem; color: var(--muted);">Schau auf der Journal-Website oder in Datenbanken wie Scimago nach – dann klicke auf „Antwort anzeigen" zum Vergleichen.</p>
-    </div>
+  <!-- ============================================================
+       AUFGABE 2 – Journal Impact Factor finden (Guess the Answer)
+       ============================================================ -->
+  <section class="exercise" id="ex2">
+    <div class="exercise-label">Aufgabe 2 · Recherche</div>
+    <h3>Finde den Journal Impact Factor (JIF)!</h3>
+    <p style="margin-bottom: 18px;">Um einen Fachartikel zu bewerten, gibt es verschiedene Bewertungsmetriken, die meist von den Journals selbst angegeben werden. <strong>Finde für die folgenden Fachartikel den Journal Impact Factor (JIF)</strong> und klicke dann auf „Antwort anzeigen", um dein Ergebnis zu prüfen.</p>
 
     <!-- GTA 1 -->
     <div class="gta-card">
       <div class="gta-task">
-        <div class="gta-number">Artikel 01</div>
-        <p>Aïmeur, E., Amri, S. &amp; Brassard, G. (2023). Fake news, disinformation and misinformation in social media: a review. <em>Social Network Analysis And Mining</em>, <em>13</em>(1), 30. <a href="https://doi.org/10.1007/s13278-023-01028-5" target="_blank" rel="noopener" style="color: var(--green); text-decoration: none;">https://doi.org/10.1007/s13278-023-01028-5</a></p>
+        <strong>1.</strong> Aïmeur, E., Amri, S. &amp; Brassard, G. (2023). Fake news, disinformation and misinformation in social media: a review. <em>Social Network Analysis And Mining</em>, <em>13</em>(1), 30. <a href="https://doi.org/10.1007/s13278-023-01028-5" target="_blank" rel="noopener" style="color:var(--accent);">https://doi.org/10.1007/s13278-023-01028-5</a>
       </div>
-      <div class="gta-divider"></div>
-      <button class="gta-reveal-btn" id="gta1-btn" onclick="revealGTA('gta1')">
-        <span class="btn-icon">👁</span>
-        Klicken, um die Antwort zu sehen.
-      </button>
-      <div class="gta-answer" id="gta1-answer">
-        <div class="gta-answer-inner">📊 Journal Impact Factor: <strong>2,8</strong></div>
-      </div>
+      <button class="btn-reveal" onclick="toggleGTA('gta1')">🔍 Antwort anzeigen</button>
+      <div class="gta-answer" id="gta1">✓ Journal Impact Factor: <strong>2,8</strong></div>
     </div>
 
     <!-- GTA 2 -->
     <div class="gta-card">
       <div class="gta-task">
-        <div class="gta-number">Artikel 02</div>
-        <p>Swire-Thompson, B., Butler, L. &amp; Rapp, D. N. (2025). The truth sandwich format does not enhance the correction of misinformation. <em>Journal Of Educational Psychology</em>, <em>117</em>(6), 851–862. <a href="https://doi.org/10.1037/edu0000961" target="_blank" rel="noopener" style="color: var(--green); text-decoration: none;">https://doi.org/10.1037/edu0000961</a></p>
+        <strong>2.</strong> Swire-Thompson, B., Butler, L. &amp; Rapp, D. N. (2025). The truth sandwich format does not enhance the correction of misinformation. <em>Journal Of Educational Psychology</em>, <em>117</em>(6), 851–862. <a href="https://doi.org/10.1037/edu0000961" target="_blank" rel="noopener" style="color:var(--accent);">https://doi.org/10.1037/edu0000961</a>
       </div>
-      <div class="gta-divider"></div>
-      <button class="gta-reveal-btn" id="gta2-btn" onclick="revealGTA('gta2')">
-        <span class="btn-icon">👁</span>
-        Klicken, um die Antwort zu sehen.
-      </button>
-      <div class="gta-answer" id="gta2-answer">
-        <div class="gta-answer-inner">📊 Journal Impact Factor: <strong>6,4</strong></div>
-      </div>
+      <button class="btn-reveal" onclick="toggleGTA('gta2')">🔍 Antwort anzeigen</button>
+      <div class="gta-answer" id="gta2">✓ Journal Impact Factor: <strong>6,4</strong></div>
     </div>
 
     <!-- GTA 3 -->
     <div class="gta-card">
       <div class="gta-task">
-        <div class="gta-number">Artikel 03</div>
-        <p>Xin, Z., Guo, T., Ni, Y., Hai, S. &amp; Lin, L. (2024). Sustainable Leadership for Employee Performance and the Moderating Roles of Family-Work Conflict and Work Pressure: The Job Demands–Resources Perspective. <em>Journal Of Business And Psychology</em>, <em>40</em>(4), 877–902. <a href="https://doi.org/10.1007/s10869-024-09993-0" target="_blank" rel="noopener" style="color: var(--green); text-decoration: none;">https://doi.org/10.1007/s10869-024-09993-0</a></p>
+        <strong>3.</strong> Xin, Z., Guo, T., Ni, Y., Hai, S. &amp; Lin, L. (2024). Sustainable Leadership for Employee Performance and the Moderating Roles of Family-Work Conflict and Work Pressure: The Job Demands–Resources Perspective. <em>Journal Of Business And Psychology</em>, <em>40</em>(4), 877–902. <a href="https://doi.org/10.1007/s10869-024-09993-0" target="_blank" rel="noopener" style="color:var(--accent);">https://doi.org/10.1007/s10869-024-09993-0</a>
       </div>
-      <div class="gta-divider"></div>
-      <button class="gta-reveal-btn" id="gta3-btn" onclick="revealGTA('gta3')">
-        <span class="btn-icon">👁</span>
-        Klicken, um die Antwort zu sehen.
-      </button>
-      <div class="gta-answer" id="gta3-answer">
-        <div class="gta-answer-inner">📊 Journal Impact Factor: <strong>4,9</strong></div>
+      <button class="btn-reveal" onclick="toggleGTA('gta3')">🔍 Antwort anzeigen</button>
+      <div class="gta-answer" id="gta3">✓ Journal Impact Factor: <strong>4,9</strong></div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       WISSENSBOX – Der CRAAP-Test
+       ============================================================ -->
+  <div class="info-card">
+    <h2>🧪 Wie bewerte ich gute wissenschaftliche Information? – Der CRAAP-Test!</h2>
+    <div class="craap-grid">
+      <div class="craap-item">
+        <div class="craap-letter">📅 Currency – Aktualität</div>
+        <p><strong>Ist die Information aktuell?</strong> → Achte auf das Veröffentlichungsdatum. Veraltete Daten können zu falschen Schlussfolgerungen führen.</p>
+      </div>
+      <div class="craap-item">
+        <div class="craap-letter">🔗 Relevance – Relevanz</div>
+        <p><strong>Bezieht sich der Text auf andere wissenschaftliche Veröffentlichungen?</strong> → Enthält der Text Verweise, Zitate und ein Literaturverzeichnis? Das zeigt, ob er im wissenschaftlichen Diskurs verankert ist.</p>
+      </div>
+      <div class="craap-item">
+        <div class="craap-letter">🧑‍🔬 Authority – Autorität</div>
+        <p><strong>Wer hat die Arbeit geschrieben?</strong> → Sind die Autor:innen Expert:innen auf dem Fachgebiet? Arbeiten sie an einer anerkannten wissenschaftlichen Einrichtung?</p>
+      </div>
+      <div class="craap-item">
+        <div class="craap-letter">🧠 Audience – Zielgruppe</div>
+        <p><strong>Richtet sich die Veröffentlichung an die wissenschaftliche Community?</strong> → Fachsprache, Aufbau und Zitierweise geben Hinweise auf die Zielgruppe.</p>
+      </div>
+      <div class="craap-item">
+        <div class="craap-letter">🎯 Purpose – Zweck</div>
+        <p><strong>Was ist das Ziel des Textes?</strong> → Geht es um wissenschaftliche Erkenntnisse? Ist der Text neutral formuliert und verfolgt keine politischen, kommerziellen oder ideologischen Absichten?</p>
       </div>
     </div>
 
-    <div class="nav-wrap">
-      <button class="nav-btn nav-btn-secondary" onclick="goTo(4)">← Zurück</button>
-      <div class="dot-row" id="dots"></div>
-      <button class="nav-btn nav-btn-primary" onclick="goTo(6)">Weiter →</button>
+    <div class="link-box">
+      🔗 Unter folgendem <a href="https://www.econbiz.de/eb/gw/literatur-suchen-und-bewerten" target="_blank" rel="noopener">Link</a> kommen Sie zu einer Guided-Walk Lerneinheit zum Thema Quellen bewerten.
     </div>
   </div>
 
-  <!-- ═══════════════════════════════════════════
-       PAGE 6 – CRAAP TEST
-  ════════════════════════════════════════════ -->
-  <div class="page" id="page-6">
+</div><!-- /.page-wrapper -->
 
-    <div class="content-card">
-      <div class="quiz-label">Quellen bewerten</div>
-      <h3>Wie bewerte ich gute wissenschaftliche Information?</h3>
-      <p>Dafür gibt's den <strong>CRAAP-Test</strong>! Fünf Kriterien helfen dir, jede Quelle schnell einzuschätzen.</p>
-    </div>
+<script>
+/* ── Single-Choice Quiz Engine ── */
+function checkAnswer(id, btn, isCorrect) {
+  const opts = btn.closest('.quiz-options');
+  const feedback = document.getElementById(id + '-feedback');
+  // Disable all buttons
+  opts.querySelectorAll('.quiz-option-btn').forEach(b => {
+    b.disabled = true;
+  });
+  if (isCorrect) {
+    btn.classList.add('correct');
+    feedback.className = 'quiz-feedback success';
+    feedback.textContent = '✓ Richtig!';
+    feedback.style.display = 'flex';
+  } else {
+    btn.classList.add('wrong');
+    feedback.className = 'quiz-feedback error';
+    feedback.textContent = '✗ Falsch! Bitte versuche es nach dem Zurücksetzen noch einmal.';
+    feedback.style.display = 'flex';
+    // Highlight the correct one
+    opts.querySelectorAll('.quiz-option-btn').forEach(b => {
+      if (b !== btn) b.classList.add('correct');
+    });
+  }
+}
 
-    <div class="content-card">
-      <div class="craap-grid">
+function resetQuestion(id) {
+  const opts = document.getElementById(id + '-options');
+  const feedback = document.getElementById(id + '-feedback');
+  opts.querySelectorAll('.quiz-option-btn').forEach(b => {
+    b.disabled = false;
+    b.classList.remove('correct', 'wrong');
+  });
+  feedback.className = 'quiz-feedback';
+  feedback.style.display = 'none';
+}
 
-        <div class="craap-item">
-          <div class="craap-badge">📅 Currency</div>
-          <div class="craap-text">
-            <strong>Ist die Information aktuell?</strong>
-            <p>Achte auf das Veröffentlichungsdatum. Veraltete Daten können zu falschen Schlussfolgerungen führen.</p>
-          </div>
-        </div>
-
-        <div class="craap-item">
-          <div class="craap-badge">🔗 Relevance</div>
-          <div class="craap-text">
-            <strong>Bezieht sich der Text auf andere wissenschaftliche Veröffentlichungen?</strong>
-            <p>Enthält der Text Verweise, Zitate und ein Literaturverzeichnis? Das zeigt, ob er im wissenschaftlichen Diskurs verankert ist.</p>
-          </div>
-        </div>
-
-        <div class="craap-item">
-          <div class="craap-badge">🧑‍🔬 Authority</div>
-          <div class="craap-text">
-            <strong>Wer hat die Arbeit geschrieben?</strong>
-            <p>Sind die Autor:innen Expert:innen auf dem Fachgebiet? Arbeiten sie an einer anerkannten wissenschaftlichen Einrichtung?</p>
-          </div>
-        </div>
-
-        <div class="craap-item">
-          <div class="craap-badge">🧠 Audience</div>
-          <div class="craap-text">
-            <strong>Richtet sich die Veröffentlichung an die wissenschaftliche Community?</strong>
-            <p>Fachsprache, Aufbau und Zitierweise geben Hinweise auf die Zielgruppe.</p>
-          </div>
-        </div>
-
-        <div class="craap-item">
-          <div class="craap-badge">🎯 Purpose</div>
-          <div class="craap-text">
-            <strong>Was ist das Ziel des Textes?</strong>
-            <p>Geht es um wissenschaftliche Erkenntnisse? Ist der Text neutral formuliert und verfolgt keine politischen, kommerziellen oder ideologischen Absichten?</p>
-          </div>
-        </div>
-
-      </div>
-
-      <a class="link-highlight" href="https://www.econbiz.de/eb/gw/literatur-suchen-und-bewerten" target="_blank" rel="noopener">
-        🔗 Guided-Walk Lerneinheit: Quellen suchen &amp; bewerten →
-      </a>
-    </div>
-
-    <div class="nav-wrap">
-      <button class="nav-btn nav-btn-secondary" onclick="goTo(5)">← Zurück</button>
-      <div class="dot-row" id="dots"></div>
-      <button class="nav-btn nav-btn-finish" onclick="finish()">✓ Abschließen</button>
-    </div>
-  </div>
-
-  <!-- ═══════════════════════════════════════════
-       COMPLETION SCREEN
-  ════════════════════════════════════════════ -->
-  <div class="completion-screen" id="completion">
-    <div class="completion-icon">🏔️</div>
-    <h2>Gipfel erreicht!</h2>
-    <p>Du hast alle Übungen zu Etappe 3 abgeschlossen. Jetzt kennst du die wichtigsten Kriterien für gute wissenschaftliche Quellen.</p>
-    <button class="completion-restart" onclick="restart()">↺ Nochmal von vorne</button>
-  </div>
-
-  <script>
-    const TOTAL_PAGES = 6;
-    let currentPage = 1;
-
-    // ── DOT INDICATOR ──
-    function renderDots() {
-      document.querySelectorAll('.dot-row').forEach(row => {
-        row.innerHTML = '';
-        for (let i = 1; i <= TOTAL_PAGES; i++) {
-          const d = document.createElement('div');
-          d.className = 'dot' + (i === currentPage ? ' active' : i < currentPage ? ' done' : '');
-          row.appendChild(d);
-        }
-      });
-    }
-
-    // ── PROGRESS BAR ──
-    function updateProgress() {
-      const pct = Math.round(((currentPage - 1) / TOTAL_PAGES) * 100);
-      document.getElementById('progressFill').style.width = pct + '%';
-      document.getElementById('progressLabel').textContent = `Seite ${currentPage} von ${TOTAL_PAGES}`;
-      document.getElementById('progressPct').textContent = pct + ' %';
-    }
-
-    // ── NAVIGATION ──
-    function goTo(n) {
-      document.getElementById('page-' + currentPage).classList.remove('active');
-      document.getElementById('completion').classList.remove('active');
-      currentPage = n;
-      const pg = document.getElementById('page-' + n);
-      if (pg) pg.classList.add('active');
-      renderDots();
-      updateProgress();
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
-    function finish() {
-      document.getElementById('page-' + currentPage).classList.remove('active');
-      document.getElementById('completion').classList.add('active');
-      document.getElementById('progressFill').style.width = '100%';
-      document.getElementById('progressLabel').textContent = 'Abgeschlossen!';
-      document.getElementById('progressPct').textContent = '100 %';
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
-    function restart() {
-      document.getElementById('completion').classList.remove('active');
-      currentPage = 1;
-      document.getElementById('page-1').classList.add('active');
-      renderDots();
-      updateProgress();
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
-    // ── QUIZ ──
-    const QUIZ_CORRECT_IDX = { q1: 0, q2: 0, q3: 0, q4: 0 };
-    const QUIZ_FEEDBACK = {
-      q1: {
-        correct: '✓ Richtig! Wissenschaftliche Fachzeitschriften sind seriös und verlässlich – das macht sie zitierwürdig.',
-        wrong:   '✗ Leider falsch. Entscheidend ist nicht, wer publiziert, sondern dass die Zeitschrift seriös und verlässlich ist.'
-      },
-      q2: {
-        correct: '✓ Richtig! Fachartikel werden immer von den Forschenden selbst verfasst.',
-        wrong:   '✗ Leider falsch. Fachartikel schreiben stets die Forschenden selbst – nicht fachfremde Autoren.'
-      },
-      q3: {
-        correct: '✓ Richtig! Peer-Review bedeutet, dass unabhängige Expert:innen aus demselben Fachgebiet die Arbeit prüfen.',
-        wrong:   '✗ Leider falsch. Peer-Reviewer kommen aus demselben Fachgebiet – nur so ist eine fachkundige Bewertung möglich.'
-      },
-      q4: {
-        correct: '✓ Richtig! Dein Betreuer muss die Quelle anhand deiner Angabe finden können – Auffindbarkeit ist essenziell.',
-        wrong:   '✗ Leider falsch. Die Auffindbarkeit der Quelle ist sehr wichtig – auch der Betreuer muss sie nachvollziehen können.'
-      }
-    };
-
-    function answerQuiz(id, chosen, correctIdx) {
-      // Disable all buttons
-      document.querySelectorAll(`#${id} .quiz-option`).forEach((btn, i) => {
-        btn.disabled = true;
-        if (i === correctIdx) btn.classList.add('correct');
-        else if (i === chosen && chosen !== correctIdx) btn.classList.add('wrong');
-      });
-      const fb = document.getElementById(id + '-fb');
-      const isCorrect = chosen === correctIdx;
-      fb.textContent = QUIZ_FEEDBACK[id][isCorrect ? 'correct' : 'wrong'];
-      fb.className = 'quiz-feedback show ' + (isCorrect ? 'correct-fb' : 'wrong-fb');
-    }
-
-    // ── GUESS THE ANSWER ──
-    function revealGTA(id) {
-      const answer = document.getElementById(id + '-answer');
-      const btn    = document.getElementById(id + '-btn');
-      answer.classList.toggle('show');
-      const revealed = answer.classList.contains('show');
-      btn.classList.toggle('revealed', revealed);
-      btn.querySelector('.btn-icon').textContent = revealed ? '✓' : '👁';
-      btn.childNodes[btn.childNodes.length - 1].textContent = revealed
-        ? ' Antwort ausblenden'
-        : ' Klicken, um die Antwort zu sehen.';
-    }
-
-    // ── INIT ──
-    renderDots();
-    updateProgress();
-  </script>
+/* ── Guess The Answer Toggle ── */
+function toggleGTA(id) {
+  const el = document.getElementById(id);
+  const btn = el.previousElementSibling;
+  const isVisible = el.style.display === 'block';
+  el.style.display = isVisible ? 'none' : 'block';
+  btn.textContent = isVisible ? '🔍 Antwort anzeigen' : '🙈 Antwort verbergen';
+}
+</script>
 </body>
 </html>
