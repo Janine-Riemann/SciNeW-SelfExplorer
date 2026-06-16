@@ -1,1 +1,1246 @@
 
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Etappe 4 – Self-Explorer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --green:    #74C2A8;
+      --dark:     #121616;
+      --orange:   #EE7050;
+      --bg:       #F5F5F0;
+      --surface:  #FFFFFF;
+      --border:   #E2E2DC;
+      --text:     #121616;
+      --muted:    #6B7280;
+      --sidebar-w: 320px;
+      --header-h:  72px;
+      --tab-h:     56px;
+      --radius:    16px;
+      --font: 'DM Sans', sans-serif;
+      --mono: 'DM Mono', monospace;
+      
+      --shadow-sm: 0 2px 8px rgba(18, 22, 22, 0.04);
+      --shadow-md: 0 10px 30px rgba(18, 22, 22, 0.05);
+      --shadow-lg: 0 20px 40px rgba(18, 22, 22, 0.12);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* TOP HEADER */
+    .top-header {
+      position: fixed; top: 0; left: 0; right: 0;
+      height: var(--header-h);
+      background: rgba(18, 22, 22, 0.9);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      display: flex; align-items: center; gap: 16px;
+      padding: 0 2rem;
+      border-bottom: 1px solid rgba(116,194,168,0.12);
+      z-index: 100;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    }
+    .header-left { display: flex; align-items: center; gap: 1.25rem; }
+    
+    /* BURGER-BUTTON */
+    .burger-btn {
+      background: none; border: none; cursor: pointer;
+      display: flex; flex-direction: column; gap: 6px; padding: 8px;
+      border-radius: 8px;
+      transition: background 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .burger-btn:hover { background: rgba(116,194,168,0.12); }
+    .burger-btn span {
+      display: block; width: 22px; height: 2px;
+      background: var(--green); border-radius: 2px;
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s;
+    }
+    .burger-btn.open span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+    .burger-btn.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .burger-btn.open span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+    .site-brand {
+      display: flex; align-items: center; gap: 12px;
+      font-size: 1.1rem; font-weight: 700; color: #fff;
+      letter-spacing: -0.03em; text-decoration: none;
+    }
+    .site-brand img {
+      width: 36px; height: 36px;
+      border-radius: 50%; object-fit: cover;
+      box-shadow: 0 0 0 2px rgba(114, 194, 168, 0.4);
+    }
+
+    .topbar-nav { margin-left: auto; }
+    .topbar-nav a {
+      font-size: 0.9rem; font-weight: 500;
+      color: rgba(255, 255, 255, 0.9);
+      padding: 8px 16px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: all 0.25s ease;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    .topbar-nav a:hover {
+      color: #fff;
+      background: rgba(116,194,168,0.15);
+      border-color: rgba(116,194,168,0.3);
+    }
+
+    /* SIDEBAR */
+    .sidebar {
+      position: fixed; top: var(--header-h); 
+      left: calc(-1 * var(--sidebar-w));
+      bottom: 0;
+      width: var(--sidebar-w);
+      background: var(--dark);
+      padding: 2.5rem 0;
+      overflow-y: auto;
+      transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+      z-index: 90;
+      box-shadow: var(--shadow-lg);
+    }
+    .sidebar.open { transform: translateX(var(--sidebar-w)); }
+
+    .sidebar-label {
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 0.15em;
+      color: rgba(255, 255, 255, 0.6);
+      text-transform: uppercase;
+      padding: 0 2rem; margin-bottom: 1.25rem;
+    }
+    .sidebar nav { display: flex; flex-direction: column; gap: 6px; padding: 0 1rem; }
+    
+    .sidebar nav a {
+      display: flex; align-items: center; gap: 1rem;
+      padding: 0.95rem 1.25rem;
+      font-size: 0.95rem; 
+      color: rgba(255, 255, 255, 0.95);
+      text-decoration: none;
+      border-radius: 10px;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .sidebar nav a:hover { 
+      background: rgba(255, 255, 255, 0.1); 
+      color: #fff; 
+    }
+    
+    .sidebar nav a.active {
+      color: var(--dark);
+      background: var(--green);
+      font-weight: 700;
+    }
+    
+    .sidebar nav a .num {
+      font-size: 0.8rem; font-family: var(--mono); font-weight: 600;
+      color: var(--green); min-width: 1.5rem;
+      opacity: 0.9;
+    }
+    .sidebar nav a.active .num { 
+      color: var(--dark); 
+      opacity: 0.8; 
+    }
+
+    /* OVERLAY */
+    .sidebar-overlay {
+      display: none; position: fixed; inset: 0; background: rgba(18, 22, 22, 0.3);
+      z-index: 80; opacity: 0; transition: opacity 0.4s ease;
+      backdrop-filter: blur(4px);
+    }
+    .sidebar-overlay.show { display: block; opacity: 1; }
+
+    /* MAIN AREA */
+    .main-wrap {
+      margin-top: var(--header-h);
+      flex: 1; display: flex; flex-direction: column;
+      background: #F8FAF9;
+    }
+
+    .lesson-content-container {
+      width: 100%;
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      padding: 2rem 1.5rem;
+    }
+
+    /* HERO BEREICH */
+    .lesson-hero {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 3rem 3rem 0;
+      width: 100%;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-sm);
+      margin-bottom: 1.5rem;
+    }
+    .chapter-badge {
+      display: inline-block;
+      font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em;
+      text-transform: uppercase;
+      background: rgba(116,194,168,0.1);
+      color: #4f9880;
+      border: 1px solid rgba(116,194,168,0.25);
+      border-radius: 30px;
+      padding: 0.35rem 1rem;
+      margin-bottom: 1.25rem;
+    }
+    .lesson-title {
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      font-weight: 700; letter-spacing: -0.04em;
+      color: var(--dark); margin-bottom: 0.75rem;
+      line-height: 1.15;
+    }
+    .lesson-subtitle {
+      font-size: 1rem; color: var(--muted); margin-bottom: 2.5rem;
+      max-width: 700px; line-height: 1.6;
+    }
+
+    /* TABS */
+    .tab-nav {
+      display: flex; gap: 8px;
+      border-bottom: 1px solid var(--border);
+      overflow-x: auto; scrollbar-width: none;
+    }
+    .tab-nav::-webkit-scrollbar { display: none; }
+    .tab-btn {
+      background: none; border: none; cursor: pointer;
+      font-family: var(--font); font-size: 0.95rem; font-weight: 500;
+      color: var(--muted);
+      padding: 0 1.5rem; height: var(--tab-h);
+      white-space: nowrap;
+      border-bottom: 3px solid transparent;
+      transition: all 0.2s ease;
+      position: relative; bottom: -1px;
+    }
+    .tab-btn:hover { color: var(--dark); }
+    .tab-btn.active { 
+      color: var(--dark); 
+      border-bottom-color: var(--green); 
+      font-weight: 600;
+    }
+
+    .tab-content { width: 100%; flex: 1; }
+    .tab-panel { display: none; animation: fadeIn 0.4s ease-out; }
+    .tab-panel.active { display: block; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* KERNTHEMEN LISTE */
+    .topic-list { display: flex; flex-direction: column; gap: 1rem; }
+    .topic-item {
+      display: grid;
+      grid-template-columns: auto auto 1fr;
+      gap: 0.5rem 1.25rem;
+      padding: 1.5rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-sm);
+      cursor: pointer;
+      transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.25s, box-shadow 0.25s;
+    }
+    .topic-item:hover { 
+      border-color: var(--green); 
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+    
+    .topic-checkbox {
+      width: 1.5rem; height: 1.5rem;
+      border: 2px solid var(--border);
+      border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.2s ease;
+      margin-top: 2px;
+    }
+    .topic-item:hover .topic-checkbox { border-color: var(--green); }
+    
+    .topic-item.checked {
+      background: rgba(116,194,168,0.03);
+      border-color: rgba(116,194,168,0.3);
+      box-shadow: none;
+    }
+    .topic-item.checked .topic-checkbox {
+      background: var(--green);
+      border-color: var(--green);
+    }
+    .topic-item.checked .topic-checkbox::before {
+      content: '✓'; color: var(--dark); font-size: 0.9rem; font-weight: bold;
+    }
+    .topic-item.checked .topic-title {
+      color: var(--muted); text-decoration: line-through; opacity: 0.7;
+    }
+    .topic-item.checked .topic-sub { opacity: 0.6; }
+
+    .topic-num {
+      font-family: var(--mono); font-size: 0.8rem; font-weight: 500;
+      color: var(--green); padding-top: 4px;
+    }
+    .topic-title { font-size: 1.05rem; font-weight: 600; margin-bottom: 0.4rem; color: var(--dark); letter-spacing: -0.01em; }
+    .topic-sub { font-size: 0.9rem; color: var(--muted); line-height: 1.6; }
+
+    /* ACCORDIONS (INPUT TAB) */
+    #tab-input .accordion-container {
+      display: flex;
+      flex-direction: column;
+      margin-top: 1rem;
+    }
+    #tab-input .accordion-container > .accordion-item + .accordion-item {
+      margin-top: 1rem;
+    }
+    #tab-input .accordion-item {
+      margin-bottom: 0;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-sm);
+      overflow: hidden;
+      margin: 0;
+      transition: all 0.25s ease;
+    }
+    .accordion-item:hover { border-color: var(--green); box-shadow: var(--shadow-md); }
+    
+    .accordion-item summary {
+      padding: 1.5rem; font-size: 1.1rem; font-weight: 600; color: var(--dark);
+      cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; user-select: none;
+    }
+    .accordion-item summary::-webkit-details-marker { display: none; }
+    .accordion-item summary::after {
+      content: '＋'; font-size: 1.1rem; color: var(--green); font-weight: bold; transition: transform 0.3s ease;
+    }
+    .accordion-item[open] summary::after { content: '－'; transform: rotate(180deg); }
+    
+    .accordion-content {
+      padding: 0 1.5rem 1.5rem 1.5rem;
+      border-top: 1px solid var(--border);
+      background: #FCFDFD;
+    }
+    
+    .audio-summary-placeholder {
+      font-size: 0.9rem; color: var(--muted);
+      background: #F5F5F0; border-left: 3px solid var(--green);
+      padding: 1rem; margin-top: 0.75rem; border-radius: 0 10px 10px 0;
+      line-height: 1.5;
+    }
+    .text-placeholder-box {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1.5rem; margin-top: 1rem; box-shadow: var(--shadow-sm);
+    }
+
+    .prose h2 { font-size: 1.5rem; font-weight: 700; margin: 0.5rem 0 1rem; letter-spacing: -0.03em; color: var(--dark); }
+    .prose p { font-size: 1rem; line-height: 1.75; color: #333; margin-bottom: 1.25rem; }
+    
+    /* AUDIO BLOCK */
+    .audio-block {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1.25rem; margin: 1.25rem 0; box-shadow: var(--shadow-sm);
+    }
+    .audio-label {
+      font-size: 0.75rem; font-weight: 700; color: var(--muted);
+      text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.25rem;
+    }
+    .audio-block audio { display: block; width: 100%; margin-top: 0.75rem; outline: none; }
+
+    /* MEDIEN-GRID */
+    .video-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.25rem; margin-top: 1.25rem; }
+    .video-card {
+      border-radius: 12px; overflow: hidden;
+      border: 1px solid var(--border); background: var(--surface); text-decoration: none; color: var(--text);
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1); display: block; box-shadow: var(--shadow-sm);
+    }
+    .video-card:hover { border-color: var(--green); transform: translateY(-3px); box-shadow: var(--shadow-md); }
+    .video-thumb { position: relative; aspect-ratio: 16/9; background: #000; }
+    .video-thumb img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease; }
+    .video-card:hover .video-thumb img { transform: scale(1.03); }
+    .play-icon { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
+    .play-icon circle { transition: fill 0.2s ease; }
+    .video-card:hover .play-icon circle { fill: var(--green); }
+    .video-card:hover .play-icon polygon { fill: var(--dark); }
+    .video-label { padding: 0.85rem 1rem; font-size: 0.9rem; font-weight: 600; line-height: 1.4; color: var(--dark); }
+
+    /* STUDY GUIDE */
+    .study-guide { display: flex; flex-direction: column; gap: 1.5rem; margin: 1.5rem 0 2rem; }
+    .phase-block {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-sm);
+    }
+    .phase-header {
+      display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap;
+      padding: 1.1rem 1.5rem; background: rgba(116,194,168,0.06);
+      border-bottom: 1px solid var(--border);
+    }
+    .phase-badge {
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      background: var(--green); color: var(--dark); border-radius: 20px; padding: 0.3rem 0.85rem;
+    }
+    .phase-badge--orange { background: var(--orange); color: #fff; }
+    .phase-badge--purple { background: #7C6FCD; color: #fff; }
+    .phase-title { font-size: 1.05rem; font-weight: 600; color: var(--dark); }
+    .phase-time { font-size: 0.85rem; color: var(--muted); margin-left: auto; }
+    .phase-body { padding: 1.5rem; display: flex; flex-direction: column; gap: 1.25rem; }
+    .phase-body > p { font-size: 1rem; line-height: 1.7; color: #333; }
+
+    .sg-section-title {
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted);
+      margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border);
+    }
+    .sg-def-list { display: flex; flex-direction: column; gap: 0.75rem; }
+    .sg-def-item {
+      display: grid; grid-template-columns: 240px 1fr; gap: 0.5rem 1.5rem;
+      padding: 1rem 1.25rem; background: #F9F9F6; border-radius: 8px; font-size: 0.95rem; border: 1px solid var(--border);
+    }
+    @media(max-width:640px){ .sg-def-item { grid-template-columns: 1fr; } }
+    .sg-term { font-weight: 600; color: var(--dark); line-height: 1.5; }
+    .sg-def { color: #333; line-height: 1.6; }
+
+    .sg-card {
+      background: #F9F9F6; border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem;
+    }
+    .sg-card-title { font-size: 1.05rem; font-weight: 600; color: var(--dark); margin-bottom: 1rem; }
+    .sg-ul, .sg-ol { padding-left: 1.5rem; display: flex; flex-direction: column; gap: 0.5rem; }
+    .sg-ul li, .sg-ol li { font-size: 0.95rem; line-height: 1.65; color: #333; }
+    .sg-flow {
+      font-size: 1rem; font-weight: 600; color: var(--dark);
+      background: rgba(116,194,168,0.1); border-radius: 8px; padding: 0.8rem 1.25rem; text-align: center;
+    }
+
+    .sg-table-wrap { overflow-x: auto; border-radius: 12px; border: 1px solid var(--border); box-shadow: var(--shadow-sm); }
+    .sg-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; background: var(--surface); }
+    .sg-table thead tr { background: var(--dark); color: #fff; }
+    .sg-table th { padding: 1rem 1.25rem; text-align: left; font-weight: 600; font-size: 0.85rem; letter-spacing: 0.05em; text-transform: uppercase; }
+    .sg-table td { padding: 1rem 1.25rem; vertical-align: top; border-bottom: 1px solid var(--border); line-height: 1.6; color: #333; }
+    .sg-table tbody tr:last-child td { border-bottom: none; }
+    .sg-table tbody tr:nth-child(even) { background: rgba(116,194,168,0.02); }
+
+    .sg-repeat-list { display: flex; flex-direction: column; gap: 1rem; margin-top: 0.5rem; }
+    .sg-repeat-item {
+      display: flex; gap: 1.25rem; align-items: flex-start; padding: 1.25rem;
+      background: #F9F9F6; border-radius: 12px; font-size: 0.95rem; line-height: 1.6; color: #333; border: 1px solid var(--border);
+    }
+    .sg-repeat-badge {
+      flex-shrink: 0; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;
+      background: var(--green); color: var(--dark); border-radius: 20px; padding: 0.25rem 0.75rem; margin-top: 2px;
+    }
+    .sg-repeat-badge--light { background: #7C6FCD; color: #fff; }
+
+    /* ÜBUNGEN */
+    .uebungen-wrapper {
+      overflow: hidden; border-radius: var(--radius);
+      background: var(--surface); border: 1px solid var(--border); box-shadow: var(--shadow-sm);
+    }
+    .uebungen-frame { width: 100%; min-height: 600px; border: none; display: block; background: var(--surface); }
+
+    .section-heading {
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--muted); margin: 0.5rem 0 1.5rem;
+    }
+
+    /* RESPONSIVITÄT */
+    @media (max-width: 1000px) {
+      .lesson-content-container { padding: 1rem 0; }
+      .lesson-hero { border-radius: 0; border-left: none; border-right: none; padding: 2.5rem 1.5rem 0; }
+      .tab-content { padding: 1.5rem 1rem; }
+    }
+    @media (max-width: 600px) {
+      .top-header { padding: 0 1rem; }
+      .lesson-hero { padding: 2rem 1rem 0; }
+      .tab-btn { padding: 0 1rem; font-size: 0.88rem; }
+      .topic-item { padding: 1.25rem; grid-template-columns: auto 1fr; }
+      .topic-num { display: none; }
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 8px; height: 8px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: rgba(18, 22, 22, 0.1); border-radius: 99px; }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(116, 194, 168, 0.4); }
+    @media (max-width: 768px) {
+  /* Blendet den Tabellenkopf auf dem Handy aus */
+  .sg-table thead {
+    display: none;
+  }
+  
+  /* Macht aus jeder Tabellenzeile eine eigene Karte */
+  .sg-table, .sg-table tbody, .sg-table tr, .sg-table td {
+    display: block;
+    width: 100%;
+  }
+  
+  .sg-table tr {
+    margin-bottom: 1.5rem;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: var(--surface);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+  }
+  
+  /* Gibt den Zellen Platz und fügt ein Label hinzu */
+  .sg-table td {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid rgba(18, 22, 22, 0.05);
+    position: relative;
+    font-size: 0.95rem;
+  }
+  
+  .sg-table td:last-child {
+    border-bottom: none;
+  }
+  
+  /* Die erste Spalte (Art der Hypothese) heben wir optisch als Titel hervor */
+  .sg-table td:first-child {
+    background: var(--dark);
+    color: #fff;
+    font-weight: 600;
+  }
+  
+  /* Optional: Wenn du leere Zellen als Abstandshalter nutzt, blende sie mobil aus */
+  .sg-table td:empty {
+    display: none;
+  }
+}
+  </style>
+</head>
+<body>
+
+  <!-- PLATFORM HEADER -->
+  <header class="top-header">
+    <div class="header-left">
+      <button class="burger-btn" id="burgerBtn" aria-label="Menü öffnen/schließen">
+        <span></span><span></span><span></span>
+      </button>
+      <a href="index.html" class="site-brand">
+        <img src="Logo_klein.png" alt="SciNeW Logo" />
+        <span>SciNeW</span>
+      </a>
+    </div>
+    <nav class="topbar-nav">
+      <a href="index.html">Startseite</a>
+    </nav>
+  </header>
+
+  <!-- SLIDE-IN BURGER MENU SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <p class="sidebar-label">Etappen</p>
+    <nav>
+      <a href="lektion-01.html"><span class="num">01</span> Grundlagen wissenschaftlicher Arbeit</a>
+      <a href="lektion-02.html"><span class="num">02</span> Fragen schärfen, Hypothesen schmieden</a>
+      <a href="lektion-03.html"class="active"><span class="num">03</span> Zielsicher recherchieren</a>
+      <a href="lektion-04.html"><span class="num">04</span> Klug lesen</a>
+      <a href="lektion-05.html"><span class="num">05</span> Theorie fundiert aufbauen</a>
+      <a href="lektion-06.html"><span class="num">06</span> Sauber zitieren</a>
+      <a href="lektion-07.html"><span class="num">07</span> Methoden und Daten überblicken</a>
+      <a href="lektion-08.html"><span class="num">08</span> Ergebnisse deuten</a>
+      <a href="lektion-09.html"><span class="num">09</span> Abschluss feinschleifen</a>
+    </nav>
+  </aside>
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <!-- ARBEITSBEREICH -->
+  <main class="main-wrap">
+    <div class="lesson-content-container">
+      
+      <!-- HERO BEREICH -->
+      <div class="lesson-hero">
+        <span class="chapter-badge">Etappe 3</span>
+        <h1 class="lesson-title">Zielsicher recherchieren</h1>
+        <p class="lesson-subtitle">
+          Wie recherchiert man Informationen?
+        </p>
+        <div class="tab-nav" role="tablist">
+          <button class="tab-btn active" role="tab" data-tab="kernthemen">Kernthemen</button>
+          <button class="tab-btn" role="tab" data-tab="input">Input</button>
+          <button class="tab-btn" role="tab" data-tab="uebungen">Übungen</button>
+        </div>
+      </div>
+
+      <!-- INHALTE-TABS -->
+      <div class="tab-content">
+
+        <!-- TAB PANEL 1: KERNTHEMEN (JETZT ZUM ABHAKEN) -->
+        <div class="tab-panel active" id="tab-kernthemen" role="tabpanel">
+          
+          <div class="topic-list">
+            
+            <div class="topic-item">
+              <span class="topic-num">01</span>
+              <div class="topic-body">
+                <div class="topic-title">Wissenschaftliches Publizieren & Qualitätskontrolle: </div>
+                <div class="topic-sub">Dieser Bereich beschreibt die
+verschiedenen Formen wissenschaftlicher Veröffentlichungen, wie Monografien und Fachartikel,
+wobei letzteren eine besondere Bedeutung zukommt. Er hebt die Wichtigkeit des Peer Reviews als
+zentrales Instrument der Qualitätssicherung hervor, welches die wissenschaftliche Validität und
+Nachvollziehbarkeit von Forschungsergebnissen gewährleistet.</div>
+              </div>
+            </div>
+
+            <div class="topic-item">
+              <span class="topic-num">02</span>
+              <div class="topic-body">
+                <div class="topic-title">Die W-Fragen der Literaturrecherche</div>
+                <div class="topic-sub"> Dieses konzeptionelle Framework strukturiert den
+Rechercheprozess anhand der Fragen "Warum?", "Wann?", "Was?", "Wo?" und "Wie?". Es leitet
+Forschende an, von der Formulierung der Forschungsfrage über die Auswahl der Literatur bis hin
+zur Anwendung spezifischer Suchstrategien systematisch vorzugehen und ein tiefgreifendes
+Verständnis zu entwickeln</div>
+              </div>
+            </div>
+
+            <div class="topic-item">
+              <span class="topic-num">03</span>
+              <div class="topic-body">
+                <div class="topic-title">Suchwerkzeuge & Recherchestrategien</div>
+                <div class="topic-sub"> Dieses Konzept umfasst die verschiedenen verfügbaren
+Instrumente und Methoden zur Literatursuche. Es vergleicht die Funktionen von Google Scholar,
+spezialisierten Fachdatenbanken (wie WISO, ScienceDirect) und Bibliothekskatalogen und
+erläutert fortgeschrittene Suchstrategien wie die systematische Identifizierung von Suchbegriffen
+und die Anwendung Boolescher Operatoren</div>
+              </div>
+            </div>
+
+            <div class="topic-item">
+              <span class="topic-num">04</span>
+              <div class="topic-body">
+                <div class="topic-title">Quellenkompetenz & KI-Einsatz</div>
+                <div class="topic-sub">Dieses Konzept betont die Fähigkeit zur kritischen Bewertung
+von Informationsquellen hinsichtlich ihrer Zitierfähigkeit und Zitierwürdigkeit. Es analysiert die
+Risiken und Grenzen beim Einsatz von KI-Tools in der Recherche, wie etwa das Phänomen der
+"Halluzinationen" (erfundene Quellen), und leitet Best Practices für einen verantwortungsvollen
+und überprüfenden Umgang ab</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        
+        <!-- TAB PANEL 2: INPUT (JETZT ALS ACCORDION) -->
+        <div class="tab-panel" id="tab-input" role="tabpanel">
+          <div class="prose">
+          
+            <div class="accordion-container">
+              
+              <!-- ACCORDION 1: Zum Anhören -->
+              <details class="accordion-item">
+                <summary>Zum Anhören 👂</summary>
+                <div class="accordion-content">
+                  <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--muted);">Dieser Inhalt wird Ihnen als Podcasts zur Verfügung gestellt.</p>
+                  
+                  <div class="audio-block">
+                    <div class="audio-label">Teil 1: Forschungsfragen entwickeln</div>
+                    <audio controls preload="metadata" src="audio/lektion2-teil1.mp3"></audio>
+                    <div class="audio-summary-placeholder">
+                      <strong>Zusammenfassung (Platzhalter):</strong> Hier folgt eine kurze Beschreibung der Kernpunkte und Themen zur Entstehung präziser Forschungsfragen.
+                    </div>
+                  </div>
+
+                  <div class="audio-block">
+                    <div class="audio-label">Teil 2: Hypothesen aufstellen</div>
+                    <audio controls preload="metadata" src="audio/lektion2-teil2.mp3"></audio>
+                    <div class="audio-summary-placeholder">
+                      <strong>Zusammenfassung (Platzhalter):</strong> Hier folgt eine kurze Beschreibung der Strukturierung und Ausrichtung von gerichteten und ungerichteten Hypothesen.
+                    </div>
+                  </div>
+                </div>
+              </details>
+
+              <!-- ACCORDION 2: Zum Lesen & Study Guide -->
+              <details class="accordion-item" style="margin-top: 1rem;">
+                <summary>Zum Lesen 📚</summary>
+                <div class="accordion-content">
+                  
+                  <!-- STUDY GUIDE INTEGRATION -->
+                  <div class="study-guide">
+
+                    <!-- PHASE 1 -->
+                    <div class="phase-block">
+                      <div class="phase-header">
+                        <span class="phase-badge">Phase 1</span>
+                        <span class="phase-title">Überprüfen &amp; Lernen</span>
+                        <span class="phase-time">&#9201; 60–90 Min.</span>
+                      </div>
+                      <div class="phase-body">
+                        <p>Beginnen Sie damit, den gesamten Inhalt in den nächsten 10–15 Minuten einmal zu überfliegen, um einen Überblick zu bekommen. Notieren Sie sich dabei 3–5 Kernlernziele, die für Sie am wichtigsten erscheinen oder am schwierigsten sind. Widmen Sie sich dann fokussierten Lernblöcken, z. B. <strong>25 Minuten Lernen, 5 Minuten Pause</strong> (Pomodoro-Technik), um die folgenden Schlüsselthemen zu vertiefen.</p>
+
+
+              
+
+                      </div>
+                    </div>
+
+                    <!-- PHASE 2 -->
+                    <div class="phase-block">
+                      <div class="phase-header">
+                        <span class="phase-badge phase-badge--orange">Phase 2</span>
+                        <span class="phase-title">Schlüsselthemen &amp; Definitionen</span>
+                      </div>
+                      <div class="phase-body">
+
+                        <h3 class="sg-section-title">Schlüsselbegriffe</h3>
+                        <div class="sg-def-list">
+                          <div class="sg-def-item"><span class="sg-term">Forschungsfrage</span><span class="sg-def">Klar formulierte, offene und beantwortbare Frage – der „Leitstern" der wissenschaftlichen Arbeit.</span></div>
+                          <div class="sg-def-item"><span class="sg-term">Forschungsziele</span><span class="sg-def">Können explorativ (entdeckend), deskriptiv (beschreibend) oder kausal (erklärend) sein.</span></div>
+                          <div class="sg-def-item"><span class="sg-term">Hypothesen</span><span class="sg-def">Prüfbare Annahmen, die präzise, widerspruchsfrei und begründbar sein müssen.</span></div>
+                          <div class="sg-def-item"><span class="sg-term">Gerichtete Hypothesen</span><span class="sg-def">Besitzen eine klare Ursache-Wirkungs-Richtung und einen höheren empirischen Gehalt.</span></div>
+                          <div class="sg-def-item"><span class="sg-term">Ungerichtete Hypothesen</span><span class="sg-def">Beschreiben lediglich Zusammenhänge ohne Richtung.</span></div>
+                          <div class="sg-def-item"><span class="sg-term">Monografie</span><span class="sg-def">Ein ganzes Buch zu einem Thema, oft von einer Person geschrieben.</span></div>
+                          <div class="sg-def-item"><span class="sg-term">Fachartikel</span><span class="sg-def">Ein wissenschaftlicher Text in einer Zeitschrift (Journal), meist zu einem speziellen Thema.</span></div>
+                          <div class="sg-def-item"><span class="sg-term">Sammelband / Tagungsband</span><span class="sg-def">Ein Buch mit mehreren Beiträgen von verschiedenen Autor*innen, oft nach einer Konferenz.</span></div>
+                          <div class="sg-def-item"><span class="sg-term">Preprint</span><span class="sg-def">Vorab-Veröffentlichung, noch ohne Qualitätsprüfung (Peer Review).</span></div>
+                          <div class="sg-def-item"><span class="sg-term">Peer Review</span><span class="sg-def">Andere Forschende prüfen die Arbeit vor der Veröffentlichung – Instrument der wissenschaftlichen Qualitätskontrolle.</span></div>
+                          <div class="sg-def-item"><span class="sg-term">Open Review</span><span class="sg-def">Die Prüfung ist offen und transparent.</span></div>
+                          <div class="sg-def-item"><span class="sg-term">Editorial Review</span><span class="sg-def">Redaktion prüft die Arbeit.</span></div>
+                          <div class="sg-def-item"><span class="sg-term">Single-Blind Peer-Review</span><span class="sg-def">Autor weiß nicht, wer den Text begutachtet.</span></div>
+                          <div class="sg-def-item"><span class="sg-term">Double-Blind Peer-Review</span><span class="sg-def">Gutachter weiß nicht, wer Autor ist – und umgekehrt.</span></div>
+                          <div class="sg-def-item"><span class="sg-term">Rabbit Hole</span><span class="sg-def">Abdriften von der zentralen Forschungsfrage in ein unwichtiges Randthema; größte Zeit- und Fokusfalle in der Wissenschaft.</span></div>
+                          <div class="sg-def-item"><span class="sg-term">Verständnisspirale</span><span class="sg-def">Durch Einlesen schält sich langsam ein Thema und dann eine konkrete Forschungsfrage heraus – das Verständnis steigt spiralförmig an.</span></div>
+                          <div class="sg-def-item"><span class="sg-term">Halluzinationen (KI)</span><span class="sg-def">Generative Sprachmodelle erzeugen mitunter nicht-existierende Literatur, Zitate oder Fakten.</span></div>
+                          <div class="sg-def-item"><span class="sg-term">Schneeballsuche / Rückwärtssuche</span><span class="sg-def">Recherche beginnt mit einer konkreten Quelle und untersucht weitere, darin zitierte Quellen.</span></div>
+                          <div class="sg-def-item"><span class="sg-term">Systematische Suche</span><span class="sg-def">Fragestellung schärfen → Suchbegriffe ableiten → geeignete Quellen wählen → Suchstrategie überlegen → sichten und auswerten.</span></div>
+                          <div class="sg-def-item"><span class="sg-term">Vorwärtssuche</span><span class="sg-def">Suche nach Quellen, die die gefundene Literatur zitieren.</span></div>
+                          <div class="sg-def-item"><span class="sg-term">Graue Literatur</span><span class="sg-def">Quellen, die von Einzelpersonen oder Forschungseinrichtungen selbst veröffentlicht wurden und nicht in einem Wissenschaftsverlag erschienen sind.</span></div>
+                          <div class="sg-def-item"><span class="sg-term">Zitierfähigkeit</span><span class="sg-def">Öffentlich verfügbar und dauerhaft zurückverfolgbar.</span></div>
+                          <div class="sg-def-item"><span class="sg-term">Zitierwürdigkeit</span><span class="sg-def">Vertrauenswürdigkeit bzw. die Qualität einer Quelle.</span></div>
+                        </div>
+
+                        <h3 class="sg-section-title" style="margin-top:1.75rem;">Kernprozesse, Modelle &amp; Regeln</h3>
+
+                        <div class="sg-card">
+                          <div class="sg-card-title">W-Fragen der Literaturrecherche</div>
+                          <ul class="sg-ul">
+                            <li><strong>Warum:</strong> Zeigt Wissen, Forschungslücke, Verständnis; bildet die theoretische Grundlage und beantwortet die Forschungsfrage.</li>
+                            <li><strong>Wann:</strong> Kontinuierlich – in den Phasen des Einlesens, der Konzeptentwicklung und der Erarbeitung des Theorieteils.</li>
+                            <li><strong>Was:</strong> Art der Literaturquellen, Bewertung verschiedener Quellen.</li>
+                            <li><strong>Wo:</strong> Zugang zu Literatur, Art der Suchwerkzeuge.</li>
+                            <li><strong>Wie:</strong> Suchbegriffe, Suchstrategien.</li>
+                          </ul>
+                        </div>
+
+                        <div class="sg-card">
+                          <div class="sg-card-title">Suchoperatoren</div>
+                          <ol class="sg-ol">
+                            <li><strong>AND:</strong> Konzepte kombinieren.</li>
+                            <li><strong>OR:</strong> Alternative Begriffe kombinieren (Klammern verwenden).</li>
+                            <li><strong>Anführungszeichen (" "):</strong> Exakte Wortfolge suchen.</li>
+                            <li><strong>Trunkierung (*):</strong> Alle möglichen Wortendungen finden (z. B. <em>tax*</em>).</li>
+                            <li><strong>Wildcard (?):</strong> Alternative Buchstabenfolgen finden (z. B. <em>Organi?ation</em>).</li>
+                            <li><strong>NOT:</strong> Ausschluss nicht benötigter Suchbegriffe.</li>
+                          </ol>
+                        </div>
+
+                        <div class="sg-card">
+                          <div class="sg-card-title">Fünf Schritte der Literaturarbeit</div>
+                          <ol class="sg-ol">
+                            <li><strong>Suchen:</strong> Geeignete Literatur finden; unterscheiden zwischen Zitierinformationen, Open-Access-Elementen und Volltexten.</li>
+                            <li><strong>Screenen:</strong> Eignung des Werks anhand von Open-Access-Elementen einschätzen.</li>
+                            <li><strong>Sammeln:</strong> Geeignete Werke in einer Liste sammeln (z. B. Zotero).</li>
+                            <li><strong>Lesen:</strong> Geeignetes Werk lesen.</li>
+                            <li><strong>Extrahieren:</strong> Zentrale Inhalte festhalten (z. B. Tags oder Notizen).</li>
+                          </ol>
+                        </div>
+
+                        <div class="sg-card">
+                          <div class="sg-card-title">KI-Einsatz: Best-Practice-Hinweise</div>
+                          <p style="font-size:0.9rem;color:var(--orange);font-weight:600;margin-bottom:0.75rem;">&#9888; KERNBOTSCHAFT: KI ist ein Werkzeug – die Verantwortung bleibt beim Anwender.</p>
+                          <ul class="sg-ul">
+                            <li>KI-Ergebnisse niemals ungeprüft übernehmen.</li>
+                            <li>Jede Quelle und jedes Zitat rückverfolgen.</li>
+                            <li>Eignung des Tools für das Fachgebiet prüfen.</li>
+                            <li>Abgleich mit klassischer Recherche und Fakten.</li>
+                            <li>Originaltexte konsultieren und lesen.</li>
+                            <li>Plausibilität und logische Kohärenz hinterfragen.</li>
+                          </ul>
+                        </div>
+
+                        <div class="sg-card">
+                          <div class="sg-card-title">Suchwerkzeuge im Überblick</div>
+                          <ul class="sg-ul">
+                            <li><strong>Bibliotheken:</strong> HS Ansbach, Bayrische Staatsbibliothek, Handbibliotheken der Profs, Fernleihe.</li>
+                            <li><strong>Online-Suchmaschinen:</strong> Google Scholar.</li>
+                            <li><strong>Fachdatenbanken:</strong> WISO, ScienceDirect, SpringerLink, EconBiz, Statista.</li>
+                            <li><strong>KI-Tools:</strong> Perplexity, Consensus, Elicit, Litmaps.</li>
+                            <li><strong>Weitere:</strong> Web of Science, Scopus, BASE, Semantic Scholar, ResearchGate, Refseek.</li>
+                            <li><strong>DBIS der HS Ansbach:</strong> EBSCO Business Source, Beck online, INSPEC, Wiley Online Library u. a.</li>
+                            <li><strong>KVK:</strong> Weltweite Meta-Suchmaschine für Bibliotheks- und Buchhandelskataloge (über 75 Mio. Bücher).</li>
+                            <li><strong>EZB / ZDB:</strong> Überblick über elektronisch verfügbare Zeitschriften.</li>
+                          </ul>
+                        </div>
+
+                        <h3 class="sg-section-title" style="margin-top:1.75rem;">Wesentliche Fakten &amp; Daten</h3>
+                        <ul class="sg-ul">
+                          <li>50 % der Wissenschaftler nutzen Google/Google Scholar, 43 % Datenbanken und 21 % Bibliothekskataloge als Startpunkt der Recherche.</li>
+                          <li>Eine Beispielsuche zu „Taxation of animal products in the European Union" ergab ca. 180.000 Treffer in Google Scholar, aber nur ca. 5.000 im Bibliothekskatalog.</li>
+                          <li>Der Gesamtumfang der Literatur zum Thema Kundenzufriedenheit beträgt ca. 20.000 Beiträge.</li>
+                          <li>Social Media (Instagram, TikTok, YouTube) sind keine wissenschaftlichen Quellen.</li>
+                          <li>Renommierte Psychologie-Zeitschriften: <em>Journal of Applied Psychology, Personnel Psychology, Academy of Management Journal, Psychological Bulletin, Psychological Review</em> u. a.</li>
+                          <li>Große Wissenschaftsverlage: Taylor &amp; Francis (GB), SAGE (USA), Springer (DE/NL).</li>
+                        </ul>
+
+                      </div>
+                    </div>
+
+                    <!-- PHASE 3 -->
+                    <div class="phase-block">
+                      <div class="phase-header">
+                        <span class="phase-badge phase-badge--purple">Phase 3</span>
+                        <span class="phase-title">Üben &amp; Anwenden</span>
+                        <span class="phase-time">&#9201; 30–45 Min.</span>
+                      </div>
+                      <div class="phase-body">
+                        <p>Jetzt ist es an der Zeit, Ihr Wissen aktiv zu testen. Versuchen Sie, die folgenden Fragen <strong>ohne Blick in Ihre Notizen</strong> zu beantworten. Das hilft Ihnen, Ihr Verständnis zu überprüfen und Wissenslücken zu identifizieren.</p>
+
+                        <h3 class="sg-section-title">Active Recall-Aufforderungen</h3>
+                        <div class="sg-card">
+                          <ol class="sg-ol">
+                            <li>Warum sind Fachartikel mit Peer Review besonders wichtig, und wie unterscheidet sich das Single-Blind vom Double-Blind Peer-Review?</li>
+                            <li>Wie können Sie verhindern, in ein „Rabbit Hole" zu geraten – und welche konkreten Strategien helfen dabei?</li>
+                            <li>Welche Vor- und Nachteile bieten Google Scholar und spezialisierte Fachdatenbanken, und wann würden Sie welches Tool bevorzugen?</li>
+                            <li>Welche „W-Fragen" leiten den Rechercheprozess, und wie hilft eine systematische Suche im Vergleich zur kumulativen Suche?</li>
+                            <li>Warum ist eine kritische Überprüfung von KI-Ergebnissen unerlässlich, und welche Best-Practice-Hinweise sind dabei zentral?</li>
+                          </ol>
+                        </div>
+
+                        <h3 class="sg-section-title" style="margin-top:1.75rem;">Übungs- und Synthesefragen</h3>
+                        <div class="sg-card">
+                          <div class="sg-card-title">Aufgabe 1: Suchbegriffsentwicklung</div>
+                          <p style="font-size:0.95rem;line-height:1.7;color:#333;">Angenommen, Sie schreiben eine Arbeit zum Thema <em>„Der Einfluss von Nachhaltigkeitskommunikation auf das Kaufverhalten junger Erwachsener in Deutschland"</em>. Erstellen Sie eine Tabelle mit mindestens drei Konzepten und sammeln Sie für jedes Konzept mindestens zwei alternative Begriffe (Synonyme, Übersetzungen, Ober-/Unterbegriffe, verwandte Begriffe). Wenden Sie anschließend mindestens drei verschiedene Suchoperatoren (z. B. AND, OR, " ") an, um eine mögliche Suchanfrage zu formulieren.</p>
+                        </div>
+
+                        <div class="sg-card">
+                          <div class="sg-card-title">Aufgabe 2: Quellenbewertungsszenario</div>
+                          <p style="font-size:0.95rem;line-height:1.7;color:#333;margin-bottom:0.75rem;">Ihnen liegen folgende Quellen vor. Beurteilen Sie, welche als <strong>zitierwürdig</strong> gelten und begründen Sie Ihre Einschätzung (Aktualität, Belegbarkeit, Autorität, Publikationsort, Erkenntnisinteresse):</p>
+                          <ol class="sg-ol">
+                            <li>Ein Blogbeitrag über „Trends im nachhaltigen Konsum" von einem unbekannten Autor.</li>
+                            <li>Eine Studie aus dem <em>Journal of Consumer Research</em> über Umweltbewusstsein und Kaufentscheidungen.</li>
+                            <li>Ein aktueller Artikel aus der <em>Süddeutschen Zeitung</em> über politische Maßnahmen zur Förderung nachhaltiger Produkte.</li>
+                            <li>Ein Preprint auf arXiv zum Thema „Green Marketing Strategien".</li>
+                            <li>Ein Lehrbuch zur „Allgemeinen Betriebswirtschaftslehre".</li>
+                          </ol>
+                        </div>
+
+                        <h3 class="sg-section-title" style="margin-top:1.75rem;">Unklarste Punkte zur Wiederholung</h3>
+                        <div class="sg-card">
+                          <p style="font-size:0.95rem;line-height:1.7;color:#333;">Listen Sie hier 1–2 Punkte auf, die Ihnen noch unklar sind oder die Sie noch nicht sicher beantworten konnten. Diese Punkte sind Ihre <strong>Schwerpunkte für die nächste Wiederholung</strong>.</p>
+                        </div>
+
+                      </div>
+                    </div>
+
+                    <!-- PHASE 4 -->
+                    <div class="phase-block">
+                      <div class="phase-header">
+                        <span class="phase-badge" style="background:#3B82F6;color:#fff;">Phase 4</span>
+                        <span class="phase-title">Festigen &amp; Erinnern</span>
+                        <span class="phase-time">Nächste Schritte</span>
+                      </div>
+                      <div class="phase-body">
+                        <p>Um das Gelernte langfristig im Gedächtnis zu behalten, ist regelmäßige Wiederholung entscheidend. Halten Sie sich an diesen einfachen Plan für die <strong>gestaffelte Wiederholung</strong>:</p>
+                        <div class="sg-repeat-list">
+                          <div class="sg-repeat-item">
+                            <span class="sg-repeat-badge">Morgen</span>
+                            <div><strong>10 Min.:</strong> Nehmen Sie sich Ihre „unklarsten Punkte" von heute noch einmal vor. Versuchen Sie, die Active-Recall-Aufforderungen erneut zu beantworten, ohne zu spicken.</div>
+                          </div>
+                          <div class="sg-repeat-item">
+                            <span class="sg-repeat-badge sg-repeat-badge--light">In 3 Tagen</span>
+                            <div><strong>5 Min.:</strong> Überfliege die „Schlüsselthemen &amp; Definitionen" schnell, um die wichtigsten Konzepte aufzufrischen.</div>
+                          </div>
+                          <div class="sg-repeat-item">
+                            <span class="sg-repeat-badge" style="background:#EE7050;color:#fff;">In 1 Woche</span>
+                            <div><strong>5–10 Min.:</strong> Bearbeite eine der Übungsaufgaben erneut, oder erkläre einem Freund/Kommilitonen die Kernkonzepte der Literaturrecherche (<strong>Feynman-Technik</strong>). Die Fähigkeit, etwas klar und verständlich zu erklären, ist ein starkes Zeichen für tiefes Verständnis.</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- PLACEHOLDER (keep for compatibility) -->
+                    <div style="display:none;">
+                        <div class="sg-card">
+                          <div class="sg-card-title">Anforderungen an Hypothesen</div>
+                          <ul class="sg-ul">
+                            <li><strong>Präzise und widerspruchsfrei formuliert:</strong> Idealerweise lässt die Formulierung die Art der Hypothese erkennen. Widersprüchliche Hypothesen sind nicht wissenschaftlich.</li>
+                            <li><strong>Prinzipiell widerlegbar:</strong> Muss falsifizierbar sein, um empirischen Gehalt zu besitzen (z.B. gerichtete Kausalhypothesen besser als ungerichtete Zusammenhangshypothesen).</li>
+                            <li><strong>Operationalisierbar:</strong> Die abstrakten Begriffe müssen messbar sein.</li>
+                            <li><strong>Begründbar:</strong> Muss unter Einbeziehung theoretischer Grundlagen und des empirischen Forschungsstands gut begründet sein.</li>
+                          </ul>
+                        </div>
+
+                        <div class="sg-card">
+                          <div class="sg-card-title">Gerichtetheit von Hypothesen</div>
+                          <ul class="sg-ul">
+                            <li><strong>Ungerichtet:</strong> Beschreibt einen Unterschied oder Zusammenhang ohne spezifische Richtung (z.B. „Krankmeldungen unterscheiden sich im Semesterverlauf"). Besitzt niedrigen empirischen Gehalt.</li>
+                            <li><strong>Gerichtet:</strong> Postuliert eine spezifische Richtung des Zusammenhangs oder der Wirkung (z.B. „In der Prüfungswoche erkranken <em>mehr</em> Studenten…"). Besitzt hohen empirischen Gehalt.</li>
+                          </ul>
+                        </div>
+
+                        <h3 class="sg-section-title" style="margin-top:1.75rem;">Arten von Hypothesen und Analyseverfahren</h3>
+                        <div class="sg-table-wrap">
+                          <table class="sg-table">
+                            <thead>
+                              <tr>
+                                <th>Art der Hypothese</th>
+                                <th>Formale Beschreibung</th>
+                                <th>Beispiel (Werbepsychologie)</th>
+                                <th>Analyseverfahren</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td><strong>Zusammenhangshypothese</strong></td>
+                                <td>Zwischen zwei Merkmalen X und Y besteht ein Zusammenhang.</td>
+                                <td>Zwischen der Länge eines Werbespots und der Sympathie mit dem Produkt besteht ein positiver Zusammenhang.</td>
+                                <td>Mechanische Korrelation</td>
+                              </tr>
+                              <tr>
+                                <td></td>
+                                <td>Zusammenhänge zwischen vielen Variablen lassen sich auf wenige hypothetische Faktoren zurückführen.</td>
+                                <td>Die Zusammenhänge zwischen mehreren Merkmalen eines Werbespots gehen auf die Faktoren „Glaubwürdigkeit" und „Sympathie" zurück.</td>
+                                <td>Faktorenanalyse</td>
+                              </tr>
+                              <tr>
+                                <td><strong>Wirkungs-/Kausalhypothese</strong></td>
+                                <td>Eine Maßnahme (UV) hat einen Einfluss auf eine abhängige Variable (AV).</td>
+                                <td>Je emotionaler die Botschaft ist, desto sympathischer beurteilen die Konsumenten das Produkt.</td>
+                                <td>Regressionsanalyse</td>
+                              </tr>
+                              <tr>
+                                <td><strong>Unterschiedshypothese</strong></td>
+                                <td>Zwei Maßnahmen A1 und A2 unterscheiden sich in ihrer Wirkung auf eine abhängige Variable.</td>
+                                <td>Ein humorvoller Werbespot steigert die Sympathie mit einem Produkt mehr als ein informativer Spot.</td>
+                                <td>t-Test</td>
+                              </tr>
+                              <tr>
+                                <td></td>
+                                <td>Zwei (oder mehrere) Populationen unterscheiden sich in Bezug auf eine Variable.</td>
+                                <td>Ältere Konsumenten finden den Werbespot weniger sympathisch als jüngere Konsumenten.</td>
+                                <td>t-Test; ANOVA</td>
+                              </tr>
+                              <tr>
+                                <td><strong>Interaktionshypothese</strong></td>
+                                <td>Zwischen zwei unabhängigen Variablen besteht eine Interaktion.</td>
+                                <td>Emotionale Werbung wirkt bei geringem Involvement sympathischer als bei hohem Involvement.</td>
+                                <td>Mehrfaktorielle Varianzanalyse</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+
+                        <h3 class="sg-section-title" style="margin-top:1.75rem;">Wesentliche Fakten &amp; Daten</h3>
+                        <ul class="sg-ul">
+                          <li>Wissenschaftliches Arbeiten erfordert ständige Übung; Sünden wie fehlender rote Faden, Umgangssprache und Plagiate sind zu vermeiden.</li>
+                          <li>Eine Forschungsfrage ist übergeordneter Natur und keine Detailfrage.</li>
+                          <li>Die finale Forschungsmethode (Qualitativ vs. Quantitativ) wird durch die Forschungsfrage bestimmt.</li>
+                          <li>Forschungsfragen werden als Frage formuliert, Hypothesen als Aussage.</li>
+                          <li>Bei quantitativen empirischen Studien ist i.d.R. eine Forschungsfrage pro Arbeit ausreichend, und es sind mehrere Hypothesen erforderlich.</li>
+                          <li>Bei qualitativen empirischen Studien können mehr als eine Forschungsfrage, aber keine Hypothesen erforderlich sein.</li>
+                          <li>Die Wahl zwischen Forschungsfrage und Hypothese hängt vom bestehenden Wissen ab: Bei fehlender Theorie eher Forschungsfrage (Qualitative Forschung → Induktion), bei ausreichendem Wissen eher Hypothese (Quantitative Forschung → Deduktion).</li>
+                          <li>Eine Arbeit sollte nur eine (Haupt-)Forschungsfrage haben.</li>
+                          <li>Forschungsfragen sind weniger konkret (operationalisiert) als Hypothesen, aber verständlicher und drücken das Wesentliche aus.</li>
+                        </ul>
+
+                      </div>
+                    </div>
+
+                    <!-- PHASE 3 -->
+                    <div class="phase-block">
+                      <div class="phase-header">
+                        <span class="phase-badge phase-badge--purple">Phase 3</span>
+                        <span class="phase-title">Festigen &amp; Erinnern</span>
+                        <span class="phase-time">Nächste Schritte</span>
+                      </div>
+                      <div class="phase-body">
+                        <p>Um Ihr Wissen langfristig zu sichern, wenden Sie die Methode der <strong>gestaffelten Wiederholung</strong> an:</p>
+                        <div class="sg-repeat-list">
+                          <div class="sg-repeat-item">
+                            <span class="sg-repeat-badge">Morgen</span>
+                            <div><strong>10 Min.:</strong> Überprüfen Sie Ihre „unklarsten Punkte" und versuchen Sie, sie vollständig zu klären. Beantworten Sie die „Active Recall"-Aufforderungen erneut. Nutzen Sie dazu Ihre eigenen Worte.</div>
+                          </div>
+                          <div class="sg-repeat-item">
+                            <span class="sg-repeat-badge sg-repeat-badge--light">In 3 Tagen</span>
+                            <div><strong>5 Min.:</strong> Gehen Sie die Liste der „Schlüsselthemen &amp; Definitionen" schnell durch. Versuchen Sie, die wichtigsten Begriffe aus dem Gedächtnis zu definieren, bevor Sie Ihre Notizen konsultieren.</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div><!-- /study-guide -->
+
+                  <div class="text-placeholder-box">
+                    <h3 style="font-size: 1.05rem; margin-bottom: 0.5rem; color: var(--dark);">Ergänzende Materialien:</h3>
+                    <p style="font-size: 0.92rem; color: var(--muted); line-height: 1.6;">Jhangiani, R. S., Chiang, I. C. A., Cuttler, C., &amp; Leighton, D. C. (2019). Research methods in psychology Kwantlen Polytechnic University. – Chapter II The Science of Psychology (pp. 25–58)</p>
+                  </div>
+                </div>
+              </details>
+
+              <!-- ACCORDION 3: Zum Sehen -->
+              <details class="accordion-item" style="margin-top: 1rem;">
+                <summary>Zum Sehen 👀</summary>
+                <div class="accordion-content" style="padding-top: 1.25rem;">
+                  <p style="font-size: 0.95rem; font-weight: 600; margin-bottom: 0.5rem; color: var(--dark);">Videos:</p>
+                  
+                  <div class="video-grid">
+                    <a class="video-card" href="https://www.youtube.com/watch?v=5Jjuvp6qtWc" target="_blank" rel="noopener">
+                      <div class="video-thumb">
+                        <img src="https://img.youtube.com/vi/5Jjuvp6qtWc/hqdefault.jpg" alt="Erste Hausarbeit 01: Warum brauche ich überhaupt gute Information?" loading="lazy">
+                        <div class="play-icon">
+                          <svg width="48" height="48" viewBox="0 0 48 48"><circle cx="24" cy="24" r="24" fill="rgba(18,22,22,0.7)"/><polygon points="19,15 37,24 19,33" fill="#74C2A8"/></svg>
+                        </div>
+                      </div>
+                      <div class="video-label">Erste Hausarbeit 01: Warum brauche ich überhaupt gute Information?</div>
+                    </a>
+
+                    <a class="video-card" href="https://www.youtube.com/watch?v=tovMACYydhs" target="_blank" rel="noopener">
+                      <div class="video-thumb">
+                        <img src="https://img.youtube.com/vi/tovMACYydhs/hqdefault.jpg" alt="Darf man Wikipedia zitieren?" loading="lazy">
+                        <div class="play-icon">
+                          <svg width="48" height="48" viewBox="0 0 48 48"><circle cx="24" cy="24" r="24" fill="rgba(18,22,22,0.7)"/><polygon points="19,15 37,24 19,33" fill="#74C2A8"/></svg>
+                        </div>
+                      </div>
+                      <div class="video-label">Darf man Wikipedia zitieren?</div>
+                    </a>
+
+                    <a class="video-card" href="https://www.youtube.com/watch?v=X606hXvZTRI" target="_blank" rel="noopener">
+                      <div class="video-thumb">
+                        <img src="https://img.youtube.com/vi/X606hXvZTRI/hqdefault.jpg" alt="Welche Literatur für meine wissenschaftliche Arbeit?" loading="lazy">
+                        <div class="play-icon">
+                          <svg width="48" height="48" viewBox="0 0 48 48"><circle cx="24" cy="24" r="24" fill="rgba(18,22,22,0.7)"/><polygon points="19,15 37,24 19,33" fill="#74C2A8"/></svg>
+                        </div>
+                      </div>
+                      <div class="video-label">Welche Literatur für meine wissenschaftliche Arbeit?</div>
+                    </a>
+
+                       <a class="video-card" href="https://www.youtube.com/watch?v=5hmsaVmlths" target="_blank" rel="noopener">
+                      <div class="video-thumb">
+                        <img src="https://img.youtube.com/vi/5hmsaVmlths/hqdefault.jpg" alt="Erste Hausarbeit 03: Qualität von wissenschaftlicher Information beurteilen" loading="lazy">
+                        <div class="play-icon">
+                          <svg width="48" height="48" viewBox="0 0 48 48"><circle cx="24" cy="24" r="24" fill="rgba(18,22,22,0.7)"/><polygon points="19,15 37,24 19,33" fill="#74C2A8"/></svg>
+                        </div>
+                      </div>
+                      <div class="video-label">Erste Hausarbeit 03: Qualität von wissenschaftlicher Information beurteilen</div>
+                    </a>
+
+                       <a class="video-card" href="https://www.youtube.com/watch?v=8Lk1WTj-Fvo" target="_blank" rel="noopener">
+                      <div class="video-thumb">
+                        <img src="https://img.youtube.com/vi/8Lk1WTj-Fvo/hqdefault.jpg" alt="Erste Hausarbeit 04: Wie erkenne ich Fake News?" loading="lazy">
+                        <div class="play-icon">
+                          <svg width="48" height="48" viewBox="0 0 48 48"><circle cx="24" cy="24" r="24" fill="rgba(18,22,22,0.7)"/><polygon points="19,15 37,24 19,33" fill="#74C2A8"/></svg>
+                        </div>
+                      </div>
+                      <div class="video-label">Erste Hausarbeit 04: Wie erkenne ich Fake News?</div>
+                    </a>
+
+  <a class="video-card" href="https://www.youtube.com/watch?v=lkCs4ysdDOc" target="_blank" rel="noopener">
+                      <div class="video-thumb">
+                        <img src="https://img.youtube.com/vi/lkCs4ysdDOc/hqdefault.jpg" alt="Erste Hausarbeit 05: Wie beschaffe ich wissenschaftliche Information?" loading="lazy">
+                        <div class="play-icon">
+                          <svg width="48" height="48" viewBox="0 0 48 48"><circle cx="24" cy="24" r="24" fill="rgba(18,22,22,0.7)"/><polygon points="19,15 37,24 19,33" fill="#74C2A8"/></svg>
+                        </div>
+                      </div>
+                      <div class="video-label">Erste Hausarbeit 05: Wie beschaffe ich wissenschaftliche Information?</div>
+                    </a>
+
+                    <a class="video-card" href="https://www.youtube.com/watch?v=LSdJsfjDGg8" target="_blank" rel="noopener">
+                      <div class="video-thumb">
+                        <img src="https://img.youtube.com/vi/LSdJsfjDGg8/hqdefault.jpg" alt="Erste Hausarbeit 02: Wie suche ich (wissenschaftliche) Information und Fachaufsätze?" loading="lazy">
+                        <div class="play-icon">
+                          <svg width="48" height="48" viewBox="0 0 48 48"><circle cx="24" cy="24" r="24" fill="rgba(18,22,22,0.7)"/><polygon points="19,15 37,24 19,33" fill="#74C2A8"/></svg>
+                        </div>
+                      </div>
+                      <div class="video-label">Erste Hausarbeit 02: Wie suche ich (wissenschaftliche) Information und Fachaufsätze?</div>
+                    </a>
+
+                    <a class="video-card" href="https://www.youtube.com/watch?v=rBgnsPM37k4" target="_blank" rel="noopener">
+                      <div class="video-thumb">
+                        <img src="https://img.youtube.com/vi/rBgnsPM37k4/hqdefault.jpg" alt="Suche in Literaturdatenbanken
+
+
+" loading="lazy">
+                        <div class="play-icon">
+                          <svg width="48" height="48" viewBox="0 0 48 48"><circle cx="24" cy="24" r="24" fill="rgba(18,22,22,0.7)"/><polygon points="19,15 37,24 19,33" fill="#74C2A8"/></svg>
+                        </div>
+                      </div>
+                      <div class="video-label">Suche in Literaturdatenbanken</div>
+                    </a>
+
+<a class="video-card" href="https://www.youtube.com/watch?v=I8VC6R7-J6M" target="_blank" rel="noopener">
+                      <div class="video-thumb">
+                        <img src="https://img.youtube.com/vi/I8VC6R7-J6M/hqdefault.jpg" alt="How To Use Consensus AI - Don’t Get Left Behind!
+
+
+
+" loading="lazy">
+                        <div class="play-icon">
+                          <svg width="48" height="48" viewBox="0 0 48 48"><circle cx="24" cy="24" r="24" fill="rgba(18,22,22,0.7)"/><polygon points="19,15 37,24 19,33" fill="#74C2A8"/></svg>
+                        </div>
+                      </div>
+                      <div class="video-label">How To Use Consensus AI - Don’t Get Left Behind!
+</div>
+                    </a>
+
+                    <a class="video-card" href="https://www.youtube.com/watch?v=U38m6yA8qgQ" target="_blank" rel="noopener">
+                      <div class="video-thumb">
+                        <img src="https://img.youtube.com/vi/U38m6yA8qgQ/hqdefault.jpg" alt="How To Use Google Scholar [Cutting-Edge AI Techniques To Unlock Hidden Research]
+
+
+
+
+
+" loading="lazy">
+                        <div class="play-icon">
+                          <svg width="48" height="48" viewBox="0 0 48 48"><circle cx="24" cy="24" r="24" fill="rgba(18,22,22,0.7)"/><polygon points="19,15 37,24 19,33" fill="#74C2A8"/></svg>
+                        </div>
+                      </div>
+                      <div class="video-label">How To Use Google Scholar [Cutting-Edge AI Techniques To Unlock Hidden Research]
+
+</div>
+                    </a>
+
+
+                  </div>
+                </div>
+              </details>
+
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB PANEL 3: ÜBUNGEN -->
+        <div class="tab-panel" id="tab-uebungen" role="tabpanel">
+          <div class="uebungen-wrapper">
+            <iframe
+              class="uebungen-frame"
+              src="uebungen/lektion-04-uebungen.html"
+              title="Übungen zu Lektion 4
+              
+            "
+              loading="lazy"
+            ></iframe>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+
+  <script>
+    /* Burger-Button & Slide-In Navigation */
+    const burgerBtn      = document.getElementById('burgerBtn');
+    const sidebar        = document.getElementById('sidebar');
+    const sidebarOverlay = document.getElementById('sidebarOverlay');
+
+    function toggleSidebar() {
+      const open = sidebar.classList.toggle('open');
+      burgerBtn.classList.toggle('open', open);
+      sidebarOverlay.classList.toggle('show', open);
+      document.body.style.overflow = open ? 'hidden' : '';
+    }
+    burgerBtn.addEventListener('click', toggleSidebar);
+    sidebarOverlay.addEventListener('click', toggleSidebar);
+
+    /* Tab-Umschaltung */
+    const tabBtns   = document.querySelectorAll('.tab-btn');
+    const tabPanels = document.querySelectorAll('.tab-panel');
+
+    tabBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const target = btn.dataset.tab;
+        tabBtns.forEach(b => b.classList.remove('active'));
+        tabPanels.forEach(p => p.classList.remove('active'));
+        btn.classList.add('active');
+        document.getElementById('tab-' + target).classList.add('active');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    });
+
+    /* Kernthemen Checkbox LocalStorage Sync (Aus Lektion 1 übernommen) */
+    const TOPIC_STORAGE_KEY = 'scnew-lektion02-kernthemen-checked';
+    const topicItems = document.querySelectorAll('#tab-kernthemen .topic-item');
+
+    function loadTopicState() {
+      try { return JSON.parse(localStorage.getItem(TOPIC_STORAGE_KEY)) || []; }
+      catch { return []; }
+    }
+
+    function saveTopicState(state) {
+      localStorage.setItem(TOPIC_STORAGE_KEY, JSON.stringify(state));
+    }
+
+    function syncTopicState() {
+      const checked = loadTopicState();
+      topicItems.forEach((item, index) => {
+        item.dataset.topicIndex = index;
+        item.classList.toggle('checked', !!checked[index]);
+        item.setAttribute('role', 'button');
+        item.setAttribute('tabindex', '0');
+        item.setAttribute('aria-pressed', checked[index] ? 'true' : 'false');
+        if (!item.querySelector('.topic-checkbox')) {
+          const checkbox = document.createElement('span');
+          checkbox.className = 'topic-checkbox';
+          item.prepend(checkbox);
+        }
+      });
+    }
+
+    function toggleTopicItem(item) {
+      const index = Number(item.dataset.topicIndex);
+      const current = loadTopicState();
+      current[index] = !current[index];
+      saveTopicState(current);
+      item.classList.toggle('checked', !!current[index]);
+      item.setAttribute('aria-pressed', current[index] ? 'true' : 'false');
+    }
+
+    topicItems.forEach(item => {
+      item.addEventListener('click', () => toggleTopicItem(item));
+      item.addEventListener('keydown', event => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          toggleTopicItem(item);
+        }
+      });
+    });
+
+    syncTopicState();
+
+    /* iframe Auto-Resize */
+    function resizeIframe(iframe) {
+      try {
+        const h = iframe.contentWindow.document.documentElement.scrollHeight
+                  || iframe.contentWindow.document.body.scrollHeight;
+        if (h > 100) iframe.style.height = h + 'px';
+      } catch(e) {}
+    }
+    const ubungsFrame = document.querySelector('.uebungen-frame');
+    if (ubungsFrame) {
+      ubungsFrame.addEventListener('load', function() { resizeIframe(this); });
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          if (btn.dataset.tab === 'uebungen') {
+            setTimeout(() => resizeIframe(ubungsFrame), 300);
+          }
+        });
+      });
+    }
+  </script>
+</body>
+</html>
