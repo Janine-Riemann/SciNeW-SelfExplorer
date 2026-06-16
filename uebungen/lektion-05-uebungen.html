@@ -1,0 +1,1047 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Workbook – Kapitel 5</title>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+<style>
+  /* ============================================================
+     FARBEN & GRUNDEINSTELLUNGEN
+     Hier kannst du Farben, Schriftgröße usw. zentral anpassen.
+     ============================================================ */
+  :root {
+    --primary:       #4BEBB9;
+    --primary-dark:  #28c898;
+    --primary-text:  #0d6e53;
+    --accent:        #1a5f9e;
+    --bg:            #f4fdf9;
+    --surface:       #ffffff;
+    --border:        #c8eee2;
+    --text:          #1a2d27;
+    --muted:         #5a7a71;
+    --success:       #1a8c5a;
+    --error:         #c0392b;
+    --success-bg:    #e0f8ee;
+    --error-bg:      #fdecea;
+    --radius:        10px;
+    --shadow:        0 2px 12px rgba(75,235,185,.15);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Atkinson Hyperlegible', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 16px;
+    line-height: 1.65;
+  }
+
+  .page-wrapper {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+  }
+
+  /* ── HEADER ── */
+  .page-header {
+    background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+    color: #fff;
+    border-radius: var(--radius);
+    padding: 28px 36px;
+    margin-bottom: 36px;
+    box-shadow: var(--shadow);
+  }
+  .page-header .label {
+    font-size: .75rem;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    opacity: .8;
+    margin-bottom: 6px;
+  }
+  .page-header h1 {
+    font-size: 1.45rem;
+    font-weight: 700;
+    line-height: 1.3;
+  }
+  .page-header .subtitle {
+    margin-top: 10px;
+    font-size: .92rem;
+    opacity: .9;
+    font-style: italic;
+  }
+
+  /* ── INFO-KARTE (Texte / Hinweise) ── */
+  .info-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px 32px;
+    margin-bottom: 30px;
+    box-shadow: var(--shadow);
+  }
+  .info-card h2 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--primary-text);
+    margin-bottom: 14px;
+  }
+  .info-card h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--primary-text);
+    margin: 18px 0 6px;
+  }
+  .info-card p { margin-bottom: 10px; }
+  .info-card p:last-child { margin-bottom: 0; }
+  .info-card ul {
+    padding-left: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 10px;
+  }
+
+  /* ── ÜBUNGS-BLÖCKE ── */
+  .exercise {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px 32px;
+    margin-bottom: 30px;
+    box-shadow: var(--shadow);
+  }
+  .exercise-label {
+    display: inline-block;
+    background: var(--primary);
+    color: var(--primary-text);
+    font-size: .72rem;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    padding: 3px 12px;
+    border-radius: 20px;
+    margin-bottom: 12px;
+  }
+  .exercise h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 20px;
+    line-height: 1.5;
+  }
+  .exercise-intro {
+    margin-bottom: 18px;
+    font-size: .95rem;
+  }
+  hr.divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 28px 0;
+  }
+
+  /* ── WAHR / FALSCH FRAGEN ── */
+  .tf-question-text {
+    font-size: 1.02rem;
+    font-weight: 700;
+    line-height: 1.55;
+    margin-bottom: 18px;
+    padding: 16px 20px;
+    background: var(--bg);
+    border-radius: 8px;
+    border-left: 4px solid var(--primary-dark);
+  }
+  .tf-options { display: flex; gap: 14px; margin-bottom: 18px; }
+  .tf-option-btn {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: var(--bg);
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    padding: 14px 18px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: .97rem;
+    transition: border-color .15s, background .15s;
+    color: var(--text);
+    font-weight: 700;
+  }
+  .tf-option-btn:hover:not(:disabled) { border-color: var(--primary-dark); background: #e8faf3; }
+  .tf-option-btn.correct { border-color: var(--success); background: var(--success-bg); color: var(--success); }
+  .tf-option-btn.wrong   { border-color: var(--error);   background: var(--error-bg);   color: var(--error);   }
+  .tf-option-btn:disabled { cursor: default; }
+
+  /* ── EINFACHE AUSWAHL (eine richtige Antwort aus mehreren) ── */
+  .quiz-question-text {
+    font-size: 1.02rem;
+    font-weight: 700;
+    line-height: 1.55;
+    margin-bottom: 18px;
+    padding: 16px 20px;
+    background: var(--bg);
+    border-radius: 8px;
+    border-left: 4px solid var(--primary-dark);
+  }
+  .quiz-options { display: flex; flex-direction: column; gap: 10px; margin-bottom: 18px; }
+  .quiz-option-btn {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--bg);
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 18px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: .97rem;
+    text-align: left;
+    transition: border-color .15s, background .15s;
+    color: var(--text);
+    font-weight: 700;
+  }
+  .quiz-option-btn:hover:not(:disabled) { border-color: var(--primary-dark); background: #e8faf3; }
+  .quiz-option-btn.correct { border-color: var(--success); background: var(--success-bg); color: var(--success); }
+  .quiz-option-btn.wrong   { border-color: var(--error);   background: var(--error-bg);   color: var(--error);   }
+  .quiz-option-btn:disabled { cursor: default; }
+
+  .quiz-feedback, .tf-feedback {
+    display: none;
+    margin-top: 12px;
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: .95rem;
+  }
+  .quiz-feedback.success, .tf-feedback.success { background: var(--success-bg); color: var(--success); display: flex; align-items: center; gap: 8px; }
+  .quiz-feedback.error, .tf-feedback.error     { background: var(--error-bg);   color: var(--error);   display: flex; align-items: center; gap: 8px; }
+
+  /* ── MEHRFACHAUSWAHL (mehrere richtige Antworten möglich) ── */
+  .mc-options { display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px; }
+  .mc-option {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--bg);
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 18px;
+    cursor: pointer;
+    font-size: .97rem;
+    font-weight: 700;
+    transition: border-color .15s, background .15s;
+  }
+  .mc-option:hover { border-color: var(--primary-dark); background: #e8faf3; }
+  .mc-option input[type="checkbox"] {
+    width: 19px;
+    height: 19px;
+    accent-color: var(--primary-dark);
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+  .mc-option.correct { border-color: var(--success); background: var(--success-bg); color: var(--success); }
+  .mc-option.wrong   { border-color: var(--error);   background: var(--error-bg);   color: var(--error);   }
+  .mc-option.missed  { border-color: var(--success); background: var(--success-bg); color: var(--success); border-style: dashed; }
+
+  /* ── LÜCKENTEXT (Wörter in die richtigen Felder einsetzen) ── */
+  .fill-text {
+    font-size: 1rem;
+    line-height: 2.1;
+    margin-bottom: 18px;
+  }
+  .fill-blank {
+    display: inline-block;
+    min-width: 130px;
+    padding: 4px 10px;
+    margin: 0 2px;
+    border: none;
+    border-bottom: 2px solid var(--accent);
+    border-radius: 4px;
+    background: var(--bg);
+    font-family: inherit;
+    font-size: .95rem;
+    font-weight: 700;
+    color: var(--text);
+    text-align: center;
+  }
+  .fill-blank.correct { background: var(--success-bg); color: var(--success); border-color: var(--success); }
+  .fill-blank.wrong   { background: var(--error-bg);   color: var(--error);   border-color: var(--error); }
+
+  /* ── REIHENFOLGE-AUFGABE (Begriffe in richtige Reihenfolge bringen) ── */
+  .order-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 18px;
+  }
+  .order-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: var(--bg);
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 18px;
+    font-weight: 700;
+  }
+  .order-item .order-num {
+    background: var(--primary-dark);
+    color: #fff;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: .85rem;
+    flex-shrink: 0;
+  }
+  .order-item select {
+    font-family: inherit;
+    font-size: .9rem;
+    font-weight: 700;
+    padding: 6px 10px;
+    border-radius: 6px;
+    border: 1.5px solid var(--border);
+    background: #fff;
+    color: var(--text);
+    margin-right: 8px;
+  }
+  .order-item.correct { border-color: var(--success); background: var(--success-bg); }
+  .order-item.wrong   { border-color: var(--error);   background: var(--error-bg); }
+
+  /* ── BUTTONS ── */
+  .btn-check {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 8px;
+    background: var(--primary);
+    color: var(--primary-text);
+    border: none;
+    border-radius: 24px;
+    padding: 10px 24px;
+    font-family: inherit;
+    font-size: .95rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background .15s, transform .1s;
+  }
+  .btn-check:hover { background: var(--primary-dark); color: #fff; transform: translateY(-1px); }
+  .btn-reset {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 10px;
+    margin-left: 10px;
+    background: transparent;
+    color: var(--muted);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: 9px 18px;
+    font-family: inherit;
+    font-size: .88rem;
+    cursor: pointer;
+    transition: color .15s, border-color .15s;
+  }
+  .btn-reset:hover { color: var(--text); border-color: var(--muted); }
+
+  .feedback-msg {
+    display: none;
+    margin-top: 14px;
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: .95rem;
+  }
+  .feedback-msg.success { background: var(--success-bg); color: var(--success); display: flex; align-items: center; gap: 8px; }
+  .feedback-msg.error   { background: var(--error-bg);   color: var(--error);   display: flex; align-items: center; gap: 8px; }
+
+  /* ── LINK-BOX ── */
+  .link-box {
+    background: #e8f4ff;
+    border: 1.5px solid var(--accent);
+    border-radius: var(--radius);
+    padding: 16px 22px;
+    margin-top: 18px;
+    font-size: .97rem;
+  }
+  .link-box a {
+    color: var(--accent);
+    font-weight: 700;
+    text-decoration: underline;
+  }
+  .link-box a:hover { color: var(--primary-text); }
+
+  @media (max-width: 640px) {
+    .page-header { padding: 22px 20px; }
+    .exercise, .info-card { padding: 20px 18px; }
+    .tf-options { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+<div class="page-wrapper">
+
+  <!-- ============================================================
+       SEITENHEADER
+       Hier einfach Titel & Untertitel anpassen.
+       ============================================================ -->
+  <header class="page-header">
+    <div class="label">Workbook · Kapitel 5</div>
+    <h1>🏔️ Sicher schreiben –<br>unterwegs zum Gipfel der Erkenntnis</h1>
+    <div class="subtitle">In dieser kleinen Workbook-Einheit werden nochmals die wichtigsten Informationen von Kapitel 5 wiederholt. Das Bearbeiten der Übungen ist freiwillig und soll Ihnen als Selbstlerneinheit dienen.</div>
+  </header>
+
+  <!-- ============================================================
+       INFO-TEXT – Gute Überschrift, schlechte Überschrift
+       ============================================================ -->
+  <div class="info-card">
+    <h2>📝 Was macht eine gute Überschrift aus?</h2>
+    <p>Eine gute Überschrift ist wie ein Wegweiser – klar, präzise und auf den Punkt. Damit sie im wissenschaftlichen Text funktioniert, sollte sie <strong>genau so formuliert sein wie der zugehörige Gliederungspunkt</strong>.</p>
+    <p>❌ Keine ganzen Sätze oder Verben verwenden – Überschriften sind <strong>keine Erzähltexte</strong>. 🔗 Vermeide sprachliche Bezüge zwischen den einzelnen Überschriften – jede steht <strong>für sich allein</strong>. 📏 Die Formulierung sollte ein <strong>Kompromiss aus Kürze und Informationsgehalt</strong> sein:</p>
+    <ul>
+      <li>Ein einzelnes Wort ist oft <strong>zu knapp</strong></li>
+      <li>Zwei-Zeilen-Konstruktionen sind meist <strong>zu lang</strong></li>
+    </ul>
+    <p>✅ Ziel ist eine <strong>prägnante, aussagekräftige Formulierung</strong>, die den Inhalt des Abschnitts klar widerspiegelt – ohne unnötige Schnörkel.</p>
+  </div>
+
+  <!-- ============================================================
+       AUFGABE 1 – Gute Überschrift, schlechte Überschrift: Test
+       (Einfache Auswahl: jeweils eine richtige Antwort anklicken)
+       ============================================================ -->
+  <section class="exercise" id="ex1">
+    <div class="exercise-label">Aufgabe 1 · Quiz</div>
+    <h3>Bewerten Sie, ob die folgenden Überschriften auch gute Überschriften sind.</h3>
+
+    <!-- Frage 1 -->
+    <div class="quiz-question-text" id="q1-text">Warum das Thema wichtig ist</div>
+    <div class="quiz-options" id="q1-options">
+      <button class="quiz-option-btn" onclick="checkAnswer('q1', this, true)">Schlechte Überschrift</button>
+      <button class="quiz-option-btn" onclick="checkAnswer('q1', this, false)">Gute Überschrift</button>
+    </div>
+    <div class="quiz-feedback" id="q1-feedback"></div>
+    <button class="btn-reset" onclick="resetQuestion('q1')">↺ Zurücksetzen</button>
+
+    <hr class="divider">
+
+    <!-- Frage 2 -->
+    <div class="quiz-question-text" id="q2-text">Die Auswirkungen der Digitalisierung auf die Arbeitswelt im Kontext globaler Transformationsprozesse mit Blick auf historische Entwicklungen in der westlichen Welt</div>
+    <div class="quiz-options" id="q2-options">
+      <button class="quiz-option-btn" onclick="checkAnswer('q2', this, true)">Schlechte Überschrift</button>
+      <button class="quiz-option-btn" onclick="checkAnswer('q2', this, false)">Gute Überschrift</button>
+    </div>
+    <div class="quiz-feedback" id="q2-feedback"></div>
+    <button class="btn-reset" onclick="resetQuestion('q2')">↺ Zurücksetzen</button>
+
+    <hr class="divider">
+
+    <!-- Frage 3 -->
+    <div class="quiz-question-text" id="q3-text">Digitalisierung</div>
+    <div class="quiz-options" id="q3-options">
+      <button class="quiz-option-btn" onclick="checkAnswer('q3', this, true)">Schlechte Überschrift</button>
+      <button class="quiz-option-btn" onclick="checkAnswer('q3', this, false)">Gute Überschrift</button>
+    </div>
+    <div class="quiz-feedback" id="q3-feedback"></div>
+    <button class="btn-reset" onclick="resetQuestion('q3')">↺ Zurücksetzen</button>
+
+    <hr class="divider">
+
+    <!-- Frage 4 -->
+    <div class="quiz-question-text" id="q4-text">Historische Entwicklung der Sozialen Arbeit</div>
+    <div class="quiz-options" id="q4-options">
+      <button class="quiz-option-btn" onclick="checkAnswer('q4', this, true)">Gute Überschrift</button>
+      <button class="quiz-option-btn" onclick="checkAnswer('q4', this, false)">Schlechte Überschrift</button>
+    </div>
+    <div class="quiz-feedback" id="q4-feedback"></div>
+    <button class="btn-reset" onclick="resetQuestion('q4')">↺ Zurücksetzen</button>
+
+    <hr class="divider">
+
+    <!-- Frage 5 -->
+    <div class="quiz-question-text" id="q5-text">Rahmenbedingungen inklusiver Schulentwicklung</div>
+    <div class="quiz-options" id="q5-options">
+      <button class="quiz-option-btn" onclick="checkAnswer('q5', this, true)">Gute Überschrift</button>
+      <button class="quiz-option-btn" onclick="checkAnswer('q5', this, false)">Schlechte Überschrift</button>
+    </div>
+    <div class="quiz-feedback" id="q5-feedback"></div>
+    <button class="btn-reset" onclick="resetQuestion('q5')">↺ Zurücksetzen</button>
+  </section>
+
+  <!-- ============================================================
+       AUFGABE 2 – Grundbausteine wissenschaftlicher Texte
+       (Reihenfolge-Aufgabe: Bestandteile in richtige Reihenfolge bringen)
+       ============================================================ -->
+  <section class="exercise" id="ex2">
+    <div class="exercise-label">Aufgabe 2 · Reihenfolge</div>
+    <h3>Bringe die Bestandteile einer Seminararbeit in die richtige Reihenfolge!</h3>
+    <p class="exercise-intro">Wähle für jede Position den passenden Bestandteil aus dem Dropdown-Menü aus und klicke dann auf „Überprüfen".</p>
+
+    <ol class="order-list" id="order-list">
+      <!-- jeder Listenpunkt bekommt automatisch eine Nummer (1–10) -->
+      <li class="order-item" data-correct="Titel">
+        <span class="order-num">1</span>
+        <select class="order-select"></select>
+      </li>
+      <li class="order-item" data-correct="Abstract">
+        <span class="order-num">2</span>
+        <select class="order-select"></select>
+      </li>
+      <li class="order-item" data-correct="Inhaltsverzeichnis">
+        <span class="order-num">3</span>
+        <select class="order-select"></select>
+      </li>
+      <li class="order-item" data-correct="Einleitung">
+        <span class="order-num">4</span>
+        <select class="order-select"></select>
+      </li>
+      <li class="order-item" data-correct="Theorie">
+        <span class="order-num">5</span>
+        <select class="order-select"></select>
+      </li>
+      <li class="order-item" data-correct="Methode">
+        <span class="order-num">6</span>
+        <select class="order-select"></select>
+      </li>
+      <li class="order-item" data-correct="Ergebnisse">
+        <span class="order-num">7</span>
+        <select class="order-select"></select>
+      </li>
+      <li class="order-item" data-correct="Diskussion">
+        <span class="order-num">8</span>
+        <select class="order-select"></select>
+      </li>
+      <li class="order-item" data-correct="Literaturverzeichnis">
+        <span class="order-num">9</span>
+        <select class="order-select"></select>
+      </li>
+      <li class="order-item" data-correct="Anhang">
+        <span class="order-num">10</span>
+        <select class="order-select"></select>
+      </li>
+    </ol>
+
+    <button class="btn-check" onclick="checkOrder()">✓ Überprüfen</button>
+    <button class="btn-reset" onclick="resetOrder()">↺ Zurücksetzen</button>
+    <div class="feedback-msg" id="order-feedback"></div>
+  </section>
+
+  <!-- ============================================================
+       AUFGABE 3 – Abstract (Wahr/Falsch)
+       ============================================================ -->
+  <section class="exercise" id="ex3">
+    <div class="exercise-label">Aufgabe 3 · Wahr oder Falsch</div>
+    <h3>Was stimmt zum Thema „Abstract"?</h3>
+
+    <div class="tf-question-text" id="tf1-text">Der Abstract fasst alle genannten Theorien nochmals kurz zusammen.</div>
+    <div class="tf-options" id="tf1-options">
+      <button class="tf-option-btn" onclick="checkTF('tf1', this, true)">✓ Wahr</button>
+      <button class="tf-option-btn" onclick="checkTF('tf1', this, false)">✗ Falsch</button>
+    </div>
+    <div class="tf-feedback" id="tf1-feedback"></div>
+    <button class="btn-reset" onclick="resetTF('tf1')">↺ Zurücksetzen</button>
+
+    <hr class="divider">
+
+    <div class="tf-question-text" id="tf2-text">Der Abstract ist eine stark verkürzte, prägnante und wertfreie Darstellung der wissenschaftlichen Arbeit.</div>
+    <div class="tf-options" id="tf2-options">
+      <button class="tf-option-btn" onclick="checkTF('tf2', this, false)">✓ Wahr</button>
+      <button class="tf-option-btn" onclick="checkTF('tf2', this, true)">✗ Falsch</button>
+    </div>
+    <div class="tf-feedback" id="tf2-feedback"></div>
+    <button class="btn-reset" onclick="resetTF('tf2')">↺ Zurücksetzen</button>
+
+    <hr class="divider">
+
+    <div class="tf-question-text" id="tf3-text">Der Abstract ist immer genau eine Seite lang.</div>
+    <div class="tf-options" id="tf3-options">
+      <button class="tf-option-btn" onclick="checkTF('tf3', this, true)">✓ Wahr</button>
+      <button class="tf-option-btn" onclick="checkTF('tf3', this, false)">✗ Falsch</button>
+    </div>
+    <div class="tf-feedback" id="tf3-feedback"></div>
+    <button class="btn-reset" onclick="resetTF('tf3')">↺ Zurücksetzen</button>
+
+    <hr class="divider">
+
+    <div class="tf-question-text" id="tf4-text">Der Abstract sollte keine Informationen über genaue Messinstrumente beinhalten.</div>
+    <div class="tf-options" id="tf4-options">
+      <button class="tf-option-btn" onclick="checkTF('tf4', this, true)">✓ Wahr</button>
+      <button class="tf-option-btn" onclick="checkTF('tf4', this, false)">✗ Falsch</button>
+    </div>
+    <div class="tf-feedback" id="tf4-feedback"></div>
+    <button class="btn-reset" onclick="resetTF('tf4')">↺ Zurücksetzen</button>
+
+    <hr class="divider">
+
+    <div class="tf-question-text" id="tf5-text">Im Abstract sind Quellenangaben nötig.</div>
+    <div class="tf-options" id="tf5-options">
+      <button class="tf-option-btn" onclick="checkTF('tf5', this, true)">✓ Wahr</button>
+      <button class="tf-option-btn" onclick="checkTF('tf5', this, false)">✗ Falsch</button>
+    </div>
+    <div class="tf-feedback" id="tf5-feedback"></div>
+    <button class="btn-reset" onclick="resetTF('tf5')">↺ Zurücksetzen</button>
+  </section>
+
+  <!-- ============================================================
+       AUFGABE 4 – Einleitung: Was stimmt?
+       ============================================================ -->
+  <section class="exercise" id="ex4">
+    <div class="exercise-label">Aufgabe 4 · Wahr oder Falsch</div>
+    <h3>Was stimmt zum Thema „Einleitung"?</h3>
+
+    <div class="tf-question-text" id="tf6-text">Die Einleitung dient in erster Linie dazu, das Thema einzuführen und dessen Relevanz zu verdeutlichen.</div>
+    <div class="tf-options" id="tf6-options">
+      <button class="tf-option-btn" onclick="checkTF('tf6', this, false)">✓ Wahr</button>
+      <button class="tf-option-btn" onclick="checkTF('tf6', this, true)">✗ Falsch</button>
+    </div>
+    <div class="tf-feedback" id="tf6-feedback"></div>
+    <button class="btn-reset" onclick="resetTF('tf6')">↺ Zurücksetzen</button>
+
+    <hr class="divider">
+
+    <div class="tf-question-text" id="tf7-text">In der Einleitung sollte die Forschungslücke benannt werden.</div>
+    <div class="tf-options" id="tf7-options">
+      <button class="tf-option-btn" onclick="checkTF('tf7', this, false)">✓ Wahr</button>
+      <button class="tf-option-btn" onclick="checkTF('tf7', this, true)">✗ Falsch</button>
+    </div>
+    <div class="tf-feedback" id="tf7-feedback"></div>
+    <button class="btn-reset" onclick="resetTF('tf7')">↺ Zurücksetzen</button>
+
+    <hr class="divider">
+
+    <div class="tf-question-text" id="tf8-text">Die Methodik darf in der Einleitung noch nicht erwähnt werden.</div>
+    <div class="tf-options" id="tf8-options">
+      <button class="tf-option-btn" onclick="checkTF('tf8', this, true)">✓ Wahr</button>
+      <button class="tf-option-btn" onclick="checkTF('tf8', this, false)">✗ Falsch</button>
+    </div>
+    <div class="tf-feedback" id="tf8-feedback"></div>
+    <button class="btn-reset" onclick="resetTF('tf8')">↺ Zurücksetzen</button>
+
+    <hr class="divider">
+
+    <div class="tf-question-text" id="tf9-text">Fachbegriffe werden detailliert in der Einleitung eingeführt.</div>
+    <div class="tf-options" id="tf9-options">
+      <button class="tf-option-btn" onclick="checkTF('tf9', this, true)">✓ Wahr</button>
+      <button class="tf-option-btn" onclick="checkTF('tf9', this, false)">✗ Falsch</button>
+    </div>
+    <div class="tf-feedback" id="tf9-feedback"></div>
+    <button class="btn-reset" onclick="resetTF('tf9')">↺ Zurücksetzen</button>
+  </section>
+
+  <!-- ============================================================
+       AUFGABE 5 – Theorieteil
+       ============================================================ -->
+  <section class="exercise" id="ex5">
+    <div class="exercise-label">Aufgabe 5 · Wahr oder Falsch</div>
+    <h3>Was stimmt zum Thema „Theorieteil"?</h3>
+
+    <div class="tf-question-text" id="tf10-text">Im Theorieteil steht alles, was für die Forschungsfrage von Belang ist sowie die Implikationen.</div>
+    <div class="tf-options" id="tf10-options">
+      <button class="tf-option-btn" onclick="checkTF('tf10', this, true)">✓ Wahr</button>
+      <button class="tf-option-btn" onclick="checkTF('tf10', this, false)">✗ Falsch</button>
+    </div>
+    <div class="tf-feedback" id="tf10-feedback"></div>
+    <button class="btn-reset" onclick="resetTF('tf10')">↺ Zurücksetzen</button>
+
+    <hr class="divider">
+
+    <div class="tf-question-text" id="tf11-text">Der Theorieteil ist die Hinführung und Untersuchung zu existenten Theorien, um auf die Lücke und dann zu eigenen Forschungsfragen zu gelangen.</div>
+    <div class="tf-options" id="tf11-options">
+      <button class="tf-option-btn" onclick="checkTF('tf11', this, false)">✓ Wahr</button>
+      <button class="tf-option-btn" onclick="checkTF('tf11', this, true)">✗ Falsch</button>
+    </div>
+    <div class="tf-feedback" id="tf11-feedback"></div>
+    <button class="btn-reset" onclick="resetTF('tf11')">↺ Zurücksetzen</button>
+
+    <hr class="divider">
+
+    <div class="tf-question-text" id="tf12-text">Die Hypothesen kommen nicht in den Theorieteil.</div>
+    <div class="tf-options" id="tf12-options">
+      <button class="tf-option-btn" onclick="checkTF('tf12', this, false)">✓ Wahr</button>
+      <button class="tf-option-btn" onclick="checkTF('tf12', this, true)">✗ Falsch</button>
+    </div>
+    <div class="tf-feedback" id="tf12-feedback"></div>
+    <button class="btn-reset" onclick="resetTF('tf12')">↺ Zurücksetzen</button>
+  </section>
+
+  <!-- ============================================================
+       AUFGABE 6 – Methodenteil (Lückentext)
+       ============================================================ -->
+  <section class="exercise" id="ex6">
+    <div class="exercise-label">Aufgabe 6 · Lückentext</div>
+    <h3>Ziehe die Wörter in die richtigen Felder!</h3>
+    <p class="exercise-intro">Wähle für jede Lücke das passende Wort aus dem Dropdown-Menü.</p>
+
+    <div class="fill-text" id="fill1-text">
+      Im Methodenteil Ihrer wissenschaftlichen Arbeit legen Sie alle relevanten Verfahrensschritte offen – so detailliert, dass Ihre Studie gewissermaßen „nachgekocht" werden kann. Ziel ist es, eine vollständige <select class="fill-blank-select" data-blank-id="f1-1" data-correct="Reproduzierbarkeit"></select> zu gewährleisten: Die Angaben müssen so <select class="fill-blank-select" data-blank-id="f1-2" data-correct="präzise"></select> sein, dass andere Forschende Ihre Untersuchung exakt nachvollziehen und mit denselben Daten zum gleichen Ergebnis gelangen können. Allgemein bekannte Methoden wie etwa die <select class="fill-blank-select" data-blank-id="f1-3" data-correct="Regressionsanalyse"></select> müssen dabei nicht erneut erklärt werden.
+      <br><br>
+      <select class="fill-blank-select" data-blank-id="f1-4" data-correct="Reproduzierbarkeit"></select> (also die Möglichkeit, Ihre Analyse rechnerisch nachzuvollziehen) und <select class="fill-blank-select" data-blank-id="f1-5" data-correct="Replizierbarkeit"></select> (die Fähigkeit, Ihre Studie methodisch zu wiederholen) sind zentrale Prinzipien wissenschaftlicher Arbeit. Der Methodenteil bildet die Grundlage dafür – und ist damit ein entscheidender Bestandteil Ihrer gesamten Untersuchung.
+    </div>
+
+    <button class="btn-check" onclick="checkFillText('fill1')">✓ Überprüfen</button>
+    <button class="btn-reset" onclick="resetFillText('fill1')">↺ Zurücksetzen</button>
+    <div class="feedback-msg" id="fill1-feedback"></div>
+  </section>
+
+  <!-- ============================================================
+       AUFGABE 7 – Methodenteil (Mehrfachauswahl)
+       ============================================================ -->
+  <section class="exercise" id="ex7">
+    <div class="exercise-label">Aufgabe 7 · Mehrfachauswahl</div>
+    <h3>Was sollte alles in den Methodenteil?</h3>
+    <p class="exercise-intro">Es können mehrere Antworten richtig sein. Wähle alle zutreffenden Antworten aus und klicke auf „Überprüfen".</p>
+
+    <div class="mc-options" id="mc1-options">
+      <label class="mc-option" data-correct="true"><input type="checkbox"> Stichprobe</label>
+      <label class="mc-option" data-correct="true"><input type="checkbox"> Versuchsmaterial</label>
+      <label class="mc-option" data-correct="true"><input type="checkbox"> Versuchsablauf</label>
+      <label class="mc-option" data-correct="true"><input type="checkbox"> Analyse</label>
+      <label class="mc-option" data-correct="false"><input type="checkbox"> Quantitative Formeln</label>
+      <label class="mc-option" data-correct="false"><input type="checkbox"> Interview-Text</label>
+      <label class="mc-option" data-correct="false"><input type="checkbox"> Verzweiflung</label>
+    </div>
+
+    <button class="btn-check" onclick="checkMC('mc1')">✓ Überprüfen</button>
+    <button class="btn-reset" onclick="resetMC('mc1')">↺ Zurücksetzen</button>
+    <div class="feedback-msg" id="mc1-feedback"></div>
+  </section>
+
+  <!-- ============================================================
+       AUFGABE 8 – Ergebnisteil (Lückentext)
+       ============================================================ -->
+  <section class="exercise" id="ex8">
+    <div class="exercise-label">Aufgabe 8 · Lückentext</div>
+    <h3>Ziehe die Wörter in die richtigen Felder!</h3>
+    <p class="exercise-intro">Wähle für jede Lücke das passende Wort aus dem Dropdown-Menü.</p>
+
+    <div class="fill-text" id="fill2-text">
+      Im Ergebnisteil erfolgt die <select class="fill-blank-select" data-blank-id="f2-1" data-correct="Dokumentation"></select> der Analysebefunde. Die Interpretation erfolgt erst in der <select class="fill-blank-select" data-blank-id="f2-2" data-correct="Diskussion"></select>. Dort wird über die Bedeutung der Ergebnisse gesprochen, sie werden in die Literatur eingeordnet und ihre Implikationen für die Forschungsfrage überlegt.
+      <br><br>
+      In <select class="fill-blank-select" data-blank-id="f2-3" data-correct="quantitativen Studien"></select> werden vor allem die Ergebnisse zu den Hypothesen oder Forschungsfragen berichtet – sofern es sich nicht um eine explorative Arbeit handelt.
+      <br><br>
+      Es empfiehlt sich, zunächst <select class="fill-blank-select" data-blank-id="f2-4" data-correct="deskriptive Ergebnisse"></select> darzustellen und danach komplexere, z. B. aus multiplen Regressionen.
+      <br><br>
+      Handlungen werden in der 1. <select class="fill-blank-select" data-blank-id="f2-5" data-correct="Vergangenheit"></select> beschrieben („Es zeigte sich …"), überdauernde Tatsachen in der Gegenwart („Dieser Wert ist …").
+      <br><br>
+      Im Ergebnisteil sind keine <select class="fill-blank-select" data-blank-id="f2-6" data-correct="Bewertungen"></select> oder <select class="fill-blank-select" data-blank-id="f2-7" data-correct="Interpretationen"></select> erlaubt – es geht um eine möglichst objektive Darstellung der Ergebnisse.
+    </div>
+
+    <button class="btn-check" onclick="checkFillText('fill2')">✓ Überprüfen</button>
+    <button class="btn-reset" onclick="resetFillText('fill2')">↺ Zurücksetzen</button>
+    <div class="feedback-msg" id="fill2-feedback"></div>
+  </section>
+
+  <!-- ============================================================
+       AUFGABE 9 – Ergebnisteil (Wahr/Falsch)
+       ============================================================ -->
+  <section class="exercise" id="ex9">
+    <div class="exercise-label">Aufgabe 9 · Wahr oder Falsch</div>
+    <h3>Was stimmt zum Thema „Ergebnisteil"?</h3>
+
+    <div class="tf-question-text" id="tf13-text">Auch kleine Zahlenmengen sollte man in Tabellen darstellen.</div>
+    <div class="tf-options" id="tf13-options">
+      <button class="tf-option-btn" onclick="checkTF('tf13', this, false)">✓ Wahr</button>
+      <button class="tf-option-btn" onclick="checkTF('tf13', this, true)">✗ Falsch</button>
+    </div>
+    <div class="tf-feedback" id="tf13-feedback"></div>
+    <button class="btn-reset" onclick="resetTF('tf13')">↺ Zurücksetzen</button>
+
+    <hr class="divider">
+
+    <div class="tf-question-text" id="tf14-text">Selbst sehr große Zahlenmengen müssen aufgrund der Vollständigkeit im Ergebnisteil stehen.</div>
+    <div class="tf-options" id="tf14-options">
+      <button class="tf-option-btn" onclick="checkTF('tf14', this, false)">✓ Wahr</button>
+      <button class="tf-option-btn" onclick="checkTF('tf14', this, true)">✗ Falsch</button>
+    </div>
+    <div class="tf-feedback" id="tf14-feedback"></div>
+    <button class="btn-reset" onclick="resetTF('tf14')">↺ Zurücksetzen</button>
+
+    <hr class="divider">
+
+    <div class="tf-question-text" id="tf15-text">R-Syntax oder KI-Prompts sollten immer direkt hinter dem Text stehen.</div>
+    <div class="tf-options" id="tf15-options">
+      <button class="tf-option-btn" onclick="checkTF('tf15', this, false)">✓ Wahr</button>
+      <button class="tf-option-btn" onclick="checkTF('tf15', this, true)">✗ Falsch</button>
+    </div>
+    <div class="tf-feedback" id="tf15-feedback"></div>
+    <button class="btn-reset" onclick="resetTF('tf15')">↺ Zurücksetzen</button>
+
+    <hr class="divider">
+
+    <div class="tf-question-text" id="tf16-text">Eine gute Gliederung des Ergebnisteils wäre: 1. Deskriptive Ergebnisse, 2. Zentrale Ergebnisse und 3. Explorative Ergebnisse.</div>
+    <div class="tf-options" id="tf16-options">
+      <button class="tf-option-btn" onclick="checkTF('tf16', this, true)">✓ Wahr</button>
+      <button class="tf-option-btn" onclick="checkTF('tf16', this, false)">✗ Falsch</button>
+    </div>
+    <div class="tf-feedback" id="tf16-feedback"></div>
+    <button class="btn-reset" onclick="resetTF('tf16')">↺ Zurücksetzen</button>
+
+    <hr class="divider">
+
+    <div class="tf-question-text" id="tf17-text">Deskriptive Ergebnisse beinhalten alles, was mit Zahlen zu tun hat.</div>
+    <div class="tf-options" id="tf17-options">
+      <button class="tf-option-btn" onclick="checkTF('tf17', this, false)">✓ Wahr</button>
+      <button class="tf-option-btn" onclick="checkTF('tf17', this, true)">✗ Falsch</button>
+    </div>
+    <div class="tf-feedback" id="tf17-feedback"></div>
+    <button class="btn-reset" onclick="resetTF('tf17')">↺ Zurücksetzen</button>
+  </section>
+
+  <!-- ============================================================
+       ABSCHLUSSWORTE & WEITERFÜHRENDE QUELLEN
+       ============================================================ -->
+  <div class="info-card">
+    <h2>🎓 Zum Abschluss</h2>
+    <p>Wissenschaftliche Methoden sind das Handwerkszeug jeder guten Arbeit – und wie bei jedem Werkzeug gilt: Übung macht den Meister. <strong>Je öfter Sie diese anwenden, desto sicherer werden Sie im Umgang mit Literatur, Zitierregeln, Datenauswertung oder Argumentationsstruktur.</strong> Wenn Sie diese Methoden regelmäßig trainieren, bauen Sie sich nicht nur Wissen auf, sondern auch Routine und Selbstvertrauen. So wird aus Unsicherheit Klarheit – und aus einzelnen Übungen ein solides Fundament für Ihre spätere Bachelorarbeit.</p>
+    <p>Und keine Sorge: <strong>Es ist völlig normal, nicht sofort alles zu wissen.</strong> Manche Dinge muss man nachschlagen, ausprobieren oder mehrfach üben – genau das gehört zum Lernprozess dazu. Wiederholung ist kein Rückschritt, sondern Ihr Weg nach vorn.</p>
+    <h3>Falls Ihnen offene Fragen begegnet sind, können Sie diese unter folgenden Quellen nachlesen:</h3>
+    <ul>
+      <li>Vorlesungsfolien</li>
+      <li>Peters, J. H. &amp; Dörfler, T. (2019). Schreiben und Gestalten von Abschlussarbeiten in der Psychologie und den Sozialwissenschaften (2. Aufl.). Pearson. Kapitel 3</li>
+      <li>Peters, J. H. &amp; Dörfler, T. (2019). Planen, Durchführen und Auswerten von Abschlussarbeiten in der Psychologie und den Sozialwissenschaften (2. Aufl.). Pearson. Kapitel 2.5 bis 2.8</li>
+    </ul>
+    <div class="link-box">
+      🔗 <a href="https://www.scribbr.de/wissensdatenbank/" target="_blank" rel="noopener">Scribbrs Wissensdatenbank – Gratis Ressourcen für deinen Abschluss</a><br>
+      🎬 <a href="https://www.youtube.com/@ScribbrDE" target="_blank" rel="noopener">Scribbr auf YouTube</a>
+    </div>
+  </div>
+
+</div><!-- /.page-wrapper -->
+
+<script>
+/* ============================================================
+   EINFACHE AUSWAHL (Aufgabe 1)
+   ============================================================ */
+function checkAnswer(id, btn, isCorrect) {
+  const opts = btn.closest('.quiz-options');
+  const feedback = document.getElementById(id + '-feedback');
+  opts.querySelectorAll('.quiz-option-btn').forEach(b => { b.disabled = true; });
+  if (isCorrect) {
+    btn.classList.add('correct');
+    feedback.className = 'quiz-feedback success';
+    feedback.textContent = '✓ Richtig!';
+  } else {
+    btn.classList.add('wrong');
+    feedback.className = 'quiz-feedback error';
+    feedback.textContent = '✗ Falsch! Bitte versuche es nach dem Zurücksetzen noch einmal.';
+    opts.querySelectorAll('.quiz-option-btn').forEach(b => { if (b !== btn) b.classList.add('correct'); });
+  }
+  feedback.style.display = 'flex';
+}
+function resetQuestion(id) {
+  const opts = document.getElementById(id + '-options');
+  const feedback = document.getElementById(id + '-feedback');
+  opts.querySelectorAll('.quiz-option-btn').forEach(b => { b.disabled = false; b.classList.remove('correct', 'wrong'); });
+  feedback.className = 'quiz-feedback';
+  feedback.style.display = 'none';
+}
+
+/* ============================================================
+   WAHR / FALSCH (Aufgaben 3, 4, 5, 9)
+   ============================================================ */
+function checkTF(id, btn, isCorrect) {
+  const opts = btn.closest('.tf-options');
+  const feedback = document.getElementById(id + '-feedback');
+  opts.querySelectorAll('.tf-option-btn').forEach(b => { b.disabled = true; });
+  if (isCorrect) {
+    btn.classList.add('correct');
+    feedback.className = 'tf-feedback success';
+    feedback.textContent = '✓ Richtig!';
+  } else {
+    btn.classList.add('wrong');
+    feedback.className = 'tf-feedback error';
+    feedback.textContent = '✗ Falsch! Bitte versuche es nach dem Zurücksetzen noch einmal.';
+    opts.querySelectorAll('.tf-option-btn').forEach(b => { if (b !== btn) b.classList.add('correct'); });
+  }
+  feedback.style.display = 'flex';
+}
+function resetTF(id) {
+  const opts = document.getElementById(id + '-options');
+  const feedback = document.getElementById(id + '-feedback');
+  opts.querySelectorAll('.tf-option-btn').forEach(b => { b.disabled = false; b.classList.remove('correct', 'wrong'); });
+  feedback.className = 'tf-feedback';
+  feedback.style.display = 'none';
+}
+
+/* ============================================================
+   REIHENFOLGE-AUFGABE (Aufgabe 2)
+   Liest alle data-correct Werte aus der Liste aus, baut daraus
+   die Dropdown-Optionen (in zufälliger Reihenfolge) und prüft
+   danach, ob alles an der richtigen Stelle steht.
+   ============================================================ */
+(function setupOrderTask() {
+  const items = document.querySelectorAll('#order-list .order-item');
+  const allValues = Array.from(items).map(i => i.dataset.correct);
+  // Mische die Werte einmalig für die Dropdown-Reihenfolge
+  const shuffled = allValues.slice().sort(() => Math.random() - 0.5);
+
+  items.forEach(item => {
+    const select = item.querySelector('select');
+    const placeholder = document.createElement('option');
+    placeholder.value = '';
+    placeholder.textContent = '– bitte wählen –';
+    select.appendChild(placeholder);
+    shuffled.forEach(val => {
+      const opt = document.createElement('option');
+      opt.value = val;
+      opt.textContent = val;
+      select.appendChild(opt);
+    });
+  });
+})();
+
+function checkOrder() {
+  const items = document.querySelectorAll('#order-list .order-item');
+  const feedback = document.getElementById('order-feedback');
+  let allCorrect = true;
+  let allFilled = true;
+  items.forEach(item => {
+    const select = item.querySelector('select');
+    item.classList.remove('correct', 'wrong');
+    if (!select.value) { allFilled = false; return; }
+    if (select.value === item.dataset.correct) {
+      item.classList.add('correct');
+    } else {
+      item.classList.add('wrong');
+      allCorrect = false;
+    }
+  });
+  if (!allFilled) {
+    feedback.className = 'feedback-msg error';
+    feedback.textContent = 'Bitte fülle zuerst alle Felder aus.';
+  } else if (allCorrect) {
+    feedback.className = 'feedback-msg success';
+    feedback.textContent = '✓ Richtig! Du hast die Reihenfolge korrekt zusammengestellt.';
+  } else {
+    feedback.className = 'feedback-msg error';
+    feedback.textContent = '✗ Noch nicht ganz richtig. Die falschen Felder sind rot markiert – versuche es erneut.';
+  }
+  feedback.style.display = 'flex';
+}
+function resetOrder() {
+  const items = document.querySelectorAll('#order-list .order-item');
+  items.forEach(item => {
+    item.classList.remove('correct', 'wrong');
+    item.querySelector('select').value = '';
+  });
+  const feedback = document.getElementById('order-feedback');
+  feedback.className = 'feedback-msg';
+  feedback.style.display = 'none';
+}
+
+/* ============================================================
+   MEHRFACHAUSWAHL (Aufgabe 7)
+   ============================================================ */
+function checkMC(id) {
+  const container = document.getElementById(id + '-options');
+  const feedback = document.getElementById(id + '-feedback');
+  const options = container.querySelectorAll('.mc-option');
+  let allCorrect = true;
+  options.forEach(opt => {
+    const checkbox = opt.querySelector('input');
+    const isCorrect = opt.dataset.correct === 'true';
+    opt.classList.remove('correct', 'wrong', 'missed');
+    checkbox.disabled = true;
+    if (checkbox.checked && isCorrect) {
+      opt.classList.add('correct');
+    } else if (checkbox.checked && !isCorrect) {
+      opt.classList.add('wrong');
+      allCorrect = false;
+    } else if (!checkbox.checked && isCorrect) {
+      opt.classList.add('missed');
+      allCorrect = false;
+    }
+  });
+  feedback.className = allCorrect ? 'feedback-msg success' : 'feedback-msg error';
+  feedback.textContent = allCorrect
+    ? '✓ Richtig! Alle passenden Antworten wurden ausgewählt.'
+    : '✗ Nicht ganz richtig. Gestrichelt markierte Antworten wurden übersehen, rot markierte waren falsch.';
+  feedback.style.display = 'flex';
+}
+function resetMC(id) {
+  const container = document.getElementById(id + '-options');
+  container.querySelectorAll('.mc-option').forEach(opt => {
+    opt.classList.remove('correct', 'wrong', 'missed');
+    const checkbox = opt.querySelector('input');
+    checkbox.checked = false;
+    checkbox.disabled = false;
+  });
+  const feedback = document.getElementById(id + '-feedback');
+  feedback.className = 'feedback-msg';
+  feedback.style.display = 'none';
+}
+
+/* ============================================================
+   LÜCKENTEXT (Aufgaben 6, 8)
+   Befüllt automatisch alle Dropdowns innerhalb eines Lückentexts
+   mit den (gemischten) korrekten Wörtern dieses Textes.
+   ============================================================ */
+(function setupFillTexts() {
+  document.querySelectorAll('.fill-text').forEach(textBlock => {
+    const selects = textBlock.querySelectorAll('.fill-blank-select');
+    const words = Array.from(selects).map(s => s.dataset.correct);
+    // doppelte Wörter nur einmal in die Auswahlliste aufnehmen
+    const uniqueWords = Array.from(new Set(words));
+    const shuffled = uniqueWords.slice().sort(() => Math.random() - 0.5);
+
+    selects.forEach(select => {
+      const placeholder = document.createElement('option');
+      placeholder.value = '';
+      placeholder.textContent = '– wählen –';
+      select.appendChild(placeholder);
+      shuffled.forEach(word => {
+        const opt = document.createElement('option');
+        opt.value = word;
+        opt.textContent = word;
+        select.appendChild(opt);
+      });
+    });
+  });
+})();
+
+function checkFillText(id) {
+  const textBlock = document.getElementById(id + '-text');
+  const feedback = document.getElementById(id + '-feedback');
+  const selects = textBlock.querySelectorAll('.fill-blank-select');
+  let allCorrect = true;
+  let allFilled = true;
+  selects.forEach(select => {
+    select.classList.remove('correct', 'wrong');
+    if (!select.value) { allFilled = false; return; }
+    if (select.value === select.dataset.correct) {
+      select.classList.add('correct');
+    } else {
+      select.classList.add('wrong');
+      allCorrect = false;
+    }
+  });
+  if (!allFilled) {
+    feedback.className = 'feedback-msg error';
+    feedback.textContent = 'Bitte fülle zuerst alle Lücken aus.';
+  } else if (allCorrect) {
+    feedback.className = 'feedback-msg success';
+    feedback.textContent = '✓ Richtig! Alle Lücken wurden korrekt ausgefüllt.';
+  } else {
+    feedback.className = 'feedback-msg error';
+    feedback.textContent = '✗ Noch nicht ganz richtig. Die falschen Felder sind rot markiert – versuche es erneut.';
+  }
+  feedback.style.display = 'flex';
+}
+function resetFillText(id) {
+  const textBlock = document.getElementById(id + '-text');
+  textBlock.querySelectorAll('.fill-blank-select').forEach(select => {
+    select.classList.remove('correct', 'wrong');
+    select.value = '';
+  });
+  const feedback = document.getElementById(id + '-feedback');
+  feedback.className = 'feedback-msg';
+  feedback.style.display = 'none';
+}
+</script>
+</body>
+</html>
