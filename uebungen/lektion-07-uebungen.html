@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Workbook – Kapitel 7</title>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary:       #4BEBB9;
+    --primary-dark:  #28c898;
+    --primary-text:  #0d6e53;
+    --accent:        #1a5f9e;
+    --bg:            #f4fdf9;
+    --surface:       #ffffff;
+    --border:        #c8eee2;
+    --text:          #1a2d27;
+    --muted:         #5a7a71;
+    --success:       #1a8c5a;
+    --error:         #c0392b;
+    --success-bg:    #e0f8ee;
+    --error-bg:      #fdecea;
+    --radius:        10px;
+    --shadow:        0 2px 12px rgba(75,235,185,.15);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Atkinson Hyperlegible', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 16px;
+    line-height: 1.65;
+  }
+
+  .page-wrapper {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+  }
+
+  /* ── HEADER ── */
+  .page-header {
+    background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+    color: #fff;
+    border-radius: var(--radius);
+    padding: 28px 36px;
+    margin-bottom: 36px;
+    box-shadow: var(--shadow);
+  }
+  .page-header .label {
+    font-size: .75rem;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    opacity: .8;
+    margin-bottom: 6px;
+  }
+  .page-header h1 {
+    font-size: 1.45rem;
+    font-weight: 700;
+    line-height: 1.3;
+  }
+  .page-header .subtitle {
+    margin-top: 10px;
+    font-size: .92rem;
+    opacity: .9;
+    font-style: italic;
+  }
+
+  /* ── INFO CARD ── */
+  .info-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px 32px;
+    margin-bottom: 30px;
+    box-shadow: var(--shadow);
+  }
+  .info-card h2 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--primary-text);
+    margin-bottom: 14px;
+  }
+  .info-card ul {
+    padding-left: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .info-card p { margin-bottom: 10px; }
+  .info-card p:last-child { margin-bottom: 0; }
+
+  /* ── BILD-EINBETTUNG ── */
+  .image-wrap {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px 32px;
+    margin-bottom: 30px;
+    box-shadow: var(--shadow);
+  }
+  .image-wrap h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--primary-text);
+    margin-bottom: 16px;
+  }
+  .image-wrap img {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+  }
+  .image-wrap.no-border img { border: none; }
+  .image-wrap p.image-caption {
+    margin-top: 12px;
+    font-size: .85rem;
+    color: var(--muted);
+  }
+
+  /* ── EXERCISE SECTIONS ── */
+  .exercise {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px 32px;
+    margin-bottom: 30px;
+    box-shadow: var(--shadow);
+  }
+  .exercise-label {
+    display: inline-block;
+    background: var(--primary);
+    color: var(--primary-text);
+    font-size: .72rem;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    padding: 3px 12px;
+    border-radius: 20px;
+    margin-bottom: 12px;
+  }
+  .exercise h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 20px;
+    line-height: 1.5;
+  }
+  .exercise p.exercise-hint {
+    font-size: .9rem;
+    color: var(--muted);
+    margin-bottom: 16px;
+  }
+
+  /* ── SINGLE CHOICE QUIZ ── */
+  .quiz-counter {
+    font-size: .82rem;
+    color: var(--muted);
+    margin-bottom: 16px;
+  }
+  .quiz-question-text {
+    font-size: 1.02rem;
+    font-weight: 700;
+    line-height: 1.55;
+    margin-bottom: 18px;
+    padding: 16px 20px;
+    background: var(--bg);
+    border-radius: 8px;
+    border-left: 4px solid var(--primary-dark);
+  }
+  .quiz-options { display: flex; flex-direction: column; gap: 10px; margin-bottom: 18px; }
+  .quiz-option-btn {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--bg);
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 18px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: .97rem;
+    text-align: left;
+    transition: border-color .15s, background .15s;
+    color: var(--text);
+    font-weight: 700;
+  }
+  .quiz-option-btn:hover:not(:disabled) { border-color: var(--primary-dark); background: #e8faf3; }
+  .quiz-option-btn.correct { border-color: var(--success); background: var(--success-bg); color: var(--success); }
+  .quiz-option-btn.wrong   { border-color: var(--error);   background: var(--error-bg);   color: var(--error);   }
+  .quiz-option-btn:disabled { cursor: default; }
+  .quiz-nav { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+  .quiz-score {
+    display: none;
+    margin-top: 18px;
+    padding: 14px 18px;
+    background: var(--success-bg);
+    border-radius: 8px;
+    font-weight: 700;
+    color: var(--success);
+    font-size: .97rem;
+  }
+  .quiz-progress {
+    height: 5px;
+    background: var(--border);
+    border-radius: 10px;
+    margin-bottom: 18px;
+    overflow: hidden;
+  }
+  .quiz-progress-bar {
+    height: 100%;
+    background: var(--primary-dark);
+    border-radius: 10px;
+    transition: width .3s ease;
+  }
+
+  /* ── MEMORY-SPIEL (BEGRIFF ↔ ERKLÄRUNG) ── */
+  .memory-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 14px;
+    margin-bottom: 18px;
+  }
+  .memory-card {
+    min-height: 110px;
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    background: var(--bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px;
+    cursor: pointer;
+    font-size: .85rem;
+    font-weight: 700;
+    text-align: center;
+    color: var(--muted);
+    transition: border-color .15s, background .15s, color .15s, transform .1s;
+    user-select: none;
+  }
+  .memory-card .memory-placeholder { font-size: 1.6rem; }
+  .memory-card:hover:not(.matched):not(.revealed) { border-color: var(--primary-dark); transform: translateY(-1px); }
+  .memory-card.revealed {
+    background: #edfaf4;
+    border-color: var(--primary);
+    color: var(--primary-text);
+    font-size: .8rem;
+  }
+  .memory-card.matched {
+    background: var(--success-bg);
+    border-color: var(--success);
+    color: var(--success);
+    cursor: default;
+    font-size: .8rem;
+  }
+  .memory-card.wrong {
+    border-color: var(--error);
+    background: var(--error-bg);
+    color: var(--error);
+    font-size: .8rem;
+  }
+  .memory-status {
+    font-size: .9rem;
+    color: var(--muted);
+    margin-bottom: 14px;
+  }
+  .memory-status.done { color: var(--success); font-weight: 700; }
+
+  /* ── BUTTONS ── */
+  .btn-check {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 20px;
+    background: var(--primary);
+    color: var(--primary-text);
+    border: none;
+    border-radius: 24px;
+    padding: 10px 24px;
+    font-family: inherit;
+    font-size: .95rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background .15s, transform .1s;
+  }
+  .btn-check:hover { background: var(--primary-dark); color: #fff; transform: translateY(-1px); }
+  .btn-reset {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 10px;
+    margin-left: 10px;
+    background: transparent;
+    color: var(--muted);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: 9px 18px;
+    font-family: inherit;
+    font-size: .88rem;
+    cursor: pointer;
+    transition: color .15s, border-color .15s;
+  }
+  .btn-reset:hover { color: var(--text); border-color: var(--muted); }
+
+  .feedback-msg {
+    display: none;
+    margin-top: 14px;
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: .95rem;
+  }
+  .feedback-msg.success { background: var(--success-bg); color: var(--success); display: flex; align-items: center; gap: 8px; }
+  .feedback-msg.error   { background: var(--error-bg);   color: var(--error);   display: flex; align-items: center; gap: 8px; }
+
+  @media (max-width: 640px) {
+    .memory-grid { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="page-wrapper">
+
+  <!-- ============================================================
+       SEITENHEADER  –  Text hier bearbeiten
+       ============================================================ -->
+  <header class="page-header">
+    <div class="label">Workbook · Kapitel 7</div>
+    <h1>„Mitten auf dem Weg: Auf die Methode ist Verlass!“</h1>
+    <div class="subtitle">In dieser kleinen Workbook-Einheit werden nochmals die wichtigsten Informationen von Kapitel 7 wiederholt. Das Bearbeiten der Übungen ist freiwillig und soll Ihnen als Selbstlerneinheit dienen.</div>
+  </header>
+
+  <!-- ============================================================
+       EINFÜHRUNGSBILD – Bilddatei liegt im Ordner "images"
+       Bild austauschen: einfach eine neue Datei mit demselben
+       Namen "intro-bergsteiger.png" in den Ordner "images" legen,
+       oder den Dateinamen unten im src="..." anpassen.
+       ============================================================ -->
+  <div class="image-wrap no-border">
+    <img src="bilder/intro-bergsteigerkapitel7.png" alt="Bergsteiger mit Sprechblase: Einführung in die Methodenwahl">
+  </div>
+
+  <!-- ============================================================
+       WISSENSBOX 1 – Quantitativ und Qualitativ
+       Text hier anpassen
+       ============================================================ -->
+  <div class="info-card">
+    <h2>🔍 Quanti und Quali?</h2>
+    <p>Ein <strong>qualitativer Forschungsansatz</strong> eignet sich besonders dann, wenn Sie ein Thema <strong>tiefgehend und aus subjektiver Perspektive</strong> verstehen möchten, etwa bei Fragen zu Einstellungen, Erfahrungen oder Bedeutungen. Methoden wie Interviews oder Gruppendiskussionen helfen dabei, komplexe Zusammenhänge und individuelle Sichtweisen zu erfassen.</p>
+    <p>Ein <strong>quantitativer Forschungsansatz</strong> ist sinnvoll, wenn Sie <strong>messbare, vergleichbare und statistisch auswertbare Daten</strong> benötigen: zum Beispiel zur Häufigkeit eines Verhaltens oder zur Verteilung von Meinungen in einer größeren Gruppe. Hier kommen standardisierte Umfragen oder Experimente zum Einsatz.</p>
+  </div>
+
+  <!-- ============================================================
+       WISSENSBOX 2 – Primär- und Sekundärforschung
+       Text hier anpassen
+       ============================================================ -->
+  <div class="info-card">
+    <h2>📚 Primär- und Sekundärforschung</h2>
+    <p>Primär- und Sekundärforschung sind zwei grundlegende Ansätze zur Gewinnung wissenschaftlicher Erkenntnisse.</p>
+    <p>Bei der <strong>Primärforschung</strong> erheben Sie eigene Daten, etwa durch Umfragen, Interviews oder Experimente. Sie sind direkt an der Quelle und gestalten den Forschungsprozess aktiv mit. Die <strong>Sekundärforschung</strong> hingegen greift auf bereits vorhandene Daten oder Studien zurück, zum Beispiel durch Literaturanalysen oder die Auswertung statistischer Berichte.</p>
+    <p>Es ist wichtig, diese beiden Formen unterscheiden zu können, da sie unterschiedliche Methoden, Anforderungen und Aussagekraft mit sich bringen. Nur wenn Sie wissen, welche Art von Forschung Sie betreiben, können Sie die passenden Werkzeuge wählen und Ihre Ergebnisse korrekt einordnen.</p>
+  </div>
+
+  <!-- ============================================================
+       AUFGABE 1 – Quiz: Primär- oder Sekundärforschung?
+       Fragen und Antworten in QUIZ_DATA.quiz1 unten im Script bearbeiten
+       correct: 0 = erste Antwort ist richtig, 1 = zweite Antwort usw.
+       ============================================================ -->
+  <section class="exercise" id="ex1">
+    <div class="exercise-label">Aufgabe 1 · Quiz</div>
+    <h3>Wählen Sie aus, ob es sich bei den folgenden Szenarien um Primär- oder Sekundärforschung handelt.</h3>
+    <div class="quiz-progress"><div class="quiz-progress-bar" id="quiz1-bar" style="width:0%"></div></div>
+    <div class="quiz-counter" id="quiz1-counter">Frage 1 von 6</div>
+    <div class="quiz-question-text" id="quiz1-question"></div>
+    <div class="quiz-options" id="quiz1-options"></div>
+    <div class="quiz-nav">
+      <button class="btn-check" id="quiz1-next" style="display:none" onclick="quizNext('quiz1')">Nächste Frage →</button>
+      <button class="btn-reset" onclick="quizReset('quiz1')">↺ Neu starten</button>
+    </div>
+    <div class="quiz-score" id="quiz1-score"></div>
+  </section>
+
+  <!-- ============================================================
+       WISSENSBOX 3 – Erhebungsmethoden
+       Text hier anpassen
+       ============================================================ -->
+  <div class="info-card">
+    <h2>🧰 Erhebungsmethoden</h2>
+    <p>Es gibt eine Vielzahl an Methoden, um Daten zu erheben – von Befragungen über Beobachtungen bis hin zu Experimenten. Finden Sie im folgenden Memory-Spiel die passende Erklärung zur jeweiligen wissenschaftlichen Methode.</p>
+  </div>
+
+  <!-- ============================================================
+       AUFGABE 2 – Memory-Spiel: Begriff passend zur Erklärung finden
+       Begriffe und Erklärungen in MEMORY_PAIRS unten im Script bearbeiten
+       term = Begriff (Karte 1), explanation = passende Erklärung (Karte 2)
+       ============================================================ -->
+  <section class="exercise" id="ex2">
+    <div class="exercise-label">Aufgabe 2 · Memory</div>
+    <h3>Finden Sie die passende Erklärung zur wissenschaftlichen Methode. Klicken Sie dazu auf zwei Karten, um zu prüfen, ob sie zusammenpassen.</h3>
+    <div class="memory-status" id="memory-status">0 von 6 Paaren gefunden</div>
+    <div class="memory-grid" id="memory-grid"></div>
+    <button class="btn-reset" onclick="resetMemory()" style="margin-top:0;">↺ Spiel neu starten</button>
+  </section>
+
+  <!-- ============================================================
+       AUFGABE 3 – Quiz: Welche Erhebungsmethode passt?
+       Fragen und Antworten in QUIZ_DATA.quiz3 unten im Script bearbeiten
+       correct: 0 = erste Antwort ist richtig, 1 = zweite Antwort usw.
+       ============================================================ -->
+  <section class="exercise" id="ex3">
+    <div class="exercise-label">Aufgabe 3 · Quiz</div>
+    <h3>Welche Forschungsmethode passt am besten zur Fragestellung?</h3>
+    <div class="quiz-progress"><div class="quiz-progress-bar" id="quiz3-bar" style="width:0%"></div></div>
+    <div class="quiz-counter" id="quiz3-counter">Frage 1 von 5</div>
+    <div class="quiz-question-text" id="quiz3-question"></div>
+    <div class="quiz-options" id="quiz3-options"></div>
+    <div class="quiz-nav">
+      <button class="btn-check" id="quiz3-next" style="display:none" onclick="quizNext('quiz3')">Nächste Frage →</button>
+      <button class="btn-reset" onclick="quizReset('quiz3')">↺ Neu starten</button>
+    </div>
+    <div class="quiz-score" id="quiz3-score"></div>
+  </section>
+
+  <!-- ============================================================
+       AUFGABE 4 – Quiz: Welches Forschungsdesign passt?
+       Fragen und Antworten in QUIZ_DATA.quiz4 unten im Script bearbeiten
+       correct: 0 = erste Antwort ist richtig, 1 = zweite Antwort usw.
+       ============================================================ -->
+  <section class="exercise" id="ex4">
+    <div class="exercise-label">Aufgabe 4 · Quiz</div>
+    <h3>Kreuzen Sie an, welches Forschungsdesign am besten zum gegebenen Szenario passt.</h3>
+    <div class="quiz-progress"><div class="quiz-progress-bar" id="quiz4-bar" style="width:0%"></div></div>
+    <div class="quiz-counter" id="quiz4-counter">Frage 1 von 5</div>
+    <div class="quiz-question-text" id="quiz4-question"></div>
+    <div class="quiz-options" id="quiz4-options"></div>
+    <div class="quiz-nav">
+      <button class="btn-check" id="quiz4-next" style="display:none" onclick="quizNext('quiz4')">Nächste Frage →</button>
+      <button class="btn-reset" onclick="quizReset('quiz4')">↺ Neu starten</button>
+    </div>
+    <div class="quiz-score" id="quiz4-score"></div>
+  </section>
+
+  <!-- ============================================================
+       MERKE – Checkliste als Bild
+       Bild austauschen: neue Datei "merke-checkliste.png" in den
+       Ordner "images" legen, oder Dateinamen unten anpassen.
+       ============================================================ -->
+  <div class="image-wrap">
+    <h3>✅ Merke: Checkliste Statistisches Analyseverfahren</h3>
+    <img src="images/merke-checkliste.png" alt="Checkliste zur Vorüberlegung statistischer Analyseverfahren">
+  </div>
+
+</div>
+
+<script>
+/* ================================================================
+   ╔══════════════════════════════════════════════════════════════╗
+   ║   INHALT BEARBEITEN – nur diese Abschnitte anpassen         ║
+   ╚══════════════════════════════════════════════════════════════╝
+   ================================================================ */
+
+
+/* ── AUFGABE 1, 3 & 4: Quiz-Daten ───────────────────────────────
+   question  → Fragetext
+   options   → Antwortmöglichkeiten (Array)
+   correct   → Index der richtigen Antwort (0 = erste Option)
+   ---------------------------------------------------------------- */
+const QUIZ_DATA = {
+
+  quiz1: [
+    { question: 'Sie werten bestehende wissenschaftliche Artikel, Bücher oder Studien aus, um eine Forschungsfrage zu beantworten – ohne eigene Datenerhebung.',
+      options: ['Sekundärforschung', 'Primärforschung'],
+      correct: 0 },
+    { question: 'Sie nutzen bereits veröffentlichte Daten, etwa vom Statistischen Bundesamt, um Trends oder Zusammenhänge zu analysieren.',
+      options: ['Sekundärforschung', 'Primärforschung'],
+      correct: 0 },
+    { question: 'Sie befragen Expertinnen und Experten persönlich oder telefonisch, um neue Erkenntnisse zu einem spezifischen Thema zu gewinnen.',
+      options: ['Primärforschung', 'Sekundärforschung'],
+      correct: 0 },
+    { question: 'Sie erstellen einen Fragebogen und sammeln eigene Daten zur Mediennutzung oder zu Lerngewohnheiten.',
+      options: ['Primärforschung', 'Sekundärforschung'],
+      correct: 0 },
+    { question: 'Sie greifen auf vorhandene Modelle, Konzepte oder Forschungsergebnisse zurück, um ein Thema zu erklären oder weiterzuentwickeln.',
+      options: ['Sekundärforschung', 'Primärforschung'],
+      correct: 0 },
+    { question: 'Sie führen ein Experiment durch – z. B. zur Wirkung von Farben auf Kaufverhalten – und beobachten das Verhalten der Teilnehmenden direkt.',
+      options: ['Primärforschung', 'Sekundärforschung'],
+      correct: 0 },
+  ],
+
+  quiz3: [
+    { question: 'Welche Methode ist am besten geeignet, um zu prüfen, ob ein neues Lernspiel die Konzentration von Grundschulkindern verbessert?',
+      options: ['Experiment', 'Online-Umfrage', 'Fokusgruppe', 'Literaturanalyse'],
+      correct: 0 },
+    { question: 'Welche Methode passt am besten, um bestehende Studien zur Arbeitszufriedenheit auszuwerten?',
+      options: ['Systematische Literatur Review', 'Beobachtung', 'Befragung', 'Experiment'],
+      correct: 0 },
+    { question: 'Welche Methode eignet sich, um das Verhalten von Kundinnen und Kunden in einem Supermarkt zu erfassen?',
+      options: ['Beobachtung', 'Fokusgruppe', 'Experiment', 'Online-Umfrage'],
+      correct: 0 },
+    { question: 'Welche Methode ist sinnvoll, um die Einstellungen von Mitarbeitenden zu Homeoffice zu erfassen?',
+      options: ['Online-Umfrage', 'Tiefeninterview', 'Sekundärforschung', 'Experiment'],
+      correct: 0 },
+    { question: 'Welche Methode eignet sich am besten, um herauszufinden, wie Jugendliche soziale Medien im Alltag nutzen?',
+      options: ['Tiefeninterview', 'Sekundäranalyse', 'Experiment', 'Beobachtung'],
+      correct: 0 },
+  ],
+
+  quiz4: [
+    { question: 'Eine Studie untersucht, ob es einen Zusammenhang zwischen Schlafdauer und Konzentrationsfähigkeit bei Studierenden gibt.',
+      options: ['Experiment', 'Quantitative Forschung', 'Qualitative Forschung', 'Fallstudie'],
+      correct: 0 },
+    { question: 'Eine Forschergruppe testet, ob ein neues Medikament die Symptome einer Krankheit stärker reduziert als ein Placebo.',
+      options: ['Experiment', 'Quasi-Experiment', 'Qualitative Beobachtung', 'Sekundäranalyse'],
+      correct: 0 },
+    { question: 'Eine Wissenschaftlerin wertet 25 bereits veröffentlichte Studien zur Wirksamkeit von Achtsamkeitstraining aus, um ein Gesamturteil zu ziehen.',
+      options: ['Metaanalyse', 'Längsschnittstudie', 'Experiment', 'Interviewstudie'],
+      correct: 0 },
+    { question: 'Ein Unternehmen möchte herausfinden, wie verbreitet Homeoffice in verschiedenen Branchen ist, und erhebt dazu einmalig Daten von 1.000 Beschäftigten.',
+      options: ['Querschnittsstudie', 'Quasi-Experiment', 'Korrelationsstudie', 'Fallstudie'],
+      correct: 0 },
+    { question: 'Eine Forscherin begleitet über zwei Jahre hinweg eine Schulklasse, um die Entwicklung der sozialen Dynamik zu beobachten.',
+      options: ['Längsschnittstudie', 'Metaanalyse', 'Querschnittsstudie', 'Online-Fragebogenstudie'],
+      correct: 0 },
+  ],
+};
+
+
+/* ── AUFGABE 2: Memory-Paare – Begriff ↔ Erklärung ──────────────
+   term         → Begriff / Name der Methode (Karte A)
+   explanation  → passende Erklärung (Karte B)
+   ---------------------------------------------------------------- */
+const MEMORY_PAIRS = [
+  { term: 'Fokusgruppen',
+    explanation: 'Datenerhebung, bei der mehrere Personen gemeinsam zu einem bestimmten Thema befragt oder beobachtet werden. In der Regel handelt es sich dabei um eine moderierte Gruppendiskussion. Ziel ist es, durch den Austausch in der Gruppe Meinungen, Einstellungen, Erfahrungen oder Bedürfnisse sichtbar zu machen.' },
+  { term: 'Tiefeninterview',
+    explanation: 'Eine Form der qualitativen Befragung, bei der eine einzelne Person ausführlich und offen zu ihren Erfahrungen, Meinungen oder Motiven befragt wird. Ziel ist es, sehr detaillierte und individuelle Einblicke zu einem Thema zu gewinnen.' },
+  { term: 'Indirekte Verfahren',
+    explanation: 'Methoden der Datenerhebung, bei denen die Befragten nicht direkt nach ihrer Meinung oder ihrem Verhalten gefragt werden, sondern diese durch verdeckte oder projektive Techniken erschlossen werden. Ziel ist es, unbewusste Einstellungen, Motive oder Emotionen sichtbar zu machen.' },
+  { term: 'Befragung',
+    explanation: 'Datenerhebung, bei der Personen gezielt zu bestimmten Themen, Meinungen oder Erfahrungen befragt werden – entweder schriftlich, mündlich oder online.' },
+  { term: 'Beobachtung',
+    explanation: 'Eine Methode der wissenschaftlichen Datenerhebung, bei der Sie das Verhalten von Personen, Gruppen oder Situationen systematisch erfassen – ohne direkt einzugreifen oder Fragen zu stellen. Diese Methode eignet sich besonders gut, wenn Sie tatsächliches Verhalten in natürlichen Kontexten untersuchen möchten.' },
+  { term: 'Experiment',
+    explanation: 'Eine wissenschaftliche Erhebungsmethode, bei der Sie gezielt eine Situation gestalten, um bestimmte Zusammenhänge oder Wirkungen zu untersuchen. Dabei wird mindestens eine Variable bewusst verändert (unabhängige Variable), um die Auswirkungen auf eine andere (abhängige Variable) zu messen.' },
+];
+
+
+/* ================================================================
+   ENGINE – keine Änderungen notwendig unterhalb dieser Linie
+   ================================================================ */
+
+/* ── Quiz Engine ── */
+const QUIZ_STATE = {};
+
+function quizInit(id) {
+  QUIZ_STATE[id] = { current: 0, score: 0, answered: false };
+  renderQuiz(id);
+}
+
+function renderQuiz(id) {
+  const state = QUIZ_STATE[id];
+  const data = QUIZ_DATA[id];
+  const q = data[state.current];
+  const total = data.length;
+
+  document.getElementById(id + '-bar').style.width = (state.current / total * 100) + '%';
+  document.getElementById(id + '-counter').textContent = `Frage ${state.current + 1} von ${total}`;
+  document.getElementById(id + '-question').textContent = q.question;
+
+  const optDiv = document.getElementById(id + '-options');
+  optDiv.innerHTML = '';
+  q.options.forEach((opt, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'quiz-option-btn';
+    btn.textContent = opt;
+    btn.onclick = () => answerQuiz(id, i);
+    optDiv.appendChild(btn);
+  });
+
+  document.getElementById(id + '-next').style.display = 'none';
+  document.getElementById(id + '-score').style.display = 'none';
+  state.answered = false;
+}
+
+function answerQuiz(id, chosen) {
+  const state = QUIZ_STATE[id];
+  if (state.answered) return;
+  state.answered = true;
+
+  const q = QUIZ_DATA[id][state.current];
+  const btns = document.querySelectorAll('#' + id + '-options .quiz-option-btn');
+  btns.forEach((btn, i) => {
+    btn.disabled = true;
+    if (i === q.correct) btn.classList.add('correct');
+    else if (i === chosen) btn.classList.add('wrong');
+  });
+  if (chosen === q.correct) state.score++;
+
+  const isLast = state.current === QUIZ_DATA[id].length - 1;
+  if (isLast) {
+    document.getElementById(id + '-bar').style.width = '100%';
+    const scoreEl = document.getElementById(id + '-score');
+    scoreEl.style.display = 'block';
+    scoreEl.textContent = `🎯 Ergebnis: ${state.score} von ${QUIZ_DATA[id].length} richtig!`;
+  } else {
+    document.getElementById(id + '-next').style.display = 'inline-flex';
+  }
+}
+
+function quizNext(id) {
+  QUIZ_STATE[id].current++;
+  renderQuiz(id);
+}
+
+function quizReset(id) {
+  quizInit(id);
+}
+
+/* ── Memory Engine ── */
+let MEMORY_CARDS = [];
+let MEMORY_FIRST = null;
+let MEMORY_SECOND = null;
+let MEMORY_LOCKED = false;
+let MEMORY_MATCHED = 0;
+
+function shuffleArray(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function buildMemory() {
+  const grid = document.getElementById('memory-grid');
+  grid.innerHTML = '';
+  MEMORY_FIRST = null;
+  MEMORY_SECOND = null;
+  MEMORY_LOCKED = false;
+  MEMORY_MATCHED = 0;
+
+  const rawCards = [];
+  MEMORY_PAIRS.forEach((pair, i) => {
+    rawCards.push({ pairIndex: i, text: pair.term });
+    rawCards.push({ pairIndex: i, text: pair.explanation });
+  });
+  MEMORY_CARDS = shuffleArray(rawCards);
+
+  MEMORY_CARDS.forEach((card, i) => {
+    const el = document.createElement('div');
+    el.className = 'memory-card';
+    el.dataset.index = i;
+    el.innerHTML = '<span class="memory-placeholder">❓</span>';
+    el.addEventListener('click', () => flipMemoryCard(i));
+    grid.appendChild(el);
+  });
+
+  updateMemoryStatus();
+}
+
+function updateMemoryStatus() {
+  const status = document.getElementById('memory-status');
+  const total = MEMORY_PAIRS.length;
+  if (MEMORY_MATCHED === total) {
+    status.classList.add('done');
+    status.textContent = `🎉 Super! Alle ${total} Paare gefunden!`;
+  } else {
+    status.classList.remove('done');
+    status.textContent = `${MEMORY_MATCHED} von ${total} Paaren gefunden`;
+  }
+}
+
+function flipMemoryCard(index) {
+  if (MEMORY_LOCKED) return;
+  const el = document.querySelector(`.memory-card[data-index="${index}"]`);
+  if (!el || el.classList.contains('matched') || el.classList.contains('revealed')) return;
+
+  el.classList.add('revealed');
+  el.textContent = MEMORY_CARDS[index].text;
+
+  if (MEMORY_FIRST === null) {
+    MEMORY_FIRST = index;
+    return;
+  }
+
+  MEMORY_SECOND = index;
+  MEMORY_LOCKED = true;
+
+  const firstEl = document.querySelector(`.memory-card[data-index="${MEMORY_FIRST}"]`);
+  const firstPair = MEMORY_CARDS[MEMORY_FIRST].pairIndex;
+  const secondPair = MEMORY_CARDS[MEMORY_SECOND].pairIndex;
+
+  if (firstPair === secondPair && MEMORY_FIRST !== MEMORY_SECOND) {
+    firstEl.classList.remove('revealed');
+    firstEl.classList.add('matched');
+    el.classList.remove('revealed');
+    el.classList.add('matched');
+    MEMORY_MATCHED++;
+    updateMemoryStatus();
+    MEMORY_FIRST = null;
+    MEMORY_SECOND = null;
+    MEMORY_LOCKED = false;
+  } else {
+    el.classList.add('wrong');
+    firstEl.classList.add('wrong');
+    setTimeout(() => {
+      firstEl.classList.remove('revealed', 'wrong');
+      firstEl.innerHTML = '<span class="memory-placeholder">❓</span>';
+      el.classList.remove('revealed', 'wrong');
+      el.innerHTML = '<span class="memory-placeholder">❓</span>';
+      MEMORY_FIRST = null;
+      MEMORY_SECOND = null;
+      MEMORY_LOCKED = false;
+    }, 1100);
+  }
+}
+
+function resetMemory() {
+  buildMemory();
+}
+
+/* ── INIT ── */
+quizInit('quiz1');
+buildMemory();
+quizInit('quiz3');
+quizInit('quiz4');
+</script>
+</body>
+</html>
