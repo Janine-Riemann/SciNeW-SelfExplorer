@@ -379,6 +379,23 @@
     .video-card:hover .play-icon polygon { fill: var(--dark); }
     .video-label { padding: 0.85rem 1rem; font-size: 0.9rem; font-weight: 600; line-height: 1.4; color: var(--dark); }
 
+    /* WEBSITE LINKS */
+    .link-grid { display: flex; flex-direction: column; gap: 0.75rem; margin-top: 1.5rem; }
+    .link-card {
+      display: flex; align-items: center; gap: 1rem;
+      padding: 0.9rem 1.1rem;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 12px; text-decoration: none; color: var(--text);
+      box-shadow: var(--shadow-sm);
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .link-card:hover { border-color: var(--green); transform: translateY(-2px); box-shadow: var(--shadow-md); }
+    .link-info { flex: 1; min-width: 0; }
+    .link-title { font-size: 0.95rem; font-weight: 600; color: var(--dark); margin-bottom: 0.2rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .link-url { font-size: 0.8rem; color: var(--muted); font-family: var(--mono); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .link-arrow { flex-shrink: 0; color: var(--green); opacity: 0.7; transition: opacity 0.2s; }
+    .link-card:hover .link-arrow { opacity: 1; }
+
     /* STUDY GUIDE */
     .study-guide { display: flex; flex-direction: column; gap: 1.5rem; margin: 1.5rem 0 2rem; }
     .phase-block {
@@ -1168,23 +1185,62 @@
                       </div>
                       <div class="video-label">Erste Hausarbeit 06: Wie zitiere ich richtig?</div>
                     </a>
-<div class="link-info">
-                        <div class="link-title">APA-Manual</div>
-                        <div class="link-url">https://apastyle.apa.org/style-grammar-guidelines/references/examples</div>
-                      </div>
-                    
-<div class="link-info">
-                        <div class="link-title">APA-Richtlinien</div>
-                        <div class="link-url">https://www.scribbr.de/category/apa-standard/</div>
-                      </div>
+                  </div>
 
+                  <p style="font-size: 0.95rem; font-weight: 600; margin-top: 1.75rem; margin-bottom: 0.5rem; color: var(--dark);">Links:</p>
+                  <div class="link-grid">
+                    <a class="link-card" href="https://apastyle.apa.org/style-grammar-guidelines/references/examples" target="_blank" rel="noopener">
+                      <div class="link-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#74C2A8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                          <circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                        </svg>
+                      </div>
+                      <div class="link-info">
+                        <div class="link-title">APA-Manual</div>
+                        <div class="link-url">apastyle.apa.org/style-grammar-guidelines/references/examples</div>
+                      </div>
+                      <div class="link-arrow">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                          <path d="M7 17L17 7M17 7H7M17 7v10"/>
+                        </svg>
+                      </div>
+                    </a>
+                    <a class="link-card" href="https://www.scribbr.de/category/apa-standard/" target="_blank" rel="noopener">
+                      <div class="link-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#74C2A8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                          <circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                        </svg>
+                      </div>
+                      <div class="link-info">
+                        <div class="link-title">APA-Richtlinien</div>
+                        <div class="link-url">scribbr.de/category/apa-standard/</div>
+                      </div>
+                      <div class="link-arrow">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                          <path d="M7 17L17 7M17 7H7M17 7v10"/>
+                        </svg>
+                      </div>
+                    </a>
+                    <a class="link-card" href="https://www.scribbr.de/category/apa-standard/" target="_blank" rel="noopener">
+                      <div class="link-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#74C2A8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                          <circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                        </svg>
+                      </div>
                       <div class="link-info">
                         <div class="link-title">APA Formatierungshinweise</div>
-                        <div class="link-url">https://www.scribbr.de/category/apa-standard/</div>
+                        <div class="link-url">scribbr.de/category/apa-standard/</div>
                       </div>
-
-
+                      <div class="link-arrow">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                          <path d="M7 17L17 7M17 7H7M17 7v10"/>
+                        </svg>
+                      </div>
+                    </a>
                   </div>
+
+                </div>
+              </details>
                 </div>
               </details>
 
