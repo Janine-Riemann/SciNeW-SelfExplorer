@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Workbook – Kapitel 9</title>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+<style>
+  /* ============================================================
+     FARBEN & GRUNDEINSTELLUNGEN
+     Hier kannst du Farben, Schriftgröße usw. zentral anpassen.
+     ============================================================ */
+  :root {
+    --primary:       #4BEBB9;
+    --primary-dark:  #28c898;
+    --primary-text:  #0d6e53;
+    --accent:        #1a5f9e;
+    --bg:            #f4fdf9;
+    --surface:       #ffffff;
+    --border:        #c8eee2;
+    --text:          #1a2d27;
+    --muted:         #5a7a71;
+    --success:       #1a8c5a;
+    --error:         #c0392b;
+    --success-bg:    #e0f8ee;
+    --error-bg:      #fdecea;
+    --radius:        10px;
+    --shadow:        0 2px 12px rgba(75,235,185,.15);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Atkinson Hyperlegible', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 16px;
+    line-height: 1.65;
+  }
+
+  .page-wrapper {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+  }
+
+  /* ── HEADER ── */
+  .page-header {
+    background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+    color: #fff;
+    border-radius: var(--radius);
+    padding: 28px 36px;
+    margin-bottom: 36px;
+    box-shadow: var(--shadow);
+  }
+  .page-header .label {
+    font-size: .75rem;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    opacity: .8;
+    margin-bottom: 6px;
+  }
+  .page-header h1 {
+    font-size: 1.45rem;
+    font-weight: 700;
+    line-height: 1.3;
+  }
+  .page-header .subtitle {
+    margin-top: 10px;
+    font-size: .92rem;
+    opacity: .9;
+    font-style: italic;
+  }
+
+  /* ── INFO-KARTE (Texte / Hinweise) ── */
+  .info-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px 32px;
+    margin-bottom: 30px;
+    box-shadow: var(--shadow);
+  }
+  .info-card h2 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--primary-text);
+    margin-bottom: 14px;
+  }
+  .info-card h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--primary-text);
+    margin: 18px 0 6px;
+  }
+  .info-card p { margin-bottom: 10px; }
+  .info-card p:last-child { margin-bottom: 0; }
+  .info-card ul {
+    padding-left: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 10px;
+  }
+
+  /* ── ÜBUNGS-BLÖCKE ── */
+  .exercise {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px 32px;
+    margin-bottom: 30px;
+    box-shadow: var(--shadow);
+  }
+  .exercise-label {
+    display: inline-block;
+    background: var(--primary);
+    color: var(--primary-text);
+    font-size: .72rem;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    padding: 3px 12px;
+    border-radius: 20px;
+    margin-bottom: 12px;
+  }
+  .exercise h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 20px;
+    line-height: 1.5;
+  }
+  .exercise-intro {
+    margin-bottom: 18px;
+    font-size: .95rem;
+  }
+  hr.divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 28px 0;
+  }
+
+  /* ── WAHR / FALSCH FRAGEN ── */
+  .tf-question-text {
+    font-size: 1.02rem;
+    font-weight: 700;
+    line-height: 1.55;
+    margin-bottom: 18px;
+    padding: 16px 20px;
+    background: var(--bg);
+    border-radius: 8px;
+    border-left: 4px solid var(--primary-dark);
+  }
+  .tf-options { display: flex; gap: 14px; margin-bottom: 18px; }
+  .tf-option-btn {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: var(--bg);
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    padding: 14px 18px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: .97rem;
+    transition: border-color .15s, background .15s;
+    color: var(--text);
+    font-weight: 700;
+  }
+  .tf-option-btn:hover:not(:disabled) { border-color: var(--primary-dark); background: #e8faf3; }
+  .tf-option-btn.correct { border-color: var(--success); background: var(--success-bg); color: var(--success); }
+  .tf-option-btn.wrong   { border-color: var(--error);   background: var(--error-bg);   color: var(--error);   }
+  .tf-option-btn:disabled { cursor: default; }
+
+  /* ── EINFACHE AUSWAHL (eine richtige Antwort aus mehreren) ── */
+  .quiz-question-text {
+    font-size: 1.02rem;
+    font-weight: 700;
+    line-height: 1.55;
+    margin-bottom: 18px;
+    padding: 16px 20px;
+    background: var(--bg);
+    border-radius: 8px;
+    border-left: 4px solid var(--primary-dark);
+  }
+  .quiz-options { display: flex; flex-direction: column; gap: 10px; margin-bottom: 18px; }
+  .quiz-option-btn {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--bg);
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 18px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: .97rem;
+    text-align: left;
+    transition: border-color .15s, background .15s;
+    color: var(--text);
+    font-weight: 700;
+  }
+  .quiz-option-btn:hover:not(:disabled) { border-color: var(--primary-dark); background: #e8faf3; }
+  .quiz-option-btn.correct { border-color: var(--success); background: var(--success-bg); color: var(--success); }
+  .quiz-option-btn.wrong   { border-color: var(--error);   background: var(--error-bg);   color: var(--error);   }
+  .quiz-option-btn:disabled { cursor: default; }
+
+  .quiz-feedback, .tf-feedback {
+    display: none;
+    margin-top: 12px;
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: .95rem;
+  }
+  .quiz-feedback.success, .tf-feedback.success { background: var(--success-bg); color: var(--success); display: flex; align-items: center; gap: 8px; }
+  .quiz-feedback.error, .tf-feedback.error     { background: var(--error-bg);   color: var(--error);   display: flex; align-items: center; gap: 8px; }
+
+  /* ── MEHRFACHAUSWAHL (mehrere richtige Antworten möglich) ── */
+  .mc-options { display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px; }
+  .mc-option {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--bg);
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 18px;
+    cursor: pointer;
+    font-size: .97rem;
+    font-weight: 700;
+    transition: border-color .15s, background .15s;
+  }
+  .mc-option:hover { border-color: var(--primary-dark); background: #e8faf3; }
+  .mc-option input[type="checkbox"] {
+    width: 19px;
+    height: 19px;
+    accent-color: var(--primary-dark);
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+  .mc-option.correct { border-color: var(--success); background: var(--success-bg); color: var(--success); }
+  .mc-option.wrong   { border-color: var(--error);   background: var(--error-bg);   color: var(--error);   }
+  .mc-option.missed  { border-color: var(--success); background: var(--success-bg); color: var(--success); border-style: dashed; }
+
+  /* ── LÜCKENTEXT (Wörter in die richtigen Felder einsetzen) ── */
+  .fill-text {
+    font-size: 1rem;
+    line-height: 2.1;
+    margin-bottom: 18px;
+  }
+  .fill-blank {
+    display: inline-block;
+    min-width: 130px;
+    padding: 4px 10px;
+    margin: 0 2px;
+    border: none;
+    border-bottom: 2px solid var(--accent);
+    border-radius: 4px;
+    background: var(--bg);
+    font-family: inherit;
+    font-size: .95rem;
+    font-weight: 700;
+    color: var(--text);
+    text-align: center;
+  }
+  .fill-blank.correct { background: var(--success-bg); color: var(--success); border-color: var(--success); }
+  .fill-blank.wrong   { background: var(--error-bg);   color: var(--error);   border-color: var(--error); }
+
+  /* ── REIHENFOLGE-AUFGABE (Begriffe in richtige Reihenfolge bringen) ── */
+  .order-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 18px;
+  }
+  .order-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: var(--bg);
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 18px;
+    font-weight: 700;
+  }
+  .order-item .order-num {
+    background: var(--primary-dark);
+    color: #fff;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: .85rem;
+    flex-shrink: 0;
+  }
+  .order-item select {
+    font-family: inherit;
+    font-size: .9rem;
+    font-weight: 700;
+    padding: 6px 10px;
+    border-radius: 6px;
+    border: 1.5px solid var(--border);
+    background: #fff;
+    color: var(--text);
+    margin-right: 8px;
+  }
+  .order-item.correct { border-color: var(--success); background: var(--success-bg); }
+  .order-item.wrong   { border-color: var(--error);   background: var(--error-bg); }
+
+  /* ── BUTTONS ── */
+  .btn-check {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 8px;
+    background: var(--primary);
+    color: var(--primary-text);
+    border: none;
+    border-radius: 24px;
+    padding: 10px 24px;
+    font-family: inherit;
+    font-size: .95rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background .15s, transform .1s;
+  }
+  .btn-check:hover { background: var(--primary-dark); color: #fff; transform: translateY(-1px); }
+  .btn-reset {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 10px;
+    margin-left: 10px;
+    background: transparent;
+    color: var(--muted);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: 9px 18px;
+    font-family: inherit;
+    font-size: .88rem;
+    cursor: pointer;
+    transition: color .15s, border-color .15s;
+  }
+  .btn-reset:hover { color: var(--text); border-color: var(--muted); }
+
+  .feedback-msg {
+    display: none;
+    margin-top: 14px;
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: .95rem;
+  }
+  .feedback-msg.success { background: var(--success-bg); color: var(--success); display: flex; align-items: center; gap: 8px; }
+  .feedback-msg.error   { background: var(--error-bg);   color: var(--error);   display: flex; align-items: center; gap: 8px; }
+
+  /* ── LINK-BOX ── */
+  .link-box {
+    background: #e8f4ff;
+    border: 1.5px solid var(--accent);
+    border-radius: var(--radius);
+    padding: 16px 22px;
+    margin-top: 18px;
+    font-size: .97rem;
+  }
+  .link-box a {
+    color: var(--accent);
+    font-weight: 700;
+    text-decoration: underline;
+  }
+  .link-box a:hover { color: var(--primary-text); }
+
+  /* ── SELBSTCHECK-CHECKLISTE (zum Abhaken, ohne richtig/falsch) ── */
+  .checklist {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 18px;
+  }
+  .checklist-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    background: var(--bg);
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 18px;
+    cursor: pointer;
+    transition: border-color .15s, background .15s;
+  }
+  .checklist-item:hover { border-color: var(--primary-dark); background: #e8faf3; }
+  .checklist-item input[type="checkbox"] {
+    width: 19px;
+    height: 19px;
+    accent-color: var(--primary-dark);
+    cursor: pointer;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .checklist-item span { font-size: .97rem; }
+  .checklist-item.checked-item { border-color: var(--success); background: var(--success-bg); }
+  .checklist-item.checked-item span { text-decoration: line-through; color: var(--success); }
+
+  .checklist-progress-wrap { margin-top: 4px; margin-bottom: 4px; }
+  .checklist-progress-text {
+    font-size: .88rem;
+    font-weight: 700;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+  .checklist-progress-bar-track {
+    background: var(--border);
+    border-radius: 20px;
+    height: 8px;
+    overflow: hidden;
+  }
+  .checklist-progress-bar-fill {
+    background: var(--primary-dark);
+    height: 100%;
+    width: 0%;
+    transition: width .2s;
+  }
+
+  /* ── FEHLER-REFERENZLISTE (nur zum Lesen, keine Interaktion) ── */
+  .warning-list {
+    padding-left: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+  .warning-list li::marker { content: "⚠️ "; }
+
+  @media (max-width: 640px) {
+    .page-header { padding: 22px 20px; }
+    .exercise, .info-card { padding: 20px 18px; }
+    .tf-options { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+<div class="page-wrapper">
+
+  <!-- ============================================================
+       SEITENHEADER
+       Hier einfach Titel & Untertitel anpassen.
+       ============================================================ -->
+  <header class="page-header">
+    <div class="label">Workbook · Kapitel 9</div>
+    <h1>✨ Abschluss feinschleifen –<br>der letzte Blick auf die Arbeit</h1>
+    <div class="subtitle">In dieser kleinen Workbook-Einheit werden nochmals die wichtigsten Informationen von Kapitel 9 wiederholt. Das Bearbeiten der Checklisten ist freiwillig und soll Ihnen als Selbstlerneinheit dienen.</div>
+  </header>
+
+  <!-- ============================================================
+       INFO-TEXT – Einführung
+       ============================================================ -->
+  <div class="info-card">
+    <h2>🔎 Der letzte Schritt</h2>
+    <p>Der letzte Schritt beim Schreiben einer Forschungsarbeit besteht vor allem darin, sich die eigene Arbeit erneut anzusehen und Fehler zu entfernen. Nehmen Sie sich dafür ausreichend Zeit. Dabei sollte der Fokus nicht mehr auf der inhaltlichen Überarbeitung liegen, sondern auf Form, Sprache und Vollständigkeit.</p>
+  </div>
+
+  <!-- ============================================================
+       SELBSTCHECK 1 – Allgemeine Checkliste
+       (Checkliste zum Abhaken, kein Quiz mit richtig/falsch)
+       ============================================================ -->
+  <section class="exercise" id="check1">
+    <div class="exercise-label">Selbstcheck 1 · Allgemein</div>
+    <h3>Allgemeine Checkliste</h3>
+    <p class="exercise-intro">Hake ab, was du bereits geprüft hast.</p>
+
+    <ul class="checklist" id="checklist-1" data-progress-id="progress-1">
+      <li class="checklist-item"><input type="checkbox"><span>Habe ich meine Forschungsfrage beantwortet?</span></li>
+      <li class="checklist-item"><input type="checkbox"><span>Habe ich die Formalia (Text, Zitate, Abbildungen etc.) eingehalten?</span></li>
+      <li class="checklist-item"><input type="checkbox"><span>Stimmt das Seitenverhältnis Einleitung – Hauptteil – Schluss (10 % – 70 % – 20 %)?</span></li>
+      <li class="checklist-item"><input type="checkbox"><span>Habe ich mich an die Sprachregeln gehalten (insb. Fachsprache, deutsche Rechtschreibung &amp; Grammatik)?</span></li>
+      <li class="checklist-item"><input type="checkbox"><span>Habe ich alle Gedanken mit wissenschaftlichen Quellen belegt und korrekt zitiert sowie eigene Schlussfolgerungen nachvollziehbar argumentiert?</span></li>
+      <li class="checklist-item"><input type="checkbox"><span>Habe ich alle Fachbegriffe ausreichend definiert und erklärt?</span></li>
+      <li class="checklist-item"><input type="checkbox"><span>Kann ich einen Teil meiner Arbeit noch kürzen? (Füllwörter, Wiederholungen)</span></li>
+      <li class="checklist-item"><input type="checkbox"><span>Ist der rote Faden ersichtlich?</span></li>
+      <li class="checklist-item"><input type="checkbox"><span>Habe ich die Vorgaben meiner Betreuungsperson eingehalten?</span></li>
+    </ul>
+
+    <div class="checklist-progress-wrap">
+      <div class="checklist-progress-text" id="progress-1-text">0 von 9 erledigt</div>
+      <div class="checklist-progress-bar-track"><div class="checklist-progress-bar-fill" id="progress-1-bar"></div></div>
+    </div>
+    <button class="btn-reset" onclick="resetChecklist('checklist-1')">↺ Zurücksetzen</button>
+  </section>
+
+  <!-- ============================================================
+       SELBSTCHECK 2 – Inhaltlich-fachliche Prüfung
+       ============================================================ -->
+  <section class="exercise" id="check2">
+    <div class="exercise-label">Selbstcheck 2 · Inhaltlich-fachlich</div>
+    <h3>1. Inhaltlich-fachliche Prüfung</h3>
+    <p class="exercise-intro">Hake ab, was du bereits geprüft hast.</p>
+
+    <ul class="checklist" id="checklist-2" data-progress-id="progress-2">
+      <li class="checklist-item"><input type="checkbox"><span>Sind alle Informationen korrekt und überprüfbar? → Reproduzierbarkeit</span></li>
+      <li class="checklist-item"><input type="checkbox"><span>Sind alle externen Informationen als solche gekennzeichnet und mit geeigneten Quellen belegt?</span></li>
+      <li class="checklist-item"><input type="checkbox"><span>Stimmen die angegebenen Zahlen und Fakten?</span></li>
+      <li class="checklist-item"><input type="checkbox"><span>Ist das Literaturverzeichnis vollständig? → z. B. mit Zotero geprüft</span></li>
+      <li class="checklist-item"><input type="checkbox"><span>Sind alle Eigennamen korrekt geschrieben?</span></li>
+      <li class="checklist-item"><input type="checkbox"><span>Habe ich meine Zahlen richtig übertragen?</span></li>
+    </ul>
+
+    <div class="checklist-progress-wrap">
+      <div class="checklist-progress-text" id="progress-2-text">0 von 6 erledigt</div>
+      <div class="checklist-progress-bar-track"><div class="checklist-progress-bar-fill" id="progress-2-bar"></div></div>
+    </div>
+    <button class="btn-reset" onclick="resetChecklist('checklist-2')">↺ Zurücksetzen</button>
+  </section>
+
+  <!-- ============================================================
+       SELBSTCHECK 3 – Orthographisch-stilistische Korrektur
+       ============================================================ -->
+  <section class="exercise" id="check3">
+    <div class="exercise-label">Selbstcheck 3 · Sprache &amp; Stil</div>
+    <h3>2. Orthographisch-stilistische Korrektur</h3>
+    <p class="exercise-intro">Hake ab, was du bereits geprüft hast.</p>
+
+    <ul class="checklist" id="checklist-3" data-progress-id="progress-3">
+      <li class="checklist-item"><input type="checkbox"><span>Aktiv schreiben: Passivformulierungen &amp; Substantivierungen meiden</span></li>
+      <li class="checklist-item"><input type="checkbox"><span>Kurze und prägnante Sätze: Schachtelsätze in kurze Hauptsätze umwandeln</span></li>
+      <li class="checklist-item"><input type="checkbox"><span>Kohärenz und Konsistenz: korrekte Bezüge im Text und einheitliche Begriffsverwendung</span></li>
+      <li class="checklist-item"><input type="checkbox"><span>Präzise formulieren: genaue Beschreibung des Sachverhalts, leere Worthülsen, Umgangssprache und Sprichwörter meiden – orthografisch und grammatikalisch korrekt</span></li>
+      <li class="checklist-item"><input type="checkbox"><span>Substantivierungen (-ung, -keit, -heit, ...) wenn möglich ersetzen oder vermeiden</span></li>
+    </ul>
+
+    <div class="checklist-progress-wrap">
+      <div class="checklist-progress-text" id="progress-3-text">0 von 5 erledigt</div>
+      <div class="checklist-progress-bar-track"><div class="checklist-progress-bar-fill" id="progress-3-bar"></div></div>
+    </div>
+    <button class="btn-reset" onclick="resetChecklist('checklist-3')">↺ Zurücksetzen</button>
+  </section>
+
+  <!-- ============================================================
+       SELBSTCHECK 4 – Schlusskorrektur & Abgabe
+       ============================================================ -->
+  <section class="exercise" id="check4">
+    <div class="exercise-label">Selbstcheck 4 · Schlusskorrektur</div>
+    <h3>3. Schlusskorrektur &amp; Abgabe</h3>
+    <p class="exercise-intro">Hake ab, was du bereits geprüft hast.</p>
+
+    <ul class="checklist" id="checklist-4" data-progress-id="progress-4">
+      <li class="checklist-item"><input type="checkbox"><span>Seiten- und Textumbrüche / Überschriften geprüft?</span></li>
+      <li class="checklist-item"><input type="checkbox"><span>Verzeichnisse (Inhalt, Abbildungen, Tabellen, Literatur) vollständig und korrekt?</span></li>
+      <li class="checklist-item"><input type="checkbox"><span>Ist der PDF-Druck korrekt (keine abgeschnittenen Inhalte, richtige Formatierung)?</span></li>
+      <li class="checklist-item"><input type="checkbox"><span>Weiß ich, wie ich die Forschungsarbeit abgeben muss (gedruckt oder online)?</span></li>
+    </ul>
+
+    <div class="checklist-progress-wrap">
+      <div class="checklist-progress-text" id="progress-4-text">0 von 4 erledigt</div>
+      <div class="checklist-progress-bar-track"><div class="checklist-progress-bar-fill" id="progress-4-bar"></div></div>
+    </div>
+    <button class="btn-reset" onclick="resetChecklist('checklist-4')">↺ Zurücksetzen</button>
+  </section>
+
+  <!-- ============================================================
+       INFO-TEXT – Häufige Fehler, die zum Durchfallen führen
+       (Reine Referenzliste, keine Interaktion – keine erfundenen
+       Distraktoren, da alle Punkte tatsächliche Risikofaktoren sind.)
+       ============================================================ -->
+  <div class="info-card">
+    <h2>⚠️ Häufige Fehler, die zum Durchfallen führen</h2>
+    <h3>Allgemein</h3>
+    <ul class="warning-list">
+      <li>Die Textlänge (Hauptteil) ist zu kurz – ca. 20 % unter der formal angegebenen Soll-Länge.</li>
+      <li>Es liegen viele Zitierfehler im Text vor (z. B. 30 % fehlerbehaftete Zitationen).</li>
+      <li>Es liegen viele Fehler im Literaturverzeichnis vor (z. B. 30 % fehlerbehaftete Einträge).</li>
+      <li>Die abgesprochene empirische Methode wurde nicht verwendet.</li>
+      <li>Das Literaturverzeichnis ist sehr kurz (weniger als 15 Quellen bei Bachelor- bzw. 25 bei Masterarbeiten).</li>
+      <li>Die Qualität des Literaturverzeichnisses ist gering (über 30 % Quellen von zweifelhafter Qualität, z. B. aus Ratgeber-Büchern).</li>
+      <li>Die Lesbarkeit ist durch optische Gestaltung oder gravierende Sprachmängel stark eingeschränkt (z. B. viele Rechtschreibfehler).</li>
+      <li>Es findet sich ein oder mehrere Plagiate (weitere Konsequenzen sind möglich).</li>
+    </ul>
+    <h3>In quantitativen (empirischen) Arbeiten</h3>
+    <ul class="warning-list">
+      <li>Es wird keine Inferenzstatistik verwendet.</li>
+      <li>Der p-Wert oder die Post-Verteilung (und ihre Derivate) werden falsch interpretiert.</li>
+      <li>Es wird keine Deskriptiv-Statistik berichtet.</li>
+      <li>Hypothesen und Datenanalyse passen nicht zusammen.</li>
+      <li>Die Stichprobe ist kleiner als 50 % der Menge, die für die Teilnote „gut“ vorausgesetzt wird.</li>
+    </ul>
+    <h3>In qualitativen (empirischen) Arbeiten</h3>
+    <ul class="warning-list">
+      <li>Es werden keine Kategorien berichtet.</li>
+      <li>Es werden nur wenige Kodierungen vorgenommen (unter 30).</li>
+      <li>Es werden keine Kodierregeln berichtet.</li>
+      <li>Die Stichprobe ist kleiner als 50 % der Menge, die für die Teilnote „gut“ vorausgesetzt wird.</li>
+      <li>Bei Systematic Literature Reviews (SLR): Der PRISMA-Flow ist nicht nachvollziehbar dokumentiert.</li>
+    </ul>
+  </div>
+
+</div><!-- /.page-wrapper -->
+
+<script>
+/* ============================================================
+   SELBSTCHECK-CHECKLISTEN (Selbstcheck 1–4)
+   Jede Checkliste zählt automatisch ihre abgehakten Punkte
+   und zeigt den Fortschritt als Text + Balken an.
+   ============================================================ */
+function updateChecklistProgress(listEl) {
+  const progressId = listEl.dataset.progressId;
+  const items = listEl.querySelectorAll('.checklist-item');
+  const total = items.length;
+  const checked = listEl.querySelectorAll('input[type="checkbox"]:checked').length;
+  const text = document.getElementById(progressId + '-text');
+  const bar = document.getElementById(progressId + '-bar');
+  text.textContent = checked + ' von ' + total + ' erledigt';
+  bar.style.width = (total === 0 ? 0 : (checked / total * 100)) + '%';
+}
+
+function setupChecklists() {
+  document.querySelectorAll('.checklist').forEach(listEl => {
+    listEl.querySelectorAll('.checklist-item').forEach(item => {
+      const checkbox = item.querySelector('input[type="checkbox"]');
+      checkbox.addEventListener('change', () => {
+        item.classList.toggle('checked-item', checkbox.checked);
+        updateChecklistProgress(listEl);
+      });
+    });
+    updateChecklistProgress(listEl);
+  });
+}
+setupChecklists();
+
+function resetChecklist(listId) {
+  const listEl = document.getElementById(listId);
+  listEl.querySelectorAll('.checklist-item').forEach(item => {
+    item.classList.remove('checked-item');
+    item.querySelector('input[type="checkbox"]').checked = false;
+  });
+  updateChecklistProgress(listEl);
+}
+</script>
+</body>
+</html>
