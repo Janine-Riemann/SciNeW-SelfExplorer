@@ -1,1 +1,1351 @@
 
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Etappe 9 – Self-Explorer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --green:    #74C2A8;
+      --dark:     #121616;
+      --orange:   #EE7050;
+      --bg:       #F5F5F0;
+      --surface:  #FFFFFF;
+      --border:   #E2E2DC;
+      --text:     #121616;
+      --muted:    #6B7280;
+      --sidebar-w: 320px;
+      --header-h:  72px;
+      --tab-h:     56px;
+      --radius:    16px;
+      --font: 'DM Sans', sans-serif;
+      --mono: 'DM Mono', monospace;
+      
+      --shadow-sm: 0 2px 8px rgba(18, 22, 22, 0.04);
+      --shadow-md: 0 10px 30px rgba(18, 22, 22, 0.05);
+      --shadow-lg: 0 20px 40px rgba(18, 22, 22, 0.12);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* TOP HEADER */
+    .top-header {
+      position: fixed; top: 0; left: 0; right: 0;
+      height: var(--header-h);
+      background: rgba(18, 22, 22, 0.9);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      display: flex; align-items: center; gap: 16px;
+      padding: 0 2rem;
+      border-bottom: 1px solid rgba(116,194,168,0.12);
+      z-index: 100;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    }
+    .header-left { display: flex; align-items: center; gap: 1.25rem; }
+    
+    /* BURGER-BUTTON */
+    .burger-btn {
+      background: none; border: none; cursor: pointer;
+      display: flex; flex-direction: column; gap: 6px; padding: 8px;
+      border-radius: 8px;
+      transition: background 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .burger-btn:hover { background: rgba(116,194,168,0.12); }
+    .burger-btn span {
+      display: block; width: 22px; height: 2px;
+      background: var(--green); border-radius: 2px;
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s;
+    }
+    .burger-btn.open span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+    .burger-btn.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .burger-btn.open span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+    .site-brand {
+      display: flex; align-items: center; gap: 12px;
+      font-size: 1.1rem; font-weight: 700; color: #fff;
+      letter-spacing: -0.03em; text-decoration: none;
+    }
+    .site-brand img {
+      width: 36px; height: 36px;
+      border-radius: 50%; object-fit: cover;
+      box-shadow: 0 0 0 2px rgba(114, 194, 168, 0.4);
+    }
+
+    .topbar-nav { margin-left: auto; }
+    .topbar-nav a {
+      font-size: 0.9rem; font-weight: 500;
+      color: rgba(255, 255, 255, 0.9);
+      padding: 8px 16px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: all 0.25s ease;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    .topbar-nav a:hover {
+      color: #fff;
+      background: rgba(116,194,168,0.15);
+      border-color: rgba(116,194,168,0.3);
+    }
+
+    /* SIDEBAR */
+    .sidebar {
+      position: fixed; top: var(--header-h); 
+      left: calc(-1 * var(--sidebar-w));
+      bottom: 0;
+      width: var(--sidebar-w);
+      background: var(--dark);
+      padding: 2.5rem 0;
+      overflow-y: auto;
+      transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+      z-index: 90;
+      box-shadow: var(--shadow-lg);
+    }
+    .sidebar.open { transform: translateX(var(--sidebar-w)); }
+
+    .sidebar-label {
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 0.15em;
+      color: rgba(255, 255, 255, 0.6);
+      text-transform: uppercase;
+      padding: 0 2rem; margin-bottom: 1.25rem;
+    }
+    .sidebar nav { display: flex; flex-direction: column; gap: 6px; padding: 0 1rem; }
+    
+    .sidebar nav a {
+      display: flex; align-items: center; gap: 1rem;
+      padding: 0.95rem 1.25rem;
+      font-size: 0.95rem; 
+      color: rgba(255, 255, 255, 0.95);
+      text-decoration: none;
+      border-radius: 10px;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .sidebar nav a:hover { 
+      background: rgba(255, 255, 255, 0.1); 
+      color: #fff; 
+    }
+    
+    .sidebar nav a.active {
+      color: var(--dark);
+      background: var(--green);
+      font-weight: 700;
+    }
+    
+    .sidebar nav a .num {
+      font-size: 0.8rem; font-family: var(--mono); font-weight: 600;
+      color: var(--green); min-width: 1.5rem;
+      opacity: 0.9;
+    }
+    .sidebar nav a.active .num { 
+      color: var(--dark); 
+      opacity: 0.8; 
+    }
+
+    /* OVERLAY */
+    .sidebar-overlay {
+      display: none; position: fixed; inset: 0; background: rgba(18, 22, 22, 0.3);
+      z-index: 80; opacity: 0; transition: opacity 0.4s ease;
+      backdrop-filter: blur(4px);
+    }
+    .sidebar-overlay.show { display: block; opacity: 1; }
+
+    /* MAIN AREA */
+    .main-wrap {
+      margin-top: var(--header-h);
+      flex: 1; display: flex; flex-direction: column;
+      background: #F8FAF9;
+    }
+
+    .lesson-content-container {
+      width: 100%;
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      padding: 2rem 1.5rem;
+    }
+
+    /* HERO BEREICH */
+    .lesson-hero {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 3rem 3rem 0;
+      width: 100%;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-sm);
+      margin-bottom: 1.5rem;
+    }
+    .chapter-badge {
+      display: inline-block;
+      font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em;
+      text-transform: uppercase;
+      background: rgba(116,194,168,0.1);
+      color: #4f9880;
+      border: 1px solid rgba(116,194,168,0.25);
+      border-radius: 30px;
+      padding: 0.35rem 1rem;
+      margin-bottom: 1.25rem;
+    }
+    .lesson-title {
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      font-weight: 700; letter-spacing: -0.04em;
+      color: var(--dark); margin-bottom: 0.75rem;
+      line-height: 1.15;
+    }
+    .lesson-subtitle {
+      font-size: 1rem; color: var(--muted); margin-bottom: 2.5rem;
+      max-width: 700px; line-height: 1.6;
+    }
+
+    /* TABS */
+    .tab-nav {
+      display: flex; gap: 8px;
+      border-bottom: 1px solid var(--border);
+      overflow-x: auto; scrollbar-width: none;
+    }
+    .tab-nav::-webkit-scrollbar { display: none; }
+    .tab-btn {
+      background: none; border: none; cursor: pointer;
+      font-family: var(--font); font-size: 0.95rem; font-weight: 500;
+      color: var(--muted);
+      padding: 0 1.5rem; height: var(--tab-h);
+      white-space: nowrap;
+      border-bottom: 3px solid transparent;
+      transition: all 0.2s ease;
+      position: relative; bottom: -1px;
+    }
+    .tab-btn:hover { color: var(--dark); }
+    .tab-btn.active { 
+      color: var(--dark); 
+      border-bottom-color: var(--green); 
+      font-weight: 600;
+    }
+
+    .tab-content { width: 100%; flex: 1; }
+    .tab-panel { display: none; animation: fadeIn 0.4s ease-out; }
+    .tab-panel.active { display: block; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* KERNTHEMEN LISTE */
+    .topic-list { display: flex; flex-direction: column; gap: 1rem; }
+    .topic-item {
+      display: grid;
+      grid-template-columns: auto auto 1fr;
+      gap: 0.5rem 1.25rem;
+      padding: 1.5rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-sm);
+      cursor: pointer;
+      transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.25s, box-shadow 0.25s;
+    }
+    .topic-item:hover { 
+      border-color: var(--green); 
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+    
+    .topic-checkbox {
+      width: 1.5rem; height: 1.5rem;
+      border: 2px solid var(--border);
+      border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.2s ease;
+      margin-top: 2px;
+    }
+    .topic-item:hover .topic-checkbox { border-color: var(--green); }
+    
+    .topic-item.checked {
+      background: rgba(116,194,168,0.03);
+      border-color: rgba(116,194,168,0.3);
+      box-shadow: none;
+    }
+    .topic-item.checked .topic-checkbox {
+      background: var(--green);
+      border-color: var(--green);
+    }
+    .topic-item.checked .topic-checkbox::before {
+      content: '✓'; color: var(--dark); font-size: 0.9rem; font-weight: bold;
+    }
+    .topic-item.checked .topic-title {
+      color: var(--muted); text-decoration: line-through; opacity: 0.7;
+    }
+    .topic-item.checked .topic-sub { opacity: 0.6; }
+
+    .topic-num {
+      font-family: var(--mono); font-size: 0.8rem; font-weight: 500;
+      color: var(--green); padding-top: 4px;
+    }
+    .topic-title { font-size: 1.05rem; font-weight: 600; margin-bottom: 0.4rem; color: var(--dark); letter-spacing: -0.01em; }
+    .topic-sub { font-size: 0.9rem; color: var(--muted); line-height: 1.6; }
+
+    /* ACCORDIONS (INPUT TAB) */
+    #tab-input .accordion-container {
+      display: flex;
+      flex-direction: column;
+      margin-top: 1rem;
+    }
+    #tab-input .accordion-container > .accordion-item + .accordion-item {
+      margin-top: 1rem;
+    }
+    #tab-input .accordion-item {
+      margin-bottom: 0;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-sm);
+      overflow: hidden;
+      margin: 0;
+      transition: all 0.25s ease;
+    }
+    .accordion-item:hover { border-color: var(--green); box-shadow: var(--shadow-md); }
+    
+    .accordion-item summary {
+      padding: 1.5rem; font-size: 1.1rem; font-weight: 600; color: var(--dark);
+      cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; user-select: none;
+    }
+    .accordion-item summary::-webkit-details-marker { display: none; }
+    .accordion-item summary::after {
+      content: '＋'; font-size: 1.1rem; color: var(--green); font-weight: bold; transition: transform 0.3s ease;
+    }
+    .accordion-item[open] summary::after { content: '－'; transform: rotate(180deg); }
+    
+    .accordion-content {
+      padding: 0 1.5rem 1.5rem 1.5rem;
+      border-top: 1px solid var(--border);
+      background: #FCFDFD;
+    }
+    
+    .audio-summary-placeholder {
+      font-size: 0.9rem; color: var(--muted);
+      background: #F5F5F0; border-left: 3px solid var(--green);
+      padding: 1rem; margin-top: 0.75rem; border-radius: 0 10px 10px 0;
+      line-height: 1.5;
+    }
+    .text-placeholder-box {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1.5rem; margin-top: 1rem; box-shadow: var(--shadow-sm);
+    }
+
+    .prose h2 { font-size: 1.5rem; font-weight: 700; margin: 0.5rem 0 1rem; letter-spacing: -0.03em; color: var(--dark); }
+    .prose p { font-size: 1rem; line-height: 1.75; color: #333; margin-bottom: 1.25rem; }
+    
+    /* AUDIO BLOCK */
+    .audio-block {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1.25rem; margin: 1.25rem 0; box-shadow: var(--shadow-sm);
+    }
+    .audio-label {
+      font-size: 0.75rem; font-weight: 700; color: var(--muted);
+      text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.25rem;
+    }
+    .audio-block audio { display: block; width: 100%; margin-top: 0.75rem; outline: none; }
+
+    /* MEDIEN-GRID */
+    .video-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.25rem; margin-top: 1.25rem; }
+    .video-card {
+      border-radius: 12px; overflow: hidden;
+      border: 1px solid var(--border); background: var(--surface); text-decoration: none; color: var(--text);
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1); display: block; box-shadow: var(--shadow-sm);
+    }
+    .video-card:hover { border-color: var(--green); transform: translateY(-3px); box-shadow: var(--shadow-md); }
+    .video-thumb { position: relative; aspect-ratio: 16/9; background: #000; }
+    .video-thumb img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease; }
+    .video-card:hover .video-thumb img { transform: scale(1.03); }
+    .play-icon { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
+    .play-icon circle { transition: fill 0.2s ease; }
+    .video-card:hover .play-icon circle { fill: var(--green); }
+    .video-card:hover .play-icon polygon { fill: var(--dark); }
+    .video-label { padding: 0.85rem 1rem; font-size: 0.9rem; font-weight: 600; line-height: 1.4; color: var(--dark); }
+
+    /* WEBSITE LINKS */
+    .link-grid { display: flex; flex-direction: column; gap: 0.75rem; margin-top: 1.5rem; }
+    .link-card {
+      display: flex; align-items: center; gap: 1rem;
+      padding: 0.9rem 1.1rem;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 12px; text-decoration: none; color: var(--text);
+      box-shadow: var(--shadow-sm);
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .link-card:hover { border-color: var(--green); transform: translateY(-2px); box-shadow: var(--shadow-md); }
+    .link-info { flex: 1; min-width: 0; }
+    .link-title { font-size: 0.95rem; font-weight: 600; color: var(--dark); margin-bottom: 0.2rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .link-url { font-size: 0.8rem; color: var(--muted); font-family: var(--mono); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .link-arrow { flex-shrink: 0; color: var(--green); opacity: 0.7; transition: opacity 0.2s; }
+    .link-card:hover .link-arrow { opacity: 1; }
+
+    /* STUDY GUIDE */
+    .study-guide { display: flex; flex-direction: column; gap: 1.5rem; margin: 1.5rem 0 2rem; }
+    .phase-block {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-sm);
+    }
+    .phase-header {
+      display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap;
+      padding: 1.1rem 1.5rem; background: rgba(116,194,168,0.06);
+      border-bottom: 1px solid var(--border);
+    }
+    .phase-badge {
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      background: var(--green); color: var(--dark); border-radius: 20px; padding: 0.3rem 0.85rem;
+    }
+    .phase-badge--orange { background: var(--orange); color: #fff; }
+    .phase-badge--purple { background: #7C6FCD; color: #fff; }
+    .phase-title { font-size: 1.05rem; font-weight: 600; color: var(--dark); }
+    .phase-time { font-size: 0.85rem; color: var(--muted); margin-left: auto; }
+    .phase-body { padding: 1.5rem; display: flex; flex-direction: column; gap: 1.25rem; }
+    .phase-body > p { font-size: 1rem; line-height: 1.7; color: #333; }
+
+    .sg-section-title {
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted);
+      margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border);
+    }
+    .sg-def-list { display: flex; flex-direction: column; gap: 0.75rem; }
+    .sg-def-item {
+      display: grid; grid-template-columns: 240px 1fr; gap: 0.5rem 1.5rem;
+      padding: 1rem 1.25rem; background: #F9F9F6; border-radius: 8px; font-size: 0.95rem; border: 1px solid var(--border);
+    }
+    @media(max-width:640px){ .sg-def-item { grid-template-columns: 1fr; } }
+    .sg-term { font-weight: 600; color: var(--dark); line-height: 1.5; }
+    .sg-def { color: #333; line-height: 1.6; }
+
+    .sg-card {
+      background: #F9F9F6; border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem;
+    }
+    .sg-card-title { font-size: 1.05rem; font-weight: 600; color: var(--dark); margin-bottom: 1rem; }
+    .sg-ul, .sg-ol { padding-left: 1.5rem; display: flex; flex-direction: column; gap: 0.5rem; }
+    .sg-ul li, .sg-ol li { font-size: 0.95rem; line-height: 1.65; color: #333; }
+    .sg-flow {
+      font-size: 1rem; font-weight: 600; color: var(--dark);
+      background: rgba(116,194,168,0.1); border-radius: 8px; padding: 0.8rem 1.25rem; text-align: center;
+    }
+
+    .sg-table-wrap { overflow-x: auto; border-radius: 12px; border: 1px solid var(--border); box-shadow: var(--shadow-sm); }
+    .sg-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; background: var(--surface); }
+    .sg-table thead tr { background: var(--dark); color: #fff; }
+    .sg-table th { padding: 1rem 1.25rem; text-align: left; font-weight: 600; font-size: 0.85rem; letter-spacing: 0.05em; text-transform: uppercase; }
+    .sg-table td { padding: 1rem 1.25rem; vertical-align: top; border-bottom: 1px solid var(--border); line-height: 1.6; color: #333; }
+    .sg-table tbody tr:last-child td { border-bottom: none; }
+    .sg-table tbody tr:nth-child(even) { background: rgba(116,194,168,0.02); }
+
+    .sg-repeat-list { display: flex; flex-direction: column; gap: 1rem; margin-top: 0.5rem; }
+    .sg-repeat-item {
+      display: flex; gap: 1.25rem; align-items: flex-start; padding: 1.25rem;
+      background: #F9F9F6; border-radius: 12px; font-size: 0.95rem; line-height: 1.6; color: #333; border: 1px solid var(--border);
+    }
+    .sg-repeat-badge {
+      flex-shrink: 0; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;
+      background: var(--green); color: var(--dark); border-radius: 20px; padding: 0.25rem 0.75rem; margin-top: 2px;
+    }
+    .sg-repeat-badge--light { background: #7C6FCD; color: #fff; }
+
+    /* ÜBUNGEN */
+    .uebungen-wrapper {
+      overflow: hidden; border-radius: var(--radius);
+      background: var(--surface); border: 1px solid var(--border); box-shadow: var(--shadow-sm);
+    }
+    .uebungen-frame { width: 100%; min-height: 600px; border: none; display: block; background: var(--surface); }
+
+    .section-heading {
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--muted); margin: 0.5rem 0 1.5rem;
+    }
+
+    /* RESPONSIVITÄT */
+    @media (max-width: 1000px) {
+      .lesson-content-container { padding: 1rem 0; }
+      .lesson-hero { border-radius: 0; border-left: none; border-right: none; padding: 2.5rem 1.5rem 0; }
+      .tab-content { padding: 1.5rem 1rem; }
+    }
+    @media (max-width: 600px) {
+      .top-header { padding: 0 1rem; }
+      .lesson-hero { padding: 2rem 1rem 0; }
+      .tab-btn { padding: 0 1rem; font-size: 0.88rem; }
+      .topic-item { padding: 1.25rem; grid-template-columns: auto 1fr; }
+      .topic-num { display: none; }
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 8px; height: 8px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: rgba(18, 22, 22, 0.1); border-radius: 99px; }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(116, 194, 168, 0.4); }
+    @media (max-width: 768px) {
+  /* Blendet den Tabellenkopf auf dem Handy aus */
+  .sg-table thead {
+    display: none;
+  }
+  
+  /* Macht aus jeder Tabellenzeile eine eigene Karte */
+  .sg-table, .sg-table tbody, .sg-table tr, .sg-table td {
+    display: block;
+    width: 100%;
+  }
+  
+  .sg-table tr {
+    margin-bottom: 1.5rem;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: var(--surface);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+  }
+  
+  /* Gibt den Zellen Platz und fügt ein Label hinzu */
+  .sg-table td {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid rgba(18, 22, 22, 0.05);
+    position: relative;
+    font-size: 0.95rem;
+  }
+  
+  .sg-table td:last-child {
+    border-bottom: none;
+  }
+  
+  /* Die erste Spalte (Art der Hypothese) heben wir optisch als Titel hervor */
+  .sg-table td:first-child {
+    background: var(--dark);
+    color: #fff;
+    font-weight: 600;
+  }
+  
+  /* Optional: Wenn du leere Zellen als Abstandshalter nutzt, blende sie mobil aus */
+  .sg-table td:empty {
+    display: none;
+  }
+}
+  </style>
+</head>
+<body>
+
+  <!-- PLATFORM HEADER -->
+  <header class="top-header">
+    <div class="header-left">
+      <button class="burger-btn" id="burgerBtn" aria-label="Menü öffnen/schließen">
+        <span></span><span></span><span></span>
+      </button>
+      <a href="index.html" class="site-brand">
+        <img src="Logo_klein.png" alt="SciNeW Logo" />
+        <span>SciNeW</span>
+      </a>
+    </div>
+    <nav class="topbar-nav">
+      <a href="index.html">Startseite</a>
+    </nav>
+  </header>
+
+  <!-- SLIDE-IN BURGER MENU SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <p class="sidebar-label">Etappen</p>
+    <nav>
+      <a href="lektion-01.html"><span class="num">01</span> Grundlagen wissenschaftlicher Arbeit</a>
+      <a href="lektion-02.html"><span class="num">02</span> Fragen schärfen, Hypothesen schmieden</a>
+      <a href="lektion-03.html"><span class="num">03</span> Zielsicher recherchieren</a>
+      <a href="lektion-04.html"><span class="num">04</span> Klug lesen</a>
+      <a href="lektion-05.html"><span class="num">05</span> Theorie fundiert aufbauen</a>
+      <a href="lektion-06.html"><span class="num">06</span> Sauber zitieren</a>
+      <a href="lektion-07.html"><span class="num">07</span> Methoden und Daten überblicken</a>
+      <a href="lektion-08.html"><span class="num">08</span> Ergebnisse deuten</a>
+      <a href="lektion-09.html"class="active"><span class="num">09</span> Abschluss feinschleifen</a>
+    </nav>
+  </aside>
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <!-- ARBEITSBEREICH -->
+  <main class="main-wrap">
+    <div class="lesson-content-container">
+      
+      <!-- HERO BEREICH -->
+      <div class="lesson-hero">
+        <span class="chapter-badge">Etappe 9</span>
+        <h1 class="lesson-title">Abschluss feinschleifen</h1>
+        <p class="lesson-subtitle">
+          Wie optimiert man eine wissenschaftliche Arbeit für den Abschluss?
+        </p>
+        <div class="tab-nav" role="tablist">
+          <button class="tab-btn active" role="tab" data-tab="kernthemen">Kernthemen</button>
+          <button class="tab-btn" role="tab" data-tab="input">Input</button>
+          <button class="tab-btn" role="tab" data-tab="uebungen">Übungen</button>
+        </div>
+      </div>
+
+      <!-- INHALTE-TABS -->
+      <div class="tab-content">
+
+        <!-- TAB PANEL 1: KERNTHEMEN (JETZT ZUM ABHAKEN) -->
+        <div class="tab-panel active" id="tab-kernthemen" role="tabpanel">
+          
+          <div class="topic-list">
+            
+            <div class="topic-item">
+              <span class="topic-num">01</span>
+              <div class="topic-body">
+                <div class="topic-title">Limitationen</div>
+                <div class="topic-sub"> Dies sind Einschränkungen oder Grenzen einer Studie, die deren
+Ergebnisse beeinflussen können. Ihre transparente Benennung und die Erläuterung ihrer
+Auswirkungen zeigen wissenschaftliche Reife und dienen als Ausgangspunkt für die Formulierung
+von Empfehlungen für zukünftige Forschung.</div>
+              </div>
+            </div>
+
+            <div class="topic-item">
+              <span class="topic-num">02</span>
+              <div class="topic-body">
+                <div class="topic-title">Further Research </div>
+                <div class="topic-sub">Basierend auf den identifizierten Limitationen und den
+Studienergebnissen werden konkrete Empfehlungen und neue Forschungsfragen abgeleitet. Ziel ist
+es, Grenzen zu überwinden und den wissenschaftlichen Fortschritt zu fördern, indem aufgezeigt
+wird, wo weitere Forschung nötig ist.</div>
+              </div>
+            </div>
+
+            <div class="topic-item">
+              <span class="topic-num">03</span>
+              <div class="topic-body">
+                <div class="topic-title">Redigieren & Proofreading</div>
+                <div class="topic-sub"> Dieser mehrstufige Prozess der Qualitätssicherung
+umfasst die systematische Überprüfung einer wissenschaftlichen Arbeit. Er beinhaltet die
+inhaltlich-fachliche Prüfung, die orthographisch-stilistische Korrektur und die Schlusskorrektur,
+oft mit zeitlichem Abstand und dem Blick eines "Reviewers".</div>
+              </div>
+            </div>
+
+            <div class="topic-item">
+              <span class="topic-num">04</span>
+              <div class="topic-body">
+                <div class="topic-title">Wissenschaftliches Poster </div>
+                <div class="topic-sub">Ein Poster ist ein wichtiges Medium zur Präsentation von
+Forschungsergebnissen auf Konferenzen, das textliche und visuelle Elemente kombiniert. Die
+Gestaltung erfordert eine klare Struktur, die Beschränkung auf das Wesentliche und die Beachtung
+von Größen- und Schriftrichtlinien zur optimalen Lesbarkeit.</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        
+        <!-- TAB PANEL 2: INPUT (JETZT ALS ACCORDION) -->
+        <div class="tab-panel" id="tab-input" role="tabpanel">
+          <div class="prose">
+          
+            <div class="accordion-container">
+              
+              <!-- ACCORDION 1: Zum Anhören -->
+              <details class="accordion-item">
+                <summary>Zum Anhören 👂</summary>
+                <div class="accordion-content">
+                  <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--muted);">Dieser Inhalt wird Ihnen als Podcasts zur Verfügung gestellt.</p>
+                  
+                  <div class="audio-block">
+                    <div class="audio-label">Teil 1: Forschungsfragen entwickeln</div>
+                    <audio controls preload="metadata" src="audio/lektion2-teil1.mp3"></audio>
+                    <div class="audio-summary-placeholder">
+                      <strong>Zusammenfassung (Platzhalter):</strong> Hier folgt eine kurze Beschreibung der Kernpunkte und Themen zur Entstehung präziser Forschungsfragen.
+                    </div>
+                  </div>
+
+                  <div class="audio-block">
+                    <div class="audio-label">Teil 2: Hypothesen aufstellen</div>
+                    <audio controls preload="metadata" src="audio/lektion2-teil2.mp3"></audio>
+                    <div class="audio-summary-placeholder">
+                      <strong>Zusammenfassung (Platzhalter):</strong> Hier folgt eine kurze Beschreibung der Strukturierung und Ausrichtung von gerichteten und ungerichteten Hypothesen.
+                    </div>
+                  </div>
+                </div>
+              </details>
+
+              <!-- ACCORDION 2: Zum Lesen & Study Guide -->
+               <details class="accordion-item" style="margin-top: 1rem;">
+                <summary>Zum Lesen 📚</summary>
+                <div class="accordion-content">
+                  
+                  <!-- STUDY GUIDE INTEGRATION -->
+                  <div class="study-guide">
+
+                    <!-- PHASE 1 -->
+                    <div class="phase-block">
+                      <div class="phase-header">
+                        <span class="phase-badge">Phase 1</span>
+                        <span class="phase-title">Überprüfen &amp; Lernen</span>
+                        <span class="phase-time">&#9201; 60–90 Min.</span>
+                      </div>
+                      <div class="phase-body">
+                        <p>Eigne dir das notwendige Wissen über korrektes Zitieren und die verschiedenen Zitierstile an. Beginne damit, den gesamten Stoff in <strong>10–15 Minuten</strong> grob zu überfliegen. Notiere dir dann <strong>3–5 Kernlernziele</strong>, die dir besonders wichtig erscheinen oder die du vertiefen möchtest. Arbeite anschließend die folgenden Schlüsselthemen und Definitionen in fokussierten Lernblöcken durch (<strong>25 Minuten Lernen, 5 Minuten Pause</strong> – Pomodoro-Technik).</p>
+
+                        <h3 class="sg-section-title">Hauptargumente &amp; Kernaussagen</h3>
+                        <div class="sg-card">
+                          <p class="sg-card-title">Vorteile und Notwendigkeit des Zitierens</p>
+                          <ul class="sg-ul">
+                            <li><strong>Nachvollziehbarkeit sichern:</strong> Transparente Herkunft von Informationen und Überprüfbarkeit von Aussagen.</li>
+                            <li><strong>Transparenz schaffen:</strong> Offenlegung der Wissensgrundlagen.</li>
+                            <li><strong>Wissenschaftliche Redlichkeit:</strong> Vermeidung von Plagiaten und Demonstration von Integrität.</li>
+                            <li><strong>Grundlage für Bewertung:</strong> Unverzichtbar für Glaubwürdigkeit und objektive Qualitätsprüfung.</li>
+                            <li><strong>Orientierung für Forschung:</strong> Zitate dienen als Ansatzpunkte für weitere Untersuchungen.</li>
+                          </ul>
+                        </div>
+
+                        <div class="sg-card" style="margin-top:1.25rem;">
+                          <p class="sg-card-title">APA-Zitierweise im Überblick</p>
+                          <ul class="sg-ul">
+                            <li><strong>Standardisierung:</strong> Detaillierte und offiziell festgelegte Regeln durch die American Psychological Association (7. Version seit 2019). Vor allem in Psychologie, Pädagogik, Sozial- und Wirtschaftswissenschaften verbreitet.</li>
+                            <li><strong>Kurzzitation im Text:</strong> Verweis direkt nach dem Zitat/der Paraphrase (Autor, Jahr, ggf. Seitenzahl), z.&nbsp;B. <code style="font-family:var(--mono);font-size:0.85em;">(Miller, 2020, S. 15)</code>.</li>
+                            <li><strong>Direkte Zitate:</strong> In Anführungszeichen, immer mit Seitenzahl.</li>
+                            <li><strong>Indirekte Zitate:</strong> Sinngemäße Wiedergabe; Seitenangabe empfohlen, sparsam einsetzen, um eigene Denkleistung zu zeigen.</li>
+                            <li><strong>Narrative vs. Eingeklammerte Zitation:</strong> Autoren können im Satz genannt werden (narrativ) oder in Klammern nachgestellt sein (eingeklammert).</li>
+                          </ul>
+                        </div>
+
+                        <div class="sg-card" style="margin-top:1.25rem;">
+                          <p class="sg-card-title">Anzahl der Autor*innen im Text</p>
+                          <div class="sg-table-wrap" style="margin-top:0.75rem;">
+                            <table class="sg-table">
+                              <thead><tr><th>Konstellation</th><th>Eingeklammert</th><th>Narrativ</th></tr></thead>
+                              <tbody>
+                                <tr><td>Ein Autor</td><td><code style="font-family:var(--mono);font-size:0.85em;">(Rogers, 2003)</code></td><td><code style="font-family:var(--mono);font-size:0.85em;">Rogers (2003)</code></td></tr>
+                                <tr><td>Zwei Autor*innen</td><td><code style="font-family:var(--mono);font-size:0.85em;">(Mayer &amp; Siebeck, 2010, S. 425)</code></td><td><code style="font-family:var(--mono);font-size:0.85em;">Mayer und Siebeck (2010)</code></td></tr>
+                                <tr><td>Drei oder mehr</td><td><code style="font-family:var(--mono);font-size:0.85em;">(Baecker et al., 2007, S. 333)</code></td><td><code style="font-family:var(--mono);font-size:0.85em;">Baecker et al. (2007)</code></td></tr>
+                                <tr><td>Organisation</td><td><code style="font-family:var(--mono);font-size:0.85em;">(Institut der deutschen Wirtschaft Köln, 1996)</code></td><td><code style="font-family:var(--mono);font-size:0.85em;">Institut der deutschen Wirtschaft Köln (1996)</code></td></tr>
+                                <tr><td>Organisation mit Abk.</td><td><code style="font-family:var(--mono);font-size:0.85em;">(WHO, 2022)</code> (nach erstmaliger Einführung)</td><td><code style="font-family:var(--mono);font-size:0.85em;">WHO (2022)</code></td></tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+
+                        <div class="sg-card" style="margin-top:1.25rem;">
+                          <p class="sg-card-title">Seitenangaben im Text</p>
+                          <ul class="sg-ul">
+                            <li>Eine Seite: <code style="font-family:var(--mono);font-size:0.85em;">Rogers (2003, S. 12)</code></li>
+                            <li>Zwei Seiten: <code style="font-family:var(--mono);font-size:0.85em;">Rogers (2003, S. 12f.)</code></li>
+                            <li>Mehr als zwei Seiten: <code style="font-family:var(--mono);font-size:0.85em;">Rogers (2003, S. 12ff.)</code></li>
+                            <li>Gesamte Quelle: Seitenangabe entfällt → <code style="font-family:var(--mono);font-size:0.85em;">Rogers (2003)</code></li>
+                          </ul>
+                        </div>
+
+                        <h3 class="sg-section-title" style="margin-top:1.75rem;">Literaturverzeichnis – APA-Formate</h3>
+                        <div class="sg-card">
+                          <p class="sg-card-title">Zeitschriftenartikel</p>
+                          <p style="font-size:0.9rem;color:#333;line-height:1.7;font-family:var(--mono);">Anderson, C. A., &amp; Bushman, B. J. (2002). The effects of media violence on society. <em>Science, 295</em>(5564), 2377–2379. https://doi.org/10.1126/science.1070765</p>
+                        </div>
+                        <div class="sg-card" style="margin-top:1rem;">
+                          <p class="sg-card-title">Sammelbandbeitrag</p>
+                          <p style="font-size:0.9rem;color:#333;line-height:1.7;font-family:var(--mono);">Dijksterhuis, A., Smith, P. K., van Baaren, R. B., &amp; Wigboldus, D. H. J. (2005). The unconscious consumer: Effects of environment on consumer behavior. In R. F. Baumeister &amp; K. D. Vohs (Hrsg.), <em>The Handbook of Self-Regulation: Research, Theory, and Applications</em> (S. 193–209). Guilford Press.</p>
+                        </div>
+                        <div class="sg-card" style="margin-top:1rem;">
+                          <p class="sg-card-title">Monografie / Buch</p>
+                          <p style="font-size:0.9rem;color:#333;line-height:1.7;font-family:var(--mono);">Kahneman, D. (2011). <em>Thinking, fast and slow.</em> Farrar, Straus and Giroux.</p>
+                        </div>
+                        <div class="sg-card" style="margin-top:1rem;">
+                          <p class="sg-card-title">E-Book</p>
+                          <p style="font-size:0.9rem;color:#333;line-height:1.7;font-family:var(--mono);">Autor, A. A. (Jahr). <em>Buchtitel</em> (Auflage). Verlag. URL oder DOI</p>
+                        </div>
+                        <div class="sg-card" style="margin-top:1rem;">
+                          <p class="sg-card-title">Zeitungsartikel</p>
+                          <p style="font-size:0.9rem;color:#333;line-height:1.7;font-family:var(--mono);">Autor, A. A. (Jahr, Tag. Monat). <em>Titel.</em> In <em>Zeitung,</em> Seitenbereich. URL</p>
+                        </div>
+                        <div class="sg-card" style="margin-top:1rem;">
+                          <p class="sg-card-title">Internetquelle</p>
+                          <p style="font-size:0.9rem;color:#333;line-height:1.7;font-family:var(--mono);">Autor, A. A. (Jahr, Tag. Monat). <em>Titel.</em> Name der Webseite. URL</p>
+                        </div>
+                        <div class="sg-card" style="margin-top:1rem;">
+                          <p class="sg-card-title">Konferenzbeitrag (Präsentation)</p>
+                          <p style="font-size:0.9rem;color:#333;line-height:1.7;font-family:var(--mono);">Autor, A. A. (Jahr, Datum). <em>Titel des Papers</em> [Paper presentation]. Konferenzname, Ort. URL</p>
+                        </div>
+                        <div class="sg-card" style="margin-top:1rem;">
+                          <p class="sg-card-title">Film</p>
+                          <p style="font-size:0.9rem;color:#333;line-height:1.7;font-family:var(--mono);">Produzent*in, P. P. (Produzent*in), &amp; Regisseur*in, R. R. (Regisseur*in). (Jahr). <em>Titel</em> [Film]. Produktionsfirma.</p>
+                        </div>
+
+                        <h3 class="sg-section-title" style="margin-top:1.75rem;">Arten von Plagiaten &amp; Vermeidung</h3>
+                        <div class="sg-card">
+                          <div class="sg-table-wrap">
+                            <table class="sg-table">
+                              <thead><tr><th>Plagiatstyp</th><th>Beschreibung</th></tr></thead>
+                              <tbody>
+                                <tr><td>Verbalplagiat</td><td>Wörtliches Kopieren von Passagen ohne Kennzeichnung.</td></tr>
+                                <tr><td>Vollplagiat</td><td>Übernahme des gesamten Textes eines anderen Autors (auch KI-generierte Inhalte).</td></tr>
+                                <tr><td>Ideenplagiat</td><td>Fremde Gedanken in eigenen Worten ohne Quellenverweis.</td></tr>
+                                <tr><td>Teilplagiat</td><td>Übernahme einzelner Passagen ohne Kennzeichnung.</td></tr>
+                                <tr><td>Übersetzungsplagiat</td><td>Übersetzen fremdsprachiger Passagen ohne Quellenangabe.</td></tr>
+                                <tr><td>Selbstplagiat</td><td>Übernahme bereits publizierter eigener Textteile.</td></tr>
+                                <tr><td>Ghostwriting / Datenfälschung</td><td>Vortäuschung wissenschaftlicher Leistungen durch Dritte oder erfundene Ergebnisse.</td></tr>
+                              </tbody>
+                            </table>
+                          </div>
+                          <p style="font-size:0.9rem;color:var(--muted);margin-top:1rem;line-height:1.6;"><strong>Hilfsmittel zur Vermeidung:</strong> Scribbr (Quellenvorschau, Generator), Zotero (Literaturverwaltung), Paperpal, Grammarly (Plagiatsprüfung).</p>
+                        </div>
+
+                      </div>
+                    </div>
+
+                    <!-- PHASE 2 -->
+                    <div class="phase-block">
+                      <div class="phase-header">
+                        <span class="phase-badge phase-badge--orange">Phase 2</span>
+                        <span class="phase-title">Schlüsselthemen &amp; Definitionen</span>
+                      </div>
+                      <div class="phase-body">
+
+                        <h3 class="sg-section-title">Schlüsselbegriffe</h3>
+                        <div class="sg-def-list">
+                          <div class="sg-def-item"><span class="sg-def-term">APA-Zitierweise</span><span class="sg-def-def">Eine der am häufigsten genutzten Zitierstile der American Psychological Association, seit 2019 in der 7. Version.</span></div>
+                          <div class="sg-def-item"><span class="sg-def-term">Harvard-Zitierweise</span><span class="sg-def-def">Keine Vorgaben einer Organisation; individuelle Vorgaben an Hochschulen oder von Gutachtenden.</span></div>
+                          <div class="sg-def-item"><span class="sg-def-term">Direktes Zitat</span><span class="sg-def-def">Quelle wird wörtlich angeführt, in Anführungszeichen, zwingend mit Zitierstelle; sparsam nutzen.</span></div>
+                          <div class="sg-def-item"><span class="sg-def-term">Modifiziertes Zitat</span><span class="sg-def-def">Quelle wird modifiziert wörtlich angeführt; Abweichungen vom Original kennzeichnen (Auslassung durch Punkte, Anmerkung des Verfassers).</span></div>
+                          <div class="sg-def-item"><span class="sg-def-term">Indirektes Zitat</span><span class="sg-def-def">Quelle wird sinngemäß angeführt; Seitenangabe empfohlen.</span></div>
+                          <div class="sg-def-item"><span class="sg-def-term">Eingeklammerte Zitation</span><span class="sg-def-def">Zitationsbeleg am Satzende, z.&nbsp;B. <code style="font-family:var(--mono);font-size:0.85em;">(Autor, Jahr, S. XX)</code>.</span></div>
+                          <div class="sg-def-item"><span class="sg-def-term">Narrative Zitation</span><span class="sg-def-def">Autorennamen sind Teil des Satzes, z.&nbsp;B. <code style="font-family:var(--mono);font-size:0.85em;">Autor (Jahr, S. XX)</code>.</span></div>
+                          <div class="sg-def-item"><span class="sg-def-term">DOI</span><span class="sg-def-def">Digital Object Identifier – eindeutige, unveränderliche Nummer für ein digitales Objekt; dauerhaft zitierfähig. Format APA: <code style="font-family:var(--mono);font-size:0.85em;">https://doi.org/10.xxxx/...</code></span></div>
+                          <div class="sg-def-item"><span class="sg-def-term">URL</span><span class="sg-def-def">Websiteverweis – veränderbar, daher nicht dauerhaft zitierfähig. DOI hat Vorrang, falls vorhanden.</span></div>
+                          <div class="sg-def-item"><span class="sg-def-term">Primärquelle</span><span class="sg-def-def">Originalliteratur; sollte bevorzugt zitiert werden.</span></div>
+                          <div class="sg-def-item"><span class="sg-def-term">Sekundärquelle</span><span class="sg-def-def">Literatur, die die Originalquelle zitiert (Zitat aus zweiter Hand); nur zulässig, wenn das Original nicht zugänglich ist. Im Text: <code style="font-family:var(--mono);font-size:0.85em;">(Autor Original, Jahr, zit. nach Autor Sekundär, Jahr, S. YY)</code>.</span></div>
+                          <div class="sg-def-item"><span class="sg-def-term">Plagiat</span><span class="sg-def-def">Übernahme von Texten, Inhalten oder Ideen ohne Quellenangabe, die als eigene ausgegeben werden.</span></div>
+                        </div>
+
+                        <h3 class="sg-section-title" style="margin-top:1.75rem;">Schlüsselentitäten &amp; Klassifikationen</h3>
+                        <div class="sg-card">
+                          <p style="font-size:0.9rem;font-weight:600;color:var(--dark);margin-bottom:0.5rem;">Zitierstile (Auswahl):</p>
+                          <p style="font-size:0.9rem;color:#333;line-height:1.6;margin-bottom:0.75rem;">APA, Harvard, Deutsche Zitierweise, Vancouver, Chicago A, Chicago B, OSCOLA, MLA, IEEE</p>
+                          <p style="font-size:0.9rem;font-weight:600;color:var(--dark);margin-bottom:0.5rem;">Zitierarten:</p>
+                          <p style="font-size:0.9rem;color:#333;line-height:1.6;margin-bottom:0.75rem;">Direktes Zitat, modifiziertes Zitat, indirektes Zitat</p>
+                          <p style="font-size:0.9rem;font-weight:600;color:var(--dark);margin-bottom:0.5rem;">Plagiatsprüfsoftware:</p>
+                          <p style="font-size:0.9rem;color:#333;line-height:1.6;margin-bottom:0.75rem;">Dupli Checker, Plagiarism Detector, Search Engine Report, Paperpal (empfohlen), Grammarly</p>
+                          <p style="font-size:0.9rem;font-weight:600;color:var(--dark);margin-bottom:0.5rem;">Literaturverwaltung &amp; Online-Tools:</p>
+                          <p style="font-size:0.9rem;color:#333;line-height:1.6;">Zotero, Scribbr (Quellenvorschau/Generator)</p>
+                        </div>
+
+                      </div>
+                    </div>
+
+                    <!-- PHASE 3 -->
+                    <div class="phase-block">
+                      <div class="phase-header">
+                        <span class="phase-badge phase-badge--purple">Phase 3</span>
+                        <span class="phase-title">Üben &amp; Anwenden</span>
+                        <span class="phase-time">&#9201; 30–45 Min.</span>
+                      </div>
+                      <div class="phase-body">
+                        <p>Stelle dir die folgenden „Active Recall"-Fragen und versuche, sie <strong>ohne Nachzusehen</strong> zu beantworten. Teste dein Wissen anschließend mit den Übungsaufgaben. Halte <strong>1–2 unklarste Punkte</strong> fest, die du in Phase 4 wiederholen wirst.</p>
+
+                        <h3 class="sg-section-title">Active Recall-Aufforderungen</h3>
+                        <div class="sg-card">
+                          <ol class="sg-ol">
+                            <li>Wie unterscheidest du ein direktes von einem indirekten Zitat im APA-Stil, und wann solltest du Seitenangaben verwenden?</li>
+                            <li>Warum ist der DOI für die Zitierfähigkeit wichtiger als eine URL?</li>
+                            <li>Erläutere die Regeln für die Zitation im Text, wenn du 2, 3 oder mehr Autor*innen hast.</li>
+                            <li>Welche Arten von Plagiaten gibt es, und wie kannst du sicherstellen, dass du sie vermeidest?</li>
+                            <li>Was sind die Kernvorteile der APA-Zitierweise gegenüber anderen Stilen?</li>
+                          </ol>
+                        </div>
+
+                        <h3 class="sg-section-title" style="margin-top:1.75rem;">Übungsaufgaben &amp; Synthesefragen</h3>
+
+                        <div class="sg-card">
+                          <h3 class="sg-section-title">Aufgabe 1: Fehleranalyse (APA-Formatierung)</h3>
+                          <p style="font-size:0.95rem;line-height:1.7;color:#333;margin-bottom:1rem;">Identifiziere und korrigiere die Formatierungsfehler nach APA-Stil in den folgenden Literaturverzeichnis-Einträgen:</p>
+                          <div style="background:#F5F5F0;border-left:3px solid var(--orange);border-radius:0 10px 10px 0;padding:1rem 1.25rem;font-family:var(--mono);font-size:0.85rem;line-height:1.8;color:#333;">
+                            Anderson, C. A.; Bushman, B. J. 2002: The effects of media violence on society. In Science, 295(5564), 2377-2379. https://doi.org/10.1126/science.1070765<br><br>
+                            Brown, S. P., &amp; Stayman, D. M. (1992); Antecedents and consequences of attitude toward the ad: A meta-analysis. Journal of Consumer Research, 19(1), 34-51.<br><br>
+                            Dijksterhuis, A., Smith, P. K., van Baaren, R. B., &amp; Wigboldus, D. H. J. (2005). The unconscious consumer: Effects of environment on consumer behavior. R. F. Baumeister &amp; K. D. Vohs, The Handbook of Self-Regulation: Research, Theory, and Applications (193-209). Guilford Press.<br><br>
+                            Kahneman, D. (2011). Thinking, fast and slow. Farrar, Straus and Giroux.
+                          </div>
+                        </div>
+
+                        <div class="sg-card" style="margin-top:1.25rem;">
+                          <h3 class="sg-section-title">Aufgabe 2: Quellenzuordnung</h3>
+                          <p style="font-size:0.95rem;line-height:1.7;color:#333;margin-bottom:1rem;">Ordne die folgenden Quellenangaben dem Typ „Sammelbandbeitrag" oder „Zeitschriftenartikel" zu:</p>
+                          <div style="background:#F5F5F0;border-left:3px solid var(--green);border-radius:0 10px 10px 0;padding:1rem 1.25rem;font-family:var(--mono);font-size:0.85rem;line-height:1.8;color:#333;">
+                            Meffert, H. (1992). Strategien zur Profilierung von Marken. In E. Dichtl &amp; E. Walter (Hrsg.), <em>Marke und Markenartikel als Instrumente des Wettbewerbs</em> (S. 130–154). Vahlen.<br><br>
+                            Grady, J. S., Her, M., Moreno, G., Perez, C., &amp; Yelinek, J. (2019). Emotions in storybooks. <em>Psychology of Popular Media Culture, 8</em>(3), 207–217. https://doi.org/10.1037/ppm0000185<br><br>
+                            Rybaczewska, M., &amp; Sparks, L. (2022). Ageing consumers and e-commerce activities. <em>Ageing and Society, 42</em>(8), 1879–1898. https://doi.org/10.1017/S0144686X20001932
+                          </div>
+                        </div>
+
+                        <div class="sg-card" style="margin-top:1.25rem;">
+                          <h3 class="sg-section-title">Aufgabe 3: Zitation im Text &amp; Literaturverzeichnis</h3>
+                          <p style="font-size:0.95rem;line-height:1.7;color:#333;margin-bottom:1rem;">Gib an, wie die folgenden Quellen im Text zitiert und im Literaturverzeichnis angegeben würden:</p>
+                          <ul class="sg-ul">
+                            <li><strong>Blog-Beitrag:</strong> <a href="https://t3n.de/news/keine-kasse-kein-personal-1389830/" target="_blank" rel="noopener" style="color:var(--green);word-break:break-all;">https://t3n.de/news/keine-kasse-kein-personal-1389830/</a></li>
+                            <li><strong>Zeitungsartikel:</strong> <a href="https://www.nytimes.com/2020/08/12/climate/tropical-soils-climatechange.html" target="_blank" rel="noopener" style="color:var(--green);word-break:break-all;">https://www.nytimes.com/2020/08/12/climate/...</a></li>
+                            <li><strong>Monografie:</strong> <a href="https://www.vahlen.de/bucher-holzweissig-schwarzer-kuenstliche-intelligenzwissenschaftliches-arbeiten/product/36517052" target="_blank" rel="noopener" style="color:var(--green);word-break:break-all;">Künstliche Intelligenz und wissenschaftliches Arbeiten (Vahlen)</a></li>
+                            <li><strong>Journal-Beitrag:</strong> <a href="https://doi.org/10.1016/j.emj.2020.04.008" target="_blank" rel="noopener" style="color:var(--green);">https://doi.org/10.1016/j.emj.2020.04.008</a></li>
+                            <li><strong>Sammelbandbeitrag:</strong> <a href="https://link.springer.com/chapter/10.1007/978-3-658-29367-3_14" target="_blank" rel="noopener" style="color:var(--green);">Vernetzung digitaler und analoger Lehre (Springer)</a></li>
+                          </ul>
+                        </div>
+
+                        <h3 class="sg-section-title" style="margin-top:1.75rem;">Unklarste Punkte zur Wiederholung</h3>
+                        <div class="sg-card">
+                          <p style="font-size:0.95rem;line-height:1.7;color:#333;">Liste hier 1–2 Punkte auf, bei denen du noch unsicher bist oder die du nicht vollständig verstanden hast.</p>
+                        </div>
+
+                      </div>
+                    </div>
+
+                    <!-- PHASE 4 -->
+                    <div class="phase-block">
+                      <div class="phase-header">
+                        <span class="phase-badge" style="background:#3B82F6;color:#fff;">Phase 4</span>
+                        <span class="phase-title">Festigen &amp; Erinnern</span>
+                        <span class="phase-time">Nächste Schritte</span>
+                      </div>
+                      <div class="phase-body">
+                        <p>Um dein Wissen langfristig zu festigen, ist regelmäßige Wiederholung entscheidend:</p>
+                        <div class="sg-repeat-list">
+                          <div class="sg-repeat-item">
+                            <span class="sg-repeat-badge">Morgen</span>
+                            <div><strong>10 Min.:</strong> Überprüfe die „unklarsten Punkte", die du dir notiert hast. Beantworte die „Active Recall"-Aufforderungen erneut, ohne nachzusehen.</div>
+                          </div>
+                          <div class="sg-repeat-item">
+                            <span class="sg-repeat-badge sg-repeat-badge--light">In 3 Tagen</span>
+                            <div><strong>5 Min.:</strong> Wiederhole die wichtigsten Schlüsselthemen &amp; Definitionen aus Phase 1 kurz. Konzentriere dich auf die Hauptpunkte.</div>
+                          </div>
+                          <div class="sg-repeat-item">
+                            <span class="sg-repeat-badge" style="background:#EE7050;color:#fff;">In 1 Woche</span>
+                            <div><strong>5–10 Min.:</strong> Bearbeite die Übungsaufgaben erneut oder erkläre die Konzepte des korrekten Zitierens und der Plagiatsvermeidung jemandem (<strong>Feynman-Technik</strong>).</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+ 
+                    <!-- PHASE 1 -->
+                    <div class="phase-block">
+                      <div class="phase-header">
+                        <span class="phase-badge">Phase 1</span>
+                        <span class="phase-title">Überprüfen &amp; Lernen</span>
+                        <span class="phase-time">&#9201; 60–90 Min.</span>
+                      </div>
+                      <div class="phase-body">
+                        <p>Beginnen Sie damit, den gesamten Inhalt in den nächsten 10–15 Minuten einmal zu überfliegen, um einen Überblick zu bekommen. Notieren Sie sich dabei 3–5 Kernlernziele, die für Sie am wichtigsten erscheinen oder am schwierigsten sind. Widmen Sie sich dann fokussierten Lernblöcken, z. B. <strong>25 Minuten Lernen, 5 Minuten Pause</strong> (Pomodoro-Technik), um die folgenden Schlüsselthemen zu vertiefen.</p>
+ 
+                        <h3 class="sg-section-title">Hauptargumente &amp; Kernaussagen</h3>
+                        <div class="sg-card">
+                          <ul class="sg-ul">
+                            <li>Eine fundierte Theorie erfordert eine gezielte und kritische Auswahl hochwertiger, zitierwürdiger Fachliteratur, wobei Qualität stets vor Quantität geht.</li>
+                            <li>Ein Literatur Review kann entweder als fundamentale theoretische Untermauerung einer empirischen Studie dienen (deskriptiv) oder als eigenständige, systematische Forschungsmethode, um den Wissensstand zu erweitern (systematisch).</li>
+                            <li>Wissenschaftliche Texte basieren auf schlüssigen Argumentationsketten, deren Qualität durch Modelle wie das Toulmin-Modell gesichert wird, das die Notwendigkeit von Beweisen und die Berücksichtigung von Einschränkungen betont.</li>
+                            <li>Ein logischer Aufbau und eine klare, hierarchische Gliederung mit aussagekräftigen Überschriften sind essenziell, um die Nachvollziehbarkeit und den „Roten Faden" einer Arbeit sicherzustellen.</li>
+                            <li>Präzises, neutrales und konsequentes Schreiben unter Beachtung von Tempus, Gendern und Überschriftenformatierung ist für die wissenschaftliche Akzeptanz unerlässlich.</li>
+                            <li>Das Literaturverzeichnis ist nicht nur eine formale Anforderung, sondern ein entscheidendes Bewertungskriterium, das die Tiefe, Breite und Qualität der verwendeten Forschungsquellen widerspiegelt.</li>
+                          </ul>
+                        </div>
+ 
+                        <h3 class="sg-section-title" style="margin-top:1.75rem;">Kontext &amp; Bedeutung</h3>
+                        <div class="sg-card">
+                          <p style="font-size:0.95rem;line-height:1.7;color:#333;">Die systematische Herangehensweise an die Theoriefundierung ist entscheidend für die wissenschaftliche Qualität und Glaubwürdigkeit von Forschungsarbeiten, da sie eine nachvollziehbare Argumentation und die Integration in den bestehenden Forschungsstand gewährleistet. Das Verständnis und die Anwendung dieser Prinzipien befähigen Forschende, Forschungslücken zu identifizieren, evidenzbasierte Schlussfolgerungen zu ziehen und somit einen relevanten Beitrag zur jeweiligen Fachdisziplin zu leisten.</p>
+                        </div>
+                      </div>
+                    </div>
+ 
+                    <!-- PHASE 2 -->
+                    <div class="phase-block">
+                      <div class="phase-header">
+                        <span class="phase-badge phase-badge--orange">Phase 2</span>
+                        <span class="phase-title">Schlüsselthemen &amp; Definitionen</span>
+                      </div>
+                      <div class="phase-body">
+ 
+                        <h3 class="sg-section-title">Schlüsselbegriffe</h3>
+                        <div class="sg-def-list">
+                          <div class="sg-def-item"><span class="sg-term">Empirische Beiträge</span><span class="sg-def">Qualitative oder quantitative Studien/Experimente zur Hypothesenprüfung, Beschreibung und Erklärung, oft mit (einfachem) Literatur Review.</span></div>
+                          <div class="sg-def-item"><span class="sg-term">Review Beiträge</span><span class="sg-def">(Systematische) Literatur Reviews zur zusammenfassenden Analyse anderer Studien, um Überblick, Forschungslücken und Quellen zu identifizieren.</span></div>
+                          <div class="sg-def-item"><span class="sg-term">Deskriptiver Literatur Review</span><span class="sg-def">Übersicht über existierende Forschung zum Verständnis eines Themas; fasst Erkenntnisse zusammen, fundamentiert eigene Studien und leitet Modelle/Hypothesen ab.</span></div>
+                          <div class="sg-def-item"><span class="sg-term">Systematischer Literatur Review</span><span class="sg-def">Systematische Zusammenfassung existierender Forschung zur Wissenserweiterung und Generierung neuer Erkenntnisse (z.B. Konsens/Dissens, Forschungslücken).</span></div>
+                          <div class="sg-def-item"><span class="sg-term">PRISMA Flow Chart</span><span class="sg-def">Preferred Reporting Items for Systematic Reviews and Meta Analyses – Diagramm zur transparenten Darstellung des Studienauswahlprozesses in systematischen Reviews.</span></div>
+                          <div class="sg-def-item"><span class="sg-term">Argumentieren</span><span class="sg-def">Sprachliche Handlungen zur Klärung strittiger Punkte mit dem Ziel der Unstrittigkeit (Beweisen).</span></div>
+                          <div class="sg-def-item"><span class="sg-term">Argumentationsketten</span><span class="sg-def">Schlüssige Verknüpfung von Argumenten zur nachvollziehbaren Herleitung von Schlussfolgerungen.</span></div>
+                          <div class="sg-def-item"><span class="sg-term">Abstract</span><span class="sg-def">Stark verkürzte, prägnante, wertfreie Darstellung der wissenschaftlichen Arbeit (ca. 150–250 Wörter); steht nach dem Deckblatt, nicht in der Gliederung.</span></div>
+                          <div class="sg-def-item"><span class="sg-term">Reproduzierbarkeit</span><span class="sg-def">Möglichkeit, eine Analyse nachzurechnen und zum gleichen Ergebnis zu kommen.</span></div>
+                          <div class="sg-def-item"><span class="sg-term">Replizierbarkeit</span><span class="sg-def">Wissen, wie eine Studie wiederholt werden könnte.</span></div>
+                          <div class="sg-def-item"><span class="sg-term">Narrative Review</span><span class="sg-def">Zusammenfassung und Diskussion der Literatur zu einem Thema, oft ohne systematische Methode oder festgelegte Kriterien.</span></div>
+                          <div class="sg-def-item"><span class="sg-term">Systematic Literature Review (SLR)</span><span class="sg-def">Umfassende, systematische Sammlung und Analyse aller relevanten Studien zu einer spezifischen Forschungsfrage, mit strengen, transparenten Protokollen.</span></div>
+                          <div class="sg-def-item"><span class="sg-term">Meta-Analyse</span><span class="sg-def">Quantitative Zusammenfassung der Ergebnisse mehrerer Studien zur Identifizierung allgemeiner Trends mittels statistischer Methoden.</span></div>
+                          <div class="sg-def-item"><span class="sg-term">Bibliometric Review</span><span class="sg-def">Quantitative Analyse der Literatur eines Forschungsbereichs zur Identifikation von Trends, Netzwerken und Zitationen mittels statistischer Methoden.</span></div>
+                        </div>
+ 
+                        <h3 class="sg-section-title" style="margin-top:1.75rem;">Kernprozesse, Modelle &amp; Regeln</h3>
+ 
+                        <div class="sg-card">
+                          <h3 class="sg-section-title">Wissensbasis &amp; Rechercherecap</h3>
+                          <ul class="sg-ul">
+                            <li><strong>Systematisches Recherchieren:</strong> Klare Forschungsfrage, gezielter Einsatz von Fachdatenbanken &amp; Suchstrategien für hochwertige Quellen.</li>
+                            <li><strong>Qualität vor Quantität:</strong> Bevorzugung geprüfter, zitierwürdiger Fachliteratur.</li>
+                            <li><strong>Kritisches Bewerten &amp; transparentes Zitieren:</strong> Prüfung von Quellen auf Zitierfähigkeit (z.B. mit CRAAP-Test).</li>
+                            <li><strong>Mehrphasiges Lesen:</strong> Überblick, gezielte Suche, analytische Vertiefung (z.B. 3 Blicke, PQ4R, SQ3R).</li>
+                            <li><strong>KI-Tools reflektiert nutzen:</strong> Unterstützender Einsatz (z.B. Consensus, Semantic Scholar), kritische Prüfung der Ergebnisse.</li>
+                          </ul>
+                        </div>
+ 
+                        <div class="sg-card">
+                          <h3 class="sg-section-title">Literatur Review – Vergleich und Vorgehen</h3>
+                          <p style="font-size:0.9rem;font-weight:600;color:var(--dark);margin-bottom:0.5rem;">Deskriptiver Literatur Review Ablauf:</p>
+                          <p style="font-size:0.9rem;color:#333;line-height:1.6;margin-bottom:1rem;">„Lückenlose" Literatur-Recherche, Identifikation relevanter Studien/Theorien, Begründung eigener Hypothesen, Grundlagen- und aktuelle Literatur.</p>
+                          <p style="font-size:0.9rem;font-weight:600;color:var(--dark);margin-bottom:0.5rem;">Systematischer Literatur Review Ablauf:</p>
+                          <p style="font-size:0.9rem;color:#333;line-height:1.6;">Systematische Literaturrecherche (mit In-/Exklusionskriterien), transparenter Auswahlprozess (PRISMA-FlowChart), standardisierte Literaturanalyse &amp; Synthese (Bibliografie, Qualität).</p>
+                        </div>
+ 
+                        <div class="sg-card">
+                          <h3 class="sg-section-title">Systematic Literature Review Leitfaden (TU Berlin)</h3>
+                          <ol class="sg-ol">
+                            <li>Forschungsfragen definieren.</li>
+                            <li>Literaturdatenbanken und weitere Quellen auswählen.</li>
+                            <li>Suchbegriffe festlegen.</li>
+                            <li>Treffer aus verschiedenen Datenbanken zusammenführen.</li>
+                            <li>Ein- und Ausschlusskriterien anwenden.</li>
+                            <li>Review durchführen.</li>
+                            <li>Ergebnisse synthetisieren.</li>
+                          </ol>
+                        </div>
+ 
+                        <div class="sg-card">
+                          <h3 class="sg-section-title">Argumentation nach Toulmin</h3>
+                          <p style="font-size:0.9rem;color:#333;line-height:1.6;margin-bottom:0.75rem;">Entwicklung fundierter, nachvollziehbarer Argumentationen unter Einbeziehung von drei Kernelementen:</p>
+                          <ul class="sg-ul">
+                            <li><strong>Behauptung:</strong> Die zu belegende These oder Aussage.</li>
+                            <li><strong>Beweis:</strong> Empirische oder theoretische Belege, die die Behauptung stützen.</li>
+                            <li><strong>Einschränkung:</strong> Bedingungen oder Ausnahmen, unter denen die Behauptung nicht gilt.</li>
+                          </ul>
+                        </div>
+
+                        <div class="sg-card">
+                          <h3 class="sg-section-title">Fünfsatz-Strukturen</h3>
+                          <ul class="sg-ul">
+                            <li><strong>Linearer Fünfsatz:</strong> Argumente aufeinander aufbauend.</li>
+                            <li><strong>Paralleler Fünfsatz:</strong> Mehrere gleichwertige Argumente nebeneinander.</li>
+                            <li><strong>Diskrepanz-Fünfsatz:</strong> Aufzeigen von Widersprüchen.</li>
+                            <li><strong>Divergierender Fünfsatz:</strong> Argumente und Gegenargumente dialektisch aufeinander beziehen zur Darstellung von Unvereinbarkeiten oder Kompromissen.</li>
+                          </ul>
+                        </div>
+
+                        <div class="sg-card">
+                          <h3 class="sg-section-title">Wissenschaftliches Schreiben – Zeitform (Tempus)</h3>
+                          <ul class="sg-ul">
+                            <li><strong>Präsens:</strong> Für die Beschreibung des Vorhabens und die Darstellung andauernder Erkenntnisse (z.B. „Die Ergebnisse zeigen…").</li>
+                            <li><strong>Vergangenheitsform:</strong> Für die Berichterstattung über Befunde anderer Autoren und die Beschreibung des methodischen Vorgehens (z.B. „Voss et al. (2008) untersuchten…").</li>
+                          </ul>
+                        </div>
+
+                        <div class="sg-card">
+                          <h3 class="sg-section-title">Grundregeln für Argumentieren &amp; Formulieren</h3>
+                          <ul class="sg-ul">
+                            <li>Klare, verständliche Sprache; kurze Sätze.</li>
+                            <li>Nicht wertend (neutral); bevorzugt dritte Person.</li>
+                            <li>„Ich"/„Wir" sparsam oder nicht verwenden.</li>
+                            <li>Aktiv statt Passiv; Verben statt Nomen.</li>
+                            <li>Gendern: Konsequente Verwendung einer gewählten Form.</li>
+                          </ul>
+                        </div>
+
+                        <div class="sg-card">
+                          <h3 class="sg-section-title">Struktur &amp; Gliederung wissenschaftlicher Arbeiten</h3>
+                          <p style="font-size:0.9rem;font-weight:600;color:var(--dark);margin-bottom:0.5rem;">Proportionale Aufteilung:</p>
+                          <ul class="sg-ul" style="margin-bottom:1rem;">
+                            <li>Einleitung: ca. 10 %</li>
+                            <li>Hauptteil: ca. 70–80 %</li>
+                            <li>Schluss: ca. 10–20 %</li>
+                          </ul>
+                          <p style="font-size:0.9rem;font-weight:600;color:var(--dark);margin-bottom:0.5rem;">Grundaufbau (immer vorhanden):</p>
+                          <p style="font-size:0.9rem;color:#333;line-height:1.6;">Titelblatt → Abstract → Inhaltsverzeichnis → Text → Literaturverzeichnis. Optional: Abbildungsverzeichnis, Tabellenverzeichnis, Abkürzungsverzeichnis, Anhang, Ehrenwörtliche Erklärung.</p>
+                        </div>
+
+                        <div class="sg-card">
+                          <h3 class="sg-section-title">Inhalt der einzelnen Abschnitte</h3>
+                          <ul class="sg-ul">
+                            <li><strong>Titelblatt:</strong> Titel der Arbeit, Hochschule/Studiengang, Dozent/Gutachter, Name, Matrikelnummer, Wörteranzahl Hauptteil, Abgabedatum.</li>
+                            <li><strong>Abstract:</strong> Forschungsfrage, Theorie, Hypothesen, Stichprobe, Versuchsaufbau, Auswertung/Ergebnisse, Diskussion. Erst nach Finalisierung der Arbeit schreiben; kein Literaturangaben.</li>
+                            <li><strong>Einleitung:</strong> Relevanz des Themas, Forschungsdefizite („gap"), Abgrenzung, wiss. Beitrag, Forschungsfrage, Ziele/Ablauf. Keine theoretischen Grundlagen.</li>
+                            <li><strong>Theorieteil:</strong> Alle relevanten theoretischen Bezüge zur Forschungsfrage; Überblick über Forschungsstand; Hypothesen am Ende. Bei „X führt zu Y": 1. Konstrukt X, 2. Konstrukt Y, 3. Zusammenhang X &amp; Y.</li>
+                            <li><strong>Methodenteil:</strong> Stichprobe, Versuchsmaterial, Versuchsablauf, Analyse-Software, statistisches Vorgehen.</li>
+                            <li><strong>Ergebnisteil:</strong> Fakten, keine Meinungen; zuerst deskriptive, dann komplexere Ergebnisse; keine Interpretationen.</li>
+                            <li><strong>Diskussion &amp; Schluss:</strong> Kommentar zu Ergebnissen im Bezug zum Wissensstand, Limitationen, Implikationen für Forschung und Praxis.</li>
+                            <li><strong>Literaturverzeichnis:</strong> Nur zitierte Literatur; nach Zitierstil (z.B. APA); linksbündig, hängender Einzug; alphabetisch nach Autor.</li>
+                            <li><strong>Anhang:</strong> Details zur Studie; Messinstrumente, Statistiken, Syntax, Ehrenwörtliche Erklärung, Deklaration KI-Hilfsmittel.</li>
+                          </ul>
+                        </div>
+
+                        <div class="sg-card">
+                          <h3 class="sg-section-title">Gliederungshinweise &amp; häufige Fehler</h3>
+                          <ul class="sg-ul">
+                            <li>Drei bis fünf Gliederungspunkte erster Ordnung; maximal dreistufige Gliederung.</li>
+                            <li>Jedes Kapitel mindestens zwei Absätze; jeder Absatz mindestens zwei Sätze.</li>
+                            <li>Keine Sätze, Fragen oder Aufforderungen als Überschriften.</li>
+                            <li>Jede Gliederungsstufe muss mindestens zwei Punkte enthalten (kein 3.2.1 ohne 3.2.2).</li>
+                            <li>Keine Mischung von Theorie und Empirie in empirischen Arbeiten.</li>
+                            <li>Kein Punkt nach der Gliederungsnummer.</li>
+                          </ul>
+                        </div>
+
+                        <div class="sg-card">
+                          <h3 class="sg-section-title">Schlüsselentitäten &amp; Klassifikationen</h3>
+                          <p style="font-size:0.9rem;font-weight:600;color:var(--dark);margin-bottom:0.5rem;">Typen von Literaturreviews:</p>
+                          <p style="font-size:0.9rem;color:#333;line-height:1.6;margin-bottom:0.75rem;">Narratives Review, Deskriptiver Review, Scoping Review, Meta-Analyse, Systematischer Literatur Review, Umbrella Review, Theoretisches Review, Realist Review, Kritisches Review.</p>
+                          <p style="font-size:0.9rem;font-weight:600;color:var(--dark);margin-bottom:0.5rem;">Datenbanken (Beispiele):</p>
+                          <p style="font-size:0.9rem;color:#333;line-height:1.6;margin-bottom:0.75rem;">EBSCO Host, Emerald, ProQuest, Science Direct, Web of Science.</p>
+                          <p style="font-size:0.9rem;font-weight:600;color:var(--dark);margin-bottom:0.5rem;">Analysesoftware (Beispiele):</p>
+                          <p style="font-size:0.9rem;color:#333;line-height:1.6;">R/RStudio, SPSS, Jamovi, JASP.</p>
+                        </div>
+
+                       <div class="sg-card" style="border: 2px dashed var(--border); background: #F9FAFB;">
+ 
+
+                      </div>
+                    </div>
+ 
+                    <!-- PHASE 3 -->
+                    <div class="phase-block">
+                      <div class="phase-header">
+                        <span class="phase-badge phase-badge--purple">Phase 3</span>
+                        <span class="phase-title">Üben &amp; Anwenden</span>
+                        <span class="phase-time">&#9201; 30–45 Min.</span>
+                      </div>
+                      <div class="phase-body">
+                        <p>Stelle dir jetzt selbst Fragen und wende das Gelernte an. Das hilft dir, dein Verständnis zu überprüfen und Wissenslücken zu identifizieren. Schreibe die Antworten auf, <strong>ohne in deine Notizen zu schauen</strong>.</p>
+ 
+                        <h3 class="sg-section-title">Active Recall-Aufforderungen</h3>
+                        <div class="sg-card">
+                          <ol class="sg-ol">
+                            <li>Wie unterscheidet sich die Funktion eines Literatur-Reviews, wenn er als „deskriptiv" versus „systematisch" eingestuft wird, und welche konkreten Schritte sind für letzteren notwendig?</li>
+                            <li>Erläutere das Toulmin-Modell der Argumentation anhand eines selbstgewählten Beispiels und zeige auf, wie „Behauptung", „Beweis" und „Einschränkung" interagieren.</li>
+                            <li>Welche spezifischen Regeln gelten für die Zeitform und das Gendern im wissenschaftlichen Schreiben, und warum ist deren konsistente Anwendung wichtig?</li>
+                            <li>Warum ist der „Rote Faden" für die Gliederung einer wissenschaftlichen Arbeit entscheidend, und welche Auswirkungen hat eine fehlende Logik auf die Bewertung?</li>
+                            <li>Welche Informationen gehören zwingend in den Abstract einer wissenschaftlichen Arbeit, und welche nicht? Begründe dies.</li>
+                          </ol>
+                        </div>
+ 
+                        <h3 class="sg-section-title" style="margin-top:1.75rem;">Übungsaufgaben &amp; Synthesefragen</h3>
+                        <div class="sg-card">
+                          <h3 class="sg-section-title">Aufgabe 1: Gliederungsanalyse</h3>
+                          <p style="font-size:0.95rem;line-height:1.7;color:#333;">Analysiere die Gliederung der Seminararbeit „Psychische Gesundheit" und identifiziere basierend auf den vermittelten Kriterien (inhaltlich, stilistisch, formal) mindestens drei Mängel. Begründe deine Einschätzung und schlage Verbesserungen vor.</p>
+                        </div>
+ 
+                        <div class="sg-card">
+                          <h3 class="sg-section-title">Aufgabe 2: Theorieteil-Konzeption</h3>
+                          <p style="font-size:0.95rem;line-height:1.7;color:#333;">Du planst eine Bachelorarbeit zum Thema „Einfluss von Gamification-Elementen auf die Nutzerbindung in Lern-Apps". Entwirf eine exemplarische Gliederung für den Theorieteil (maximal drei Ebenen tief), die dem „X führt zu Y"-Prinzip folgt und die Regeln für aussagekräftige Überschriften beachtet.</p>
+                        </div>
+
+                        <h3 class="sg-section-title" style="margin-top:1.75rem;">Unklarste Punkte zur Wiederholung</h3>
+                        <div class="sg-card">
+                          <p style="font-size:0.95rem;line-height:1.7;color:#333;">Liste hier 1–2 Punkte auf, bei denen du noch unsicher bist oder die du nicht vollständig verstanden hast.</p>
+                        </div>
+ 
+                      </div>
+                    </div>
+ 
+                    <!-- PHASE 4 -->
+                    <div class="phase-block">
+                      <div class="phase-header">
+                        <span class="phase-badge" style="background:#3B82F6;color:#fff;">Phase 4</span>
+                        <span class="phase-title">Festigen &amp; Erinnern</span>
+                        <span class="phase-time">Nächste Schritte</span>
+                      </div>
+                      <div class="phase-body">
+                        <p>Um das Gelernte langfristig zu speichern, ist regelmäßige Wiederholung entscheidend:</p>
+                        <div class="sg-repeat-list">
+                          <div class="sg-repeat-item">
+                            <span class="sg-repeat-badge">Morgen</span>
+                            <div><strong>10 Min.:</strong> Gehe deine „Unklarsten Punkte" durch und beantworte die „Active Recall"-Aufforderungen erneut. Überprüfe deine Antworten kritisch.</div>
+                          </div>
+                          <div class="sg-repeat-item">
+                            <span class="sg-repeat-badge sg-repeat-badge--light">In 3 Tagen</span>
+                            <div><strong>5 Min.:</strong> Überfliege die „Schlüsselthemen &amp; Definitionen" in Phase 2 und vergewissere dich, dass du die Kernkonzepte noch präsent hast.</div>
+                          </div>
+                          <div class="sg-repeat-item">
+                            <span class="sg-repeat-badge" style="background:#EE7050;color:#fff;">In 1 Woche</span>
+                            <div><strong>5–10 Min.:</strong> Bearbeite die Übungsaufgaben erneut oder erkläre die Konzepte (z. B. den Unterschied zwischen deskriptivem und systematischem Review oder das Toulmin-Modell) jemandem, als würdest du es lehren (<strong>Feynman-Technik</strong>).</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+ 
+                  </div><!-- /study-guide -->
+ 
+                </div>
+              </details>
+                
+
+              <!-- ACCORDION 3: Zum Sehen -->
+              <details class="accordion-item" style="margin-top: 1rem;">
+                <summary>Zum Sehen 👀</summary>
+                <div class="accordion-content" style="padding-top: 1.25rem;">
+                  <p style="font-size: 0.95rem; font-weight: 600; margin-bottom: 0.5rem; color: var(--dark);">Videos:</p>
+                  
+                  <div class="video-grid">
+                    <a class="video-card" href="https://www.youtube.com/watch?v=1JgO0L3YZAo" target="_blank" rel="noopener">
+                      <div class="video-thumb">
+                        <img src="https://img.youtube.com/vi/1JgO0L3YZAo/hqdefault.jpg" alt="
+Professionelle Präsentation wissenschaftlicher Arbeiten
+" loading="lazy">
+                        <div class="play-icon">
+                          <svg width="48" height="48" viewBox="0 0 48 48"><circle cx="24" cy="24" r="24" fill="rgba(18,22,22,0.7)"/><polygon points="19,15 37,24 19,33" fill="#74C2A8"/></svg>
+                        </div>
+                      </div>
+                      <div class="video-label">
+Professionelle Präsentation wissenschaftlicher Arbeiten
+ </div>
+                    </a>
+
+                  </div>
+
+                  <p style="font-size: 0.95rem; font-weight: 600; margin: 1.5rem 0 0.5rem; color: var(--dark);">Links:</p>
+                  <div class="link-grid">
+                    <a class="link-card" href="https://www.posternerd.com/tutorials?signs_redirect" target="_blank" rel="noopener">
+                      <div class="link-info">
+                        <div class="link-title">Tutorials - How To Make a Great Research Poster | PosterNerd</div>
+                        <div class="link-url">https://www.posternerd.com/tutorials?signs_redirect</div>
+                      </div>
+                      <div class="link-arrow" aria-hidden="true">↗</div>
+                    </a>
+                  </div>
+                </div>
+              </details>
+
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB PANEL 3: ÜBUNGEN -->
+        <div class="tab-panel" id="tab-uebungen" role="tabpanel">
+          <div class="uebungen-wrapper">
+            <iframe
+              class="uebungen-frame"
+              src="uebungen/lektion-09-uebungen.html"
+              title="Übungen zu Lektion 9
+              
+            "
+              loading="lazy"
+            ></iframe>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+
+  <script>
+    /* Burger-Button & Slide-In Navigation */
+    const burgerBtn      = document.getElementById('burgerBtn');
+    const sidebar        = document.getElementById('sidebar');
+    const sidebarOverlay = document.getElementById('sidebarOverlay');
+
+    function toggleSidebar() {
+      const open = sidebar.classList.toggle('open');
+      burgerBtn.classList.toggle('open', open);
+      sidebarOverlay.classList.toggle('show', open);
+      document.body.style.overflow = open ? 'hidden' : '';
+    }
+    burgerBtn.addEventListener('click', toggleSidebar);
+    sidebarOverlay.addEventListener('click', toggleSidebar);
+
+    /* Tab-Umschaltung */
+    const tabBtns   = document.querySelectorAll('.tab-btn');
+    const tabPanels = document.querySelectorAll('.tab-panel');
+
+    tabBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const target = btn.dataset.tab;
+        tabBtns.forEach(b => b.classList.remove('active'));
+        tabPanels.forEach(p => p.classList.remove('active'));
+        btn.classList.add('active');
+        document.getElementById('tab-' + target).classList.add('active');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    });
+
+    /* Kernthemen Checkbox LocalStorage Sync (Aus Lektion 1 übernommen) */
+    const TOPIC_STORAGE_KEY = 'scnew-lektion02-kernthemen-checked';
+    const topicItems = document.querySelectorAll('#tab-kernthemen .topic-item');
+
+    function loadTopicState() {
+      try { return JSON.parse(localStorage.getItem(TOPIC_STORAGE_KEY)) || []; }
+      catch { return []; }
+    }
+
+    function saveTopicState(state) {
+      localStorage.setItem(TOPIC_STORAGE_KEY, JSON.stringify(state));
+    }
+
+    function syncTopicState() {
+      const checked = loadTopicState();
+      topicItems.forEach((item, index) => {
+        item.dataset.topicIndex = index;
+        item.classList.toggle('checked', !!checked[index]);
+        item.setAttribute('role', 'button');
+        item.setAttribute('tabindex', '0');
+        item.setAttribute('aria-pressed', checked[index] ? 'true' : 'false');
+        if (!item.querySelector('.topic-checkbox')) {
+          const checkbox = document.createElement('span');
+          checkbox.className = 'topic-checkbox';
+          item.prepend(checkbox);
+        }
+      });
+    }
+
+    function toggleTopicItem(item) {
+      const index = Number(item.dataset.topicIndex);
+      const current = loadTopicState();
+      current[index] = !current[index];
+      saveTopicState(current);
+      item.classList.toggle('checked', !!current[index]);
+      item.setAttribute('aria-pressed', current[index] ? 'true' : 'false');
+    }
+
+    topicItems.forEach(item => {
+      item.addEventListener('click', () => toggleTopicItem(item));
+      item.addEventListener('keydown', event => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          toggleTopicItem(item);
+        }
+      });
+    });
+
+    syncTopicState();
+
+    /* iframe Auto-Resize */
+    function resizeIframe(iframe) {
+      try {
+        const h = iframe.contentWindow.document.documentElement.scrollHeight
+                  || iframe.contentWindow.document.body.scrollHeight;
+        if (h > 100) iframe.style.height = h + 'px';
+      } catch(e) {}
+    }
+    const ubungsFrame = document.querySelector('.uebungen-frame');
+    if (ubungsFrame) {
+      ubungsFrame.addEventListener('load', function() { resizeIframe(this); });
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          if (btn.dataset.tab === 'uebungen') {
+            setTimeout(() => resizeIframe(ubungsFrame), 300);
+          }
+        });
+      });
+    }
+  </script>
+</body>
+</html>
+ 
+
+
+
