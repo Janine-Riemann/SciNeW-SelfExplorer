@@ -344,11 +344,11 @@
     <ul class="choice-list" id="mc-list">
       <!-- ✅ korrekt = true | ❌ falsch = false -->
       <li class="choice-item"><label><input type="checkbox" data-correct="false">  Instagram-Posts</label></li>
-      <li class="choice-item"><label><input type="checkbox" data-correct="true"> Fachbücher</label></li>
+      <li class="choice-item"><label><input type="checkbox" data-correct="false"> Fachbücher</label></li>
       <li class="choice-item"><label><input type="checkbox" data-correct="true">  InMind-Beiträge</label></li>
       <li class="choice-item"><label><input type="checkbox" data-correct="true">  Pop-Science-Bücher</label></li>
       <li class="choice-item"><label><input type="checkbox" data-correct="true">  Zeitungen</label></li>
-      <li class="choice-item"><label><input type="checkbox" data-correct="true"> Fachartikel</label></li>
+      <li class="choice-item"><label><input type="checkbox" data-correct="false"> Fachartikel</label></li>
     </ul>
 
     <div>
@@ -363,7 +363,8 @@
        ============================================================ -->
   <section class="exercise" id="ex2">
     <div class="exercise-label">Aufgabe 2 · Zuordnung</div>
-    <h3>Ziehe die Wörter in die richtigen Felder!</h3>
+    <h3>Ziehen Sie die Wörter in die richtigen Felder!</h3>
+    <p style="margin-bottom: 18px; color: var(--muted);">Welche der folgenden Aussagen ist eine Erfahrung, eine Meinung oder eine wissenschaftliche Aussage? Ziehen Sie die Wörter in die richtigen Felder.</p>
     <div class="dnd-layout">
       <div class="dnd-sentences" id="dnd2-sentences"></div>
       <div class="word-bank" id="dnd2-bank"></div>
@@ -380,7 +381,7 @@
        ============================================================ -->
   <section class="exercise" id="ex3">
     <div class="exercise-label">Aufgabe 3a · Zuordnung</div>
-    <h3>Ziehe die Wörter in die richtigen Felder!</h3>
+    <h3>Ziehen Sie die Wörter in die richtigen Felder!</h3>
     <div class="dnd-layout">
       <div class="dnd-sentences" id="dnd3-sentences"></div>
       <div class="word-bank" id="dnd3-bank"></div>
@@ -394,7 +395,7 @@
     <hr class="divider">
 
     <div class="exercise-label">Aufgabe 3b · Zuordnung</div>
-    <h3>Ziehe die Wörter in die richtigen Felder!</h3>
+    <h3>Ziehen Sie die Wörter in die richtigen Felder!</h3>
     <div class="dnd-layout">
       <div class="dnd-sentences" id="dnd4-sentences"></div>
       <div class="word-bank" id="dnd4-bank"></div>
@@ -433,22 +434,22 @@
       
       <div>
         <h4 style="font-size: 0.95rem; margin-bottom: 8px; color: var(--accent);">1. Szenarioanalyse</h4>
-        <p style="margin-bottom: 12px;">Nehmen wir an, du liest den folgenden Satz:</p>
+        <p style="margin-bottom: 12px;">Nehmen wir an, Sie lesen den folgenden Satz:</p>
         <div class="bubble" style="margin-bottom: 12px; font-style: normal; border-color: var(--border); background: var(--bg);">
           "Alle Schwäne, die ich bisher gesehen habe, sind weiß. Also sind alle Schwäne weiß."
         </div>
-        <p>Handelt es sich hierbei um eine induktive oder deduktive Aussage? Begründe deine Antwort. Könnte diese Aussage falsifiziert werden? Wenn ja, wie?</p>
+        <p>Handelt es sich hierbei um eine induktive oder deduktive Aussage? Begründen Sie Antwort. Könnte diese Aussage falsifiziert werden? Wenn ja, wie?</p>
       </div>
 
       <hr class="divider" style="margin: 10px 0;">
 
       <div>
         <h4 style="font-size: 0.95rem; margin-bottom: 8px; color: var(--accent);">2. Forschungsfrage entwickeln</h4>
-        <p style="margin-bottom: 12px;">Wähle ein breites Themengebiet aus dem Bereich <strong>"Digitale Kommunikation"</strong> (z.B. "Einfluss von Social Media auf das Wohlbefinden"). Entwickle dazu:</p>
+        <p style="margin-bottom: 12px;">Wählen Sie ein breites Themengebiet aus dem Bereich <strong>"Digitale Kommunikation"</strong> (z.B. "Einfluss von Social Media auf das Wohlbefinden"). Entwickeln Sie dazu:</p>
         <ul style="padding-left: 20px; display: flex; flex-direction: column; gap: 8px;">
           <li>Eine mögliche Forschungslücke.</li>
           <li>Eine konkrete Forschungsfrage, die diese Lücke adressiert und einem der drei wissenschaftlichen Ziele (Deskription, Erklärung, oder Vorhersage) zugeordnet werden kann.</li>
-          <li>Begründe deine Wahl des Ziels.</li>
+          <li>Begründen Sie Ihre Wahl des Ziels.</li>
         </ul>
       </div>
 
@@ -587,6 +588,14 @@ function renderDnD(id) {
       const chipId = e.dataTransfer.getData('text/plain');
       const chipEl = document.querySelector(`[data-chip-id="${chipId}"]`);
       if (!chipEl) return;
+      const fromZone = e.dataTransfer.getData('from-zone');
+      if (fromZone !== '') {
+        const fromIdx = parseInt(fromZone, 10);
+        if (fromIdx === i) return; // auf sich selbst gezogen, nichts zu tun
+        delete DND_STATE[id].filled[fromIdx];
+        const fromEl = document.querySelector(`#${id}-sentences .drop-zone[data-index="${fromIdx}"]`);
+        if (fromEl) { fromEl.classList.remove('filled','correct','wrong'); fromEl.textContent = '…'; }
+      }
       const prev = DND_STATE[id].filled[i];
       if (prev !== undefined) returnChip(id, prev);
       DND_STATE[id].filled[i] = chipId;

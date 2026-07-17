@@ -578,12 +578,15 @@
     <div class="essay-hint">Denke an die Merkmale: klar · präzise · falsifizierbar · Zusammenhang zwischen Variablen erkennbar</div>
     <div>
       <!-- ✏️ Beispiellösung unten im Script in ESSAY_SOLUTION anpassen -->
-      <button class="btn-reveal" onclick="toggleSolution('sol2')">💡 Beispiellösung anzeigen</button>
+      <button class="btn-reveal" onclick="toggleSolution('sol2')">💡 Beispiellösungen anzeigen</button>
       <button class="btn-reset" onclick="document.getElementById('essay2').value=''">↺ Zurücksetzen</button>
     </div>
     <div class="sample-solution" id="sol2">
-      <div class="sol-label">✓ Beispiellösung</div>
-      <p>„Je höher die tägliche Bildschirmzeit, desto schlechter ist die Schlafqualität bei Jugendlichen."</p>
+      <div class="sol-label">✓ Beispiellösungen</div>
+      <p style="margin-bottom:10px;"><strong>1.</strong> „Je höher die tägliche Bildschirmzeit vor dem Schlafengehen, desto schlechter ist die Schlafqualität bei Jugendlichen."</p>
+      <p style="margin-bottom:10px;"><strong>2.</strong> „Studierende, die digitale Lernplattformen als benutzerfreundlich wahrnehmen, nutzen diese häufiger als Studierende, die sie als kompliziert empfinden."</p>
+      <p style="margin-bottom:10px;"><strong>3.</strong> „Lehrkräfte mit weniger als 5 Jahren Berufserfahrung setzen häufiger Gamification-Elemente im Unterricht ein als Lehrkräfte mit mehr Berufserfahrung."</p>
+      <p><strong>4.</strong> „Studierende, die beim Lernen Musik hören, zeigen eine höhere Konzentrationsfähigkeit als Studierende, die ohne Musik lernen."</p>
     </div>
   </section>
 
@@ -686,6 +689,59 @@
     <div class="feedback-msg" id="mtw-feedback"></div>
   </section>
 
+  <section class="exercise" id="ex6">
+    <div class="exercise-label">Aufgabe 6 · Active Recall</div>
+    <h3>Beantworte die folgenden Fragen in eigenen Worten.</h3>
+    <div style="padding-left: 10px;">
+      <ol style="display: flex; flex-direction: column; gap: 16px; color: var(--text);">
+        <li>
+          Wie beeinflussen die drei Forschungsziele (Entdecken, Beschreiben, Erklären) die Wahl der Untersuchungsmethode und die Formulierung der Forschungsfragen? Gib für jedes Ziel ein Beispiel.
+        </li>
+        <li>
+          Warum ist die Widerlegbarkeit (Falsifizierbarkeit) eine der zentralsten Anforderungen an eine wissenschaftliche Hypothese? Erkläre den Unterschied zwischen einer gerichteten und einer ungerichteten Hypothese in diesem Kontext.
+        </li>
+        <li>
+          Erläutere den Prozess von einem groben Thema über die Forschungsfrage bis zur Hypothese. Welche Rolle spielt dabei die Operationalisierung?
+        </li>
+        <li>
+          Identifiziere die unabhängige und abhängige Variable in der Hypothese: „Regelmäßige Pausen beim Lernen führen zu besseren Prüfungsergebnissen.“ Welche Art von Hypothese ist das und warum?
+        </li>
+        <li>
+          Was sind typische Fehler bei der Formulierung von Forschungsfragen und Hypothesen und wie können diese vermieden werden?
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="exercise" id="ex7">
+    <div class="exercise-label">Aufgabe 7 · Übungsaufgaben & Synthesefragen</div>
+    <h3>Analysiere Hypothesen und bewerte Forschungsfragen.</h3>
+    <div style="padding-left: 10px;">
+      <ol style="display: flex; flex-direction: column; gap: 16px; color: var(--text);">
+        <li>
+          <strong>Hypothesen-Analyse:</strong> Analysiere die folgenden Hypothesen bezüglich ihrer Qualität und identifiziere mögliche Mängel oder Verbesserungspotenziale. Gehe dabei auf die Anforderungen Präzision, Widerlegbarkeit, Operationalisierbarkeit und Begründbarkeit ein.
+          <ul style="padding-left: 18px; margin-top: 8px; display: flex; flex-direction: column; gap: 8px;">
+            <li>Es gibt einen positiven Zusammenhang zwischen Intelligenz und Ängstlichkeit.</li>
+            <li>Intelligenz ist ursächlich für Ängstlichkeit.</li>
+            <li>Wenn der Hahn kräht auf dem Mist, ändert sich das Wetter oder es bleibt wie es ist.</li>
+            <li>Der Konsum von rosa Gummibärchen erhöht signifikant die Fähigkeit, schneller schwere mathematische Gleichungen zu lösen.</li>
+          </ul>
+          Formuliere die mangelhaften Hypothesen so um, dass sie den wissenschaftlichen Anforderungen genügen.
+        </li>
+        <li>
+          <strong>Forschungsfragen-Bewertung:</strong> Bewerte die folgenden Forschungsfragen auf ihre Qualität und schlage Verbesserungen vor, wo nötig.
+          <ul style="padding-left: 18px; margin-top: 8px; display: flex; flex-direction: column; gap: 8px;">
+            <li>Wie ist das eigentlich so mit ChatGPT und Lernen bei Studierenden?</li>
+            <li>Warum wird ChatGPT die Hochschulbildung in Zukunft revolutionieren?</li>
+            <li>Warum nutzen Studierende ChatGPT immer verantwortungslos?</li>
+            <li>Welche Motive haben Studierende, ChatGPT zu nutzen, und wie bewerten Lehrende die KI-Strategie der Bundesregierung?</li>
+          </ul>
+          Vergleiche deine Verbesserungen mit den Beispielen aus dem Unterricht und formuliere sie präziser.
+        </li>
+      </ol>
+    </div>
+  </section>
+
 </div>
 
 <script>
@@ -704,25 +760,25 @@
 const QUIZ_DATA = {
   quiz1: [
     { question: 'Es gibt viele Studierende, die Podcasts hören.',
-      options: ['❌ keine Hypothese', '✅ Hypothese'],
+      options: ['keine Hypothese', 'Hypothese'],
       correct: 0 },
     { question: 'Studierende, die regelmäßig meditieren, zeigen eine höhere Konzentrationsfähigkeit.',
-      options: ['✅ Hypothese', '❌ keine Hypothese'],
+      options: ['Hypothese', 'keine Hypothese'],
       correct: 0 },
     { question: 'Viele Studierende meditieren regelmäßig.',
-      options: ['❌ keine Hypothese', '✅ Hypothese'],
+      options: ['keine Hypothese', 'Hypothese'],
       correct: 0 },
     { question: 'Es wird angenommen, dass Bewegung gut für die Gesundheit ist.',
-      options: ['❌ Keine Hypothese', '✅ Hypothese'],
+      options: ['Keine Hypothese', 'Hypothese'],
       correct: 0 },
     { question: 'Je mehr Zeit Schülerinnen mit Vokabeltraining verbringen, desto besser schneiden sie im Vokabeltest ab.',
-      options: ['✅ Hypothese', '❌ Keine Hypothese'],
+      options: ['Hypothese', 'Keine Hypothese'],
       correct: 0 },
     { question: 'Die Umfrage zeigt, dass 60 % der Befragten Podcasts nutzen.',
-      options: ['❌ Keine Hypothese', '✅ Hypothese'],
+      options: ['Keine Hypothese', 'Hypothese'],
       correct: 0 },
     { question: 'Wenn Schülerinnen vor dem Test Musik hören, sinkt ihre Fehlerquote.',
-      options: ['✅ Hypothese', '❌ Keine Hypothese'],
+      options: ['Hypothese', 'Keine Hypothese'],
       correct: 0 },
   ]
 };
@@ -746,7 +802,7 @@ const SENTENCES_EX3 = [
     answer: 'Beschreibung',  prefix: false },
 ];
 const CHIPS_EX3 = [
-  'Prognose', 'Erklärung', 'Prognose', 'Erklärung', 'Beschreibung',
+  'Erklärung', 'Beschreibung', 'Prognose', 'Erklärung', 'Prognose',
 ];
 
 
@@ -759,6 +815,8 @@ const FLIP_CARDS = [
   { front: 'Testergebnis in der Prüfung',           back: '📏 AV – wird gemessen' },
   { front: 'Lernmethode: Zusammenfassung vs. Karteikarten', back: '☑️ UV – experimentelle Bedingung' },
   { front: 'Konzentrationsdauer in Minuten',        back: '📏 AV – beobachtetes Ergebnis' },
+  { front: 'Lustiger Instagram-Beitrag',            back: '☑️ UV – wird vom Forschenden verändert' },
+  { front: 'Persönlichkeitstest (z. B. Big Five Modell)', back: '📏 AV – durch Fragebogen messbar' },
 ];
 
 
@@ -822,7 +880,7 @@ function answerQuiz(id, chosen) {
   btns.forEach((btn, i) => {
     btn.disabled = true;
     if (i === q.correct) btn.classList.add('correct');
-    else if (i === chosen) btn.classList.add('wrong');
+    else btn.classList.add('wrong');
   });
   if (chosen === q.correct) state.score++;
 
