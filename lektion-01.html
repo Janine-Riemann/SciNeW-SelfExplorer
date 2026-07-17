@@ -439,8 +439,8 @@
   
   /* Die erste Spalte (Art der Hypothese) heben wir optisch als Titel hervor */
   .sg-table td:first-child {
-    background: var(--dark);
-    color: #fff;
+    background: var(--green);
+    color: var(--dark);
     font-weight: 600;
   }
   
@@ -485,7 +485,11 @@
     .sg-card {
       background: #F9F9F6; border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem;
     }
-    .sg-card-title { font-size: 1.05rem; font-weight: 600; color: var(--dark); margin-bottom: 1rem; }
+    .sg-card-title {
+      font-size: 1.05rem; font-weight: 600; color: var(--dark); margin-bottom: 1.1rem;
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding-bottom: 0.5rem; border-bottom: 2px solid var(--green);
+    }
     .sg-ul, .sg-ol { padding-left: 1.5rem; display: flex; flex-direction: column; gap: 0.5rem; }
     .sg-ul li, .sg-ol li { font-size: 0.95rem; line-height: 1.65; color: #333; }
     .sg-flow {
@@ -494,7 +498,7 @@
     }
     .sg-table-wrap { overflow-x: auto; border-radius: 12px; border: 1px solid var(--border); box-shadow: var(--shadow-sm); }
     .sg-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; background: var(--surface); }
-    .sg-table thead tr { background: var(--dark); color: #fff; }
+    .sg-table thead tr { background: var(--green); color: var(--dark); }
     .sg-table th { padding: 1rem 1.25rem; text-align: left; font-weight: 600; font-size: 0.85rem; letter-spacing: 0.05em; text-transform: uppercase; }
     .sg-table td { padding: 1rem 1.25rem; vertical-align: top; border-bottom: 1px solid var(--border); line-height: 1.6; color: #333; }
     .sg-table tbody tr:last-child td { border-bottom: none; }
@@ -577,12 +581,15 @@
         <!-- TAB PANEL 1: KERNTHEMEN -->
         <div class="tab-panel active" id="tab-kernthemen" role="tabpanel">
           <p class="section-heading">Kernthemen</p>
+          <div class="audio-summary-placeholder" style="margin-top: 0; margin-bottom: 1.25rem;">
+            ✅ <strong>Tipp:</strong> Klicken Sie auf eine Kachel, um sie abzuhaken. So können Sie Themen, die Sie bereits sicher beherrschen, durchstreichen und behalten den Überblick, was noch offen ist. Ihr Fortschritt wird automatisch gespeichert.
+          </div>
           <div class="topic-list">
             
             <div class="topic-item">
               <span class="topic-num">01</span>
               <div class="topic-body">
-                <div class="topic-title">Grundlagen und Abgrenzung des wissenschaftlichen Arbeitens</div>
+                <div class="topic-title">📐 Grundlagen und Abgrenzung des wissenschaftlichen Arbeitens</div>
                 <div class="topic-sub">Dieses Thema definiert wissenschaftliches Arbeiten als Prozess der systematischen Erkenntnisgewinnung, der auf Regelbasiertheit, Nachvollziehbarkeit und Objektivität beruht. Ein wesentlicher Aspekt ist dabei die Abgrenzung zur Pseudowissenschaft, die sich durch fehlende empirische Evidenz und mangelnde Falsifizierbarkeit auszeichnet.</div>
               </div>
             </div>
@@ -590,7 +597,7 @@
             <div class="topic-item">
               <span class="topic-num">02</span>
               <div class="topic-body">
-                <div class="topic-title">Wissenschaftliche Denkweisen und Qualitätskriterien</div>
+                <div class="topic-title">🧩 Wissenschaftliche Denkweisen und Qualitätskriterien</div>
                 <div class="topic-sub">Hier stehen die zwei grundlegenden Ansätze des Erkenntnisprozesses im Fokus: die Induktion (Schluss vom Besonderen auf das Allgemeine) und die Deduktion (Schluss vom Allgemeinen auf das Besondere).</div>
               </div>
             </div>
@@ -598,7 +605,7 @@
             <div class="topic-item">
               <span class="topic-num">03</span>
               <div class="topic-body">
-                <div class="topic-title">Die drei Ziele der Wissenschaft und der Erkenntnisprozess</div>
+                <div class="topic-title">🎯 Die drei Ziele der Wissenschaft und der Erkenntnisprozess</div>
                 <div class="topic-sub">Wissenschaft verfolgt die Ziele der Beschreibung (systematische Erfassung), Erklärung (Identifikation von Ursachen) und Vorhersage (Prognose zukünftiger Ereignisse). Dieser Prozess ist zyklisch aufgebaut und reicht von der ersten Beobachtung der Realität bis hin zur Prüfung entwickelter Theorien und Modelle.</div>
               </div>
             </div>
@@ -606,7 +613,7 @@
             <div class="topic-item">
               <span class="topic-num">04</span>
               <div class="topic-body">
-                <div class="topic-title">Strategische Themenfindung und die Identifikation der Forschungslücke</div>
+                <div class="topic-title">🧭 Strategische Themenfindung und die Identifikation der Forschungslücke</div>
                 <div class="topic-sub">Die Entwicklung einer wissenschaftlichen Arbeit beginnt mit der Inspiration und führt über das Trichter-Modell zu einer präzisen Eingrenzung des Themas. Die Forschungslücke bildet dabei das Fundament, da sie ein bisher ungelöstes Problem adressiert und die Relevanz der eigenen Forschung sichert.</div>
               </div>
             </div>
@@ -614,7 +621,7 @@
             <div class="topic-item">
               <span class="topic-num">05</span>
               <div class="topic-body">
-                <div class="topic-title">Wissenschaftliche Qualität und Fehlerprävention</div>
+                <div class="topic-title">✅ Wissenschaftliche Qualität und Fehlerprävention</div>
                 <div class="topic-sub">Die Qualität einer Arbeit folgt dem Prinzip „Input vs. Output“, wonach das Verständnis der wissenschaftlichen Technik für hochwertige Ergebnisse unerlässlich ist. Gleichzeitig gilt es, typische Fehler wie Plagiate, fehlende „rote Fäden“ oder eine unklare Themeneingrenzung strikt zu vermeiden.</div>
               </div>
             </div>
@@ -673,12 +680,12 @@
                     <div class="phase-block">
                       <div class="phase-header">
                         <span class="phase-badge">Phase 1</span>
-                        <span class="phase-title">Überprüfen &amp; Lernen</span>
+                        <span class="phase-title">📝 Überprüfen &amp; Lernen</span>
                         <span class="phase-time">&#9201; 60–90 Min.</span>
                       </div>
                       <div class="phase-body">
-                        <p>Beginne damit, den gesamten Inhalt in den nächsten 10–15 Minuten einmal zu überfliegen, um einen Überblick zu bekommen. Notiere dir dabei 3–5 Kernlernziele, die für dich am wichtigsten erscheinen oder am schwierigsten sind.</p>
-                        <p>Widme dich dann fokussierten Lernblöcken, z. B. <strong>25 Minuten Lernen, 5 Minuten Pause</strong> (Pomodoro-Technik), um die folgenden Schlüsselthemen zu vertiefen.</p>
+                        <p>Beginnen Sie damit, den gesamten Inhalt in den nächsten 10–15 Minuten einmal zu überfliegen, um einen Überblick zu bekommen. Notieren Sie sich dabei 3–5 Kernlernziele, die für Sie am wichtigsten erscheinen oder am schwierigsten sind.</p>
+                        <p>Widmen Sie sich dann fokussierten Lernblöcken, z. B. <strong>25 Minuten Lernen, 5 Minuten Pause</strong> (Pomodoro-Technik), um die folgenden Schlüsselthemen zu vertiefen.</p>
                       </div>
                     </div>
 
@@ -686,11 +693,11 @@
                     <div class="phase-block">
                       <div class="phase-header">
                         <span class="phase-badge phase-badge--orange">Phase 2</span>
-                        <span class="phase-title">Schlüsselthemen &amp; Definitionen</span>
+                        <span class="phase-title">🔑 Schlüsselthemen &amp; Definitionen</span>
                       </div>
                       <div class="phase-body">
 
-                        <h3 class="sg-section-title">Schlüsselbegriffe</h3>
+                        <h3 class="sg-section-title">🗝️ Schlüsselbegriffe</h3>
                         <div class="sg-def-list">
                           <div class="sg-def-item"><span class="sg-term">Wissenschaftliches Arbeiten</span><span class="sg-def">Systematische Erkenntnisgewinnung durch kontinuierliches Lesen und Schreiben; essenziell während des gesamten Studiums.</span></div>
                           <div class="sg-def-item"><span class="sg-term">Pseudowissenschaft</span><span class="sg-def">Theorien, Methoden oder Behauptungen, die den Anschein wissenschaftlicher Vorgehensweise erwecken, aber den Standards der echten Wissenschaft nicht entsprechen.</span></div>
@@ -706,10 +713,10 @@
                           <div class="sg-def-item"><span class="sg-term">Replizieren</span><span class="sg-def">Wiederholen einer Studie exakt wie beschrieben und zum selben Ergebnis kommen.</span></div>
                         </div>
 
-                        <h3 class="sg-section-title" style="margin-top:1.75rem;">Kernprozesse, Modelle &amp; Regeln</h3>
+                        <h3 class="sg-section-title" style="margin-top:1.75rem;">⚙️ Kernprozesse, Modelle &amp; Regeln</h3>
 
                         <div class="sg-card">
-                          <div class="sg-card-title">Erkenntnisprozess: Von der Frage zur Theorie</div>
+                          <div class="sg-card-title">🧭 Erkenntnisprozess: Von der Frage zur Theorie</div>
                           <ol class="sg-ol">
                             <li>Realität beschreiben (Was sehen wir?)</li>
                             <li>Zusammenhänge erkennen (Warum passiert es?)</li>
@@ -719,12 +726,20 @@
                         </div>
 
                         <div class="sg-card">
-                          <div class="sg-card-title">Kreislauf der Wissenschaft</div>
+                          <div class="sg-card-title">🔄 Kreislauf der Wissenschaft</div>
                           <p class="sg-flow">Fragen &rarr; Recherchieren &rarr; Planen &rarr; Durchführen &rarr; Analysieren &rarr; Antworten &rarr; (zurück zu) Fragen</p>
                         </div>
 
                         <div class="sg-card">
-                          <div class="sg-card-title">Ziele der Wissenschaft (drei Ebenen)</div>
+                          <div class="sg-card-title">🔀 Induktion vs. Deduktion</div>
+                          <div style="display: flex; gap: 1.5rem; align-items: center; flex-wrap: wrap;">
+                            <p style="flex: 1 1 320px; min-width: 260px; margin: 0; font-size: 0.95rem; line-height: 1.65; color: #333;">Dies sind zwei grundlegende Denkansätze im wissenschaftlichen Erkenntnisprozess. <strong>Induktion</strong> schließt vom Besonderen (Beobachtungen/Empirie) auf das Allgemeine (Theorie), während <strong>Deduktion</strong> vom Allgemeinen (Theorie) auf das Besondere (Beobachtungen/Empirie) schließt.</p>
+                            <img src="bilder/induktion-deduktion-platzhalter.png" alt="Platzhalter: Induktion vs. Deduktion" style="flex: 0 1 220px; width: 220px; max-width: 100%; height: auto; border-radius: 12px; border: 1px solid var(--border); box-shadow: var(--shadow-sm);" />
+                          </div>
+                        </div>
+
+                        <div class="sg-card">
+                          <div class="sg-card-title">🎯 Ziele der Wissenschaft (drei Ebenen)</div>
                           <ul class="sg-ul">
                             <li><strong>Beschreibung (Deskription):</strong> Systematische Erfassung und Darstellung von Merkmalen oder Verhaltensweisen. Leitfrage: „Was ist der Fall?"</li>
                             <li><strong>Erklärung (Kausalität):</strong> Identifikation von Ursache-Wirkungs-Zusammenhängen. Leitfrage: „Warum ist es so?"</li>
@@ -733,17 +748,20 @@
                         </div>
 
                         <div class="sg-card">
-                          <div class="sg-card-title">Vom Themengebiet zur Forschungsfrage (Trichter-Modell)</div>
-                          <ol class="sg-ol">
-                            <li><strong>Breites Themengebiet:</strong> Erste Inspirationen sammeln (aus Medien, Blogs, Fachliteratur).</li>
-                            <li><strong>Forschungslücke identifizieren (Research Gap):</strong> Einen bisher ungelösten oder unzureichend erforschten Bereich finden.</li>
-                            <li><strong>Forschungsziel festlegen:</strong> Definieren, was die eigene Arbeit konkret leisten soll.</li>
-                            <li><strong>Präzise Forschungsfrage &amp; Hypothesen:</strong> Exakte Fragestellung und operationalisierbare Annahmen formulieren.</li>
-                          </ol>
+                          <div class="sg-card-title">🔽 Vom Themengebiet zur Forschungsfrage (Trichter-Modell)</div>
+                          <div style="display: flex; gap: 1.5rem; align-items: center; flex-wrap: wrap;">
+                            <ol class="sg-ol" style="flex: 1 1 320px; min-width: 260px; margin: 0;">
+                              <li><strong>Breites Themengebiet:</strong> Erste Inspirationen sammeln (aus Medien, Blogs, Fachliteratur).</li>
+                              <li><strong>Forschungslücke identifizieren (Research Gap):</strong> Einen bisher ungelösten oder unzureichend erforschten Bereich finden.</li>
+                              <li><strong>Forschungsziel festlegen:</strong> Definieren, was die eigene Arbeit konkret leisten soll.</li>
+                              <li><strong>Präzise Forschungsfrage &amp; Hypothesen:</strong> Exakte Fragestellung und operationalisierbare Annahmen formulieren.</li>
+                            </ol>
+                            <img src="bilder/trichter-modell-platzhalter.png" alt="Platzhalter: Trichter-Modell – vom breiten Themengebiet zur präzisen Forschungsfrage" style="flex: 0 1 220px; width: 220px; max-width: 100%; height: auto; border-radius: 12px; border: 1px solid var(--border); box-shadow: var(--shadow-sm);" />
+                          </div>
                         </div>
 
                         <div class="sg-card">
-                          <div class="sg-card-title">Identifikation einer Forschungslücke (Techniken)</div>
+                          <div class="sg-card-title">🔎 Identifikation einer Forschungslücke (Techniken)</div>
                           <ul class="sg-ul">
                             <li><strong>Passion:</strong> Persönliches Interesse und Leidenschaft für das Thema.</li>
                             <li><strong>Timely:</strong> Adressierung aktueller Diskussionen.</li>
@@ -752,7 +770,43 @@
                           </ul>
                         </div>
 
-                        <h3 class="sg-section-title" style="margin-top:1.75rem;">Beziehung zwischen Daten, Phänomenen und Theorien</h3>
+                        <h3 class="sg-section-title" style="margin-top:1.75rem;">🧵 Themenfindung und Forschungslücke</h3>
+
+                        <div class="sg-card">
+                          <div class="sg-card-title">💡 Inspirationsquellen für Forschungsthemen</div>
+                          <div class="sg-def-list">
+                            <div class="sg-def-item"><span class="sg-term">Medien</span><span class="sg-def">Wissenschaftskommunikation, ScienceBlogs (z. B. Research Digest, Talk Psych, Mind Hacks, PsyBlog), Wissenschaftsmagazine (z. B. In-Mind, Psychologie Heute).</span></div>
+                            <div class="sg-def-item"><span class="sg-term">Publikationen</span><span class="sg-def">Pop-Science-Bücher (z. B. von Daniel Kahneman, Dan Ariely), Fachjournale (z. B. Journal of Applied Psychology, PLOS One), Masterarbeiten/Dissertationen, „Further Research Sections" in Papern.</span></div>
+                            <div class="sg-def-item"><span class="sg-term">Persönlich/Interpersonal</span><span class="sg-def">Eigene Erfahrungen, Lehrveranstaltungen, Gespräche mit Studierenden, Konferenzen, Kooperationspartner (Unternehmen), digitale Sparringspartner (z. B. Padlet-Sammlungen).</span></div>
+                            <div class="sg-def-item"><span class="sg-term">Akademisch</span><span class="sg-def">Forschungsthemen der Dozierenden und anderer Forschender, auffindbar z. B. via Google Scholar, ResearchGate oder ORCID.</span></div>
+                          </div>
+                        </div>
+
+                        <div class="sg-card">
+                          <div class="sg-card-title">🔬 Vom Themengebiet zum Thema</div>
+                          <p style="font-size: 0.95rem; line-height: 1.65; color: #333;">Das breite Themengebiet muss eingegrenzt und als konkretes Thema formuliert werden. Dies geschieht durch Hinzufügen von Kontext – zeitlich, örtlich, demografisch, technologisch oder branchenspezifisch.</p>
+                        </div>
+
+                        <div class="sg-card">
+                          <div class="sg-card-title">🧩 Forschungslücke (Research Gap)</div>
+                          <p style="font-size: 0.95rem; line-height: 1.65; color: #333;">Ein „Problem", das angegangen werden soll und das Relevanz und Nutzen für Forschung und/oder Praxis hat, für das es aber noch keine ausreichenden Erkenntnisse gibt. Eine Forschungslücke ist die Grundlage einer guten wissenschaftlichen Arbeit und macht sie einzigartig.</p>
+                        </div>
+
+                        <div class="sg-card">
+                          <div class="sg-card-title">✅ Kriterien guter Themenstellungen</div>
+                          <p style="font-size: 0.95rem; line-height: 1.65; color: #333; margin-bottom: 0.75rem;">Ein gutes Thema ist:</p>
+                          <ul class="sg-ul">
+                            <li>Von angemessenem Umfang (nicht zu breit)</li>
+                            <li>Dem Fachgebiet entsprechend</li>
+                            <li>Durch ausreichende wissenschaftliche Quellen belegbar</li>
+                            <li>Passend zu den Fähigkeiten und der Begeisterung des Forschenden</li>
+                            <li>Realistisch im Zeitaufwand</li>
+                            <li>Ggf. durch Finanzierung gesichert</li>
+                          </ul>
+                          <p style="font-size: 0.95rem; line-height: 1.65; color: #333; margin-top: 0.75rem;">Kurz gesagt sollte es <strong>konkret &amp; spezifisch</strong>, <strong>fachbezogen &amp; relevant</strong>, <strong>erklärbar &amp; neuartig</strong> sowie <strong>machbar</strong> sein.</p>
+                        </div>
+
+                        <h3 class="sg-section-title" style="margin-top:1.75rem;">🔗 Beziehung zwischen Daten, Phänomenen und Theorien</h3>
                         <div class="sg-table-wrap">
                           <table class="sg-table">
                             <thead>
@@ -782,7 +836,7 @@
                           </table>
                         </div>
 
-                        <h3 class="sg-section-title" style="margin-top:1.75rem;">Wesentliche Fakten &amp; Daten</h3>
+                        <h3 class="sg-section-title" style="margin-top:1.75rem;">📊 Wesentliche Fakten &amp; Daten</h3>
                         <ul class="sg-ul">
                           <li>Wissenschaftliche Qualität beruht auf dem Prinzip „Input vs. Output": Ein solides Verständnis der wissenschaftlichen Technik und Regeln ist für hochwertige Ergebnisse entscheidend.</li>
                           <li>Häufige Fehler in wissenschaftlichen Arbeiten: fehlendes roter Faden, übermäßige direkte Zitate, Plagiat – unbedingt zu vermeiden.</li>
@@ -799,19 +853,19 @@
                     <div class="phase-block">
                       <div class="phase-header">
                         <span class="phase-badge phase-badge--purple">Phase 3</span>
-                        <span class="phase-title">Festigen &amp; Erinnern</span>
+                        <span class="phase-title">🧠 Festigen &amp; Erinnern</span>
                         <span class="phase-time">Nächste Schritte</span>
                       </div>
                       <div class="phase-body">
-                        <p>Um dein Wissen langfristig zu sichern, wende die Methode der <strong>gestaffelten Wiederholung</strong> an:</p>
+                        <p>Um Ihr Wissen langfristig zu sichern, wenden Sie die Methode der <strong>gestaffelten Wiederholung</strong> an:</p>
                         <div class="sg-repeat-list">
                           <div class="sg-repeat-item">
                             <span class="sg-repeat-badge">Morgen</span>
-                            <div><strong>10 Min.:</strong> Überprüfe deine „unklarsten Punkte" und versuche, sie vollständig zu klären. Beantworte die „Active Recall"-Aufforderungen erneut. Nutze dazu deine eigenen Worte.</div>
+                            <div><strong>10 Min.:</strong> Überprüfen Sie Ihre „unklarsten Punkte" und versuchen Sie, sie vollständig zu klären. Beantworten Sie die „Active Recall"-Aufforderungen erneut. Nutzen Sie dazu Ihre eigenen Worte.</div>
                           </div>
                           <div class="sg-repeat-item">
                             <span class="sg-repeat-badge sg-repeat-badge--light">In 3 Tagen</span>
-                            <div><strong>5 Min.:</strong> Gehe die Liste der „Schlüsselthemen &amp; Definitionen" schnell durch. Versuche, die wichtigsten Begriffe aus dem Gedächtnis zu definieren, bevor du deine Notizen konsultierst.</div>
+                            <div><strong>5 Min.:</strong> Gehen Sie die Liste der „Schlüsselthemen &amp; Definitionen" schnell durch. Versuchen Sie, die wichtigsten Begriffe aus dem Gedächtnis zu definieren, bevor Sie Ihre Notizen konsultieren.</div>
                           </div>
                         </div>
                       </div>
@@ -1002,5 +1056,7 @@
       });
     }
   </script>
+
+
 </body>
 </html>
