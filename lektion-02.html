@@ -407,7 +407,11 @@
     .sg-card {
       background: #F9F9F6; border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem;
     }
-    .sg-card-title { font-size: 1.05rem; font-weight: 600; color: var(--dark); margin-bottom: 1rem; }
+    .sg-card-title {
+      font-size: 1.05rem; font-weight: 600; color: var(--dark); margin-bottom: 1rem;
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding-bottom: 0.5rem; border-bottom: 2px solid var(--green);
+    }
     .sg-ul, .sg-ol { padding-left: 1.5rem; display: flex; flex-direction: column; gap: 0.5rem; }
     .sg-ul li, .sg-ol li { font-size: 0.95rem; line-height: 1.65; color: #333; }
     .sg-flow {
@@ -417,7 +421,7 @@
 
     .sg-table-wrap { overflow-x: auto; border-radius: 12px; border: 1px solid var(--border); box-shadow: var(--shadow-sm); }
     .sg-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; background: var(--surface); }
-    .sg-table thead tr { background: var(--dark); color: #fff; }
+    .sg-table thead tr { background: var(--green); color: var(--dark); }
     .sg-table th { padding: 1rem 1.25rem; text-align: left; font-weight: 600; font-size: 0.85rem; letter-spacing: 0.05em; text-transform: uppercase; }
     .sg-table td { padding: 1rem 1.25rem; vertical-align: top; border-bottom: 1px solid var(--border); line-height: 1.6; color: #333; }
     .sg-table tbody tr:last-child td { border-bottom: none; }
@@ -527,12 +531,14 @@
         <!-- TAB PANEL 1: KERNTHEMEN (JETZT ZUM ABHAKEN) -->
         <div class="tab-panel active" id="tab-kernthemen" role="tabpanel">
           <p class="section-heading">Kernthemen</p>
+           <div class="audio-summary-placeholder" style="margin-top: 0; margin-bottom: 1.25rem;">
+            ✅ <strong>Tipp:</strong> Klicken Sie auf eine Kachel, um sie abzuhaken. So können Sie Themen, die Sie bereits sicher beherrschen, durchstreichen und behalten den Überblick, was noch offen ist. Ihr Fortschritt wird automatisch gespeichert.
+          </div>
           <div class="topic-list">
-            
             <div class="topic-item">
               <span class="topic-num">01</span>
               <div class="topic-body">
-                <div class="topic-title">Forschungsfrage</div>
+                <div class="topic-title">🧭 Forschungsfrage</div>
                 <div class="topic-sub">Die Forschungsfrage ist der „Leitstern“ jeder wissenschaftlichen Arbeit, die ein breites Thema in eine präzise, beantwortbare Fragestellung überführt. Sie ist übergeordneter Natur und bestimmt die finale Forschungsmethode, ohne bereits eine vermutete Antwort zu enthalten.</div>
               </div>
             </div>
@@ -540,7 +546,7 @@
             <div class="topic-item">
               <span class="topic-num">02</span>
               <div class="topic-body">
-                <div class="topic-title">Forschungsziele (Explorativ, Deskriptiv, Kausal)</div>
+                <div class="topic-title">🎯 Forschungsziele (Explorativ, Deskriptiv, Kausal)</div>
                 <div class="topic-sub">Diese definieren den primären Zweck einer Studie. Explorative Studien zielen darauf ab, erste Einsichten zu gewinnen und neue Zusammenhänge zu entdecken. Deskriptive Studien beschreiben Sachverhalte und deren Häufigkeit oder Korrelationen. Kausale (experimentelle) Studien überprüfen Ursache-Wirkungs-Beziehungen.</div>
               </div>
             </div>
@@ -548,7 +554,7 @@
             <div class="topic-item">
               <span class="topic-num">03</span>
               <div class="topic-body">
-                <div class="topic-title">Hypothesen & Operationalisierbarkeit</div>
+                <div class="topic-title">🧩 Hypothesen & Operationalisierbarkeit</div>
                 <div class="topic-sub">Eine Hypothese ist eine vorläufige, vermutete Antwort auf eine Forschungsfrage, die als Aussage formuliert wird und Zusammenhänge zwischen mindestens zwei Variablen unterstellt. Sie dient dazu, die Realität zu erklären und wird typischerweise in quantitativen Studien zur Bestätigung oder Widerlegung herangezogen. Operationalisierbarkeit: Bezieht sich auf die Fähigkeit, abstrakte Begriffe innerhalb einer Hypothese erfassbar und messbar zu machen. Dies ist eine grundlegende Anforderung für die empirische Überprüfbarkeit einer Hypothese.</div>
               </div>
             </div>
@@ -556,7 +562,7 @@
             <div class="topic-item">
               <span class="topic-num">04</span>
               <div class="topic-body">
-                <div class="topic-title">Widerlegbarkeit (Falsifizierbarkeit)</div>
+                <div class="topic-title"> 🔍 Widerlegbarkeit (Falsifizierbarkeit)</div>
                 <div class="topic-sub">Eine wesentliche Anforderung an wissenschaftliche Hypothesen ist, dass sie prinzipiell widerlegbar sein müssen. Dies bedeutet, dass sie so formuliert sein müssen, dass sie durch empirische Beobachtungen potenziell als falsch erwiesen werden können, wodurch ihr wissenschaftlicher Gehalt sichergestellt wird.</div>
               </div>
             </div>
@@ -623,22 +629,22 @@
                       </div>
                       <div class="phase-body">
 
-                        <h3 class="sg-section-title">Schlüsselbegriffe</h3>
+                        <h3 class="sg-section-title">Schlüsselbegriffe 🔑</h3>
                         <div class="sg-def-list">
                           <div class="sg-def-item"><span class="sg-term">Forschungsfrage (RQ)</span><span class="sg-def">Als Frage formulierte Präzisierung eines Themas, die das Problem einer Arbeit definiert und den „Leitstern" darstellt.</span></div>
                           <div class="sg-def-item"><span class="sg-term">Hypothese (H)</span><span class="sg-def">Als Aussage formulierte, vorläufige (vermutete) Antwort auf eine Forschungsfrage, die einen Zusammenhang zwischen mindestens zwei Variablen unterstellt und die Realität erklären soll.</span></div>
                           <div class="sg-def-item"><span class="sg-term">Nullhypothese (H₀)</span><span class="sg-def">Verneint in der Regel den interessierten Sachverhalt; bei Ablehnung gilt der postulierte Zusammenhang als bestätigt.</span></div>
                           <div class="sg-def-item"><span class="sg-term">Alternativhypothese (H₁)</span><span class="sg-def">Wird bei Widerlegung der Nullhypothese angenommen.</span></div>
                           <div class="sg-def-item"><span class="sg-term">Operationalisierung</span><span class="sg-def">Das Erfassen und Messen von abstrakten Begriffen in einer Hypothese, um sie empirisch überprüfbar zu machen.</span></div>
-                          <div class="sg-def-item"><span class="sg-term">Unabhängige Variable (UV)</span><span class="sg-def">Die Ursache in einer Wirkungs-/Kausalhypothese, die einen Einfluss auf eine abhängige Variable hat.</span></div>
-                          <div class="sg-def-item"><span class="sg-term">Abhängige Variable (AV)</span><span class="sg-def">Die Wirkung in einer Wirkungs-/Kausalhypothese, die durch die unabhängige Variable beeinflusst wird.</span></div>
+                          <div class="sg-def-item"><span class="sg-term">Unabhängige Variable (UV)</span><span class="sg-def">Die Ursache in einer Wirkungs-/Kausalhypothese, die einen Einfluss auf eine abhängige Variable hat. Die UV kann experimental verändert werden. Beispielsweise "verschiedene Arten von Instagram-Beiträgen".</span></div>
+                          <div class="sg-def-item"><span class="sg-term">Abhängige Variable (AV)</span><span class="sg-def">Die Wirkung in einer Wirkungs-/Kausalhypothese, die durch die unabhängige Variable beeinflusst wird. Beispielsweise "Negative Stimmung".</span></div>
                           <div class="sg-def-item"><span class="sg-term">Research Gap (Forschungslücke)</span><span class="sg-def">Ein ungelöstes Problem oder eine unbeantwortete Frage, die den Ausgangspunkt wissenschaftlicher Arbeit bildet.</span></div>
                         </div>
 
-                        <h3 class="sg-section-title" style="margin-top:1.75rem;">Kernprozesse, Modelle &amp; Regeln</h3>
+                        <h3 class="sg-section-title" style="margin-top:1.75rem;">Kernprozesse, Modelle &amp; Regeln ⚙️</h3>
 
                         <div class="sg-card">
-                          <div class="sg-card-title">Prozess der wissenschaftlichen Studienplanung</div>
+                          <div class="sg-card-title">Prozess der wissenschaftlichen Studienplanung 🧭</div>
                           <ol class="sg-ol">
                             <li><strong>Themenfindung:</strong> Ausgangspunkt.</li>
                             <li><strong>Forschungslücken identifizieren:</strong> Problemstellung.</li>
@@ -650,7 +656,7 @@
                         </div>
 
                         <div class="sg-card">
-                          <div class="sg-card-title">Ziele der Wissenschaft</div>
+                          <div class="sg-card-title">Ziele der Wissenschaft 🎯</div>
                           <ul class="sg-ul">
                             <li><strong>Vorhersage (Prognose):</strong> Welche Auswirkungen hat der Einsatz von ChatGPT auf die künftige kognitive Leistungsfähigkeit von Studierenden?</li>
                             <li><strong>Erklärung (Kausalität):</strong> Warum nutzen Studierende ChatGPT, auch wenn sie skeptisch sind?</li>
@@ -659,7 +665,7 @@
                         </div>
 
                         <div class="sg-card">
-                          <div class="sg-card-title">Typen von Untersuchungen nach Forschungsziel</div>
+                          <div class="sg-card-title">Typen von Untersuchungen nach Forschungsziel 🔬</div>
                           <ul class="sg-ul">
                             <li><strong>Explorative Untersuchung:</strong> Ziel ist es, Neues zu entdecken und erste Einsichten zu gewinnen; oft qualitative Studien (z.B. Interviews).</li>
                             <li><strong>Deskriptive Untersuchung:</strong> Ziel ist es, Sachverhalte genau zu beschreiben und Häufigkeiten sowie Korrelationen zu ermitteln; quantitative Studien.</li>
@@ -668,7 +674,13 @@
                         </div>
 
                         <div class="sg-card">
-                          <div class="sg-card-title">Merkmale einer Kausalbeziehung</div>
+                          <div style="display:flex; justify-content:space-between; align-items:center; gap:1rem; flex-wrap:wrap; margin-bottom:1rem;">
+                            <div class="sg-card-title" style="margin-bottom:0;">Merkmale einer Kausalbeziehung 🔗</div>
+                            <div style="display:flex; align-items:center; gap:0.6rem;">
+                              <span style="font-size:0.9rem; font-style:italic; color:var(--muted);">Je kleiner die Bananenstaude, desto stärker ist die Krümmung,</span>
+                              <span style="font-size:2.2rem; line-height:1;">🍌</span>
+                            </div>
+                          </div>
                           <ol class="sg-ol">
                             <li>Theoretische Begründung des Zusammenhangs.</li>
                             <li>Gemeinsame Variation von „Grund" (Ursache) und „Effekt" (Wirkung).</li>
@@ -678,12 +690,27 @@
                         </div>
 
                         <div class="sg-card">
-                          <div class="sg-card-title">Entwicklung von Forschungsfrage zu Hypothese</div>
+                          <div class="sg-card-title">Vom Thema zur Forschungsfrage 💡</div>
+                          <p style="font-size:0.95rem; line-height:1.7; color:#333;">Ein breites Forschungsthema ist nur der Ausgangspunkt. Die Forschungsfrage (oder Hypothese) ist der Dreh- und Angelpunkt einer wissenschaftlichen Arbeit, da sie ein präzises Erkenntnisinteresse darstellt. Die Forschungsfrage ist der „Leitstern" deiner Arbeit, präzisiert das Thema und demonstriert die Forschungslücke. Sie ist übergeordnet und bestimmt die Forschungsmethode.</p>
+                        </div>
+
+                        <div class="sg-card">
+                          <div class="sg-card-title">Entwicklung von Forschungsfrage zu Hypothese ➡️</div>
                           <p class="sg-flow">Thema &rarr; Forschungsziel &rarr; Forschungsfrage(n) &rarr; Hypothesen</p>
                         </div>
 
                         <div class="sg-card">
-                          <div class="sg-card-title">Kriterien guter Forschungsfragen</div>
+                          <div class="sg-card-title">Hypothesen formulieren ✍️</div>
+                          <div class="sg-def-list">
+                            <div class="sg-def-item"><span class="sg-term">Definition Hypothese</span><span class="sg-def">Vorläufige (vermutete) Antwort auf eine Forschungsfrage, die einen Zusammenhang zwischen mindestens zwei Variablen unterstellt.</span></div>
+                            <div class="sg-def-item"><span class="sg-term">Abgrenzung zur Forschungsfrage</span><span class="sg-def">Eine Forschungsfrage ist als Frage formuliert und wird verwendet, wenn noch keine vermutete Antwort oder Theorie vorliegt (qualitative Forschung, Induktion). Eine Hypothese ist eine als Aussage formulierte, prüfbare Annahme (quantitative Forschung, Deduktion).</span></div>
+                            <div class="sg-def-item"><span class="sg-term">Nullhypothese (H0)</span><span class="sg-def">Verneint in der Regel den interessierenden Sachverhalt. Wird bei Ablehnung angenommen, dass der postulierte Zusammenhang bestätigt ist.</span></div>
+                            <div class="sg-def-item"><span class="sg-term">Alternativhypothese (H1)</span><span class="sg-def">Wird angenommen, wenn H0 widerlegt wird.</span></div>
+                          </div>
+                        </div>
+
+                        <div class="sg-card">
+                          <div class="sg-card-title">Kriterien guter Forschungsfragen ❓</div>
                           <ul class="sg-ul">
                             <li><strong>Klarheit:</strong> Eindeutig verständlich, ohne Mehrdeutigkeiten oder vage Begriffe.</li>
                             <li><strong>Forschungsrelevanz:</strong> Bezug zur Theorie oder Praxis, Beitrag zur wissenschaftlichen Diskussion.</li>
@@ -694,25 +721,28 @@
                           </ul>
                         </div>
 
+                        <h3 class="sg-section-title" style="margin-top:1.75rem;">Hypothesen im Detail 🧪</h3>
+
                         <div class="sg-card">
-                          <div class="sg-card-title">Anforderungen an Hypothesen</div>
+                          <div class="sg-card-title">Anforderungen an Hypothesen ✅</div>
                           <ul class="sg-ul">
                             <li><strong>Präzise und widerspruchsfrei formuliert:</strong> Idealerweise lässt die Formulierung die Art der Hypothese erkennen. Widersprüchliche Hypothesen sind nicht wissenschaftlich.</li>
-                            <li><strong>Prinzipiell widerlegbar:</strong> Muss falsifizierbar sein, um empirischen Gehalt zu besitzen (z.B. gerichtete Kausalhypothesen besser als ungerichtete Zusammenhangshypothesen).</li>
+                            <li><strong>Prinzipiell widerlegbar:</strong> Muss falsifizierbar sein, um empirischen Gehalt zu besitzen.</li>
                             <li><strong>Operationalisierbar:</strong> Die abstrakten Begriffe müssen messbar sein.</li>
                             <li><strong>Begründbar:</strong> Muss unter Einbeziehung theoretischer Grundlagen und des empirischen Forschungsstands gut begründet sein.</li>
                           </ul>
+                          <p style="font-style:italic; margin-top:1rem; color:#333; font-size:0.95rem;">Zum Beispiel: In der Prüfungswoche erkranken mehr Studenten an grippalen Infekten als zu anderen Zeiten im Semester.</p>
                         </div>
 
                         <div class="sg-card">
-                          <div class="sg-card-title">Gerichtetheit von Hypothesen</div>
+                          <div class="sg-card-title">Gerichtetheit von Hypothesen ↔️</div>
                           <ul class="sg-ul">
                             <li><strong>Ungerichtet:</strong> Beschreibt einen Unterschied oder Zusammenhang ohne spezifische Richtung (z.B. „Krankmeldungen unterscheiden sich im Semesterverlauf"). Besitzt niedrigen empirischen Gehalt.</li>
                             <li><strong>Gerichtet:</strong> Postuliert eine spezifische Richtung des Zusammenhangs oder der Wirkung (z.B. „In der Prüfungswoche erkranken <em>mehr</em> Studenten…"). Besitzt hohen empirischen Gehalt.</li>
                           </ul>
                         </div>
 
-                        <h3 class="sg-section-title" style="margin-top:1.75rem;">Arten von Hypothesen und Analyseverfahren</h3>
+                        <h3 class="sg-section-title" style="margin-top:1.75rem;">Arten von Hypothesen und Analyseverfahren 📊</h3>
                         <div class="sg-table-wrap">
                           <table class="sg-table">
                             <thead>
@@ -720,7 +750,7 @@
                                 <th>Art der Hypothese</th>
                                 <th>Formale Beschreibung</th>
                                 <th>Beispiel (Werbepsychologie)</th>
-                                <th>Analyseverfahren</th>
+                                <th>Analyseverfahren*</th>
                               </tr>
                             </thead>
                             <tbody>
@@ -763,8 +793,9 @@
                             </tbody>
                           </table>
                         </div>
+                        <p style="font-size:0.85rem; color:var(--muted); margin-top:0.5rem;">*Diese Analysemethoden werden in Statistik 1 behandelt.</p>
 
-                        <h3 class="sg-section-title" style="margin-top:1.75rem;">Wesentliche Fakten &amp; Daten</h3>
+                        <h3 class="sg-section-title" style="margin-top:1.75rem;">Wesentliche Fakten &amp; Daten 🗂️</h3>
                         <ul class="sg-ul">
                           <li>Wissenschaftliches Arbeiten erfordert ständige Übung; Sünden wie fehlender rote Faden, Umgangssprache und Plagiate sind zu vermeiden.</li>
                           <li>Eine Forschungsfrage ist übergeordneter Natur und keine Detailfrage.</li>
