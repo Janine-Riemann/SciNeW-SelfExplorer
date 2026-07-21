@@ -267,8 +267,10 @@
     color: var(--text);
     text-align: center;
   }
-  .fill-blank.correct { background: var(--success-bg); color: var(--success); border-color: var(--success); }
-  .fill-blank.wrong   { background: var(--error-bg);   color: var(--error);   border-color: var(--error); }
+  .fill-blank.correct,
+  .fill-blank-select.correct { background: var(--success-bg); color: var(--success); border-color: var(--success); }
+  .fill-blank.wrong,
+  .fill-blank-select.wrong   { background: var(--error-bg);   color: var(--error);   border-color: var(--error); }
 
   /* ── REIHENFOLGE-AUFGABE (Begriffe in richtige Reihenfolge bringen) ── */
   .order-list {
@@ -401,7 +403,7 @@
        INFO-TEXT – Gute Überschrift, schlechte Überschrift
        ============================================================ -->
   <div class="info-card">
-    <h2>📝 Was macht eine gute Überschrift aus?</h2>
+    <h2>📝 Wiederholung: Was macht eine gute Überschrift aus?</h2>
     <p>Eine gute Überschrift ist wie ein Wegweiser – klar, präzise und auf den Punkt. Damit sie im wissenschaftlichen Text funktioniert, sollte sie <strong>genau so formuliert sein wie der zugehörige Gliederungspunkt</strong>.</p>
     <p>❌ Keine ganzen Sätze oder Verben verwenden – Überschriften sind <strong>keine Erzähltexte</strong>. 🔗 Vermeide sprachliche Bezüge zwischen den einzelnen Überschriften – jede steht <strong>für sich allein</strong>. 📏 Die Formulierung sollte ein <strong>Kompromiss aus Kürze und Informationsgehalt</strong> sein:</p>
     <ul>
@@ -479,8 +481,8 @@
        ============================================================ -->
   <section class="exercise" id="ex2">
     <div class="exercise-label">Aufgabe 2 · Reihenfolge</div>
-    <h3>Bringe die Bestandteile einer Seminararbeit in die richtige Reihenfolge!</h3>
-    <p class="exercise-intro">Wähle für jede Position den passenden Bestandteil aus dem Dropdown-Menü aus und klicke dann auf „Überprüfen".</p>
+    <h3>Bringen Sie die Bestandteile einer Seminararbeit in die richtige Reihenfolge!</h3>
+    <p class="exercise-intro">Wählen Sie für jede Position den passenden Bestandteil aus dem Dropdown-Menü aus und klicken Sie dann auf „Überprüfen".</p>
 
     <ol class="order-list" id="order-list">
       <!-- jeder Listenpunkt bekommt automatisch eine Nummer (1–10) -->
@@ -674,7 +676,7 @@
        ============================================================ -->
   <section class="exercise" id="ex6">
     <div class="exercise-label">Aufgabe 6 · Lückentext</div>
-    <h3>Ziehe die Wörter in die richtigen Felder!</h3>
+    <h3>Ziehen Sie die Wörter in die richtigen Felder!</h3>
     <p class="exercise-intro">Wähle für jede Lücke das passende Wort aus dem Dropdown-Menü.</p>
 
     <div class="fill-text" id="fill1-text">
@@ -694,7 +696,7 @@
   <section class="exercise" id="ex7">
     <div class="exercise-label">Aufgabe 7 · Mehrfachauswahl</div>
     <h3>Was sollte alles in den Methodenteil?</h3>
-    <p class="exercise-intro">Es können mehrere Antworten richtig sein. Wähle alle zutreffenden Antworten aus und klicke auf „Überprüfen".</p>
+    <p class="exercise-intro">Es können mehrere Antworten richtig sein. Wählen Sie alle zutreffenden Antworten aus und klicke auf „Überprüfen".</p>
 
     <div class="mc-options" id="mc1-options">
       <label class="mc-option" data-correct="true"><input type="checkbox"> Stichprobe</label>
@@ -716,8 +718,8 @@
        ============================================================ -->
   <section class="exercise" id="ex8">
     <div class="exercise-label">Aufgabe 8 · Lückentext</div>
-    <h3>Ziehe die Wörter in die richtigen Felder!</h3>
-    <p class="exercise-intro">Wähle für jede Lücke das passende Wort aus dem Dropdown-Menü.</p>
+    <h3>Ziehen Sie die Wörter in die richtigen Felder!</h3>
+    <p class="exercise-intro">Wählen Sie für jede Lücke das passende Wort aus dem Dropdown-Menü.</p>
 
     <div class="fill-text" id="fill2-text">
       Im Ergebnisteil erfolgt die <select class="fill-blank-select" data-blank-id="f2-1" data-correct="Dokumentation"></select> der Analysebefunde. Die Interpretation erfolgt erst in der <select class="fill-blank-select" data-blank-id="f2-2" data-correct="Diskussion"></select>. Dort wird über die Bedeutung der Ergebnisse gesprochen, sie werden in die Literatur eingeordnet und ihre Implikationen für die Forschungsfrage überlegt.
@@ -828,7 +830,7 @@ function checkAnswer(id, btn, isCorrect) {
   } else {
     btn.classList.add('wrong');
     feedback.className = 'quiz-feedback error';
-    feedback.textContent = '✗ Falsch! Bitte versuche es nach dem Zurücksetzen noch einmal.';
+    feedback.textContent = '✗ Falsch! Bitte versuchen Sie es nach dem Zurücksetzen noch einmal.';
     opts.querySelectorAll('.quiz-option-btn').forEach(b => { if (b !== btn) b.classList.add('correct'); });
   }
   feedback.style.display = 'flex';
@@ -855,7 +857,7 @@ function checkTF(id, btn, isCorrect) {
   } else {
     btn.classList.add('wrong');
     feedback.className = 'tf-feedback error';
-    feedback.textContent = '✗ Falsch! Bitte versuche es nach dem Zurücksetzen noch einmal.';
+    feedback.textContent = '✗ Falsch! Bitte versuchen Sie es nach dem Zurücksetzen noch einmal.';
     opts.querySelectorAll('.tf-option-btn').forEach(b => { if (b !== btn) b.classList.add('correct'); });
   }
   feedback.style.display = 'flex';
@@ -913,13 +915,13 @@ function checkOrder() {
   });
   if (!allFilled) {
     feedback.className = 'feedback-msg error';
-    feedback.textContent = 'Bitte fülle zuerst alle Felder aus.';
+    feedback.textContent = 'Bitte füllen Sie zuerst alle Felder aus.';
   } else if (allCorrect) {
     feedback.className = 'feedback-msg success';
-    feedback.textContent = '✓ Richtig! Du hast die Reihenfolge korrekt zusammengestellt.';
+    feedback.textContent = '✓ Richtig! Sie haben die Reihenfolge korrekt zusammengestellt.';
   } else {
     feedback.className = 'feedback-msg error';
-    feedback.textContent = '✗ Noch nicht ganz richtig. Die falschen Felder sind rot markiert – versuche es erneut.';
+    feedback.textContent = '✗ Noch nicht ganz richtig. Die falschen Felder sind rot markiert – versuchen Sie es erneut.';
   }
   feedback.style.display = 'flex';
 }
@@ -1022,13 +1024,13 @@ function checkFillText(id) {
   });
   if (!allFilled) {
     feedback.className = 'feedback-msg error';
-    feedback.textContent = 'Bitte fülle zuerst alle Lücken aus.';
+    feedback.textContent = 'Bitte füllen Sie zuerst alle Lücken aus.';
   } else if (allCorrect) {
     feedback.className = 'feedback-msg success';
     feedback.textContent = '✓ Richtig! Alle Lücken wurden korrekt ausgefüllt.';
   } else {
     feedback.className = 'feedback-msg error';
-    feedback.textContent = '✗ Noch nicht ganz richtig. Die falschen Felder sind rot markiert – versuche es erneut.';
+    feedback.textContent = '✗ Noch nicht ganz richtig. Die falschen Felder sind rot markiert – versuchen Sie es erneut.';
   }
   feedback.style.display = 'flex';
 }
