@@ -384,7 +384,55 @@
     text-decoration: underline;
   }
   .link-box a:hover { color: var(--primary-text); }
- 
+
+  /* ── ACTIVE RECALL ── */
+  .recall-item {
+    padding: 16px 20px;
+    background: var(--bg);
+    border-radius: 8px;
+    border-left: 4px solid var(--accent);
+    margin-bottom: 14px;
+  }
+  .recall-item:last-child { margin-bottom: 0; }
+  .recall-question {
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.55;
+    margin-bottom: 12px;
+  }
+
+  /* ── OFFENE SYNTHESEAUFGABEN ── */
+  .task-block { margin-bottom: 8px; }
+  .task-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    margin-right: 8px;
+  }
+  .task-title {
+    font-size: 1.02rem;
+    font-weight: 700;
+    color: var(--primary-text);
+    margin-bottom: 10px;
+  }
+  .task-text { margin-bottom: 14px; font-size: .97rem; }
+  .task-textarea {
+    width: 100%;
+    min-height: 120px;
+    resize: vertical;
+    font-family: inherit;
+    font-size: .95rem;
+    line-height: 1.5;
+    color: var(--text);
+    background: var(--surface);
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    padding: 14px 16px;
+    transition: border-color .15s;
+  }
+  .task-textarea:focus { outline: none; border-color: var(--primary-dark); }
+
   @media (max-width: 640px) {
     .page-header { padding: 22px 20px; }
     .exercise, .info-card, .video-wrap { padding: 20px 18px; }
@@ -704,14 +752,32 @@
   <section class="exercise" id="ex5">
     <div class="exercise-label">Aufgabe 5 · Active Recall</div>
     <h3>🧠 Teste dein Verständnis</h3>
-    <p style="margin-bottom: 18px;">Beantworte die folgenden Fragen aus dem Gedächtnis, <strong>ohne in deine Notizen zu schauen</strong>. Schreibe deine Antworten auf.</p>
-    <ol style="padding-left: 1.25rem; display:flex; flex-direction:column; gap:12px;">
-      <li>Wie unterscheidet sich die Zitierfähigkeit von der Zitierwürdigkeit und warum ist diese Unterscheidung für wissenschaftliche Arbeiten entscheidend?</li>
-      <li>Erläutere den Workflow „Denken – Lesen – Schreiben" und begründe, warum die Reihenfolge „Denken" vor „Formulieren" wichtig ist.</li>
-      <li>Beschreibe die fünf Kriterien des CRAAP-Tests und erkläre an einem Beispiel, wie eine Quelle durch diesen Test fallen könnte.</li>
-      <li>Welche drei Haupt-Lesedurchläufe werden empfohlen (Skimming, Scanning, Close Reading) und für welchen Zweck wird jeder einzelne eingesetzt?</li>
-      <li>Nenne mindestens drei konkrete Einsatzmöglichkeiten von KI-Tools im wissenschaftlichen Kontext und erläutere jeweils ein damit verbundenes Risiko.</li>
-    </ol>
+    <p class="exercise-intro">Beantworten Sie die folgenden Fragen aus dem Gedächtnis, <strong>ohne in Ihre Notizen zu schauen</strong>, und schreiben Sie Ihre Antworten auf.</p>
+
+    <div class="recall-item">
+      <div class="recall-question">1. Wie unterscheidet sich die Zitierfähigkeit von der Zitierwürdigkeit und warum ist diese Unterscheidung für wissenschaftliche Arbeiten entscheidend?</div>
+      <textarea class="task-textarea" placeholder="Ihre Antwort …" style="min-height:90px;"></textarea>
+    </div>
+
+    <div class="recall-item">
+      <div class="recall-question">2. Erläutere den Workflow „Denken – Lesen – Schreiben" und begründe, warum die Reihenfolge „Denken" vor „Formulieren" wichtig ist.</div>
+      <textarea class="task-textarea" placeholder="Ihre Antwort …" style="min-height:90px;"></textarea>
+    </div>
+
+    <div class="recall-item">
+      <div class="recall-question">3. Beschreibe die fünf Kriterien des CRAAP-Tests und erkläre an einem Beispiel, wie eine Quelle durch diesen Test fallen könnte.</div>
+      <textarea class="task-textarea" placeholder="Ihre Antwort …" style="min-height:90px;"></textarea>
+    </div>
+
+    <div class="recall-item">
+      <div class="recall-question">4. Welche drei Haupt-Lesedurchläufe werden empfohlen (Skimming, Scanning, Close Reading) und für welchen Zweck wird jeder einzelne eingesetzt?</div>
+      <textarea class="task-textarea" placeholder="Ihre Antwort …" style="min-height:90px;"></textarea>
+    </div>
+
+    <div class="recall-item">
+      <div class="recall-question">5. Nenne mindestens drei konkrete Einsatzmöglichkeiten von KI-Tools im wissenschaftlichen Kontext und erläutere jeweils ein damit verbundenes Risiko.</div>
+      <textarea class="task-textarea" placeholder="Ihre Antwort …" style="min-height:90px;"></textarea>
+    </div>
   </section>
 
   <!-- ============================================================
@@ -720,17 +786,24 @@
   <section class="exercise" id="ex6">
     <div class="exercise-label">Aufgabe 6 · Synthese</div>
     <h3>✍️ Übungsaufgaben &amp; Synthesefragen</h3>
+    <p class="exercise-intro">Diese Aufgaben haben keine einzelne „richtige" Lösung – nutzen Sie das Textfeld, um Ihre Antwort zu formulieren.</p>
 
-    <p style="font-weight:700; margin-top:8px; margin-bottom:8px;">Teilaufgabe: Quellenanalyse</p>
-    <ol style="padding-left: 1.25rem; display:flex; flex-direction:column; gap:12px; margin-bottom: 20px;">
-      <li>Wähle eine Fachzeitschrift aus deiner Studienrichtung und recherchiere ihr Ranking (z. B. VHB oder SJR-Quartil). Begründe, warum diese Zeitschrift für deine wissenschaftliche Arbeit als zitierwürdig/nicht zitierwürdig einzustufen wäre.</li>
-      <li>Nimm einen beliebigen Wikipedia-Artikel zu einem wissenschaftlichen Thema und wende den CRAAP-Test auf ihn an. Fasse zusammen, welche Kriterien der Artikel erfüllt und welche nicht, und begründe, warum er für eine wissenschaftliche Arbeit nur bedingt zitierfähig ist.</li>
-    </ol>
+    <div class="task-block">
+      <div class="task-title"><span class="task-number">1️⃣</span>Aufgabe 1: Quellenanalyse</div>
+      <div class="task-text">
+        <strong>a)</strong> Wählen Sie eine Fachzeitschrift aus Ihrer Studienrichtung und recherchieren Sie ihr Ranking (z. B. VHB oder SJR-Quartil). Begründen Sie, warum diese Zeitschrift für Ihre wissenschaftliche Arbeit als zitierwürdig/nicht zitierwürdig einzustufen wäre.<br><br>
+        <strong>b)</strong> Nehmen Sie einen beliebigen Wikipedia-Artikel zu einem wissenschaftlichen Thema und wenden Sie den CRAAP-Test auf ihn an. Fassen Sie zusammen, welche Kriterien der Artikel erfüllt und welche nicht, und begründen Sie, warum er für eine wissenschaftliche Arbeit nur bedingt zitierfähig ist.
+      </div>
+      <textarea class="task-textarea" placeholder="Ihre Antwort zu a) und b) …"></textarea>
+    </div>
 
     <hr class="divider">
 
-    <p style="font-weight:700; margin-top:16px; margin-bottom:8px;">Teilaufgabe: Anwendung der Drei-Blicke-Methode</p>
-    <p>Lade dir den Artikel <em>„Surprise, Surprise. Ambient Media as Promotion Tool for Retailers"</em> (Hutter &amp; Hoffmann, 2014) herunter. Wende den „Blick 1: Die Essenz" an, um die Forschungsfrage, die Antwort darauf und den groben Studienablauf zu identifizieren. Fasse die Essenz des Artikels in zwei bis drei Sätzen zusammen.</p>
+    <div class="task-block">
+      <div class="task-title"><span class="task-number">2️⃣</span>Aufgabe 2: Anwendung der Drei-Blicke-Methode</div>
+      <div class="task-text">Laden Sie sich den Artikel <em>„Surprise, Surprise. Ambient Media as Promotion Tool for Retailers"</em> (Hutter &amp; Hoffmann, 2014) herunter. Wenden Sie den „Blick 1: Die Essenz" an, um die Forschungsfrage, die Antwort darauf und den groben Studienablauf zu identifizieren. Fassen Sie die Essenz des Artikels in zwei bis drei Sätzen zusammen.</div>
+      <textarea class="task-textarea" placeholder="Ihre Zusammenfassung der Essenz (2–3 Sätze) …" style="min-height:90px;"></textarea>
+    </div>
   </section>
 </div><!-- /.page-wrapper -->
  
