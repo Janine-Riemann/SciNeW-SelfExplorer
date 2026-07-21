@@ -346,6 +346,36 @@
       background: var(--surface); border: 1px solid var(--border);
       border-radius: 12px; padding: 1.5rem; margin-top: 1rem; box-shadow: var(--shadow-sm);
     }
+    .img-placeholder {
+      width: 100%;
+      max-width: 560px;
+      aspect-ratio: 1191 / 336;
+      background: #F0F0EB;
+      border: 2px dashed var(--border);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      padding: 0;
+      box-shadow: inset 0 0 0 1px rgba(0,0,0,0.03);
+    }
+    .img-placeholder img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+      background: #fff;
+      padding: 0;
+    }
+    .img-placeholder svg { opacity: 0.45; }
+    .publishing-layout {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      align-items: stretch;
+    }
+    @media (max-width: 750px) { .publishing-layout { gap: 1rem; } }
 
     .prose h2 { font-size: 1.5rem; font-weight: 700; margin: 0.5rem 0 1rem; letter-spacing: -0.03em; color: var(--dark); }
     .prose p { font-size: 1rem; line-height: 1.75; color: #333; margin-bottom: 1.25rem; }
@@ -416,7 +446,11 @@
     .sg-card {
       background: #F9F9F6; border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem;
     }
-    .sg-card-title { font-size: 1.05rem; font-weight: 600; color: var(--dark); margin-bottom: 1rem; }
+    .sg-card-title {
+      font-size: 1.05rem; font-weight: 600; color: var(--dark); margin-bottom: 1rem;
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding-bottom: 0.5rem; border-bottom: 2px solid var(--green);
+    }
     .sg-ul, .sg-ol { padding-left: 1.5rem; display: flex; flex-direction: column; gap: 0.5rem; }
     .sg-ul li, .sg-ol li { font-size: 0.95rem; line-height: 1.65; color: #333; }
     .sg-flow {
@@ -670,8 +704,7 @@ und überprüfenden Umgang ab</div>
                   
                   <!-- STUDY GUIDE INTEGRATION -->
                   <div class="study-guide">
-
-                    <!-- PHASE 1 -->
+  <!-- PHASE 1 -->
                     <div class="phase-block">
                       <div class="phase-header">
                         <span class="phase-badge">Phase 1</span>
@@ -686,8 +719,7 @@ und überprüfenden Umgang ab</div>
 
                       </div>
                     </div>
-
-                    <!-- PHASE 2 -->
+                     <!-- PHASE 2 -->
                     <div class="phase-block">
                       <div class="phase-header">
                         <span class="phase-badge phase-badge--orange">Phase 2</span>
@@ -722,6 +754,60 @@ und überprüfenden Umgang ab</div>
                           <div class="sg-def-item"><span class="sg-term">Zitierwürdigkeit</span><span class="sg-def">Vertrauenswürdigkeit bzw. die Qualität einer Quelle.</span></div>
                         </div>
 
+                    <!-- VERTIEFUNG: LITERATURRECHERCHE W-FRAGEN -->
+                    <div class="phase-block">
+                      <div class="phase-header">
+                        <span class="phase-badge" style="background:#3B82F6;color:#fff;">Vertiefung</span>
+                        <span class="phase-title">📌 Literaturrecherche: Warum, Wann, Was, Wo, Wie</span>
+                      </div>
+                      <div class="phase-body">
+
+                        <div class="sg-card">
+                          <div class="sg-card-title">🤔 Warum recherchieren?</div>
+                          <ul class="sg-ul">
+                            <li>Zeigt das zugrundeliegende Wissen der Arbeit.</li>
+                            <li>Ermöglicht das Aufzeigen einer Forschungslücke.</li>
+                            <li>Bestätigt das Verständnis des Themas.</li>
+                            <li>Hilft, den aktuellen Forschungsstand zu erfassen und die eigene Forschungsfrage abzuleiten.</li>
+                            <li>Bildet die theoretische Grundlage der Arbeit.</li>
+                          </ul>
+                        </div>
+
+                        <div class="sg-card">
+                          <div class="sg-card-title">⏱️ Wann recherchieren?</div>
+                          <ul class="sg-ul">
+                            <li>Kontinuierlich in den Phasen des Einlesens, der Konzeptentwicklung und der Erarbeitung des Theorieteils.</li>
+                            <li><strong>Verständnis-Spirale:</strong> Iterativer Prozess, bei dem sich das Verständnis mit jedem Durchgang vertieft.</li>
+                          </ul>
+                        </div>
+
+                        <div class="sg-card">
+                          <div class="sg-card-title">💡 Von der Idee zum Konzept</div>
+                          <ul class="sg-ul">
+                            <li>Ein Exposé/Konzept lohnt sich immer zur Selbstreflexion und zur Veranschaulichung für andere.</li>
+                            <li><strong>Phasen:</strong> Relevanz (Titel, Fragestellung, Aufbau, theoretische Basis), Methode (Vorgehen, Lösungsansatz), Exposé/Konzept (Lücke, Frage, Basis, Methodik, Literatur), Theorieteil (Review, Modell, Hypothesen).</li>
+                          </ul>
+                        </div>
+
+                        <div class="sg-card">
+                          <div class="sg-card-title">🔁 Kreislauf des Recherchierens</div>
+                          <p style="font-size:0.95rem;line-height:1.65;color:#333;">Ein iterativer Prozess aus Recherchieren, Lesen und (Konzept) Schreiben.</p>
+                        </div>
+
+                        <div class="sg-card">
+                          <div class="sg-card-title">🐇 „Rabbit Hole" vermeiden</div>
+                          <p style="font-size:0.95rem;line-height:1.65;color:#333;margin-bottom:0.75rem;">Abdriften von der zentralen Forschungsfrage in unwichtige Randthemen ist die größte Zeit- und Fokusfalle.</p>
+                          <ul class="sg-ul">
+                            <li><strong>Strategien:</strong> Fokus behalten, Notizen für später machen, Priorisieren, Relevanz-Check („Ist dieses Detail absolut notwendig?").</li>
+                          </ul>
+                        </div>
+
+                      </div>
+                    </div>
+
+                  
+
+                   
                         <h3 class="sg-section-title" style="margin-top:1.75rem;">Kernprozesse, Modelle &amp; Regeln</h3>
 
                         <div class="sg-card">
@@ -736,7 +822,8 @@ und überprüfenden Umgang ab</div>
                         </div>
 
                         <div class="sg-card">
-                          <div class="sg-card-title">Suchoperatoren</div>
+                          <div class="sg-card-title">🔎 Suchoperatoren</div>
+                          <p style="font-size:0.9rem;line-height:1.65;color:#333;margin-bottom:1rem;">Suchoperatoren sind spezielle Zeichen und Befehle (z. B. AND, OR, Anführungszeichen), mit denen sich Suchanfragen in Datenbanken und Suchmaschinen gezielt eingrenzen oder erweitern lassen. Im wissenschaftlichen Kontext helfen sie dabei, aus einer riesigen Menge an Literatur genau die relevanten Quellen herauszufiltern – das spart Zeit und erhöht die Treffgenauigkeit und Qualität der Recherche.</p>
                           <ol class="sg-ol">
                             <li><strong>AND:</strong> Konzepte kombinieren.</li>
                             <li><strong>OR:</strong> Alternative Begriffe kombinieren (Klammern verwenden).</li>
@@ -745,6 +832,23 @@ und überprüfenden Umgang ab</div>
                             <li><strong>Wildcard (?):</strong> Alternative Buchstabenfolgen finden (z. B. <em>Organi?ation</em>).</li>
                             <li><strong>NOT:</strong> Ausschluss nicht benötigter Suchbegriffe.</li>
                           </ol>
+                        </div>
+
+                        <div class="sg-card">
+                          <div class="sg-card-title">🔄 Systematisch vs. Kumulativ</div>
+                          <ul class="sg-ul">
+                            <li><strong>Kumulative Suche (Schneeballsuche/Rückwärtssuche) 🎯:</strong> Beginnt mit einer Quelle, untersucht diese nach weiteren zitierten Quellen. Schneller Überblick, aber subjektiv und oft ältere Literatur.</li>
+                            <li><strong>Systematische Suche 🧭:</strong> Fragestellung schärfen, Suchbegriffe ableiten, geeignete Quellen/Datenbanken wählen, Suchstrategie festlegen, sichten und auswerten. Bietet eine „Hubschrauberperspektive".</li>
+                            <li><strong>Vorwärtssuche ➡️:</strong> Suche nach Quellen, die die gefundene Literatur zitieren.</li>
+                          </ul>
+                        </div>
+
+                        <div class="sg-card">
+                          <div class="sg-card-title">✅ Qualitätsmerkmale von Quellen</div>
+                          <ul class="sg-ul">
+                            <li><strong>Zitierfähigkeit:</strong> Öffentlich verfügbar und dauerhaft rückverfolgbar.</li>
+                            <li><strong>Zitierwürdigkeit:</strong> Vertrauenswürdigkeit und Qualität (aktuell, Aussagen belegt, Autor aus Wissenschaft, wissenschaftlicher Fachverlag, Peer Review, wiss. Erkenntnisinteresse).</li>
+                          </ul>
                         </div>
 
                         <div class="sg-card">
@@ -785,6 +889,44 @@ und überprüfenden Umgang ab</div>
                           </ul>
                         </div>
 
+                        <h3 class="sg-section-title" style="margin-top:1.75rem;">📖 Wissenschaftliches Publizieren</h3>
+                        <div class="publishing-layout">
+                          <div class="img-placeholder">
+                            <img src="bilder/kapitel3-publizieren.png" alt="Illustration zu wissenschaftlichem Publizieren">
+                          </div>
+                          <div style="display:flex;flex-direction:column;gap:1.25rem;">
+                            <div class="sg-card">
+                              <div class="sg-card-title">📚 Publikationsformen</div>
+                              <ul class="sg-ul">
+                                <li><strong>Monografie:</strong> Ein Buch zu einem Thema, oft von einer Person verfasst.</li>
+                                <li><strong>Fachartikel:</strong> Wissenschaftlicher Text in einer Zeitschrift (Journal), besonders wichtig für die Literatursuche aufgrund von Aktualität, wissenschaftlicher Qualität (Peer Review) und Zitationswürdigkeit.</li>
+                                <li><strong>Sammelband/Tagungsband:</strong> Buch mit Beiträgen mehrerer Autoren, oft von Konferenzen.</li>
+                                <li><strong>Dissertation/Habilitation:</strong> Abschlussarbeiten an Universitäten.</li>
+                                <li><strong>Preprint:</strong> Vorab-Veröffentlichung ohne Qualitätsprüfung.</li>
+                              </ul>
+                            </div>
+                            <div class="sg-card">
+                              <div class="sg-card-title">🔍 Qualitätsprüfung</div>
+                              <ul class="sg-ul">
+                                <li><strong>Peer Review:</strong> Standardmethode zur Qualitätssicherung, bei der andere Forschende die Arbeit vor Veröffentlichung prüfen.</li>
+                                <li><strong>Single-Blind Peer-Review:</strong> Autor kennt Gutachter nicht.</li>
+                                <li><strong>Double-Blind Peer-Review:</strong> Weder Autor noch Gutachter kennen die Identität des jeweils anderen.</li>
+                                <li><strong>Open Review:</strong> Prüfung ist transparent.</li>
+                                <li><strong>Editorial Review:</strong> Redaktion prüft die Arbeit.</li>
+                                <li><strong>Keine Prüfung:</strong> Z. B. bei Preprints oder Blogs.</li>
+                              </ul>
+                            </div>
+                            <div class="sg-card">
+                              <div class="sg-card-title">🌍 Sichtbarkeit und Zugang</div>
+                              <ul class="sg-ul">
+                                <li>Peer-Review-geprüfte Publikationen sind qualitätsgesichert und machen neue Erkenntnisse bekannt.</li>
+                                <li>Bibliotheken helfen beim Zugang zu Literatur (auch Closed Access) und beraten zu Open Access.</li>
+                                <li>Open Access ermöglicht allen (auch außerhalb der Universität) Zugang zu Forschungsergebnissen.</li>
+                              </ul>
+                            </div>
+                          </div>
+                        </div>
+
                         <h3 class="sg-section-title" style="margin-top:1.75rem;">Wesentliche Fakten &amp; Daten</h3>
                         <ul class="sg-ul">
                           <li>50 % der Wissenschaftler nutzen Google/Google Scholar, 43 % Datenbanken und 21 % Bibliothekskataloge als Startpunkt der Recherche.</li>
@@ -798,78 +940,9 @@ und überprüfenden Umgang ab</div>
                       </div>
                     </div>
 
-                    <!-- PHASE 3 -->
-                    <div class="phase-block">
-                      <div class="phase-header">
-                        <span class="phase-badge phase-badge--purple">Phase 3</span>
-                        <span class="phase-title">Üben &amp; Anwenden</span>
-                        <span class="phase-time">&#9201; 30–45 Min.</span>
-                      </div>
-                      <div class="phase-body">
-                        <p>Jetzt ist es an der Zeit, Ihr Wissen aktiv zu testen. Versuchen Sie, die folgenden Fragen <strong>ohne Blick in Ihre Notizen</strong> zu beantworten. Das hilft Ihnen, Ihr Verständnis zu überprüfen und Wissenslücken zu identifizieren.</p>
+                  
 
-                        <h3 class="sg-section-title">Active Recall-Aufforderungen</h3>
-                        <div class="sg-card">
-                          <ol class="sg-ol">
-                            <li>Warum sind Fachartikel mit Peer Review besonders wichtig, und wie unterscheidet sich das Single-Blind vom Double-Blind Peer-Review?</li>
-                            <li>Wie können Sie verhindern, in ein „Rabbit Hole" zu geraten – und welche konkreten Strategien helfen dabei?</li>
-                            <li>Welche Vor- und Nachteile bieten Google Scholar und spezialisierte Fachdatenbanken, und wann würden Sie welches Tool bevorzugen?</li>
-                            <li>Welche „W-Fragen" leiten den Rechercheprozess, und wie hilft eine systematische Suche im Vergleich zur kumulativen Suche?</li>
-                            <li>Warum ist eine kritische Überprüfung von KI-Ergebnissen unerlässlich, und welche Best-Practice-Hinweise sind dabei zentral?</li>
-                          </ol>
-                        </div>
-
-                        <h3 class="sg-section-title" style="margin-top:1.75rem;">Übungs- und Synthesefragen</h3>
-                        <div class="sg-card">
-                          <div class="sg-card-title">Aufgabe 1: Suchbegriffsentwicklung</div>
-                          <p style="font-size:0.95rem;line-height:1.7;color:#333;">Angenommen, Sie schreiben eine Arbeit zum Thema <em>„Der Einfluss von Nachhaltigkeitskommunikation auf das Kaufverhalten junger Erwachsener in Deutschland"</em>. Erstellen Sie eine Tabelle mit mindestens drei Konzepten und sammeln Sie für jedes Konzept mindestens zwei alternative Begriffe (Synonyme, Übersetzungen, Ober-/Unterbegriffe, verwandte Begriffe). Wenden Sie anschließend mindestens drei verschiedene Suchoperatoren (z. B. AND, OR, " ") an, um eine mögliche Suchanfrage zu formulieren.</p>
-                        </div>
-
-                        <div class="sg-card">
-                          <div class="sg-card-title">Aufgabe 2: Quellenbewertungsszenario</div>
-                          <p style="font-size:0.95rem;line-height:1.7;color:#333;margin-bottom:0.75rem;">Ihnen liegen folgende Quellen vor. Beurteilen Sie, welche als <strong>zitierwürdig</strong> gelten und begründen Sie Ihre Einschätzung (Aktualität, Belegbarkeit, Autorität, Publikationsort, Erkenntnisinteresse):</p>
-                          <ol class="sg-ol">
-                            <li>Ein Blogbeitrag über „Trends im nachhaltigen Konsum" von einem unbekannten Autor.</li>
-                            <li>Eine Studie aus dem <em>Journal of Consumer Research</em> über Umweltbewusstsein und Kaufentscheidungen.</li>
-                            <li>Ein aktueller Artikel aus der <em>Süddeutschen Zeitung</em> über politische Maßnahmen zur Förderung nachhaltiger Produkte.</li>
-                            <li>Ein Preprint auf arXiv zum Thema „Green Marketing Strategien".</li>
-                            <li>Ein Lehrbuch zur „Allgemeinen Betriebswirtschaftslehre".</li>
-                          </ol>
-                        </div>
-
-                        <h3 class="sg-section-title" style="margin-top:1.75rem;">Unklarste Punkte zur Wiederholung</h3>
-                        <div class="sg-card">
-                          <p style="font-size:0.95rem;line-height:1.7;color:#333;">Listen Sie hier 1–2 Punkte auf, die Ihnen noch unklar sind oder die Sie noch nicht sicher beantworten konnten. Diese Punkte sind Ihre <strong>Schwerpunkte für die nächste Wiederholung</strong>.</p>
-                        </div>
-
-                      </div>
-                    </div>
-
-                    <!-- PHASE 4 -->
-                    <div class="phase-block">
-                      <div class="phase-header">
-                        <span class="phase-badge" style="background:#3B82F6;color:#fff;">Phase 4</span>
-                        <span class="phase-title">Festigen &amp; Erinnern</span>
-                        <span class="phase-time">Nächste Schritte</span>
-                      </div>
-                      <div class="phase-body">
-                        <p>Um das Gelernte langfristig im Gedächtnis zu behalten, ist regelmäßige Wiederholung entscheidend. Halten Sie sich an diesen einfachen Plan für die <strong>gestaffelte Wiederholung</strong>:</p>
-                        <div class="sg-repeat-list">
-                          <div class="sg-repeat-item">
-                            <span class="sg-repeat-badge">Morgen</span>
-                            <div><strong>10 Min.:</strong> Nehmen Sie sich Ihre „unklarsten Punkte" von heute noch einmal vor. Versuchen Sie, die Active-Recall-Aufforderungen erneut zu beantworten, ohne zu spicken.</div>
-                          </div>
-                          <div class="sg-repeat-item">
-                            <span class="sg-repeat-badge sg-repeat-badge--light">In 3 Tagen</span>
-                            <div><strong>5 Min.:</strong> Überfliege die „Schlüsselthemen &amp; Definitionen" schnell, um die wichtigsten Konzepte aufzufrischen.</div>
-                          </div>
-                          <div class="sg-repeat-item">
-                            <span class="sg-repeat-badge" style="background:#EE7050;color:#fff;">In 1 Woche</span>
-                            <div><strong>5–10 Min.:</strong> Bearbeite eine der Übungsaufgaben erneut, oder erkläre einem Freund/Kommilitonen die Kernkonzepte der Literaturrecherche (<strong>Feynman-Technik</strong>). Die Fähigkeit, etwas klar und verständlich zu erklären, ist ein starkes Zeichen für tiefes Verständnis.</div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+                  
 
                     <!-- PLACEHOLDER (keep for compatibility) -->
                     <div style="display:none;">
@@ -984,7 +1057,7 @@ und überprüfenden Umgang ab</div>
                   </div><!-- /study-guide -->
 
                   <div class="text-placeholder-box">
-                    <h3 style="font-size: 1.05rem; margin-bottom: 0.5rem; color: var(--dark);">Ergänzende Materialien:</h3>
+                    <h3 class="sg-card-title">Ergänzende Materialien:</h3>
                     <p style="font-size: 0.92rem; color: var(--muted); line-height: 1.6;">Jhangiani, R. S., Chiang, I. C. A., Cuttler, C., &amp; Leighton, D. C. (2019). Research methods in psychology Kwantlen Polytechnic University. – Chapter II The Science of Psychology (pp. 25–58)</p>
                   </div>
                 </div>
