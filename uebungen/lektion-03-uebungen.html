@@ -182,14 +182,23 @@
     line-height: 1.5;
   }
   .exercise-list {
-    padding-left: 10px;
+    padding-left: 0;
+    max-width: 720px;
   }
   .exercise-list ol {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 10px;
     color: var(--text);
-    padding-left: 18px;
+    padding-left: 0;
+    list-style: none;
+    margin: 0;
+  }
+  .exercise-list li {
+    border-left: 3px solid var(--primary-dark);
+    padding: 0 0 0 12px;
+    line-height: 1.6;
+    background: transparent;
   }
   .exercise-list ul {
     padding-left: 18px;
@@ -347,6 +356,7 @@
     border-radius: var(--radius);
     padding: 16px 22px;
     margin-top: 18px;
+    margin-bottom: 30px;
     font-size: .97rem;
   }
   .link-box a {
@@ -374,31 +384,7 @@
     <div class="subtitle">In dieser kleinen Workbook-Einheit werden nochmals die wichtigsten Informationen von Kapitel 3 wiederholt. Das Bearbeiten der Übungen ist freiwillig und soll Ihnen als Selbstlerneinheit dienen.</div>
   </header>
 
-  <!-- ============================================================
-       VIDEO 1 – Gute Informationen
-       ============================================================ -->
-  <div class="video-wrap">
-    <h3>🎬 Was sind gute Informationen?</h3>
-    <div class="video-desc">Dieses Video erläutert Ihnen, warum es wichtig ist zu verstehen, was <strong>gute Informationen</strong> sind.</div>
-    <div class="video-responsive">
-      <iframe src="https://www.youtube.com/embed/5Jjuvp6qtWc"
-              title="Gute Informationen"
-              allowfullscreen></iframe>
-    </div>
-  </div>
-
-  <!-- ============================================================
-       VIDEO 2 – Gute Literatur
-       ============================================================ -->
-  <div class="video-wrap">
-    <h3>🎬 Was ist gute Literatur für die wissenschaftliche Arbeit?</h3>
-    <div class="video-desc">Im folgenden Video wird erklärt, woran man <strong>gute Literatur für die wissenschaftliche Arbeit</strong> erkennen kann.</div>
-    <div class="video-responsive">
-      <iframe src="https://www.youtube.com/embed/X606hXvZTRI"
-              title="Gute Literatur erkennen"
-              allowfullscreen></iframe>
-    </div>
-  </div>
+  
 
   <!-- ============================================================
        AUFGABE 1 – Wissenschaftliche Fachzeitschriften (Summary-Quiz)
@@ -408,7 +394,7 @@
     <h3>Wähle jeweils die korrekte Aussage zu wissenschaftlichen Fachzeitschriften und -artikeln.</h3>
 
     <!-- Frage 1 -->
-    <div class="quiz-question-text" id="q1-text">Warum sind wissenschaftliche Fachzeitschriften so zitierwerdig?</div>
+    <div class="quiz-question-text" id="q1-text">Warum sind wissenschaftliche Fachzeitschriften so zitierwürdig?</div>
     <div class="quiz-options" id="q1-options">
       <button class="quiz-option-btn" onclick="checkAnswer('q1', this, true)">
         Wissenschaftliche Fachzeitschriften sind deshalb so zitierwürdig, weil sie seriös und verlässlich sind.
@@ -466,80 +452,18 @@
     <button class="btn-reset" onclick="resetQuestion('q4')">↺ Zurücksetzen</button>
   </section>
 
-  <!-- ============================================================
-       AUFGABE 2 – Journal Impact Factor finden (Guess the Answer)
-       ============================================================ -->
-  <section class="exercise" id="ex2">
-    <div class="exercise-label">Aufgabe 2 · Recherche</div>
-    <h3>Finde den Journal Impact Factor (JIF)!</h3>
-    <p style="margin-bottom: 18px;">Um einen Fachartikel zu bewerten, gibt es verschiedene Bewertungsmetriken, die meist von den Journals selbst angegeben werden. <strong>Finde für die folgenden Fachartikel den Journal Impact Factor (JIF)</strong> und klicke dann auf „Antwort anzeigen", um dein Ergebnis zu prüfen.</p>
+  
 
-    <!-- GTA 1 -->
-    <div class="gta-card">
-      <div class="gta-task">
-        <strong>1.</strong> Aïmeur, E., Amri, S. &amp; Brassard, G. (2023). Fake news, disinformation and misinformation in social media: a review. <em>Social Network Analysis And Mining</em>, <em>13</em>(1), 30. <a href="https://doi.org/10.1007/s13278-023-01028-5" target="_blank" rel="noopener" style="color:var(--accent);">https://doi.org/10.1007/s13278-023-01028-5</a>
-      </div>
-      <button class="btn-reveal" onclick="toggleGTA('gta1')">🔍 Antwort anzeigen</button>
-      <div class="gta-answer" id="gta1">✓ Journal Impact Factor: <strong>2,8</strong></div>
-    </div>
-
-    <!-- GTA 2 -->
-    <div class="gta-card">
-      <div class="gta-task">
-        <strong>2.</strong> Swire-Thompson, B., Butler, L. &amp; Rapp, D. N. (2025). The truth sandwich format does not enhance the correction of misinformation. <em>Journal Of Educational Psychology</em>, <em>117</em>(6), 851–862. <a href="https://doi.org/10.1037/edu0000961" target="_blank" rel="noopener" style="color:var(--accent);">https://doi.org/10.1037/edu0000961</a>
-      </div>
-      <button class="btn-reveal" onclick="toggleGTA('gta2')">🔍 Antwort anzeigen</button>
-      <div class="gta-answer" id="gta2">✓ Journal Impact Factor: <strong>6,4</strong></div>
-    </div>
-
-    <!-- GTA 3 -->
-    <div class="gta-card">
-      <div class="gta-task">
-        <strong>3.</strong> Xin, Z., Guo, T., Ni, Y., Hai, S. &amp; Lin, L. (2024). Sustainable Leadership for Employee Performance and the Moderating Roles of Family-Work Conflict and Work Pressure: The Job Demands–Resources Perspective. <em>Journal Of Business And Psychology</em>, <em>40</em>(4), 877–902. <a href="https://doi.org/10.1007/s10869-024-09993-0" target="_blank" rel="noopener" style="color:var(--accent);">https://doi.org/10.1007/s10869-024-09993-0</a>
-      </div>
-      <button class="btn-reveal" onclick="toggleGTA('gta3')">🔍 Antwort anzeigen</button>
-      <div class="gta-answer" id="gta3">✓ Journal Impact Factor: <strong>4,9</strong></div>
-    </div>
-  </section>
-
-  <!-- ============================================================
-       WISSENSBOX – Der CRAAP-Test
-       ============================================================ -->
-  <div class="info-card">
-    <h2>🧪 Wie bewerte ich gute wissenschaftliche Information? – Der CRAAP-Test!</h2>
-    <div class="craap-grid">
-      <div class="craap-item">
-        <div class="craap-letter">📅 Currency – Aktualität</div>
-        <p><strong>Ist die Information aktuell?</strong> → Achte auf das Veröffentlichungsdatum. Veraltete Daten können zu falschen Schlussfolgerungen führen.</p>
-      </div>
-      <div class="craap-item">
-        <div class="craap-letter">🔗 Relevance – Relevanz</div>
-        <p><strong>Bezieht sich der Text auf andere wissenschaftliche Veröffentlichungen?</strong> → Enthält der Text Verweise, Zitate und ein Literaturverzeichnis? Das zeigt, ob er im wissenschaftlichen Diskurs verankert ist.</p>
-      </div>
-      <div class="craap-item">
-        <div class="craap-letter">🧑‍🔬 Authority – Autorität</div>
-        <p><strong>Wer hat die Arbeit geschrieben?</strong> → Sind die Autor:innen Expert:innen auf dem Fachgebiet? Arbeiten sie an einer anerkannten wissenschaftlichen Einrichtung?</p>
-      </div>
-      <div class="craap-item">
-        <div class="craap-letter">🧠 Audience – Zielgruppe</div>
-        <p><strong>Richtet sich die Veröffentlichung an die wissenschaftliche Community?</strong> → Fachsprache, Aufbau und Zitierweise geben Hinweise auf die Zielgruppe.</p>
-      </div>
-      <div class="craap-item">
-        <div class="craap-letter">🎯 Purpose – Zweck</div>
-        <p><strong>Was ist das Ziel des Textes?</strong> → Geht es um wissenschaftliche Erkenntnisse? Ist der Text neutral formuliert und verfolgt keine politischen, kommerziellen oder ideologischen Absichten?</p>
-      </div>
-    </div>
 
     <div class="link-box">
       🔗 Unter folgendem <a href="https://www.econbiz.de/eb/gw/literatur-suchen-und-bewerten" target="_blank" rel="noopener">Link</a> kommen Sie zu einer Guided-Walk Lerneinheit zum Thema Quellen bewerten.
     </div>
-  </div>
 
   <section class="exercise" id="ex3">
     <div class="exercise-label">Aufgabe 3 · Reflexion &amp; Synthese</div>
     <h3>Bearbeiten Sie die folgenden Fragen schriftlich oder im Austausch mit anderen.</h3>
-    <div class="exercise-list">
-      <ol>
+    <div style="padding-left: 10px;">
+      <ol style="display: flex; flex-direction: column; gap: 16px; color: var(--text);">
         <li><strong>Peer Review &amp; Fachartikel:</strong> Warum sind Fachartikel mit Peer Review besonders wichtig, und wie unterscheidet sich das Single-Blind vom Double-Blind Peer Review?</li>
         <li><strong>Rabbit Hole vermeiden:</strong> Wie können Sie verhindern, in ein „Rabbit Hole“ zu geraten – und welche konkreten Strategien helfen dabei?</li>
         <li><strong>Google Scholar vs. Fachdatenbanken:</strong> Welche Vor- und Nachteile bieten Google Scholar und spezialisierte Fachdatenbanken, und wann würden Sie welches Tool bevorzugen?</li>
