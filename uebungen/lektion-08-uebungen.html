@@ -30,12 +30,16 @@
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+  html {
+    overflow-x: hidden;
+  }
   body {
     font-family: 'Atkinson Hyperlegible', sans-serif;
     background: var(--bg);
     color: var(--text);
     font-size: 16px;
     line-height: 1.65;
+    overflow-x: hidden;
   }
 
   .page-wrapper {
@@ -252,9 +256,9 @@
     line-height: 2.1;
     margin-bottom: 18px;
   }
-  .fill-blank {
+  .fill-blank-select {
     display: inline-block;
-    min-width: 130px;
+    max-width: 180px;
     padding: 4px 10px;
     margin: 0 2px;
     border: none;
@@ -266,9 +270,11 @@
     font-weight: 700;
     color: var(--text);
     text-align: center;
+    text-overflow: ellipsis;
+    vertical-align: baseline;
   }
-  .fill-blank.correct { background: var(--success-bg); color: var(--success); border-color: var(--success); }
-  .fill-blank.wrong   { background: var(--error-bg);   color: var(--error);   border-color: var(--error); }
+  .fill-blank-select.correct { background: var(--success-bg); color: var(--success); border-color: var(--success); }
+  .fill-blank-select.wrong   { background: var(--error-bg);   color: var(--error);   border-color: var(--error); }
 
   /* ── REIHENFOLGE-AUFGABE (Begriffe in richtige Reihenfolge bringen) ── */
   .order-list {
@@ -429,7 +435,7 @@
        ============================================================ -->
   <section class="exercise" id="ex1">
     <div class="exercise-label">Aufgabe 1 · Quiz</div>
-    <h3>Entscheide, ob es sich bei folgenden Sätzen um einen Ergebnisbericht aus einer qualitativen oder quantitativen Studie handelt.</h3>
+    <h3>Entscheiden Sie, ob es sich bei folgenden Sätzen um einen Ergebnisbericht aus einer qualitativen oder quantitativen Studie handelt.</h3>
 
     <!-- Frage 1 -->
     <div class="quiz-question-text" id="q1-text">„Einige Befragte äußerten Skepsis gegenüber neuen Technologien und betonten das Bedürfnis nach persönlicher Beratung.“</div>
@@ -521,8 +527,8 @@
        ============================================================ -->
   <section class="exercise" id="ex3">
     <div class="exercise-label">Aufgabe 3 · Lückentext</div>
-    <h3>Wie schreibt man Ergebnisse wissenschaftlich? Fülle die Lücken!</h3>
-    <p class="exercise-intro">Wähle für jede Lücke das passende Wort bzw. den passenden Ausdruck aus dem Dropdown-Menü.</p>
+    <h3>Wie schreibt man Ergebnisse wissenschaftlich? Füllen Sie die Lücken!</h3>
+    <p class="exercise-intro">Wählen Sie für jede Lücke das passende Wort bzw. den passenden Ausdruck aus dem Dropdown-Menü.</p>
 
     <div class="fill-text" id="fill1-text">
       Wissenschaftliche Texte sollen klar und verständlich sein. <select class="fill-blank-select" data-blank-id="f1-1" data-correct="Kurze"></select> Sätze erleichtern das Lesen. Eine <select class="fill-blank-select" data-blank-id="f1-2" data-correct="neutrale"></select> Sprache vermeidet Wertungen. Aussagen erfolgen bevorzugt in der <select class="fill-blank-select" data-blank-id="f1-3" data-correct="dritten Person"></select>. Die <select class="fill-blank-select" data-blank-id="f1-4" data-correct="Ich-Form"></select> wird vermieden. Dabei benutzt man den Tempus <select class="fill-blank-select" data-blank-id="f1-5" data-correct="Präsens"></select> als Zeitform zum Beschreiben des Vorhabens und zur Ergebnisdarstellung, deren Erkenntnisse andauern.
@@ -564,7 +570,7 @@ function checkAnswer(id, btn, isCorrect) {
   } else {
     btn.classList.add('wrong');
     feedback.className = 'quiz-feedback error';
-    feedback.textContent = '✗ Falsch! Bitte versuche es nach dem Zurücksetzen noch einmal.';
+    feedback.textContent = '✗ Falsch! Bitte versuchen Sie es nach dem Zurücksetzen noch einmal.';
     opts.querySelectorAll('.quiz-option-btn').forEach(b => { if (b !== btn) b.classList.add('correct'); });
   }
   feedback.style.display = 'flex';
@@ -591,7 +597,7 @@ function checkTF(id, btn, isCorrect) {
   } else {
     btn.classList.add('wrong');
     feedback.className = 'tf-feedback error';
-    feedback.textContent = '✗ Falsch! Bitte versuche es nach dem Zurücksetzen noch einmal.';
+    feedback.textContent = '✗ Falsch! Bitte versuchen Sie es nach dem Zurücksetzen noch einmal.';
     opts.querySelectorAll('.tf-option-btn').forEach(b => { if (b !== btn) b.classList.add('correct'); });
   }
   feedback.style.display = 'flex';
@@ -650,13 +656,13 @@ function checkFillText(id) {
   });
   if (!allFilled) {
     feedback.className = 'feedback-msg error';
-    feedback.textContent = 'Bitte fülle zuerst alle Lücken aus.';
+    feedback.textContent = 'Bitte füllen Sie zuerst alle Lücken aus.';
   } else if (allCorrect) {
     feedback.className = 'feedback-msg success';
     feedback.textContent = '✓ Richtig! Alle Lücken wurden korrekt ausgefüllt.';
   } else {
     feedback.className = 'feedback-msg error';
-    feedback.textContent = '✗ Noch nicht ganz richtig. Die falschen Felder sind rot markiert – versuche es erneut.';
+    feedback.textContent = '✗ Noch nicht ganz richtig. Die falschen Felder sind rot markiert – versuchen Sie es erneut.';
   }
   feedback.style.display = 'flex';
 }

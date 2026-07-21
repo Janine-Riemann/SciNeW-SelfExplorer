@@ -217,57 +217,42 @@
     transition: width .3s ease;
   }
 
-  /* ── MEMORY-SPIEL (BEGRIFF ↔ ERKLÄRUNG) ── */
-  .memory-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  /* ── ZUORDNUNGSAUFGABE (BEGRIFF ↔ ERKLÄRUNG) ── */
+  .match-list {
+    display: flex;
+    flex-direction: column;
     gap: 14px;
     margin-bottom: 18px;
   }
-  .memory-card {
-    min-height: 110px;
+  .match-item {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 14px;
+    background: var(--bg);
     border: 2px solid var(--border);
     border-radius: 10px;
-    background: var(--bg);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 12px;
-    cursor: pointer;
-    font-size: .85rem;
-    font-weight: 700;
-    text-align: center;
-    color: var(--muted);
-    transition: border-color .15s, background .15s, color .15s, transform .1s;
-    user-select: none;
+    padding: 16px 20px;
+    transition: border-color .15s, background .15s;
   }
-  .memory-card .memory-placeholder { font-size: 1.6rem; }
-  .memory-card:hover:not(.matched):not(.revealed) { border-color: var(--primary-dark); transform: translateY(-1px); }
-  .memory-card.revealed {
-    background: #edfaf4;
-    border-color: var(--primary);
-    color: var(--primary-text);
-    font-size: .8rem;
+  .match-explanation {
+    flex: 1 1 320px;
+    font-size: .93rem;
+    color: var(--text);
   }
-  .memory-card.matched {
-    background: var(--success-bg);
-    border-color: var(--success);
-    color: var(--success);
-    cursor: default;
-    font-size: .8rem;
-  }
-  .memory-card.wrong {
-    border-color: var(--error);
-    background: var(--error-bg);
-    color: var(--error);
-    font-size: .8rem;
-  }
-  .memory-status {
+  .match-select {
+    flex: 0 0 220px;
+    font-family: inherit;
     font-size: .9rem;
-    color: var(--muted);
-    margin-bottom: 14px;
+    font-weight: 700;
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: 1.5px solid var(--border);
+    background: #fff;
+    color: var(--text);
   }
-  .memory-status.done { color: var(--success); font-weight: 700; }
+  .match-item.correct { border-color: var(--success); background: var(--success-bg); }
+  .match-item.wrong   { border-color: var(--error);   background: var(--error-bg); }
 
   /* ── BUTTONS ── */
   .btn-check {
@@ -317,7 +302,8 @@
   .feedback-msg.error   { background: var(--error-bg);   color: var(--error);   display: flex; align-items: center; gap: 8px; }
 
   @media (max-width: 640px) {
-    .memory-grid { grid-template-columns: 1fr 1fr; }
+    .match-item { flex-direction: column; align-items: stretch; }
+    .match-select { flex: 1 1 auto; }
   }
 </style>
 </head>
@@ -389,20 +375,21 @@
        ============================================================ -->
   <div class="info-card">
     <h2>🧰 Erhebungsmethoden</h2>
-    <p>Es gibt eine Vielzahl an Methoden, um Daten zu erheben – von Befragungen über Beobachtungen bis hin zu Experimenten. Finden Sie im folgenden Memory-Spiel die passende Erklärung zur jeweiligen wissenschaftlichen Methode.</p>
+    <p>Es gibt eine Vielzahl an Methoden, um Daten zu erheben – von Befragungen über Beobachtungen bis hin zu Experimenten. Ordnen Sie im Folgenden jeder Erklärung den passenden Begriff zu.</p>
   </div>
 
   <!-- ============================================================
-       AUFGABE 2 – Memory-Spiel: Begriff passend zur Erklärung finden
-       Begriffe und Erklärungen in MEMORY_PAIRS unten im Script bearbeiten
-       term = Begriff (Karte 1), explanation = passende Erklärung (Karte 2)
+       AUFGABE 2 – Zuordnung: Begriff passend zur Erklärung wählen
+       Begriffe und Erklärungen in MATCH_PAIRS unten im Script bearbeiten
+       term = Begriff (Dropdown-Option), explanation = zugehöriger Text
        ============================================================ -->
   <section class="exercise" id="ex2">
-    <div class="exercise-label">Aufgabe 2 · Memory</div>
-    <h3>Finden Sie die passende Erklärung zur wissenschaftlichen Methode. Klicken Sie dazu auf zwei Karten, um zu prüfen, ob sie zusammenpassen.</h3>
-    <div class="memory-status" id="memory-status">0 von 6 Paaren gefunden</div>
-    <div class="memory-grid" id="memory-grid"></div>
-    <button class="btn-reset" onclick="resetMemory()" style="margin-top:0;">↺ Spiel neu starten</button>
+    <div class="exercise-label">Aufgabe 2 · Zuordnung</div>
+    <h3>Wählen Sie für jede Erklärung den passenden Begriff aus dem Dropdown-Menü aus.</h3>
+    <div class="match-list" id="match-list"></div>
+    <button class="btn-check" onclick="checkMatch()">Überprüfen</button>
+    <button class="btn-reset" onclick="resetMatch()">↺ Zurücksetzen</button>
+    <div class="feedback-msg" id="match-feedback"></div>
   </section>
 
   <!-- ============================================================
@@ -529,11 +516,11 @@ const QUIZ_DATA = {
 };
 
 
-/* ── AUFGABE 2: Memory-Paare – Begriff ↔ Erklärung ──────────────
-   term         → Begriff / Name der Methode (Karte A)
-   explanation  → passende Erklärung (Karte B)
+/* ── AUFGABE 2: Zuordnungspaare – Begriff ↔ Erklärung ────────────
+   term         → Begriff / Name der Methode (Dropdown-Option)
+   explanation  → zugehöriger Erklärungstext
    ---------------------------------------------------------------- */
-const MEMORY_PAIRS = [
+const MATCH_PAIRS = [
   { term: 'Fokusgruppen',
     explanation: 'Datenerhebung, bei der mehrere Personen gemeinsam zu einem bestimmten Thema befragt oder beobachtet werden. In der Regel handelt es sich dabei um eine moderierte Gruppendiskussion. Ziel ist es, durch den Austausch in der Gruppe Meinungen, Einstellungen, Erfahrungen oder Bedürfnisse sichtbar zu machen.' },
   { term: 'Tiefeninterview',
@@ -620,13 +607,7 @@ function quizReset(id) {
   quizInit(id);
 }
 
-/* ── Memory Engine ── */
-let MEMORY_CARDS = [];
-let MEMORY_FIRST = null;
-let MEMORY_SECOND = null;
-let MEMORY_LOCKED = false;
-let MEMORY_MATCHED = 0;
-
+/* ── Zuordnungs-Engine ── */
 function shuffleArray(arr) {
   const a = [...arr];
   for (let i = a.length - 1; i > 0; i--) {
@@ -636,97 +617,86 @@ function shuffleArray(arr) {
   return a;
 }
 
-function buildMemory() {
-  const grid = document.getElementById('memory-grid');
-  grid.innerHTML = '';
-  MEMORY_FIRST = null;
-  MEMORY_SECOND = null;
-  MEMORY_LOCKED = false;
-  MEMORY_MATCHED = 0;
+function buildMatch() {
+  const list = document.getElementById('match-list');
+  list.innerHTML = '';
 
-  const rawCards = [];
-  MEMORY_PAIRS.forEach((pair, i) => {
-    rawCards.push({ pairIndex: i, text: pair.term });
-    rawCards.push({ pairIndex: i, text: pair.explanation });
+  const terms = MATCH_PAIRS.map(pair => pair.term);
+  const shuffledTerms = shuffleArray(terms);
+  const shuffledPairs = shuffleArray(MATCH_PAIRS);
+
+  shuffledPairs.forEach(pair => {
+    const item = document.createElement('div');
+    item.className = 'match-item';
+    item.dataset.correct = pair.term;
+
+    const text = document.createElement('p');
+    text.className = 'match-explanation';
+    text.textContent = pair.explanation;
+
+    const select = document.createElement('select');
+    select.className = 'match-select';
+    const placeholder = document.createElement('option');
+    placeholder.value = '';
+    placeholder.textContent = '– Begriff wählen –';
+    select.appendChild(placeholder);
+    shuffledTerms.forEach(term => {
+      const opt = document.createElement('option');
+      opt.value = term;
+      opt.textContent = term;
+      select.appendChild(opt);
+    });
+
+    item.appendChild(text);
+    item.appendChild(select);
+    list.appendChild(item);
   });
-  MEMORY_CARDS = shuffleArray(rawCards);
+}
 
-  MEMORY_CARDS.forEach((card, i) => {
-    const el = document.createElement('div');
-    el.className = 'memory-card';
-    el.dataset.index = i;
-    el.innerHTML = '<span class="memory-placeholder">❓</span>';
-    el.addEventListener('click', () => flipMemoryCard(i));
-    grid.appendChild(el);
+function checkMatch() {
+  const items = document.querySelectorAll('#match-list .match-item');
+  const feedback = document.getElementById('match-feedback');
+  let allCorrect = true;
+  let allFilled = true;
+
+  items.forEach(item => {
+    const select = item.querySelector('select');
+    item.classList.remove('correct', 'wrong');
+    if (!select.value) { allFilled = false; return; }
+    if (select.value === item.dataset.correct) {
+      item.classList.add('correct');
+    } else {
+      item.classList.add('wrong');
+      allCorrect = false;
+    }
   });
 
-  updateMemoryStatus();
-}
-
-function updateMemoryStatus() {
-  const status = document.getElementById('memory-status');
-  const total = MEMORY_PAIRS.length;
-  if (MEMORY_MATCHED === total) {
-    status.classList.add('done');
-    status.textContent = `🎉 Super! Alle ${total} Paare gefunden!`;
+  if (!allFilled) {
+    feedback.className = 'feedback-msg error';
+    feedback.textContent = 'Bitte ordnen Sie zuerst jeder Erklärung einen Begriff zu.';
+  } else if (allCorrect) {
+    feedback.className = 'feedback-msg success';
+    feedback.textContent = '✓ Richtig! Alle Begriffe wurden korrekt zugeordnet.';
   } else {
-    status.classList.remove('done');
-    status.textContent = `${MEMORY_MATCHED} von ${total} Paaren gefunden`;
+    feedback.className = 'feedback-msg error';
+    feedback.textContent = '✗ Noch nicht ganz richtig. Die falschen Zuordnungen sind rot markiert – versuche es erneut.';
   }
+  feedback.style.display = 'flex';
 }
 
-function flipMemoryCard(index) {
-  if (MEMORY_LOCKED) return;
-  const el = document.querySelector(`.memory-card[data-index="${index}"]`);
-  if (!el || el.classList.contains('matched') || el.classList.contains('revealed')) return;
-
-  el.classList.add('revealed');
-  el.textContent = MEMORY_CARDS[index].text;
-
-  if (MEMORY_FIRST === null) {
-    MEMORY_FIRST = index;
-    return;
-  }
-
-  MEMORY_SECOND = index;
-  MEMORY_LOCKED = true;
-
-  const firstEl = document.querySelector(`.memory-card[data-index="${MEMORY_FIRST}"]`);
-  const firstPair = MEMORY_CARDS[MEMORY_FIRST].pairIndex;
-  const secondPair = MEMORY_CARDS[MEMORY_SECOND].pairIndex;
-
-  if (firstPair === secondPair && MEMORY_FIRST !== MEMORY_SECOND) {
-    firstEl.classList.remove('revealed');
-    firstEl.classList.add('matched');
-    el.classList.remove('revealed');
-    el.classList.add('matched');
-    MEMORY_MATCHED++;
-    updateMemoryStatus();
-    MEMORY_FIRST = null;
-    MEMORY_SECOND = null;
-    MEMORY_LOCKED = false;
-  } else {
-    el.classList.add('wrong');
-    firstEl.classList.add('wrong');
-    setTimeout(() => {
-      firstEl.classList.remove('revealed', 'wrong');
-      firstEl.innerHTML = '<span class="memory-placeholder">❓</span>';
-      el.classList.remove('revealed', 'wrong');
-      el.innerHTML = '<span class="memory-placeholder">❓</span>';
-      MEMORY_FIRST = null;
-      MEMORY_SECOND = null;
-      MEMORY_LOCKED = false;
-    }, 1100);
-  }
-}
-
-function resetMemory() {
-  buildMemory();
+function resetMatch() {
+  document.querySelectorAll('#match-list .match-item').forEach(item => {
+    item.classList.remove('correct', 'wrong');
+    item.querySelector('select').value = '';
+  });
+  const feedback = document.getElementById('match-feedback');
+  feedback.className = 'feedback-msg';
+  feedback.style.display = 'none';
 }
 
 /* ── INIT ── */
 quizInit('quiz1');
-buildMemory();
+buildMatch();
 quizInit('quiz3');
 quizInit('quiz4');
 </script>

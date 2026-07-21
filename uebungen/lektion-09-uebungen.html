@@ -349,6 +349,32 @@
     transition: color .15s, border-color .15s;
   }
   .btn-reset:hover { color: var(--text); border-color: var(--muted); }
+  /* ── DRUCKANSICHT: alle Checklisten zusammen als ein PDF ── */
+  @media print {
+    body.printing-checklists .page-header,
+    body.printing-checklists .info-card { display: none; }
+    body.printing-checklists .exercise { box-shadow: none; border: none; page-break-inside: avoid; }
+    body.printing-checklists .btn-reset,
+    body.printing-checklists .btn-pdf-all { display: none; }
+  }
+
+  .btn-pdf-all {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 30px;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: 24px;
+    padding: 12px 26px;
+    font-family: inherit;
+    font-size: .95rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: opacity .15s, transform .1s;
+  }
+  .btn-pdf-all:hover { opacity: .88; transform: translateY(-1px); }
 
   .feedback-msg {
     display: none;
@@ -471,6 +497,7 @@
        SELBSTCHECK 1 – Allgemeine Checkliste
        (Checkliste zum Abhaken, kein Quiz mit richtig/falsch)
        ============================================================ -->
+  <button class="btn-pdf-all" onclick="downloadAllChecklistsPDF()">⬇ Alle Checklisten als PDF herunterladen</button>
   <section class="exercise" id="check1">
     <div class="exercise-label">Selbstcheck 1 · Allgemein</div>
     <h3>Allgemeine Checkliste</h3>
@@ -627,11 +654,25 @@ function setupChecklists() {
         item.classList.toggle('checked-item', checkbox.checked);
         updateChecklistProgress(listEl);
       });
+      item.addEventListener('click', (e) => {
+        // Klick auf die Checkbox selbst löst bereits 'change' aus -> nicht doppelt togglen
+        if (e.target === checkbox) return;
+        checkbox.checked = !checkbox.checked;
+        checkbox.dispatchEvent(new Event('change'));
+      });
     });
     updateChecklistProgress(listEl);
   });
 }
 setupChecklists();
+
+function downloadAllChecklistsPDF() {
+  document.body.classList.add('printing-checklists');
+  window.print();
+}
+window.addEventListener('afterprint', () => {
+  document.body.classList.remove('printing-checklists');
+});
 
 function resetChecklist(listId) {
   const listEl = document.getElementById(listId);
