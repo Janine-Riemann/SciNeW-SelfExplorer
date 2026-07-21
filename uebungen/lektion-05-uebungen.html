@@ -379,6 +379,92 @@
   }
   .link-box a:hover { color: var(--primary-text); }
 
+  /* ── ACTIVE RECALL ── */
+  .recall-item {
+    padding: 16px 20px;
+    background: var(--bg);
+    border-radius: 8px;
+    border-left: 4px solid var(--accent);
+    margin-bottom: 14px;
+  }
+  .recall-item:last-child { margin-bottom: 0; }
+  .recall-question {
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.55;
+    margin-bottom: 10px;
+  }
+  .reveal-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: transparent;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    border-radius: 24px;
+    padding: 7px 16px;
+    font-family: inherit;
+    font-size: .85rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background .15s, color .15s;
+  }
+  .reveal-btn:hover { background: var(--accent); color: #fff; }
+  .reveal-content {
+    display: none;
+    margin-top: 12px;
+    padding: 14px 18px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: .93rem;
+    line-height: 1.6;
+  }
+  .reveal-content.open { display: block; }
+
+  /* ── OFFENE SYNTHESEAUFGABEN ── */
+  .task-block {
+    margin-bottom: 8px;
+  }
+  .task-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    margin-right: 8px;
+  }
+  .task-title {
+    font-size: 1.02rem;
+    font-weight: 700;
+    color: var(--primary-text);
+    margin-bottom: 10px;
+  }
+  .task-text {
+    margin-bottom: 14px;
+    font-size: .97rem;
+  }
+  .task-textarea {
+    width: 100%;
+    min-height: 140px;
+    resize: vertical;
+    font-family: inherit;
+    font-size: .95rem;
+    line-height: 1.5;
+    color: var(--text);
+    background: var(--bg);
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    padding: 14px 16px;
+    transition: border-color .15s;
+  }
+  .task-textarea:focus { outline: none; border-color: var(--primary-dark); }
+  .task-hint {
+    margin-top: 10px;
+    font-size: .85rem;
+    color: var(--muted);
+    font-style: italic;
+  }
+
   @media (max-width: 640px) {
     .page-header { padding: 22px 20px; }
     .exercise, .info-card { padding: 20px 18px; }
@@ -795,6 +881,70 @@
   </section>
 
   <!-- ============================================================
+       ACTIVE RECALL-AUFFORDERUNGEN
+       ============================================================ -->
+  <section class="exercise" id="ex10">
+    <div class="exercise-label">Aufgabe 10 · Active Recall</div>
+    <h3>🧩 Active Recall-Aufforderungen</h3>
+    <p class="exercise-intro">Beantworten Sie die folgenden Fragen zunächst frei aus dem Gedächtnis, bevor Sie sich die Musterantwort anzeigen lassen.</p>
+
+    <div class="recall-item">
+      <div class="recall-question">Wie unterscheidet sich die Funktion eines Literatur-Reviews, wenn er als „deskriptiv" versus „systematisch" eingestuft wird, und welche konkreten Schritte sind für letzteren notwendig?</div>
+      <button class="reveal-btn" onclick="toggleReveal('recall1')">👁 Musterantwort anzeigen</button>
+      <div class="reveal-content" id="recall1">Ein <strong>deskriptiver</strong> Review fasst vorhandene Literatur zu einem Thema überblicksartig zusammen, ohne einem festen, nachvollziehbaren Suchprotokoll zu folgen – die Auswahl der Quellen bleibt subjektiv. Ein <strong>systematischer</strong> Review verfolgt dagegen das Ziel, alle relevante Literatur zu einer Fragestellung möglichst vollständig und nachvollziehbar zu erfassen. Dafür sind u. a. notwendig: eine präzise, im Vorfeld festgelegte Fragestellung, eine dokumentierte Suchstrategie (Datenbanken, Suchbegriffe, Zeitraum), transparente Ein- und Ausschlusskriterien für Quellen sowie eine strukturierte, meist tabellarische Auswertung der gefundenen Studien.</div>
+    </div>
+
+    <div class="recall-item">
+      <div class="recall-question">Erläutere das Toulmin-Modell der Argumentation anhand eines selbstgewählten Beispiels und zeige auf, wie „Behauptung", „Beweis" und „Einschränkung" interagieren.</div>
+      <button class="reveal-btn" onclick="toggleReveal('recall2')">👁 Musterantwort anzeigen</button>
+      <div class="reveal-content" id="recall2">Das Toulmin-Modell beschreibt den Aufbau einer schlüssigen Argumentation über mehrere Bausteine, von denen drei zentral sind: Die <strong>Behauptung</strong> (Claim) ist die These, die begründet werden soll. Der <strong>Beweis</strong> (Data/Grounds) liefert die Fakten, Daten oder Belege, auf denen die Behauptung fußt. Die <strong>Einschränkung</strong> (Qualifier/Rebuttal) grenzt ein, unter welchen Bedingungen die Behauptung gilt bzw. wann sie nicht zutrifft. Beispiel: Behauptung – „Regelmäßige Bewegung verbessert die Konzentrationsfähigkeit von Studierenden." Beweis – Studien zeigen einen Zusammenhang zwischen körperlicher Aktivität und kognitiver Leistungsfähigkeit. Einschränkung – Dieser Effekt gilt vor allem für moderate, regelmäßige Bewegung; bei Übertraining oder Erschöpfung kann sich der Effekt umkehren. Erst das Zusammenspiel aller drei Elemente macht ein Argument tragfähig und nachvollziehbar.</div>
+    </div>
+
+    <div class="recall-item">
+      <div class="recall-question">Welche spezifischen Regeln gelten für die Zeitform und das Gendern im wissenschaftlichen Schreiben, und warum ist deren konsistente Anwendung wichtig?</div>
+      <button class="reveal-btn" onclick="toggleReveal('recall3')">👁 Musterantwort anzeigen</button>
+      <div class="reveal-content" id="recall3">Bei der <strong>Zeitform</strong> gilt im deutschsprachigen wissenschaftlichen Schreiben meist: Theorieteil, Methodenbeschreibung von Studien anderer sowie allgemeingültige Aussagen im Präsens; die eigene Durchführung und Ergebnisse der eigenen Untersuchung im Präteritum. Beim <strong>Gendern</strong> ist zunächst die Vorgabe der jeweiligen Hochschule bzw. des Fachbereichs zu prüfen (z. B. Gender-Doppelpunkt, Beidnennung, neutrale Formulierungen); wichtig ist, sich einmal für eine Form zu entscheiden. In beiden Fällen ist die <strong>konsistente Anwendung</strong> entscheidend, weil uneinheitliche Zeitformen oder wechselnde Gender-Schreibweisen den Lesefluss stören, unprofessionell wirken und in der Bewertung als formaler Mangel gewertet werden können.</div>
+    </div>
+
+    <div class="recall-item">
+      <div class="recall-question">Warum ist der „Rote Faden" für die Gliederung einer wissenschaftlichen Arbeit entscheidend, und welche Auswirkungen hat eine fehlende Logik auf die Bewertung?</div>
+      <button class="reveal-btn" onclick="toggleReveal('recall4')">👁 Musterantwort anzeigen</button>
+      <div class="reveal-content" id="recall4">Der „Rote Faden" sorgt dafür, dass Kapitel und Unterkapitel logisch aufeinander aufbauen und die Argumentation nachvollziehbar zur Forschungsfrage hinführt – jeder Abschnitt sollte erkennbar auf den vorherigen aufbauen und den nächsten vorbereiten. Fehlt diese Logik, wirkt die Arbeit fragmentiert und beliebig zusammengestellt, Leserinnen und Leser können den Erkenntnisgewinn nicht nachvollziehen, und zentrale Zusammenhänge gehen verloren. In der Bewertung führt ein fehlender Roter Faden meist zu Punktabzug bei Kriterien wie Struktur, Kohärenz und wissenschaftlicher Argumentationsfähigkeit, selbst wenn die einzelnen Inhalte fachlich korrekt sind.</div>
+    </div>
+
+    <div class="recall-item">
+      <div class="recall-question">Welche Informationen gehören zwingend in den Abstract einer wissenschaftlichen Arbeit, und welche nicht? Begründe dies.</div>
+      <button class="reveal-btn" onclick="toggleReveal('recall5')">👁 Musterantwort anzeigen</button>
+      <div class="reveal-content" id="recall5">Zwingend in den Abstract gehören: die Forschungsfrage bzw. Zielsetzung der Arbeit, ein kurzer Hinweis auf die verwendete Methode, die zentralen Ergebnisse sowie eine knappe Einordnung bzw. Schlussfolgerung. Nicht hinein gehören: ausführliche Literaturverweise oder Zitate, detaillierte Zwischenergebnisse und Nebenbefunde, längere theoretische Herleitungen sowie neue Informationen, die im Haupttext nicht vorkommen. Der Grund dafür ist, dass der Abstract als eigenständiger, knapper Überblick funktionieren muss, der Leserinnen und Lesern in kürzester Zeit ermöglicht, Relevanz und Kernaussage der Arbeit zu erfassen – Details und Belege gehören in den entsprechenden Hauptteil.</div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       ÜBUNGSAUFGABEN & SYNTHESEFRAGEN
+       ============================================================ -->
+  <section class="exercise" id="ex11">
+    <div class="exercise-label">Aufgabe 11 · Synthese</div>
+    <h3>✏️ Übungsaufgaben &amp; Synthesefragen</h3>
+    <p class="exercise-intro">Diese Aufgaben haben keine einzelne „richtige" Lösung – nutzen Sie das Textfeld, um Ihre Antwort zu formulieren, und besprechen Sie diese ggf. mit Kommiliton:innen oder in der Übung.</p>
+
+    <div class="task-block">
+      <div class="task-title"><span class="task-number">1️⃣</span>Aufgabe 1: Gliederungsanalyse</div>
+      <div class="task-text">Analysiere die Gliederung der Seminararbeit „Psychische Gesundheit" und identifiziere basierend auf den vermittelten Kriterien (inhaltlich, stilistisch, formal) mindestens drei Mängel. Begründe deine Einschätzung und schlage Verbesserungen vor.</div>
+      <textarea class="task-textarea" placeholder="Ihre Analyse: Nennen Sie mindestens drei Mängel (inhaltlich / stilistisch / formal), begründen Sie diese und schlagen Sie jeweils eine Verbesserung vor …"></textarea>
+      <div class="task-hint">💡 Tipp: Prüfen Sie Aussagekraft der Überschriften, Gliederungstiefe, Ausgewogenheit der Kapitel sowie den Roten Faden.</div>
+    </div>
+
+    <hr class="divider">
+
+    <div class="task-block">
+      <div class="task-title"><span class="task-number">2️⃣</span>Aufgabe 2: Theorieteil-Konzeption</div>
+      <div class="task-text">Du planst eine Bachelorarbeit zum Thema „Einfluss von Gamification-Elementen auf die Nutzerbindung in Lern-Apps". Entwirf eine exemplarische Gliederung für den Theorieteil (maximal drei Ebenen tief), die dem „X führt zu Y"-Prinzip folgt und die Regeln für aussagekräftige Überschriften beachtet.</div>
+      <textarea class="task-textarea" placeholder="Ihre Gliederung: z. B. 2. Theoretischer Hintergrund / 2.1 … / 2.1.1 … (maximal drei Ebenen, aussagekräftige Überschriften nach dem X-führt-zu-Y-Prinzip)"></textarea>
+      <div class="task-hint">💡 Tipp: Jede Überschrift sollte bereits einen inhaltlichen Zusammenhang andeuten, statt nur ein Schlagwort zu nennen.</div>
+    </div>
+  </section>
+
+  <!-- ============================================================
        ABSCHLUSSWORTE & WEITERFÜHRENDE QUELLEN
        ============================================================ -->
   <div class="info-card">
@@ -976,6 +1126,16 @@ function resetMC(id) {
   const feedback = document.getElementById(id + '-feedback');
   feedback.className = 'feedback-msg';
   feedback.style.display = 'none';
+}
+
+/* ============================================================
+   ACTIVE RECALL (Aufgabe 10)
+   ============================================================ */
+function toggleReveal(id) {
+  const content = document.getElementById(id);
+  const btn = content.previousElementSibling;
+  const isOpen = content.classList.toggle('open');
+  btn.textContent = isOpen ? '🙈 Musterantwort ausblenden' : '👁 Musterantwort anzeigen';
 }
 
 /* ============================================================
