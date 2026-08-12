@@ -1,0 +1,215 @@
+/* =========================================================
+   Podcast-Mini-Player – gemeinsames Stylesheet
+   Einbindung in jeder Lektionsseite:
+   <link rel="stylesheet" href="assets/podcast-player.css">
+
+   Setzt voraus, dass 'DM Sans' und 'DM Mono' bereits geladen sind
+   (wie im Corporate Design der Seite üblich). Farben sind bewusst
+   fest codiert (nicht von :root-Variablen der jeweiligen Seite
+   abhängig), damit die Datei auf jeder Lektion identisch aussieht.
+   ========================================================= */
+
+.pcx2, .pcx2-player {
+  --pcx2-green:      #74C2A8;
+  --pcx2-green-dark: #4F9880;
+  --pcx2-orange:     #EE7050;
+  --pcx2-dark:       #121616;
+  --pcx2-muted:      #6B7280;
+  --pcx2-surface:    #FFFFFF;
+  --pcx2-border:     #E7E7E0;
+  --pcx2-mint:       #EEF7F4;
+  font-family: 'DM Sans', sans-serif;
+}
+
+/* Oberer Abstand liegt bewusst am .pcx2-Container selbst (statt am
+   umgebenden Akkordeon/Container), damit er auf jeder Seite gleich
+   ausfällt – unabhängig davon, ob der jeweilige Wrapper ein eigenes
+   padding-top mitbringt oder nicht. */
+.pcx2 { padding-top: 1rem; }
+
+.pcx2-intro {
+  display: flex; align-items: center; gap: 0.55rem;
+  margin: 0 0 1rem;
+  font-size: 0.88rem; color: var(--pcx2-muted);
+}
+.pcx2-intro svg { width: 16px; height: 16px; flex: none; color: var(--pcx2-green-dark); }
+
+/* --- Liste --- */
+.pcx2-list {
+  background: var(--pcx2-surface);
+  border: 1px solid var(--pcx2-border);
+  border-radius: 16px;
+  overflow: hidden;
+}
+.pcx2-row {
+  display: flex; align-items: flex-start; gap: 0.85rem;
+  padding: 0.95rem 1.1rem;
+  cursor: pointer;
+  border-bottom: 1px solid var(--pcx2-border);
+  background: var(--pcx2-surface);
+  transition: background 0.18s ease;
+  position: relative;
+}
+.pcx2-row:last-child { border-bottom: none; }
+.pcx2-row:hover { background: #FAFBFA; }
+.pcx2-row.is-active { background: var(--pcx2-mint); }
+.pcx2-row.is-active::before {
+  content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
+  background: var(--pcx2-green);
+}
+
+.pcx2-playbtn {
+  flex: none;
+  width: 36px; height: 36px;
+  margin-top: 0.05rem;
+  border-radius: 50%;
+  border: 1.5px solid var(--pcx2-border);
+  background: #fff;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--pcx2-dark);
+  transition: all 0.18s ease;
+}
+.pcx2-row:hover .pcx2-playbtn { border-color: var(--pcx2-green); color: var(--pcx2-green-dark); }
+.pcx2-row.is-active .pcx2-playbtn {
+  background: var(--pcx2-green); border-color: var(--pcx2-green); color: #fff;
+}
+.pcx2-playbtn svg { width: 13px; height: 13px; }
+.pcx2-playbtn .pcx2-icon-pause { display: none; }
+.pcx2-row.is-playing .pcx2-icon-play { display: none; }
+.pcx2-row.is-playing .pcx2-icon-pause { display: block; }
+
+.pcx2-row-download {
+  flex: none;
+  width: 32px; height: 32px;
+  margin-top: 0.05rem;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--pcx2-muted);
+  text-decoration: none;
+  transition: all 0.18s ease;
+}
+.pcx2-row-download:hover { background: var(--pcx2-mint); color: var(--pcx2-green-dark); }
+.pcx2-row-download svg { width: 15px; height: 15px; }
+
+.pcx2-row-body { flex: 1; min-width: 0; }
+.pcx2-row-eyebrow {
+  font-family: 'DM Mono', monospace; font-size: 0.68rem; font-weight: 500;
+  letter-spacing: 0.07em; text-transform: uppercase; color: var(--pcx2-green-dark);
+  margin-bottom: 0.15rem;
+}
+.pcx2-row.is-active .pcx2-row-eyebrow { color: var(--pcx2-orange); }
+.pcx2-row-title {
+  font-size: 0.96rem; font-weight: 700; color: var(--pcx2-dark);
+  letter-spacing: -0.01em; margin-bottom: 0.2rem;
+}
+.pcx2-row-sub {
+  font-size: 0.83rem; line-height: 1.45; color: var(--pcx2-muted);
+  display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden;
+}
+.pcx2-row.is-active .pcx2-row-sub { -webkit-line-clamp: 3; }
+
+/* --- Mini-Player (fixiert, bleibt beim Scrollen sichtbar) --- */
+.pcx2-player {
+  position: fixed; left: 0; right: 0; bottom: 0;
+  z-index: 9999;
+  display: flex; justify-content: center;
+  padding: 0.9rem;
+  pointer-events: none;
+}
+.pcx2-player-inner {
+  pointer-events: auto;
+  width: 100%; max-width: 640px;
+  background: var(--pcx2-dark);
+  border-radius: 16px;
+  box-shadow: 0 16px 40px rgba(18,22,22,0.35);
+  padding: 0.65rem 0.75rem 0.7rem;
+  display: flex; flex-direction: column; gap: 0.55rem;
+  transform: translateY(140%);
+  opacity: 0;
+  transition: transform 0.35s cubic-bezier(0.25,1,0.5,1), opacity 0.3s ease;
+}
+.pcx2-player.is-open .pcx2-player-inner { transform: translateY(0); opacity: 1; }
+
+.pcx2-player-top { display: flex; align-items: center; gap: 0.75rem; }
+
+.pcx2-player-art {
+  flex: none; width: 38px; height: 38px; border-radius: 10px;
+  background: linear-gradient(135deg, var(--pcx2-green), var(--pcx2-orange));
+  display: flex; align-items: center; justify-content: center;
+}
+.pcx2-wave { display: flex; align-items: center; gap: 2px; height: 14px; }
+.pcx2-wave span { display: block; width: 2.5px; border-radius: 2px; background: #fff; animation: pcx2-bounce 1.1s ease-in-out infinite; }
+.pcx2-wave span:nth-child(1){height:35%;animation-delay:-0.9s;}
+.pcx2-wave span:nth-child(2){height:100%;animation-delay:-0.6s;}
+.pcx2-wave span:nth-child(3){height:60%;animation-delay:-0.3s;}
+.pcx2-wave span:nth-child(4){height:80%;animation-delay:-1.05s;}
+@keyframes pcx2-bounce { 0%,100%{transform:scaleY(0.35);} 50%{transform:scaleY(1);} }
+.pcx2-player:not(.is-playing) .pcx2-wave span { animation-play-state: paused; transform: scaleY(0.35); }
+
+.pcx2-player-meta { flex: 1; min-width: 0; }
+.pcx2-player-title {
+  font-size: 0.85rem; font-weight: 700; color: #fff;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.pcx2-player-eyebrow {
+  font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.06em;
+  text-transform: uppercase; color: var(--pcx2-green);
+}
+
+.pcx2-player-controls { display: flex; align-items: center; gap: 0.4rem; flex: none; }
+.pcx2-ctrl-btn {
+  flex: none; width: 30px; height: 30px; border-radius: 50%;
+  border: none; background: rgba(255,255,255,0.08); color: #fff;
+  display: flex; align-items: center; justify-content: center; cursor: pointer;
+  transition: background 0.15s ease;
+}
+.pcx2-ctrl-btn:hover { background: rgba(255,255,255,0.18); }
+.pcx2-ctrl-btn svg { width: 12px; height: 12px; }
+.pcx2-ctrl-play { width: 36px; height: 36px; background: var(--pcx2-green); }
+.pcx2-ctrl-play:hover { background: var(--pcx2-green-dark); }
+.pcx2-ctrl-play svg { width: 14px; height: 14px; }
+.pcx2-ctrl-play .pcx2-icon-pause { display: none; }
+.pcx2-player.is-playing .pcx2-ctrl-play .pcx2-icon-play { display: none; }
+.pcx2-player.is-playing .pcx2-ctrl-play .pcx2-icon-pause { display: block; }
+.pcx2-ctrl-close { background: transparent; color: rgba(255,255,255,0.5); }
+.pcx2-ctrl-close:hover { color: #fff; background: rgba(255,255,255,0.1); }
+
+.pcx2-ctrl-speed {
+  width: auto; min-width: 38px; padding: 0 0.5rem; border-radius: 14px;
+  font-family: 'DM Mono', monospace; font-size: 0.7rem; font-weight: 500;
+}
+.pcx2-ctrl-download { color: rgba(255,255,255,0.75); text-decoration: none; }
+.pcx2-ctrl-download:hover { color: #fff; }
+
+.pcx2-player-controls-divider {
+  width: 1px; align-self: stretch; margin: 0.3rem 0.1rem;
+  background: rgba(255,255,255,0.12); flex: none;
+}
+
+.pcx2-player-bottom { display: flex; align-items: center; gap: 0.55rem; }
+.pcx2-time {
+  font-family: 'DM Mono', monospace; font-size: 0.68rem; color: rgba(255,255,255,0.55);
+  min-width: 32px; text-align: center;
+}
+.pcx2-progress {
+  flex: 1; height: 5px; border-radius: 3px; background: rgba(255,255,255,0.14);
+  position: relative; cursor: pointer;
+}
+.pcx2-progress-fill {
+  position: absolute; left: 0; top: 0; bottom: 0; width: 0%;
+  border-radius: 3px; background: linear-gradient(90deg, var(--pcx2-green), var(--pcx2-orange));
+}
+
+@media (max-width: 520px) {
+  .pcx2-player-eyebrow { display: none; }
+  .pcx2-ctrl-prev, .pcx2-ctrl-next { display: none; }
+  .pcx2-player-inner { padding: 0.6rem 0.65rem 0.65rem; }
+}
+@media (max-width: 420px) {
+  .pcx2-ctrl-speed { min-width: 32px; padding: 0 0.35rem; font-size: 0.65rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pcx2-wave span { animation: none; }
+  .pcx2-player-inner { transition: opacity 0.2s ease; }
+}
+

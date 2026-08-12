@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
-
+  <link rel="stylesheet" href="assets/podcast-player.css" />
   <style>
     :root {
       --green:    #74C2A8;
@@ -653,49 +653,99 @@
           
             <div class="accordion-container">
               
+            
               <!-- ACCORDION 1: Zum Anhören -->
               <details class="accordion-item">
                 <summary>Zum Anhören 👂</summary>
                 <div class="accordion-content">
-                  <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--muted);">Dieser Inhalt wird Ihnen als Podcasts zur Verfügung gestellt.</p>
-                  
-                  <div class="audio-block">
-                    <div class="audio-label">Teil 1: Forschungsergebnisse interpretieren</div>
-                    <audio controls preload="metadata" src="audio/etappe8-teil1.mp3"></audio>
-                    <div class="audio-summary-placeholder">
-                      <strong>Zusammenfassung:</strong> Wie man Forschungsergebnisse interpretiert: Trenne Beschreibung von Interpretation, verknüpfe Daten mit Theorien und verstehe die Implikationen.
+
+                  <div class="pcx2" data-pcx2-root>
+
+                    <p class="pcx2-intro">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 15a3 3 0 0 0 3-3V6a3 3 0 0 0-6 0v6a3 3 0 0 0 3 3Z"/><path d="M19 11a7 7 0 0 1-14 0M12 18v3" stroke-linecap="round"/></svg>
+                      Diese Inhalte gibt es zum Anhören. Folge antippen zum Abspielen.
+                    </p>
+
+                    <div class="pcx2-list" data-pcx2-list>
+
+                      <div class="pcx2-row" data-pcx2-row
+                           data-src="audio/Etappe8-teil1.mp3"
+                           data-title="Forschungsergebnisse interpretieren"
+                           data-eyebrow="Folge 1 von 4">
+                        <span class="pcx2-playbtn">
+                          <svg class="pcx2-icon-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                          <svg class="pcx2-icon-pause" viewBox="0 0 24 24" fill="currentColor"><path d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg>
+                        </span>
+                        <div class="pcx2-row-body">
+                          <div class="pcx2-row-eyebrow">Folge 1 von 4</div>
+                          <div class="pcx2-row-title">Forschungsergebnisse interpretieren</div>
+                          <div class="pcx2-row-sub">Wie man Forschungsergebnisse interpretiert: Trenne Beschreibung von Interpretation, verknüpfe Daten mit Theorien und verstehe die Implikationen.</div>
+                        </div>
+                         <a class="pcx2-row-download" data-pcx2-row-download aria-label="Folge als MP3 herunterladen" title="Herunterladen">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </a>
+                      </div>
+
+                      <div class="pcx2-row" data-pcx2-row
+                           data-src="audio/Etappe8-teil2.mp3"
+                           data-title="Ergebnisse und Limitationen"
+                           data-eyebrow="Folge 2 von 4">
+                        <span class="pcx2-playbtn">
+                          <svg class="pcx2-icon-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                          <svg class="pcx2-icon-pause" viewBox="0 0 24 24" fill="currentColor"><path d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg>
+                        </span>
+                        <div class="pcx2-row-body">
+                          <div class="pcx2-row-eyebrow">Folge 2 von 4</div>
+                          <div class="pcx2-row-title">Ergebnisse und Limitationen</div>
+                          <div class="pcx2-row-sub">Best Practices zur Deutung von Forschungsergebnissen. Fokus: Limitationen richtig erkennen, formulieren und reflektieren.</div>
+                        </div>
+                         <a class="pcx2-row-download" data-pcx2-row-download aria-label="Folge als MP3 herunterladen" title="Herunterladen">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </a>
+                      </div>
+
+                      <div class="pcx2-row" data-pcx2-row
+                           data-src="audio/Etappe8-teil3.mp3"
+                           data-title="Wissenschaftsethik"
+                           data-eyebrow="Folge 3 von 4">
+                        <span class="pcx2-playbtn">
+                          <svg class="pcx2-icon-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                          <svg class="pcx2-icon-pause" viewBox="0 0 24 24" fill="currentColor"><path d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg>
+                        </span>
+                        <div class="pcx2-row-body">
+                          <div class="pcx2-row-eyebrow">Folge 3 von 4</div>
+                          <div class="pcx2-row-title">Wissenschaftsethik</div>
+                          <div class="pcx2-row-sub">Wissenschaftsethik definiert moralische Regeln für Forschung, schützt Teilnehmer und Daten, sichert Integrität und Vertrauen in die Wissenschaft.</div>
+                        </div>
+                         <a class="pcx2-row-download" data-pcx2-row-download aria-label="Folge als MP3 herunterladen" title="Herunterladen">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </a>
+                      </div>
+
+                      <div class="pcx2-row" data-pcx2-row
+                           data-src="audio/Etappe8-teil4.mp3"
+                           data-title="Science Guide"
+                           data-eyebrow="Folge 4 von 4">
+                        <span class="pcx2-playbtn">
+                          <svg class="pcx2-icon-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                          <svg class="pcx2-icon-pause" viewBox="0 0 24 24" fill="currentColor"><path d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg>
+                        </span>
+                        <div class="pcx2-row-body">
+                          <div class="pcx2-row-eyebrow">Folge 4 von 4</div>
+                          <div class="pcx2-row-title">Science Guide</div>
+                          <div class="pcx2-row-sub">Science Guide (Abgabefristen, Anforderungen), Prüfungsvorbereitung &amp; Kernpunkte zur Interpretation von Forschungsergebnissen und Limitationen.</div>
+                        </div>
+                         <a class="pcx2-row-download" data-pcx2-row-download aria-label="Folge als MP3 herunterladen" title="Herunterladen">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </a>
+                      </div>
+
                     </div>
                   </div>
 
-                  <div class="audio-block">
-                    <div class="audio-label">Teil 2: Ergebnisse und Limitationen</div>
-                    <audio controls preload="metadata" src="audio/etappe8-teil2.mp3"></audio>
-                    <div class="audio-summary-placeholder">
-                      <strong>Zusammenfassung:</strong> Best Practices zur Deutung von Forschungsergebnissen. Fokus: Limitationen richtig erkennen, formulieren und reflektieren.
-                    </div>
-                  </div>
-                
-
-                <div class="audio-block">
-                    <div class="audio-label">Teil 3: Wissenschaftsethik</div>
-                    <audio controls preload="metadata" src="audio/etappe8-teil3.mp3"></audio>
-                    <div class="audio-summary-placeholder">
-                      <strong>Zusammenfassung:</strong> Wissenschaftsethik definiert moralische Regeln für Forschung, schützt Teilnehmer und Daten, sichert Integrität und Vertrauen in die Wissenschaft.
-                    </div>
-                  </div>
-                
-
-                  <div class="audio-block">
-                    <div class="audio-label">Teil 4: Science Guide</div>
-                    <audio controls preload="metadata" src="audio/etappe8-teil4.mp3"></audio>
-                    <div class="audio-summary-placeholder">
-                      <strong>Zusammenfassung:</strong> Science Guide (Abgabefristen, Anforderungen), Prüfungsvorbereitung & Kernpunkte zur Interpretation von Forschungsergebnissen und Limitationen.
-                  </div>
                 </div>
-
-                </details>
               </details>
-</div> 
+
               <!-- ACCORDION 2: Zum Lesen & Study Guide -->
                <details class="accordion-item" style="margin-top: 1rem;">
                 <summary>Zum Lesen 📚</summary>
@@ -1284,5 +1334,45 @@ Inhaltsverzeichnis in Word erstellen </div>
       });
     }
   </script>
+  <!-- Mini-Player: einmal pro Seite, außerhalb von Tabs/Accordions,
+       damit er beim Tab-Wechsel oder Zuklappen sichtbar bleibt -->
+  <div class="pcx2-player" data-pcx2-player>
+    <div class="pcx2-player-inner">
+      <div class="pcx2-player-top">
+        <span class="pcx2-player-art"><span class="pcx2-wave"><span></span><span></span><span></span><span></span></span></span>
+        <div class="pcx2-player-meta">
+          <div class="pcx2-player-eyebrow" data-pcx2-player-eyebrow>Folge 1 von 4</div>
+          <div class="pcx2-player-title" data-pcx2-player-title>—</div>
+        </div>
+        <div class="pcx2-player-controls">
+          <button class="pcx2-ctrl-btn pcx2-ctrl-prev" data-pcx2-prev type="button" aria-label="Vorherige Folge">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 6h2v12H6zM20 6v12l-10-6z"/></svg>
+          </button>
+          <button class="pcx2-ctrl-btn pcx2-ctrl-play" data-pcx2-toggle type="button" aria-label="Abspielen/Pause">
+            <svg class="pcx2-icon-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+            <svg class="pcx2-icon-pause" viewBox="0 0 24 24" fill="currentColor"><path d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg>
+          </button>
+          <button class="pcx2-ctrl-btn pcx2-ctrl-next" data-pcx2-next type="button" aria-label="Nächste Folge">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 6h-2v12h2zM4 6v12l10-6z"/></svg>
+          </button>
+          <div class="pcx2-player-controls-divider"></div>
+          <button class="pcx2-ctrl-btn pcx2-ctrl-speed" data-pcx2-speed type="button" aria-label="Wiedergabegeschwindigkeit ändern">1×</button>
+          <button class="pcx2-ctrl-btn pcx2-ctrl-close" data-pcx2-close type="button" aria-label="Player schließen">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18" stroke-linecap="round"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="pcx2-player-bottom">
+        <span class="pcx2-time" data-pcx2-current>0:00</span>
+        <div class="pcx2-progress" data-pcx2-progress>
+          <span class="pcx2-progress-fill" data-pcx2-progress-fill></span>
+        </div>
+        <span class="pcx2-time" data-pcx2-duration>0:00</span>
+      </div>
+    </div>
+  </div>
+
+  <script src="assets/podcast-player.js" defer></script>
 </body>
+
 </html>
