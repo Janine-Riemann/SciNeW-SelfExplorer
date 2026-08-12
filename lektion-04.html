@@ -7,6 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/podcast-player.css" />
 
   <style>
     :root {
@@ -1236,5 +1237,44 @@
       });
     }
   </script>
+  <!-- Mini-Player: einmal pro Seite, außerhalb von Tabs/Accordions,
+       damit er beim Tab-Wechsel oder Zuklappen sichtbar bleibt -->
+  <div class="pcx2-player" data-pcx2-player>
+    <div class="pcx2-player-inner">
+      <div class="pcx2-player-top">
+        <span class="pcx2-player-art"><span class="pcx2-wave"><span></span><span></span><span></span><span></span></span></span>
+        <div class="pcx2-player-meta">
+          <div class="pcx2-player-eyebrow" data-pcx2-player-eyebrow>Folge 1 von 4</div>
+          <div class="pcx2-player-title" data-pcx2-player-title>—</div>
+        </div>
+        <div class="pcx2-player-controls">
+          <button class="pcx2-ctrl-btn pcx2-ctrl-prev" data-pcx2-prev type="button" aria-label="Vorherige Folge">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 6h2v12H6zM20 6v12l-10-6z"/></svg>
+          </button>
+          <button class="pcx2-ctrl-btn pcx2-ctrl-play" data-pcx2-toggle type="button" aria-label="Abspielen/Pause">
+            <svg class="pcx2-icon-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+            <svg class="pcx2-icon-pause" viewBox="0 0 24 24" fill="currentColor"><path d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg>
+          </button>
+          <button class="pcx2-ctrl-btn pcx2-ctrl-next" data-pcx2-next type="button" aria-label="Nächste Folge">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 6h-2v12h2zM4 6v12l10-6z"/></svg>
+          </button>
+          <div class="pcx2-player-controls-divider"></div>
+          <button class="pcx2-ctrl-btn pcx2-ctrl-speed" data-pcx2-speed type="button" aria-label="Wiedergabegeschwindigkeit ändern">1×</button>
+          <button class="pcx2-ctrl-btn pcx2-ctrl-close" data-pcx2-close type="button" aria-label="Player schließen">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18" stroke-linecap="round"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="pcx2-player-bottom">
+        <span class="pcx2-time" data-pcx2-current>0:00</span>
+        <div class="pcx2-progress" data-pcx2-progress>
+          <span class="pcx2-progress-fill" data-pcx2-progress-fill></span>
+        </div>
+        <span class="pcx2-time" data-pcx2-duration>0:00</span>
+      </div>
+    </div>
+  </div>
+
+  <script src="assets/podcast-player.js" defer></script>
 </body>
 </html>
