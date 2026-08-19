@@ -289,6 +289,49 @@
   }
   .btn-reset:hover { color: var(--text); border-color: var(--muted); }
 
+  /* ── BEISPIELLÖSUNG (Aufgabe 4 & 5) ── */
+  .btn-solution {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 20px;
+    background: var(--surface);
+    color: var(--accent);
+    border: 2px solid var(--accent);
+    border-radius: 24px;
+    padding: 9px 22px;
+    font-family: inherit;
+    font-size: .95rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background .15s, color .15s, transform .1s;
+  }
+  .btn-solution:hover { background: var(--accent); color: #fff; transform: translateY(-1px); }
+  .solution-box {
+    display: none;
+    margin-top: 18px;
+    background: #eef6fc;
+    border: 2px solid var(--accent);
+    border-radius: var(--radius);
+    padding: 18px 22px;
+    color: var(--text);
+    line-height: 1.7;
+    font-size: .95rem;
+  }
+  .solution-box.visible { display: block; }
+  .solution-box h4 {
+    font-size: .8rem;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    color: var(--accent);
+    margin-bottom: 10px;
+  }
+  .solution-box ol,
+  .solution-box ul { padding-left: 20px; display: flex; flex-direction: column; gap: 10px; }
+  .solution-box p + p { margin-top: 8px; }
+  .solution-box .sol-item { margin-bottom: 16px; }
+  .solution-box .sol-item:last-child { margin-bottom: 0; }
+
   .feedback-msg {
     display: none;
     margin-top: 14px;
@@ -422,6 +465,20 @@
         <li>Wie können die drei Ziele der Wissenschaft (Deskription, Erklärung, Vorhersage) bei der Formulierung einer Forschungsfrage helfen?</li>
       </ol>
     </div>
+
+    <button class="btn-solution" onclick="toggleSolution('sol-ex4', this)">💡 Beispiellösungen anzeigen</button>
+    <button class="btn-reset" onclick="resetSolution('sol-ex4', this)">↻ Zurücksetzen</button>
+
+    <div class="solution-box" id="sol-ex4">
+      <h4>Beispiellösung</h4>
+      <ol>
+        <li class="sol-item">Wer typische Fehler kennt – etwa unklare Fragestellungen, mangelnde Objektivität oder fehlende Quellenangaben – kann sie gezielt vermeiden. Das erhöht die Nachvollziehbarkeit, Glaubwürdigkeit und methodische Sauberkeit der eigenen Arbeit.</li>
+        <li class="sol-item">Induktion (vom Einzelfall zur allgemeinen Aussage) liefert oft den Ausgangspunkt für eine Theorie, während Deduktion (von der Theorie zur überprüfbaren Vorhersage) genutzt wird, um sie zu testen. Beide Denkweisen sind nötig, um Theorien zu entwickeln und anschließend empirisch zu prüfen.</li>
+        <li class="sol-item">Eine Forschungslücke beschreibt, was in der bisherigen Forschung noch fehlt oder ungeklärt ist. Das Forschungsziel legt dagegen fest, was die eigene Arbeit konkret erreichen soll. Erst die klare Verbindung beider Punkte zeigt, warum die eigene Arbeit einen neuen, eigenständigen Beitrag leistet.</li>
+        <li class="sol-item">Reproduzierbarkeit (gleiche Daten, gleiches Ergebnis) und Replizierbarkeit (neue Erhebung, vergleichbares Ergebnis) zeigen, dass ein Befund nicht auf Zufall oder Fehlern beruht. Ohne sie lässt sich wissenschaftlichen Ergebnissen kaum vertrauen.</li>
+        <li class="sol-item">Deskription hilft, ein Phänomen zunächst zu beschreiben ("Was ist der Fall?"), Erklärung fragt nach Ursachen ("Warum?") und Vorhersage nach zukünftigen Entwicklungen ("Was wird passieren?"). Je nachdem, welches Ziel verfolgt wird, ergibt sich eine unterschiedliche Formulierung und ein unterschiedlicher methodischer Zugang zur Forschungsfrage.</li>
+      </ol>
+    </div>
   </section>
 
   <!-- ============================================================
@@ -439,6 +496,14 @@
           "Alle Schwäne, die ich bisher gesehen habe, sind weiß. Also sind alle Schwäne weiß."
         </div>
         <p>Handelt es sich hierbei um eine induktive oder deduktive Aussage? Begründen Sie Antwort. Könnte diese Aussage falsifiziert werden? Wenn ja, wie?</p>
+
+        <button class="btn-solution" onclick="toggleSolution('sol-ex5a', this)">💡 Beispiellösungen anzeigen</button>
+        <button class="btn-reset" onclick="resetSolution('sol-ex5a', this)">↻ Zurücksetzen</button>
+
+        <div class="solution-box" id="sol-ex5a">
+          <h4>Beispiellösung</h4>
+          <p>Es handelt sich um eine induktive Aussage: Aus einer begrenzten Zahl von Einzelbeobachtungen ("alle bisher gesehenen Schwäne sind weiß") wird auf eine allgemeine Aussage ("alle Schwäne sind weiß") geschlossen. Induktive Aussagen lassen sich nie endgültig beweisen, da man nie alle Fälle beobachten kann. Die Aussage ist jedoch falsifizierbar: Ein einziger Gegenbeweis – zum Beispiel die Beobachtung eines schwarzen Schwans – würde sie widerlegen.</p>
+        </div>
       </div>
 
       <hr class="divider" style="margin: 10px 0;">
@@ -451,6 +516,16 @@
           <li>Eine konkrete Forschungsfrage, die diese Lücke adressiert und einem der drei wissenschaftlichen Ziele (Deskription, Erklärung, oder Vorhersage) zugeordnet werden kann.</li>
           <li>Begründen Sie Ihre Wahl des Ziels.</li>
         </ul>
+
+        <button class="btn-solution" onclick="toggleSolution('sol-ex5b', this)">💡 Beispiellösungen anzeigen</button>
+        <button class="btn-reset" onclick="resetSolution('sol-ex5b', this)">↻ Zurücksetzen</button>
+
+        <div class="solution-box" id="sol-ex5b">
+          <h4>Beispiellösung</h4>
+          <p><em>Forschungslücke:</em> Es ist bislang wenig erforscht, wie sich die Nutzung von Kurzvideo-Plattformen speziell auf das Wohlbefinden von Berufstätigen (statt Jugendlichen) auswirkt.</p>
+          <p><em>Forschungsfrage:</em> "Welchen Einfluss hat die tägliche Nutzungsdauer von Kurzvideo-Plattformen auf das subjektive Wohlbefinden berufstätiger Erwachsener?" – Diese Frage ordnet sich dem Ziel der Erklärung zu, da nach einem Zusammenhang zwischen Nutzungsdauer und Wohlbefinden gefragt wird.</p>
+          <p><em>Begründung:</em> Das Ziel der Erklärung passt hier besser als Deskription oder Vorhersage, da nicht nur beschrieben werden soll, wie stark Kurzvideos genutzt werden, sondern ein möglicher Wirkungszusammenhang untersucht werden soll.</p>
+        </div>
       </div>
 
     </div>
@@ -460,6 +535,19 @@
 </div>
 
 <script>
+/* ── AUFGABE 4 & 5: Beispiellösung ein-/ausblenden ── */
+function toggleSolution(id, btn) {
+  const box = document.getElementById(id);
+  const visible = box.classList.toggle('visible');
+  btn.textContent = visible ? '💡 Beispiellösungen ausblenden' : '💡 Beispiellösungen anzeigen';
+}
+function resetSolution(id, resetBtn) {
+  const box = document.getElementById(id);
+  box.classList.remove('visible');
+  const solveBtn = resetBtn.previousElementSibling;
+  if (solveBtn) solveBtn.textContent = '💡 Beispiellösungen anzeigen';
+}
+
 /* ================================================================
    ╔══════════════════════════════════════════════════════════════╗
    ║   INHALT BEARBEITEN – nur diese Konstanten anpassen         ║
