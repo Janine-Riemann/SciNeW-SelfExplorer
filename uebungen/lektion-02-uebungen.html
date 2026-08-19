@@ -526,17 +526,6 @@
     </div>
   </div>
 
-  <!-- ============================================================
-       VIDEO 1 – YouTube-URL hier ändern: src="https://www.youtube.com/embed/VIDEO-ID"
-       ============================================================ -->
-  <div class="video-wrap">
-    <h3>🎬 Erklärvideo: Hypothesen formulieren</h3>
-    <div class="video-responsive">
-      <iframe src="https://www.youtube.com/embed/FQn9mfgf5o0"
-              title="Hypothesen formulieren"
-              allowfullscreen></iframe>
-    </div>
-  </div>
 
   <!-- ============================================================
        AUFGABE 1 – Single-Choice-Quiz: Hypothese oder nicht?
@@ -648,17 +637,7 @@
     <p style="margin-top:10px;">Das folgende Video erklärt den Unterschied nochmals anschaulich:</p>
   </div>
 
-  <!-- ============================================================
-       VIDEO 2 – YouTube-URL hier ändern: src="https://www.youtube.com/embed/VIDEO-ID"
-       ============================================================ -->
-  <div class="video-wrap">
-    <h3>🎬 Erklärvideo: UV und AV</h3>
-    <div class="video-responsive">
-      <iframe src="https://www.youtube.com/embed/FQn9mfgf5o0"
-              title="UV und AV"
-              allowfullscreen></iframe>
-    </div>
-  </div>
+  
 
   <!-- ============================================================
        AUFGABE 4 – Flip Cards: UV oder AV?
@@ -689,8 +668,63 @@
     <div class="feedback-msg" id="mtw-feedback"></div>
   </section>
 
+  
+  <!-- ============================================================
+       AUFGABE 6 – Multiple Choice
+       Richtige Antworten: data-correct="true"
+       ============================================================ -->
   <section class="exercise" id="ex6">
-    <div class="exercise-label">Aufgabe 6 · Active Recall</div>
+    <div class="exercise-label">Aufgabe 6 · Multiple Choice</div>
+    <h3>Welche der folgenden Aussagen beschreiben Kriterien für gute Forschungsfragen im Rahmen wissenschaftlicher Arbeiten gemäß den bereitgestellten Unterlagen korrekt? Wählen Sie alle zutreffenden Aussagen aus.</h3>
+
+    <ul class="choice-list" id="mc-list">
+      <!-- ✅ korrekt = true | ❌ falsch = false -->
+      <li class="choice-item"><label><input type="checkbox" data-correct="true"> Eine gelungene Forschungsfrage zeichnet sich durch Ergebnisoffenheit und Neutralität aus, das heißt, sie darf keinesfalls suggestiv formuliert sein.</label></li>
+      <li class="choice-item"><label><input type="checkbox" data-correct="true"> Die empirische Überprüfbarkeit ist ein zentrales Kriterium, wodurch sichergestellt wird, dass die Fragestellung mithilfe wissenschaftlicher Methoden beantwortet werden kann.</label></li>
+      <li class="choice-item"><label><input type="checkbox" data-correct="false"> Forschungsfragen müssen eindeutig verständlich sein sowie völlig ohne jegliche theoretische oder fachliche Vorkenntnisse formuliert werden, um maximale Allgemeingültigkeit zu garantieren.</label></li>
+      <li class="choice-item"><label><input type="checkbox" data-correct="true">  Gute Forschungsfragen sollen das übergeordnete Forschungsziel in beantwortbare Fragestellungen herunterbrechen und eine klare Operationalisierung ermöglichen.</label></li>
+      
+    </ul>
+
+    <div>
+      <button class="btn-check" onclick="checkMC()">✔ Überprüfen</button>
+      <button class="btn-reset" onclick="resetMC()">↺ Zurücksetzen</button>
+    </div>
+    <div class="feedback-msg" id="mc-feedback"></div>
+  </section>
+
+
+   <!-- ============================================================
+       AUFGABE 7 – Multiple Choice
+       Richtige Antworten: data-correct="true"
+       ============================================================ -->
+  <section class="exercise" id="ex7">
+    <div class="exercise-label">Aufgabe 7 · Multiple Choice</div>
+    <h3>Welche der folgenden Aussagen beschreiben die wissenschaftlichen Anforderungen an Hypothesen hinsichtlich Präzision, Widerspruchsfreiheit, Widerlegbarkeit und Operationalisierbarkeit korrekt? Wählen Sie alle zutreffenden Aussagen aus.</h3>
+
+    <ul class="choice-list" id="mc-list">
+      <!-- ✅ korrekt = true | ❌ falsch = false -->
+      <li class="choice-item"><label><input type="checkbox" data-correct="false"> Eine Hypothese gilt automatisch dann als wissenschaftlich wertvoll und vollkommen unproblematisch, wenn sie möglichst schwammige Begriffe verwendet, um breitere Interpretationsspielräume offen zu halten.</label></li>
+      <li class="choice-item"><label><input type="checkbox" data-correct="true"> Wissenschaftliche Hypothesen müssen präzise und widerspruchsfrei formuliert sein, da in sich widersprüchliche Hypothesen prinzipiell nicht widerlegbar und somit ohne empirischen Gehalt sind.</label></li>
+      <li class="choice-item"><label><input type="checkbox" data-correct="true"> Die Operationalisierbarkeit erfordert, dass die abstrakten Begriffe einer Hypothese erfassbar und messbar gemacht werden, um eine empirische Überprüfung in einer Studie überhaupt erst zu ermöglichen.</label></li>
+      <li class="choice-item"><label><input type="checkbox" data-correct="false">  Die Begründbarkeit einer wissenschaftlichen Hypothese stützt sich ausschließlich auf spontane Intuition und persönliche Alltagsbeobachtungen der Forschenden, ohne jegliche Einbeziehung theoretischer Grundlagen.</label></li>
+      
+    </ul>
+
+    <div>
+      <button class="btn-check" onclick="checkMC()">✔ Überprüfen</button>
+      <button class="btn-reset" onclick="resetMC()">↺ Zurücksetzen</button>
+    </div>
+    <div class="feedback-msg" id="mc-feedback"></div>
+  </section>
+
+
+   <!-- ============================================================
+       AUFGABE 8 – Active Recall
+       Richtige Antworten: Lange Textaufgaben
+       ============================================================ -->
+  <section class="exercise" id="ex8">
+    <div class="exercise-label">Aufgabe 8 · Active Recall</div>
     <h3>Beantworten Sie die folgenden Fragen in eigenen Worten.</h3>
     <div style="padding-left: 10px;">
       <ol style="display: flex; flex-direction: column; gap: 16px; color: var(--text);">
@@ -711,10 +745,23 @@
         </li>
       </ol>
     </div>
+    <div style="margin-top: 20px;">
+      <!-- ✏️ Beispiellösungen unten im Script in SOLUTION_EX9 anpassen -->
+      <button class="btn-reveal" onclick="toggleSolution('sol8')">💡 Beispiellösungen anzeigen</button>
+      <button class="btn-reset" onclick="document.getElementById('sol8').style.display='none'">↺ Zurücksetzen</button>
+    </div>
+    <div class="sample-solution" id="sol8">
+      <div class="sol-label">✓ Beispiellösungen</div>
+      <p style="margin-bottom:10px;"><strong>1.</strong> Entdecken (explorativ) führt zu offenen, weit gefassten Fragen und eher qualitativen Methoden, z. B. Interviews zu einem neuen Phänomen wie „Wie nutzen Studierende KI-Tools im Alltag?“. Beschreiben (deskriptiv) führt zu Fragen nach Häufigkeit oder Verteilung und eher quantitativen Methoden wie Umfragen, z. B. „Wie viele Studierende nutzen ChatGPT wöchentlich?“. Erklären (kausal) führt zu Fragen nach Ursache-Wirkungs-Beziehungen und meist zu Experimenten, z. B. „Verbessert der Einsatz von ChatGPT die Prüfungsleistung?“.</p>
+      <p style="margin-bottom:10px;"><strong>2.</strong> Falsifizierbarkeit ist zentral, weil eine Hypothese nur dann wissenschaftlich prüfbar ist, wenn sich denkbare Beobachtungen angeben lassen, die sie widerlegen würden – sonst ist sie nicht überprüfbar und damit keine wissenschaftliche Aussage. Eine gerichtete Hypothese sagt die Richtung des Zusammenhangs voraus (z. B. „mehr X führt zu mehr Y“), eine ungerichtete Hypothese sagt nur, dass ein Zusammenhang besteht, ohne die Richtung festzulegen (z. B. „X hängt mit Y zusammen“).</p>
+      <p style="margin-bottom:10px;"><strong>3.</strong> Man beginnt mit einem groben Interessensthema, grenzt es über eine Literaturrecherche zu einer konkreten, beantwortbaren Forschungsfrage ein und leitet daraus eine überprüfbare Hypothese ab. Die Operationalisierung übersetzt dabei die abstrakten Begriffe der Hypothese (z. B. „Lernerfolg“) in konkret messbare Indikatoren (z. B. „Punktzahl in der Abschlussklausur“), damit die Hypothese empirisch getestet werden kann.</p>
+      <p style="margin-bottom:10px;"><strong>4.</strong> UV: regelmäßige Pausen beim Lernen (wird variiert/verglichen); AV: Prüfungsergebnisse (wird gemessen). Es handelt sich um eine gerichtete Hypothese, da explizit eine Richtung des Effekts angenommen wird („führen zu besseren Ergebnissen“ statt nur „hängen zusammen“).</p>
+      <p><strong>5.</strong> Typische Fehler sind unter anderem: nicht überprüfbare/zu vage Formulierungen, mehrere Fragen in einer Hypothese vermischt, Verwechslung von Korrelation und Kausalität, fehlender theoretischer Bezug sowie Suggestivfragen. Vermeiden lässt sich das durch klare Operationalisierung der Begriffe, eine präzise Formulierung mit genau einem Zusammenhang, eine Begründung aus bestehender Theorie/Literatur sowie eine kritische Prüfung auf Falsifizierbarkeit vor der endgültigen Formulierung.</p>
+    </div>
   </section>
 
-  <section class="exercise" id="ex7">
-    <div class="exercise-label">Aufgabe 7 · Übungsaufgaben & Synthesefragen</div>
+  <section class="exercise" id="ex9">
+    <div class="exercise-label">Aufgabe 9 · Übungsaufgaben & Synthesefragen</div>
     <h3>Analysieren Sie die Hypothesen und bewerten Sie die Forschungsfragen.</h3>
     <div style="padding-left: 10px;">
       <ol style="display: flex; flex-direction: column; gap: 16px; color: var(--text);">
@@ -739,6 +786,24 @@
           Vergleiche deine Verbesserungen mit den Beispielen aus dem Unterricht und formuliere sie präziser.
         </li>
       </ol>
+    </div>
+    <div style="margin-top: 20px;">
+      <!-- ✏️ Beispiellösungen unten im Script in SOLUTION_EX9 anpassen -->
+      <button class="btn-reveal" onclick="toggleSolution('sol9')">💡 Beispiellösungen anzeigen</button>
+      <button class="btn-reset" onclick="document.getElementById('sol9').style.display='none'">↺ Zurücksetzen</button>
+    </div>
+    <div class="sample-solution" id="sol9">
+      <div class="sol-label">✓ Beispiellösungen</div>
+      <p style="margin-bottom:10px;"><strong>1. Hypothesen-Analyse</strong></p>
+      <p style="margin-bottom:10px;">„Es gibt einen positiven Zusammenhang zwischen Intelligenz und Ängstlichkeit.“ → ungerichtet formuliert und ohne Operationalisierung, sonst weitgehend brauchbar. Verbessert: „Je höher der IQ-Testwert, gemessen mit Test X, desto höher die Ängstlichkeit, gemessen mit Skala Y.“</p>
+      <p style="margin-bottom:10px;">„Intelligenz ist ursächlich für Ängstlichkeit.“ → unterstellt Kausalität, die mit den meisten Studiendesigns (z. B. Korrelationsstudien) gar nicht geprüft werden kann; nicht klar, wie „ursächlich“ operationalisiert werden soll. Verbessert entweder als Korrelationshypothese formulieren oder als experimentelle Hypothese mit klar kontrollierter UV.</p>
+      <p style="margin-bottom:10px;">„Wenn der Hahn kräht auf dem Mist, ändert sich das Wetter oder es bleibt wie es ist.“ → nicht falsifizierbar (jedes Ergebnis bestätigt die Aussage), daher keine wissenschaftliche Hypothese. Ließe sich nur retten, wenn ein konkreter, widerlegbarer Zusammenhang benannt wird.</p>
+      <p style="margin-bottom:10px;">„Der Konsum von rosa Gummibärchen erhöht signifikant die Fähigkeit, schneller schwere mathematische Gleichungen zu lösen.“ → formal überprüfbar, aber es fehlt jede theoretische Begründung für den behaupteten Zusammenhang. Verbessert: entweder streichen oder durch eine theoretisch plausible UV ersetzen (z. B. Zuckerzufuhr und kurzfristige Konzentrationsleistung).</p>
+      <p style="margin-bottom:10px;"><strong>2. Forschungsfragen-Bewertung</strong></p>
+      <p style="margin-bottom:10px;">„Wie ist das eigentlich so mit ChatGPT und Lernen bei Studierenden?“ → zu unpräzise und umgangssprachlich, kein erkennbarer Fokus. Verbessert: „Welche Auswirkungen hat die Nutzung von ChatGPT auf die selbstberichtete Lernmotivation von Studierenden?“</p>
+      <p style="margin-bottom:10px;">„Warum wird ChatGPT die Hochschulbildung in Zukunft revolutionieren?“ → setzt das Ergebnis bereits als gegeben voraus (suggestiv), statt es offen zu untersuchen. Verbessert: „Welche Veränderungen erwarten Lehrende und Studierende durch den Einsatz von ChatGPT in der Hochschulbildung?“</p>
+      <p style="margin-bottom:10px;">„Warum nutzen Studierende ChatGPT immer verantwortungslos?“ → enthält eine wertende, unbelegte Unterstellung („immer verantwortungslos“). Verbessert: „Unter welchen Bedingungen nutzen Studierende ChatGPT auf eine Weise, die von Lehrenden als problematisch eingestuft wird?“</p>
+      <p><strong>„Welche Motive haben Studierende, ChatGPT zu nutzen, und wie bewerten Lehrende die KI-Strategie der Bundesregierung?“</strong> → vereint zwei unabhängige Fragestellungen in einer Frage. Verbessert: in zwei getrennte Forschungsfragen aufteilen, z. B. „Welche Motive haben Studierende für die Nutzung von ChatGPT?“ und separat „Wie bewerten Lehrende die KI-Strategie der Bundesregierung?“</p>
     </div>
   </section>
 
@@ -945,10 +1010,21 @@ function renderDnD(id) {
       e.preventDefault();
       zone.classList.remove('drag-over');
       const chipId = e.dataTransfer.getData('text/plain');
+      const fromZone = e.dataTransfer.getData('from-zone');
       const chipEl = document.querySelector(`[data-chip-id="${chipId}"]`);
       if (!chipEl) return;
+      // Wurde die Karte auf ihr eigenes Feld gezogen? Dann nichts tun.
+      if (fromZone !== '' && parseInt(fromZone, 10) === i) return;
       const prev = DND_STATE[id].filled[i];
       if (prev !== undefined) returnChip(id, prev);
+      // Kommt die Karte aus einem ANDEREN Lösungsfeld, muss dieses
+      // geleert werden – sonst würde sich die Karte "verdoppeln".
+      if (fromZone !== '') {
+        const fromIdx = parseInt(fromZone, 10);
+        delete DND_STATE[id].filled[fromIdx];
+        const fromZoneEl = document.querySelector(`#${id}-sentences .drop-zone[data-index="${fromIdx}"]`);
+        if (fromZoneEl) { fromZoneEl.classList.remove('filled', 'correct', 'wrong'); fromZoneEl.textContent = '…'; }
+      }
       DND_STATE[id].filled[i] = chipId;
       zone.classList.add('filled');
       zone.classList.remove('correct', 'wrong');
@@ -1139,11 +1215,32 @@ function resetMTW() {
   buildMTW();
 }
 
+/* ── IFRAME-HÖHE SYNCHRONISIEREN (verhindert "Scroll im Scroll") ──
+   Wird diese Seite per <iframe> in eine Lektionsseite eingebettet,
+   passt dieser Code die Höhe des iframes automatisch an den Inhalt
+   an, damit es nur einen Scrollbalken (den der Lektionsseite) gibt
+   statt zwei ineinander verschachtelte. Funktioniert nur bei
+   Einbettung von der gleichen Domain (same-origin).
+   ---------------------------------------------------------------- */
+function syncIframeHeight() {
+  try {
+    if (window.frameElement) {
+      window.frameElement.style.height = document.documentElement.scrollHeight + 'px';
+    }
+  } catch (e) { /* Cross-Origin-Einbettung: kann nicht automatisch angepasst werden */ }
+}
+window.addEventListener('load', syncIframeHeight);
+window.addEventListener('resize', syncIframeHeight);
+if (window.ResizeObserver) {
+  new ResizeObserver(syncIframeHeight).observe(document.body);
+}
+
 /* ── INIT ── */
 quizInit('quiz1');
 buildDnD('dnd3', SENTENCES_EX3, CHIPS_EX3);
 buildFlipCards();
 buildMTW();
+syncIframeHeight();
 </script>
 </body>
 </html>
