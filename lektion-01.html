@@ -58,6 +58,59 @@
     }
     .header-left { display: flex; align-items: center; gap: 1.25rem; }
     
+    /* Kacheln */ 
+    .lesson-hero { position: relative; }
+.hero-img {
+  position: absolute;
+  top: 50%;
+  right: 3rem;
+  transform: translateY(-50%);
+  width: 360px; /* feste Breite */
+  height: auto;
+  object-fit: contain;
+  object-position: center center;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: #fff;
+}
+
+/* Auf kleinen Bildschirmen verkleinern, damit es nicht mit dem Text kollidiert */
+@media (max-width: 700px) {
+  .hero-img {
+    width: 180px;
+    height: auto;
+    top: 50%;
+    right: 1.5rem;
+    transform: translateY(-50%);
+  }
+}
+/* Ab Tablet-Breite: Bild verlässt die absolute Positionierung und
+   wandert als "Float" nach oben rechts. Der Text (Badge, Titel,
+   Untertitel) fließt links daneben und läuft darunter weiter,
+   sobald das Bild "durchlaufen" ist. */
+@media (max-width: 1080px) {
+  .lesson-hero { overflow: hidden; } /* Clearfix, damit die Höhe stimmt */
+  .hero-img {
+    position: static;
+    float: right;
+    top: auto;
+    right: auto;
+    transform: none;
+    width: 200px;
+    margin: 0 0 1rem 1.25rem;
+  }
+  /* Tabs sollen unabhängig vom Bild immer volle Breite bekommen */
+  .tab-nav { clear: both; }
+}
+
+/* Auf sehr schmalen Bildschirmen (Handy hochkant) das Bild
+   noch etwas kleiner machen, statt es auszublenden */
+@media (max-width: 480px) {
+  .hero-img {
+    width: 110px;
+    margin: 0 0 0.75rem 1rem;
+  }
+}
     /* BURGER-BUTTON */
     .burger-btn {
       background: none; border: none; cursor: pointer;
@@ -563,6 +616,7 @@
       
       <!-- HERO BEREICH -->
       <div class="lesson-hero">
+        <img src="bilder/kacheln/01_Wissenschaft_verstehen_Thema_finden.png" class="hero-img" alt="">
         <span class="chapter-badge">Etappe 1</span>
         <h1 class="lesson-title">Grundlagen wissenschaftlicher Arbeit</h1>
         <p class="lesson-subtitle">
@@ -1142,45 +1196,7 @@
 
   <script src="assets/podcast-player.js" defer></script>
 
-  <!-- Mini-Player: einmal pro Seite, außerhalb von Tabs/Accordions,
-       damit er beim Tab-Wechsel oder Zuklappen sichtbar bleibt -->
-  <div class="pcx2-player" data-pcx2-player>
-    <div class="pcx2-player-inner">
-      <div class="pcx2-player-top">
-        <span class="pcx2-player-art"><span class="pcx2-wave"><span></span><span></span><span></span><span></span></span></span>
-        <div class="pcx2-player-meta">
-          <div class="pcx2-player-eyebrow" data-pcx2-player-eyebrow>Folge 1 von 4</div>
-          <div class="pcx2-player-title" data-pcx2-player-title>—</div>
-        </div>
-        <div class="pcx2-player-controls">
-          <button class="pcx2-ctrl-btn pcx2-ctrl-prev" data-pcx2-prev type="button" aria-label="Vorherige Folge">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 6h2v12H6zM20 6v12l-10-6z"/></svg>
-          </button>
-          <button class="pcx2-ctrl-btn pcx2-ctrl-play" data-pcx2-toggle type="button" aria-label="Abspielen/Pause">
-            <svg class="pcx2-icon-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-            <svg class="pcx2-icon-pause" viewBox="0 0 24 24" fill="currentColor"><path d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg>
-          </button>
-          <button class="pcx2-ctrl-btn pcx2-ctrl-next" data-pcx2-next type="button" aria-label="Nächste Folge">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 6h-2v12h2zM4 6v12l10-6z"/></svg>
-          </button>
-          <div class="pcx2-player-controls-divider"></div>
-          <button class="pcx2-ctrl-btn pcx2-ctrl-speed" data-pcx2-speed type="button" aria-label="Wiedergabegeschwindigkeit ändern">1×</button>
-          <button class="pcx2-ctrl-btn pcx2-ctrl-close" data-pcx2-close type="button" aria-label="Player schließen">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18" stroke-linecap="round"/></svg>
-          </button>
-        </div>
-      </div>
-      <div class="pcx2-player-bottom">
-        <span class="pcx2-time" data-pcx2-current>0:00</span>
-        <div class="pcx2-progress" data-pcx2-progress>
-          <span class="pcx2-progress-fill" data-pcx2-progress-fill></span>
-        </div>
-        <span class="pcx2-time" data-pcx2-duration>0:00</span>
-      </div>
-    </div>
-  </div>
 
-  <script src="assets/podcast-player.js" defer></script>
 
 </body>
 </html>
