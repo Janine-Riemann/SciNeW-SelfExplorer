@@ -259,6 +259,31 @@
   .quiz-feedback.success { background: var(--success-bg); color: var(--success); display: flex; align-items: center; gap: 8px; }
   .quiz-feedback.error   { background: var(--error-bg);   color: var(--error);   display: flex; align-items: center; gap: 8px; }
 
+  /* ── MULTIPLE CHOICE ── */
+  .choice-list { list-style: none; display: flex; flex-direction: column; gap: 10px; padding-left: 0; margin-left: 0; }
+  .choice-item label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--bg);
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 16px;
+    cursor: pointer;
+    transition: border-color .15s, background .15s;
+    font-size: .97rem;
+  }
+  .choice-item label:hover { border-color: var(--primary-dark); background: #e8faf3; }
+  .choice-item input[type="checkbox"] {
+    accent-color: var(--primary-dark);
+    width: 18px; height: 18px;
+    flex-shrink: 0;
+    cursor: pointer;
+  }
+  .choice-item label.correct { border-color: var(--success); background: var(--success-bg); }
+  .choice-item label.wrong   { border-color: var(--error);   background: var(--error-bg);   }
+  .choice-item label.missed  { border-color: var(--success); background: var(--success-bg); opacity: .65; }
+
   /* ── GUESS THE ANSWER (Flip-Reveal) ── */
   .gta-card {
     background: var(--bg);
@@ -348,6 +373,70 @@
   }
   .feedback-msg.success { background: var(--success-bg); color: var(--success); display: flex; align-items: center; gap: 8px; }
   .feedback-msg.error   { background: var(--error-bg);   color: var(--error);   display: flex; align-items: center; gap: 8px; }
+
+  /* ── REFLEXIONSFRAGEN: EINGABEFELD + MUSTERLÖSUNG ── */
+  .reflect-item {
+    border-left: 3px solid var(--primary-dark);
+    padding: 0 0 0 12px;
+    line-height: 1.6;
+  }
+  .reflect-item > strong { color: var(--primary-text); }
+  .reflect-item .q-text { margin-bottom: 4px; }
+  .answer-textarea {
+    display: block;
+    width: 100%;
+    min-height: 130px;
+    margin-top: 10px;
+    padding: 14px 18px;
+    background: var(--bg);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    color: var(--text);
+    font-family: inherit;
+    font-size: .95rem;
+    line-height: 1.6;
+    resize: vertical;
+  }
+  .answer-textarea::placeholder { color: #7a9a91; }
+  .answer-textarea:focus {
+    outline: none;
+    border-color: var(--primary-dark);
+    box-shadow: 0 0 0 3px rgba(75,235,185,.25);
+  }
+  .answer-hint {
+    font-size: .85rem;
+    color: var(--muted);
+    margin-top: 8px;
+  }
+  .btn-row { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 10px; }
+  .btn-sample {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--surface);
+    color: var(--accent);
+    border: 1.5px solid var(--accent);
+    border-radius: 24px;
+    padding: 9px 20px;
+    font-family: inherit;
+    font-size: .9rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background .15s, color .15s;
+  }
+  .btn-sample:hover { background: var(--accent); color: #fff; }
+  .sample-answer {
+    display: none;
+    margin-top: 12px;
+    background: #e8f4ff;
+    border: 1.5px solid var(--accent);
+    border-radius: 8px;
+    padding: 14px 18px;
+    font-size: .93rem;
+    line-height: 1.6;
+    color: var(--text);
+  }
+  .sample-answer strong { color: var(--accent); }
 
   /* ── LINK BOX ── */
   .link-box {
@@ -459,19 +548,184 @@
       🔗 Unter folgendem <a href="https://www.econbiz.de/eb/gw/literatur-suchen-und-bewerten" target="_blank" rel="noopener">Link</a> kommen Sie zu einer Guided-Walk Lerneinheit zum Thema Quellen bewerten.
     </div>
 
+<!-- ============================================================
+       AUFGABE 2 – Multiple Choice
+       Richtige Antworten: data-correct="true"
+       ============================================================ -->
+  <section class="exercise" id="ex2">
+    <div class="exercise-label">Aufgabe 2 · Multiple Choice</div>
+    <h3>Welche Eigenschaften und Vorgehensweisen treffen auf die systematische Suche im Vergleich zur kumulativen (Schneeballsuche) Literaturrecherche zu? Wählen Sie die zutreffende Antwort.</h3>
+
+    <ul class="choice-list" id="mc-list">
+      <!-- ✅ korrekt = true | ❌ falsch = false -->
+      <li class="choice-item"><label><input type="checkbox" data-correct="false"> Da moderne KI-Modelle direkt an universelle wissenschaftliche Datenbanken angebunden sind, können sämtliche ermittelten Literaturangaben völlig bedenkenlos ohne weitere Verifikation übernommen werden.</label></li>
+      <li class="choice-item"><label><input type="checkbox" data-correct="true">  Systematische Verzerrungen und probabilistische Fehler in den Trainingsdaten können unberkannte algorithmische Fehler verursachen, weshalb die Vertrauenswürdigkeit der Ergebnisse stets kritisch zu hinterfragen bleibt.</label></li>
+      <li class="choice-item"><label><input type="checkbox" data-correct="true">  Generative Sprachmodelle erzeugen gelegentlich nicht-existierende Literatur oder Zitate, weshalb jede gefundene Quelle stets manuell überprüft und mit Originaltexten abgeglichen werden muss.</label></li>
+      <li class="choice-item"><label><input type="checkbox" data-correct="true">  Die Verantwortung für die Richtigkeit der Rechercheergebnisse liegt beim Anwender, weshalb stets eine sorgfältige Prüfung der Plausibilität und die Auswahl eines fachlich passenden Tools erforderlich sind.</label></li>
+      
+    </ul>
+    </ul>
+  </section>
+<!-- ============================================================
+       AUFGABE 3 – Multiple Choice
+       Richtige Antworten: data-correct="true"
+       ============================================================ -->
   <section class="exercise" id="ex3">
-    <div class="exercise-label">Aufgabe 3 · Reflexion &amp; Synthese</div>
+    <div class="exercise-label">Aufgabe 3 · Multiple Choice</div>
+    <h3>Basierend auf den Grundlagen des wissenschaftlichen Publizierens, welche der folgenden Aussagen treffen auf Fachartikel und den wissenschaftlichen Publikationsprozess zu? Wählen Sie alle zutreffenden Aussagen aus.</h3>
+
+    <ul class="choice-list" id="mc-list">
+      <!-- ✅ korrekt = true | ❌ falsch = false -->
+      <li class="choice-item"><label><input type="checkbox" data-correct="true">  Im Rahmen des Publikationsprozesses folgt auf die Manuskripterstellung üblicherweise die Einreichung beim Journal sowie das anschließende Peer Review vor einer Publikationsentscheidung.</label></li>
+      <li class="choice-item"><label><input type="checkbox" data-correct="false"> Preprints stellen vorab veröffentlichte wissenschaftliche Texte dar, welche bereits erfolgreich das formale Peer Review sowie alle Qualitätsprüfungen durchlaufen haben.</label></li>
+      <li class="choice-item"><label><input type="checkbox" data-correct="true">  Fachartikel sind in der Literatursuche besonders wichtig, da sie unter anderem durch ein Peer Review eine hohe wissenschaftliche Qualität und Aktualität aufweisen.</label></li>
+      <li class="choice-item"><label><input type="checkbox" data-correct="true">  Sammelbände und Tagungsbände bestehen im Gegensatz zu Monografien stets aus mehreren Beiträgen verschiedener Autorinnen und Autoren und werden häufig im Anschluss an eine Konferenz veröffentlicht.</label></li>
+      
+    </ul>
+     </ul>
+    </section>
+     <!-- ============================================================
+       AUFGABE 4 – Multiple Choice
+       Richtige Antworten: data-correct="true"
+       ============================================================ -->
+  <section class="exercise" id="ex4">
+    <div class="exercise-label">Aufgabe 4 · Multiple Choice</div>
+    <h3>Welche der folgenden Aussagen beschreiben die Eigenschaften und Einsatzmöglichkeiten von Google Scholar im Rahmen einer wissenschaftlichen Literaturrecherche treffend? (Wählen Sie zwei zutreffende Aussagen aus)</h3>
+
+    <ul class="choice-list" id="mc-list">
+      <!-- ✅ korrekt = true | ❌ falsch = false -->
+      <li class="choice-item"><label><input type="checkbox" data-correct="false"> Google Scholar umfasst sämtliche weltweit relevanten wissenschaftlichen Artikel und ersetzt dadurch vollständig die traditionelle Suche in spezialisierten Fachdatenbanken.</label></li>
+      <li class="choice-item"><label><input type="checkbox" data-correct="true"> Die Plattform liefert oft eine sehr große Anzahl an Treffern, weshalb die tatsächliche Qualität der gefundenen Ergebnisse immer kritisch überprüft werden muss.</label></li>
+      <li class="choice-item"><label><input type="checkbox" data-correct="false">  Über die integrierten Funktionen lassen sich physische Bücher direkt ausleihen oder verlängern und der Zugriff auf den lokalen Bibliotheksbestand verwalten.</label></li>
+      <li class="choice-item"><label><input type="checkbox" data-correct="true">  Google Scholar ist ein kommerzieller Anbieter, dessen Zitations-basierter Algorithmus nicht transparent arbeitet und häufig ältere oder sehr vielzitierte Arbeiten bevorzugt.</label></li>
+      
+    </ul>
+
+    <div>
+      <button class="btn-check" onclick="checkMC()">✔ Überprüfen</button>
+      <button class="btn-reset" onclick="resetMC()">↺ Zurücksetzen</button>
+    </div>
+    <div class="feedback-msg" id="mc-feedback"></div>
+  </section>
+
+
+  <section class="exercise" id="ex5">
+    <div class="exercise-label">Aufgabe 5 · Reflexion &amp; Synthese</div>
     <h3>Bearbeiten Sie die folgenden Fragen schriftlich oder im Austausch mit anderen.</h3>
     <div style="padding-left: 10px;">
-      <ol style="display: flex; flex-direction: column; gap: 16px; color: var(--text);">
-        <li><strong>Peer Review &amp; Fachartikel:</strong> Warum sind Fachartikel mit Peer Review besonders wichtig, und wie unterscheidet sich das Single-Blind vom Double-Blind Peer Review?</li>
-        <li><strong>Rabbit Hole vermeiden:</strong> Wie können Sie verhindern, in ein „Rabbit Hole“ zu geraten – und welche konkreten Strategien helfen dabei?</li>
-        <li><strong>Google Scholar vs. Fachdatenbanken:</strong> Welche Vor- und Nachteile bieten Google Scholar und spezialisierte Fachdatenbanken, und wann würden Sie welches Tool bevorzugen?</li>
-        <li><strong>W-Fragen der Recherche:</strong> Welche „W-Fragen“ leiten den Rechercheprozess, und wie hilft eine systematische Suche im Vergleich zur kumulativen Suche?</li>
-        <li><strong>KI kritisch nutzen:</strong> Warum ist eine kritische Überprüfung von KI-Ergebnissen unerlässlich, und welche Best-Practice-Hinweise sind dabei zentral?</li>
-        <li><strong>Suchbegriffsentwicklung:</strong> Angenommen, Sie schreiben eine Arbeit zum Thema <em>„Der Einfluss von Nachhaltigkeitskommunikation auf das Kaufverhalten junger Erwachsener in Deutschland“</em>. Erstellen Sie eine Tabelle mit mindestens drei Konzepten und sammeln Sie für jedes Konzept mindestens zwei alternative Begriffe. Wenden Sie anschließend mindestens drei verschiedene Suchoperatoren an, um eine mögliche Suchanfrage zu formulieren.</li>
-        <li><strong>Quellenbewertung:</strong> Ihnen liegen folgende Quellen vor. Beurteilen Sie, welche als <strong>zitierwürdig</strong> gelten und begründen Sie Ihre Einschätzung (Aktualität, Belegbarkeit, Autorität, Publikationsort, Erkenntnisinteresse): Ein Blogbeitrag von einem unbekannten Autor; eine Studie aus dem <em>Journal of Consumer Research</em>; ein aktueller Artikel aus der <em>Süddeutschen Zeitung</em>; ein Preprint auf arXiv; ein Lehrbuch zur <em>Allgemeinen Betriebswirtschaftslehre</em>.</li>
-        <li><strong>Wiederholungsfokus:</strong> Notieren Sie 1–2 Punkte, die Ihnen noch unklar sind oder die Sie noch nicht sicher beantworten konnten. Diese Punkte sind Ihre Schwerpunkte für die nächste Wiederholung.</li>
+      <ol style="display: flex; flex-direction: column; gap: 28px; color: var(--text); list-style: none; padding-left: 0;">
+
+        <li class="reflect-item">
+          <div class="q-text"><strong>Peer Review &amp; Fachartikel:</strong> Warum sind Fachartikel mit Peer Review besonders wichtig, und wie unterscheidet sich das Single-Blind vom Double-Blind Peer Review?</div>
+          <textarea class="answer-textarea" id="ex5-a1" placeholder="Schreibe hier deine Antwort..."></textarea>
+          <div class="answer-hint">Denke an die Merkmale: Qualitätssicherung · Unabhängigkeit der Gutachter · Anonymität</div>
+          <div class="btn-row">
+            <button class="btn-sample" onclick="toggleSample('ex5-s1', this)">💡 Musterlösung anzeigen</button>
+            <button class="btn-reset" onclick="resetReflect('ex5-a1', 'ex5-s1', this)">↺ Zurücksetzen</button>
+          </div>
+          <div class="sample-answer" id="ex5-s1">
+            <strong>Musterlösung:</strong> Peer Review sichert die Qualität und Glaubwürdigkeit eines Artikels, weil unabhängige Fachleute aus demselben Gebiet die Arbeit vor der Veröffentlichung auf Methodik, Plausibilität und wissenschaftliche Korrektheit prüfen. Beim <em>Single-Blind</em> Review kennen die Gutachtenden die Identität der Autor:innen, während die Autor:innen nicht wissen, wer begutachtet – das kann zu Voreingenommenheit führen (z. B. gegenüber bekannten Namen oder Institutionen). Beim <em>Double-Blind</em> Review bleiben beide Seiten anonym, was Verzerrungen weiter reduzieren und eine objektivere Bewertung fördern soll.
+          </div>
+        </li>
+
+        <li class="reflect-item">
+          <div class="q-text"><strong>Rabbit Hole vermeiden:</strong> Wie können Sie verhindern, in ein „Rabbit Hole“ zu geraten – und welche konkreten Strategien helfen dabei?</div>
+          <textarea class="answer-textarea" id="ex5-a2" placeholder="Schreibe hier deine Antwort..."></textarea>
+          <div class="answer-hint">Denke an die Merkmale: klare Fragestellung · Zeitlimit · Fokussierung</div>
+          <div class="btn-row">
+            <button class="btn-sample" onclick="toggleSample('ex5-s2', this)">💡 Musterlösung anzeigen</button>
+            <button class="btn-reset" onclick="resetReflect('ex5-a2', 'ex5-s2', this)">↺ Zurücksetzen</button>
+          </div>
+          <div class="sample-answer" id="ex5-s2">
+            <strong>Musterlösung:</strong> Ein „Rabbit Hole“ entsteht, wenn man sich in immer weiter verzweigenden Nebenthemen verliert, ohne der eigentlichen Fragestellung näherzukommen. Dagegen helfen: eine klar formulierte, eng abgegrenzte Forschungsfrage, ein festes Zeitlimit pro Recherche-Schritt, das Führen einer Suchprotokoll-Liste (welche Begriffe/Quellen wurden schon geprüft), das bewusste „Parken“ interessanter, aber themenfremder Funde für später sowie regelmäßige Zwischenchecks: „Bringt mich das gerade meiner Fragestellung näher?“
+          </div>
+        </li>
+
+        <li class="reflect-item">
+          <div class="q-text"><strong>Google Scholar vs. Fachdatenbanken:</strong> Welche Vor- und Nachteile bieten Google Scholar und spezialisierte Fachdatenbanken, und wann würden Sie welches Tool bevorzugen?</div>
+          <textarea class="answer-textarea" id="ex5-a3" placeholder="Schreibe hier deine Antwort..."></textarea>
+          <div class="answer-hint">Denke an die Merkmale: Abdeckung · Filtermöglichkeiten · Qualitätssicherung der Treffer</div>
+          <div class="btn-row">
+            <button class="btn-sample" onclick="toggleSample('ex5-s3', this)">💡 Musterlösung anzeigen</button>
+            <button class="btn-reset" onclick="resetReflect('ex5-a3', 'ex5-s3', this)">↺ Zurücksetzen</button>
+          </div>
+          <div class="sample-answer" id="ex5-s3">
+            <strong>Musterlösung:</strong> <em>Google Scholar</em> ist einfach zu bedienen, kostenlos zugänglich und durchsucht sehr breit über Disziplinen und Publikationstypen hinweg – enthält aber auch nicht peer-reviewte Texte, Vorabversionen oder fragwürdige Quellen, und die Trefferqualität ist schwer einzuschätzen. <em>Fachdatenbanken</em> (z. B. EBSCO, Web of Science, PubMed) bieten dagegen kuratierte, meist ausschließlich wissenschaftliche und oft peer-reviewte Inhalte, differenzierte Filter- und Suchfunktionen sowie verlässliche Metadaten – sind dafür aber oft kostenpflichtig und erfordern mehr Einarbeitung. Für eine erste Themenorientierung eignet sich Google Scholar gut, für eine systematische, wissenschaftlich belastbare Recherche sind Fachdatenbanken vorzuziehen.
+          </div>
+        </li>
+
+        <li class="reflect-item">
+          <div class="q-text"><strong>W-Fragen der Recherche:</strong> Welche „W-Fragen“ leiten den Rechercheprozess, und wie hilft eine systematische Suche im Vergleich zur kumulativen Suche?</div>
+          <textarea class="answer-textarea" id="ex5-a4" placeholder="Schreibe hier deine Antwort..."></textarea>
+          <div class="answer-hint">Denke an die Merkmale: Wer, Was, Wann, Wo, Warum, Wie · Struktur vs. Zufall</div>
+          <div class="btn-row">
+            <button class="btn-sample" onclick="toggleSample('ex5-s4', this)">💡 Musterlösung anzeigen</button>
+            <button class="btn-reset" onclick="resetReflect('ex5-a4', 'ex5-s4', this)">↺ Zurücksetzen</button>
+          </div>
+          <div class="sample-answer" id="ex5-s4">
+            <strong>Musterlösung:</strong> Die klassischen W-Fragen – Wer, Was, Wann, Wo, Warum, Wie – helfen, das Thema vor der Suche präzise einzugrenzen (z. B. wer ist betroffen, welcher Zeitraum, welcher Kontext). Eine <em>systematische Suche</em> folgt einem vorab festgelegten, nachvollziehbaren Vorgehen (definierte Suchbegriffe, Datenbanken, Ein-/Ausschlusskriterien) und liefert dadurch reproduzierbare, vollständigere Ergebnisse. Eine <em>kumulative Suche</em> dagegen folgt eher zufällig neuen Hinweisen und Querverweisen (z. B. Schneeballprinzip über Literaturverzeichnisse) – das kann ergänzend nützlich sein, ersetzt aber keine systematische Grundrecherche, da wichtige Quellen sonst übersehen werden können.
+          </div>
+        </li>
+
+        <li class="reflect-item">
+          <div class="q-text"><strong>KI kritisch nutzen:</strong> Warum ist eine kritische Überprüfung von KI-Ergebnissen unerlässlich, und welche Best-Practice-Hinweise sind dabei zentral?</div>
+          <textarea class="answer-textarea" id="ex5-a5" placeholder="Schreibe hier deine Antwort..."></textarea>
+          <div class="answer-hint">Denke an die Merkmale: Halluzinationen · Quellenprüfung · Transparenz der Nutzung</div>
+          <div class="btn-row">
+            <button class="btn-sample" onclick="toggleSample('ex5-s5', this)">💡 Musterlösung anzeigen</button>
+            <button class="btn-reset" onclick="resetReflect('ex5-a5', 'ex5-s5', this)">↺ Zurücksetzen</button>
+          </div>
+          <div class="sample-answer" id="ex5-s5">
+            <strong>Musterlösung:</strong> KI-Systeme können überzeugend klingende, aber inhaltlich falsche Aussagen oder frei erfundene Quellen produzieren („Halluzinationen“). Zudem sind Trainingsdaten nicht immer aktuell oder vollständig, und Antworten spiegeln keine echte Quellenprüfung wider. Best Practices: jede von einer KI genannte Quelle eigenständig verifizieren, Aussagen mit unabhängigen, seriösen Quellen abgleichen, KI eher zur Ideenfindung und Strukturierung als zur Faktenrecherche nutzen, und die Nutzung von KI-Tools transparent kennzeichnen, wenn dies verlangt wird.
+          </div>
+        </li>
+
+        <li class="reflect-item">
+          <div class="q-text"><strong>Suchbegriffsentwicklung:</strong> Angenommen, Sie schreiben eine Arbeit zum Thema <em>„Der Einfluss von Nachhaltigkeitskommunikation auf das Kaufverhalten junger Erwachsener in Deutschland“</em>. Erstellen Sie eine Tabelle mit mindestens drei Konzepten und sammeln Sie für jedes Konzept mindestens zwei alternative Begriffe. Wenden Sie anschließend mindestens drei verschiedene Suchoperatoren an, um eine mögliche Suchanfrage zu formulieren.</div>
+          <textarea class="answer-textarea" id="ex5-a6" placeholder="Schreibe hier deine Antwort..."></textarea>
+          <div class="answer-hint">Denke an die Merkmale: Synonyme · Boolesche Operatoren (AND/OR/NOT) · Trunkierung/Phrasensuche</div>
+          <div class="btn-row">
+            <button class="btn-sample" onclick="toggleSample('ex5-s6', this)">💡 Musterlösung anzeigen</button>
+            <button class="btn-reset" onclick="resetReflect('ex5-a6', 'ex5-s6', this)">↺ Zurücksetzen</button>
+          </div>
+          <div class="sample-answer" id="ex5-s6">
+            <strong>Musterlösung:</strong><br><br>
+            <strong>Konzept 1 – Nachhaltigkeitskommunikation:</strong> Sustainability communication, Green Marketing<br>
+            <strong>Konzept 2 – Kaufverhalten:</strong> Konsumverhalten, Consumer behavior, Purchase intention<br>
+            <strong>Konzept 3 – Junge Erwachsene:</strong> Young adults, Generation Z, Millennials<br><br>
+            <strong>Mögliche Suchanfrage mit Operatoren:</strong><br>
+            <code>("sustainability communication" OR "green marketing") AND ("consumer behavior" OR "purchase intention") AND ("young adults" OR "Generation Z") NOT children</code><br><br>
+            Verwendete Operatoren: Phrasensuche (Anführungszeichen), OR (für Synonyme innerhalb eines Konzepts), AND (zur Verknüpfung der Konzepte) und NOT (zum Ausschluss irrelevanter Treffer).
+          </div>
+        </li>
+
+        <li class="reflect-item">
+          <div class="q-text"><strong>Quellenbewertung:</strong> Ihnen liegen folgende Quellen vor. Beurteilen Sie, welche als <strong>zitierwürdig</strong> gelten und begründen Sie Ihre Einschätzung (Aktualität, Belegbarkeit, Autorität, Publikationsort, Erkenntnisinteresse): Ein Blogbeitrag von einem unbekannten Autor; eine Studie aus dem <em>Journal of Consumer Research</em>; ein aktueller Artikel aus der <em>Süddeutschen Zeitung</em>; ein Preprint auf arXiv; ein Lehrbuch zur <em>Allgemeinen Betriebswirtschaftslehre</em>.</div>
+          <textarea class="answer-textarea" id="ex5-a7" placeholder="Schreibe hier deine Antwort..."></textarea>
+          <div class="answer-hint">Denke an die Merkmale: CRAAP-Kriterien · Peer Review · Publikationsort</div>
+          <div class="btn-row">
+            <button class="btn-sample" onclick="toggleSample('ex5-s7', this)">💡 Musterlösung anzeigen</button>
+            <button class="btn-reset" onclick="resetReflect('ex5-a7', 'ex5-s7', this)">↺ Zurücksetzen</button>
+          </div>
+          <div class="sample-answer" id="ex5-s7">
+            <strong>Musterlösung:</strong><br><br>
+            <strong>Blogbeitrag (unbekannter Autor):</strong> Nicht zitierwürdig – keine erkennbare Autorität, keine Qualitätssicherung, Belegbarkeit meist nicht gegeben.<br><br>
+            <strong>Studie im Journal of Consumer Research:</strong> Sehr zitierwürdig – peer-reviewte, anerkannte Fachzeitschrift mit hoher Autorität und nachvollziehbarer Methodik.<br><br>
+            <strong>Aktueller Artikel der Süddeutschen Zeitung:</strong> Bedingt zitierwürdig – seriöse, aktuelle Quelle für Kontext/aktuelle Entwicklungen, aber kein wissenschaftlicher Peer Review; eher als Ergänzung, nicht als Hauptquelle geeignet.<br><br>
+            <strong>Preprint auf arXiv:</strong> Bedingt zitierwürdig – oft aktuell und von Forschenden verfasst, aber (noch) nicht peer-reviewed; Ergebnisse sollten mit Vorsicht behandelt und wenn möglich durch die spätere publizierte Version ersetzt werden.<br><br>
+            <strong>Lehrbuch zur Allgemeinen BWL:</strong> Zitierwürdig für Grundlagenwissen – etablierte Autorität, aber ggf. weniger aktuell für sehr spezifische, neue Fragestellungen.
+          </div>
+        </li>
+
+        <li class="reflect-item">
+          <div class="q-text"><strong>Wiederholungsfokus:</strong> Notieren Sie 1–2 Punkte, die Ihnen noch unklar sind oder die Sie noch nicht sicher beantworten konnten. Diese Punkte sind Ihre Schwerpunkte für die nächste Wiederholung.</div>
+          <textarea class="answer-textarea" id="ex5-a8" placeholder="Schreibe hier deine Antwort..."></textarea>
+          <div class="answer-hint">Diese Frage ist individuell – es gibt keine Musterlösung.</div>
+          <div class="btn-row">
+            <button class="btn-reset" onclick="resetReflect('ex5-a8', null, this)">↺ Zurücksetzen</button>
+          </div>
+        </li>
+
       </ol>
     </div>
   </section>
@@ -513,6 +767,25 @@ function resetQuestion(id) {
   });
   feedback.className = 'quiz-feedback';
   feedback.style.display = 'none';
+}
+
+/* ── Reflexionsfragen: Musterlösung Toggle & Reset ── */
+function toggleSample(id, btn) {
+  const el = document.getElementById(id);
+  const isVisible = el.style.display === 'block';
+  el.style.display = isVisible ? 'none' : 'block';
+  btn.textContent = isVisible ? '💡 Musterlösung anzeigen' : '🙈 Musterlösung verbergen';
+}
+
+function resetReflect(textareaId, sampleId, btn) {
+  const textarea = document.getElementById(textareaId);
+  textarea.value = '';
+  if (sampleId) {
+    const sample = document.getElementById(sampleId);
+    sample.style.display = 'none';
+    const sampleBtn = btn.parentElement.querySelector('.btn-sample');
+    if (sampleBtn) sampleBtn.textContent = '💡 Musterlösung anzeigen';
+  }
 }
 
 /* ── Guess The Answer Toggle ── */

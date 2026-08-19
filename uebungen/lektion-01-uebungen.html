@@ -449,6 +449,28 @@
     </div>
     <div class="feedback-msg" id="dnd4-feedback"></div>
   </section>
+   <!-- ============================================================
+       AUFGABE 6 – Multiple Choice
+       Richtige Antworten: data-correct="true"
+       ============================================================ -->
+  <section class="exercise" id="ex6">
+    <div class="exercise-label">Aufgabe 6 · Multiple Choice</div>
+    <h3>Welche zentralen Kriterien definieren den Begriff des wissenschaftlichen Arbeitens und zeichnen eine wissenschaftliche Vorgehensweise im Gegensatz zur Pseudowissenschaft aus?</h3>
+
+    <ul class="choice-list" id="mc-list">
+      <!-- ✅ korrekt = true | ❌ falsch = false -->
+      <li class="choice-item"><label><input type="checkbox" data-correct="false"> Wissenschaftliches Arbeiten basiert ausschließlich auf dem unkritischen Glauben an traditionelle Glaubenssätze und vermeidet jegliche empirische Evidenz zur systematischen Erklärung von Phänomenen.</label></li>
+      <li class="choice-item"><label><input type="checkbox" data-correct="true"> Wissenschaftliches Arbeiten erfordert eine systematische Erkenntnisgewinnung, die stets durch objektive Prüfbarkeit, regelbasiertes methodisches Vorgehen sowie Nachvollziehbarkeit gekennzeichnet ist.</label></li>
+      <li class="choice-item"><label><input type="checkbox" data-correct="false"> Wissenschaftliches Arbeiten stützt sich vor allem auf den subjektiven Anspruch auf Autorität und verzichtet bewusst auf die Falsifizierbarkeit von Hypothesen, um einen schnellen Nutzen zu erzielen.</label></li>
+      <li class="choice-item"><label><input type="checkbox" data-correct="false"> Wissenschaftliches Arbeiten ist rein durch die Verwendung von unkritischen Beobachtungen und intuitiven Annahmen definiert, die keinerlei methodischer Überprüfung oder formalen Standards bedürfen.</label></li>
+      
+    </ul>
+     <div>
+      <button class="btn-check" onclick="checkMC()">✔ Überprüfen</button>
+      <button class="btn-reset" onclick="resetMC()">↺ Zurücksetzen</button>
+    </div>
+    <div class="feedback-msg" id="mc-feedback"></div>
+  </section>
 
 <!-- ============================================================
        NEU: AUFGABE 4 – Active Recall (Nur Text)
