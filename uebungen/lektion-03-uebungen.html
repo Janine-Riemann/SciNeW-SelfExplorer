@@ -26,12 +26,28 @@
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+  html {
+    overflow-x: hidden;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  html::-webkit-scrollbar,
+  body::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+    display: none;
+  }
+
   body {
     font-family: 'Atkinson Hyperlegible', sans-serif;
     background: var(--bg);
     color: var(--text);
     font-size: 16px;
     line-height: 1.65;
+    overflow-x: hidden;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
   }
 
   .page-wrapper {
@@ -869,6 +885,28 @@ function toggleGTA(id) {
   el.style.display = isVisible ? 'none' : 'block';
   btn.textContent = isVisible ? '🔍 Antwort anzeigen' : '🙈 Antwort verbergen';
 }
+
+/* ── IFRAME-HÖHE SYNCHRONISIEREN (verhindert "Scroll im Scroll") ──
+   Wird diese Seite per <iframe> in eine Lektionsseite eingebettet,
+   passt dieser Code die Höhe des iframes automatisch an den Inhalt
+   an, damit es nur einen Scrollbalken (den der Lektionsseite) gibt
+   statt zwei ineinander verschachtelte. Funktioniert nur bei
+   Einbettung von der gleichen Domain (same-origin).
+   ---------------------------------------------------------------- */
+function syncIframeHeight() {
+  try {
+    if (window.frameElement) {
+      window.frameElement.style.height = document.documentElement.scrollHeight + 'px';
+    }
+  } catch (e) { /* Cross-Origin-Einbettung: kann nicht automatisch angepasst werden */ }
+}
+window.addEventListener('load', syncIframeHeight);
+window.addEventListener('resize', syncIframeHeight);
+if (window.ResizeObserver) {
+  new ResizeObserver(syncIframeHeight).observe(document.body);
+}
+
+syncIframeHeight();
 </script>
 </body>
 </html>
