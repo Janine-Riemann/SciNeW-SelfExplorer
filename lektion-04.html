@@ -56,7 +56,59 @@
       box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     }
     .header-left { display: flex; align-items: center; gap: 1.25rem; }
-    
+       /* Kacheln */ 
+    .lesson-hero { position: relative; }
+.hero-img {
+  position: absolute;
+  top: 50%;
+  right: 3rem;
+  transform: translateY(-50%);
+  width: 360px; /* feste Breite */
+  height: auto;
+  object-fit: contain;
+  object-position: center center;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: #fff;
+}
+
+/* Auf kleinen Bildschirmen verkleinern, damit es nicht mit dem Text kollidiert */
+@media (max-width: 700px) {
+  .hero-img {
+    width: 180px;
+    height: auto;
+    top: 50%;
+    right: 1.5rem;
+    transform: translateY(-50%);
+  }
+}
+/* Ab Tablet-Breite: Bild verlässt die absolute Positionierung und
+   wandert als "Float" nach oben rechts. Der Text (Badge, Titel,
+   Untertitel) fließt links daneben und läuft darunter weiter,
+   sobald das Bild "durchlaufen" ist. */
+@media (max-width: 1080px) {
+  .lesson-hero { overflow: hidden; } /* Clearfix, damit die Höhe stimmt */
+  .hero-img {
+    position: static;
+    float: right;
+    top: auto;
+    right: auto;
+    transform: none;
+    width: 200px;
+    margin: 0 0 1rem 1.25rem;
+  }
+  /* Tabs sollen unabhängig vom Bild immer volle Breite bekommen */
+  .tab-nav { clear: both; }
+}
+
+/* Auf sehr schmalen Bildschirmen (Handy hochkant) das Bild
+   noch etwas kleiner machen, statt es auszublenden */
+@media (max-width: 480px) {
+  .hero-img {
+    width: 110px;
+    margin: 0 0 0.75rem 1rem;
+  }
+}
     /* BURGER-BUTTON */
     .burger-btn {
       background: none; border: none; cursor: pointer;
@@ -587,6 +639,7 @@
       
       <!-- HERO BEREICH -->
       <div class="lesson-hero">
+        <img src="bilder/Kacheln/04_Klug_lesen.gif" class="hero-img" alt="">
         <span class="chapter-badge">Etappe 4</span>
         <h1 class="lesson-title">Klug lesen</h1>
         <p class="lesson-subtitle">
