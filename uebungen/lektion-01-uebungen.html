@@ -25,6 +25,18 @@
   }
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html {
+    overflow-x: hidden;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  html::-webkit-scrollbar,
+  body::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+    display: none;
+  }
 
   body {
     font-family: 'Atkinson Hyperlegible', sans-serif;
@@ -32,6 +44,9 @@
     color: var(--text);
     font-size: 16px;
     line-height: 1.65;
+    overflow-x: hidden;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
   }
 
   .page-wrapper {
