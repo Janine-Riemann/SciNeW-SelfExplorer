@@ -275,6 +275,82 @@
     transition: color .15s, border-color .15s;
   }
   .btn-reset:hover { color: var(--text); border-color: var(--muted); }
+  .btn-reveal {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 12px;
+    background: transparent;
+    color: var(--accent);
+    border: 1.5px solid var(--accent);
+    border-radius: 24px;
+    padding: 9px 20px;
+    font-family: inherit;
+    font-size: .9rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background .15s, color .15s;
+  }
+  .btn-reveal:hover { background: var(--accent); color: #fff; }
+
+  /* ── ESSAY / FREITEXT ── */
+  .essay-textarea {
+    width: 100%;
+    min-height: 130px;
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    padding: 14px 16px;
+    font-family: inherit;
+    font-size: .96rem;
+    line-height: 1.6;
+    color: var(--text);
+    background: var(--bg);
+    resize: vertical;
+    transition: border-color .15s;
+    margin-bottom: 4px;
+  }
+  .essay-textarea:focus { outline: none; border-color: var(--primary-dark); }
+  .essay-hint {
+    font-size: .87rem;
+    color: var(--muted);
+    margin-top: 8px;
+    margin-bottom: 18px;
+  }
+  .essay-prompts {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin-bottom: 18px;
+  }
+  .essay-prompts ol,
+  .essay-prompts ul {
+    padding-left: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    font-size: .95rem;
+  }
+  .sample-solution {
+    display: none;
+    background: var(--success-bg);
+    border: 1px solid var(--success);
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin-top: 14px;
+    font-size: .95rem;
+  }
+  .sample-solution .sol-label {
+    font-size: .78rem;
+    font-weight: 700;
+    color: var(--success);
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    margin-bottom: 6px;
+  }
+  .sample-solution p { margin-bottom: 10px; line-height: 1.6; }
+  .sample-solution p:last-child { margin-bottom: 0; }
+  .sample-solution em { font-style: italic; }
 
   /* ── LINK BOX ── */
   .link-box {
@@ -423,8 +499,8 @@
     <hr class="divider">
 
     <!-- ── Frage 3 ── -->
-    <div class="quiz-question-text">
-      Frage 3: Welche der folgenden Literaturangaben ist korrekt nach APA 7 formatiert?
+    <div class="citation-block">
+      <strong>Frage 3:</strong> Welche der folgenden Literaturangaben ist korrekt nach APA 7 formatiert?
     </div>
     <div class="quiz-options" id="q3-options">
       <button class="quiz-option-btn" onclick="checkAnswer('q3', this, true)">
@@ -441,6 +517,169 @@
     <button class="btn-reset" onclick="resetQuestion('q3')">↺ Zurücksetzen</button>
 
   </section>
+
+
+  <!-- ============================================================
+       AUFGABE 2 – Freitext: Active Recall
+       ============================================================ -->
+  <section class="exercise" id="ex2">
+    <div class="exercise-label">Aufgabe 2 · Freitext</div>
+    <h3>🧠 Active Recall: Testen Sie Ihr Wissen, ohne nachzusehen</h3>
+    <p style="margin-bottom:14px;">Beantworten Sie die folgenden Fragen aus dem Gedächtnis. Decken Sie die Musterantworten erst danach auf.</p>
+    <div class="essay-prompts">
+      <ol>
+        <li>Wie unterscheidest du ein direktes von einem indirekten Zitat im APA-Stil, und wann solltest du Seitenangaben verwenden?</li>
+        <li>Warum ist der DOI für die Zitierfähigkeit wichtiger als eine URL?</li>
+        <li>Erläutere die Regeln für die Zitation im Text, wenn du 2, 3 oder mehr Autor*innen hast.</li>
+        <li>Welche Arten von Plagiaten gibt es, und wie kannst du sicherstellen, dass du sie vermeidest?</li>
+        <li>Was sind die Kernvorteile der APA-Zitierweise gegenüber anderen Stilen?</li>
+      </ol>
+    </div>
+    <textarea class="essay-textarea" id="essay-ar" placeholder="Notieren Sie hier stichpunktartig Ihre Antworten..."></textarea>
+    <div>
+      <button class="btn-reveal" onclick="toggleSolution('sol-ar')">💡 Musterantworten anzeigen</button>
+      <button class="btn-reset" onclick="document.getElementById('essay-ar').value=''">↺ Zurücksetzen</button>
+    </div>
+    <div class="sample-solution" id="sol-ar">
+      <div class="sol-label">✓ Musterantworten</div>
+      <p><strong>1.</strong> Ein <strong>direktes Zitat</strong> übernimmt einen Text wörtlich (in Anführungszeichen) und benötigt immer eine Seitenangabe (S. x). Ein <strong>indirektes Zitat</strong> gibt einen Gedanken sinngemäß in eigenen Worten wieder; nach APA ist hier keine Seitenangabe zwingend, bei genauer Bezugnahme auf eine bestimmte Stelle (z. B. Definitionen, längere Werke) wird sie aber empfohlen.</p>
+      <p><strong>2.</strong> Der <strong>DOI</strong> (Digital Object Identifier) ist ein dauerhafter, eindeutiger Link zu einer Publikation, der sich nie ändert. URLs können sich dagegen ändern oder ganz verschwinden ("Linkfäule"), weshalb sie eine Quelle langfristig weniger zuverlässig auffindbar machen.</p>
+      <p><strong>3.</strong> Bei <strong>2 Autor*innen</strong> werden beide bei jeder Nennung genannt (Name &amp; Name, Jahr). Bei <strong>3 oder mehr Autor*innen</strong> wird bereits bei der ersten Nennung nur die/der Erstautor*in plus „et al." angegeben (Name et al., Jahr). Im Literaturverzeichnis werden dagegen grundsätzlich alle Autor*innen aufgeführt (bis 20 Personen).</p>
+      <p><strong>4.</strong> Gängige Plagiatsarten sind u. a. das <strong>wörtliche Plagiat</strong> (Copy-Paste ohne Kennzeichnung), das <strong>Paraphrasierungsplagiat</strong> (Umschreiben ohne Quellenangabe), das <strong>Ideenplagiat</strong>, das <strong>Übersetzungsplagiat</strong>, das <strong>Selbstplagiat</strong> sowie das <strong>Sammel-/Mosaikplagiat</strong>. Vermeiden lassen sie sich durch konsequentes, korrektes Zitieren, klare Kennzeichnung von Paraphrasen und den Einsatz von Zitierprogrammen zur Kontrolle.</p>
+      <p><strong>5.</strong> APA bietet klare, einheitliche und international anerkannte Regeln, ermöglicht durch das Autor-Jahr-System ein schnelles Erkennen von Quelle und Aktualität direkt im Fließtext und lässt sich gut mit Literaturverwaltungsprogrammen kombinieren.</p>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       AUFGABE 3 – Freitext: Fehleranalyse (APA-Formatierung)
+       ============================================================ -->
+  <section class="exercise" id="ex3">
+    <div class="exercise-label">Aufgabe 3 · Freitext</div>
+    <h3>🔍 Fehleranalyse: Finden und korrigieren Sie die Formatierungsfehler</h3>
+    <p style="margin-bottom:14px;">Die folgenden Literaturverzeichnis-Einträge enthalten jeweils Fehler nach APA 7. Schreiben Sie die korrigierten Versionen auf.</p>
+    <div class="citation-block">
+      Anderson, C. A.; Bushman, B. J. 2002: The effects of media violence on society. In Science, 295(5564), 2377-2379. https://doi.org/10.1126/science.1070765<br><br>
+      Brown, S. P., &amp; Stayman, D. M. (1992); Antecedents and consequences of attitude toward the ad: A meta-analysis. Journal of Consumer Research, 19(1), 34-51.<br><br>
+      Dijksterhuis, A., Smith, P. K., van Baaren, R. B., &amp; Wigboldus, D. H. J. (2005). The unconscious consumer: Effects of environment on consumer behavior. R. F. Baumeister &amp; K. D. Vohs, The Handbook of Self-Regulation: Research, Theory, and Applications (193-209). Guilford Press.<br><br>
+      Kahneman, D. (2011). Thinking, fast and slow. Farrar, Straus and Giroux.
+    </div>
+    <textarea class="essay-textarea" id="essay-fehler" placeholder="Schreiben Sie hier die korrigierten Literaturangaben..."></textarea>
+    <div>
+      <button class="btn-reveal" onclick="toggleSolution('sol-fehler')">💡 Musterlösung anzeigen</button>
+      <button class="btn-reset" onclick="document.getElementById('essay-fehler').value=''">↺ Zurücksetzen</button>
+    </div>
+    <div class="sample-solution" id="sol-fehler">
+      <div class="sol-label">✓ Musterlösung</div>
+      <p><strong>1.</strong> Anderson, C. A., &amp; Bushman, B. J. (2002). The effects of media violence on society. <em>Science, 295</em>(5564), 2377–2379. https://doi.org/10.1126/science.1070765<br>
+      <span style="color:var(--muted);font-size:.88rem;">Fehler: Semikolon statt Komma zwischen den Autor*innen, Jahr gehört in Klammern direkt nach den Namen, „In" vor dem Zeitschriftentitel ist falsch (nur bei Sammelbandbeiträgen), Zeitschriftentitel und Bandnummer müssen kursiv sein.</span></p>
+      <p><strong>2.</strong> Brown, S. P., &amp; Stayman, D. M. (1992). Antecedents and consequences of attitude toward the ad: A meta-analysis. <em>Journal of Consumer Research, 19</em>(1), 34–51.<br>
+      <span style="color:var(--muted);font-size:.88rem;">Fehler: Nach der Jahresangabe in Klammern folgt ein Punkt, kein Semikolon.</span></p>
+      <p><strong>3.</strong> Dijksterhuis, A., Smith, P. K., van Baaren, R. B., &amp; Wigboldus, D. H. J. (2005). The unconscious consumer: Effects of environment on consumer behavior. In R. F. Baumeister &amp; K. D. Vohs (Hrsg.), <em>The handbook of self-regulation: Research, theory, and applications</em> (S. 193–209). Guilford Press.<br>
+      <span style="color:var(--muted);font-size:.88rem;">Fehler: „In" fehlt vor den Herausgeber*innen, Kennzeichnung „(Hrsg.)" fehlt, Seitenangabe braucht „S." (bzw. "pp."), der Buchtitel muss kursiv sein.</span></p>
+      <p><strong>4.</strong> Kahneman, D. (2011). <em>Thinking, fast and slow.</em> Farrar, Straus and Giroux.<br>
+      <span style="color:var(--muted);font-size:.88rem;">Kein inhaltlicher Fehler – lediglich der Buchtitel sollte kursiv gesetzt werden.</span></p>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       AUFGABE 4 – Quiz: Quellenzuordnung
+       ============================================================ -->
+  <section class="exercise" id="ex4">
+    <div class="exercise-label">Aufgabe 4 · Quiz</div>
+    <h3>📚 Sammelbandbeitrag oder Zeitschriftenartikel? Ordnen Sie die Quellen richtig zu.</h3>
+
+    <div class="citation-block">
+      Meffert, H. (1992). Strategien zur Profilierung von Marken. In E. Dichtl &amp; E. Walter (Hrsg.), <em>Marke und Markenartikel als Instrumente des Wettbewerbs</em> (S. 130–154). Vahlen.
+    </div>
+    <div class="quiz-options" id="q4-options">
+      <button class="quiz-option-btn" onclick="checkAnswer('q4', this, true)">Sammelbandbeitrag</button>
+      <button class="quiz-option-btn" onclick="checkAnswer('q4', this, false)">Zeitschriftenartikel</button>
+    </div>
+    <div class="quiz-feedback" id="q4-feedback"></div>
+    <button class="btn-reset" onclick="resetQuestion('q4')">↺ Zurücksetzen</button>
+
+    <hr class="divider">
+
+    <div class="citation-block">
+      Grady, J. S., Her, M., Moreno, G., Perez, C., &amp; Yelinek, J. (2019). Emotions in storybooks. <em>Psychology of Popular Media Culture, 8</em>(3), 207–217. https://doi.org/10.1037/ppm0000185
+    </div>
+    <div class="quiz-options" id="q5-options">
+      <button class="quiz-option-btn" onclick="checkAnswer('q5', this, false)">Sammelbandbeitrag</button>
+      <button class="quiz-option-btn" onclick="checkAnswer('q5', this, true)">Zeitschriftenartikel</button>
+    </div>
+    <div class="quiz-feedback" id="q5-feedback"></div>
+    <button class="btn-reset" onclick="resetQuestion('q5')">↺ Zurücksetzen</button>
+
+    <hr class="divider">
+
+    <div class="citation-block">
+      Rybaczewska, M., &amp; Sparks, L. (2022). Ageing consumers and e-commerce activities. <em>Ageing and Society, 42</em>(8), 1879–1898. https://doi.org/10.1017/S0144686X20001932
+    </div>
+    <div class="quiz-options" id="q6-options">
+      <button class="quiz-option-btn" onclick="checkAnswer('q6', this, false)">Sammelbandbeitrag</button>
+      <button class="quiz-option-btn" onclick="checkAnswer('q6', this, true)">Zeitschriftenartikel</button>
+    </div>
+    <div class="quiz-feedback" id="q6-feedback"></div>
+    <button class="btn-reset" onclick="resetQuestion('q6')">↺ Zurücksetzen</button>
+
+  </section>
+
+
+  <!-- ============================================================
+       AUFGABE 5 – Freitext: Zitation im Text & Literaturverzeichnis
+       ============================================================ -->
+  <section class="exercise" id="ex5">
+    <div class="exercise-label">Aufgabe 5 · Freitext</div>
+    <h3>✍️ Zitation im Text &amp; Literaturverzeichnis</h3>
+    <p style="margin-bottom:14px;">Formulieren Sie für die folgenden Quellen jeweils die Kurzbeleg-Zitation im Text sowie den vollständigen Eintrag im Literaturverzeichnis:</p>
+    <div class="essay-prompts">
+      <ul>
+        <li><strong>Blog-Beitrag:</strong> <a href="https://t3n.de/news/keine-kasse-kein-personal-1389830/" target="_blank" rel="noopener" style="word-break:break-all;">t3n.de – Keine Kasse, kein Personal</a></li>
+        <li><strong>Zeitungsartikel:</strong> <a href="https://www.nytimes.com/2026/08/23/world/wheat-price-iran-war-canada.html" target="_blank" rel="noopener" style="word-break:break-all;">New York Times – Artikel zu Weizenpreisen</a></li>
+        <li><strong>Monografie:</strong> <a href="https://www.vahlen.de/bucher-holzweissig-schwarzer-kuenstliche-intelligenzwissenschaftliches-arbeiten/product/36517052" target="_blank" rel="noopener">Künstliche Intelligenz und wissenschaftliches Arbeiten (Vahlen)</a></li>
+        <li><strong>Journal-Beitrag:</strong> <a href="https://doi.org/10.1016/j.emj.2020.04.008" target="_blank" rel="noopener">https://doi.org/10.1016/j.emj.2020.04.008</a></li>
+        <li><strong>Sammelbandbeitrag:</strong> <a href="https://link.springer.com/chapter/10.1007/978-3-658-29367-3_14" target="_blank" rel="noopener">Vernetzung digitaler und analoger Lehre (Springer)</a></li>
+      </ul>
+    </div>
+    <textarea class="essay-textarea" id="essay-zitation" placeholder="Schreiben Sie hier Ihre Zitationen im Text und die Literaturverzeichnis-Einträge..."></textarea>
+    <div class="essay-hint">Tipp: Prüfen Sie bei jeder Quelle zuerst, um welchen Quellentyp es sich handelt – das bestimmt den Aufbau des Eintrags.</div>
+    <div>
+      <button class="btn-reveal" onclick="toggleSolution('sol-zitation')">💡 Musterlösung anzeigen</button>
+      <button class="btn-reset" onclick="document.getElementById('essay-zitation').value=''">↺ Zurücksetzen</button>
+    </div>
+    <div class="sample-solution" id="sol-zitation">
+      <div class="sol-label">✓ Musterlösung</div>
+      <p><strong>Blog-Beitrag</strong><br>
+      Im Text: (t3n Redaktion, 2021)<br>
+      Literaturverzeichnis: t3n Redaktion. (2021, 7. Juli). <em>Keine Kasse, kein Personal: Händler testen Supermarkt der Zukunft.</em> t3n. https://t3n.de/news/keine-kasse-kein-personal-1389830/</p>
+      <p><strong>Zeitungsartikel</strong><br>
+      Im Text: (Nachname, Erscheinungsjahr)<br>
+      Literaturverzeichnis: Nachname, V. (Jahr, Tag Monat). <em>Titel des Artikels.</em> The New York Times. URL<br>
+      <span style="color:var(--muted);font-size:.88rem;">Hinweis: Der Artikel liegt hinter einer Paywall, daher Autor*in und genaues Erscheinungsdatum direkt dem Artikel-Byline entnehmen – das Grundschema für Zeitungsartikel bleibt aber wie oben.</span></p>
+      <p><strong>Monografie</strong><br>
+      Im Text: (Bucher et al., 2023)<br>
+      Literaturverzeichnis: Bucher, U., Holzweißig, K., &amp; Schwarzer, M. (2023). <em>Künstliche Intelligenz und wissenschaftliches Arbeiten: ChatGPT &amp; Co: Der Turbo für ein erfolgreiches Studium.</em> Vahlen.</p>
+      <p><strong>Journal-Beitrag</strong><br>
+      Im Text: (Niemand et al., 2021)<br>
+      Literaturverzeichnis: Niemand, T., Rigtering, J. P. C., Kallmünzer, A., Kraus, S., &amp; Maalaoui, A. (2021). Digitalization in the financial industry: A contingency approach of entrepreneurial orientation and strategic vision on digitalization. <em>European Management Journal, 39</em>(3), 317–326. https://doi.org/10.1016/j.emj.2020.04.008<br>
+      <span style="color:var(--muted);font-size:.88rem;">Hinweis: Bei 3 oder mehr Autor*innen wird nach APA 7 bereits bei der ersten Nennung im Text mit „et al." abgekürzt.</span></p>
+      <p><strong>Sammelbandbeitrag</strong><br>
+      Im Text: (Hahn &amp; Klug, 2021)<br>
+      Literaturverzeichnis: Hahn, A., &amp; Klug, K. (2021). Vernetzung digitaler und analoger Lehre: Digital Prototyping Tools in der akademischen Marketingausbildung. In J. Naskrent, M. Stumpf, &amp; J. Westphal (Hrsg.), <em>Marketing &amp; Innovation 2021</em> (S. 281–299). Springer Gabler.</p>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       NOTIZ – Unklarste Punkte zur Wiederholung
+       ============================================================ -->
+  <div class="info-card">
+    <h2>📝 Unklarste Punkte zur Wiederholung</h2>
+    <p>Notieren Sie hier 1–2 Punkte, bei denen Sie noch unsicher sind oder die Sie nicht vollständig verstanden haben – so können Sie gezielt darauf zurückkommen.</p>
+    <textarea class="essay-textarea" id="essay-notiz" placeholder="Meine offenen Fragen..." style="margin-top:10px;"></textarea>
+  </div>
 
 
 </div><!-- /.page-wrapper -->
@@ -473,6 +712,13 @@ function checkAnswer(id, btn, isCorrect) {
       if (b !== btn) b.classList.add('correct');
     });
   }
+}
+
+/* Beispiellösung ein-/ausblenden */
+function toggleSolution(id) {
+  const el = document.getElementById(id);
+  const isVisible = el.style.display === 'block';
+  el.style.display = isVisible ? 'none' : 'block';
 }
 
 /* Frage zurücksetzen */
