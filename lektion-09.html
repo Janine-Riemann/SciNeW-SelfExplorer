@@ -477,6 +477,32 @@
       font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted);
       margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border);
     }
+
+    /* KERNPROZESSE-STIL: Emoji-Überschriften mit farbigem Unterstrich (wie Etappe 4) */
+    .kp-heading {
+      display: flex; align-items: center; gap: 0.65rem;
+      font-size: 1.2rem; font-weight: 700; color: var(--dark);
+      margin: 1.75rem 0 0.9rem;
+    }
+    .kp-heading .kp-icon { font-size: 1.3rem; line-height: 1; }
+    .kp-divider {
+      height: 2px; background: var(--green); border: none; border-radius: 2px;
+      margin: 0 0 1.5rem;
+    }
+    .sg-card-heading {
+      display: flex; align-items: center; gap: 0.55rem;
+      font-size: 1.05rem; font-weight: 700; color: var(--dark);
+      margin-bottom: 0;
+    }
+    .sg-card-heading .sg-icon { font-size: 1.15rem; line-height: 1; }
+    .sg-underline {
+      width: 56px; height: 3px; border-radius: 2px;
+      margin: 0.5rem 0 1.1rem;
+    }
+    .sg-underline--green  { background: var(--green); }
+    .sg-underline--purple { background: #7C6FCD; }
+    .sg-underline--orange { background: var(--orange); }
+
     .sg-def-list { display: flex; flex-direction: column; gap: 0.75rem; }
     .sg-def-item {
       display: grid; grid-template-columns: 240px 1fr; gap: 0.5rem 1.5rem;
@@ -933,7 +959,8 @@ von Größen- und Schriftrichtlinien zur optimalen Lesbarkeit.</div>
                           <div class="sg-def-item"><span class="sg-def-term">Plagiat</span><span class="sg-def-def">Übernahme von Texten, Inhalten oder Ideen ohne Quellenangabe, die als eigene ausgegeben werden.</span></div>
                         </div>
 
-                        <h3 class="sg-section-title" style="margin-top:1.75rem;">Schlüsselentitäten &amp; Klassifikationen</h3>
+                        <h3 class="kp-heading" style="margin-top:1.75rem;"><span class="kp-icon">🏷️</span>Schlüsselentitäten &amp; Klassifikationen</h3>
+                        <hr class="kp-divider">
                         <div class="sg-card">
                           <p style="font-size:0.9rem;font-weight:600;color:var(--dark);margin-bottom:0.5rem;">Zitierstile (Auswahl):</p>
                           <p style="font-size:0.9rem;color:#333;line-height:1.6;margin-bottom:0.75rem;">APA, Harvard, Deutsche Zitierweise, Vancouver, Chicago A, Chicago B, OSCOLA, MLA, IEEE</p>
@@ -1093,10 +1120,12 @@ von Größen- und Schriftrichtlinien zur optimalen Lesbarkeit.</div>
                           <div class="sg-def-item"><span class="sg-term">Bibliometric Review</span><span class="sg-def">Quantitative Analyse der Literatur eines Forschungsbereichs zur Identifikation von Trends, Netzwerken und Zitationen mittels statistischer Methoden.</span></div>
                         </div>
  
-                        <h3 class="sg-section-title" style="margin-top:1.75rem;">Kernprozesse, Modelle &amp; Regeln</h3>
+                        <h3 class="kp-heading" style="margin-top:1.75rem;"><span class="kp-icon">🧠</span>Kernprozesse, Modelle &amp; Regeln</h3>
+                        <hr class="kp-divider">
  
                         <div class="sg-card">
-                          <h3 class="sg-section-title">Wissensbasis &amp; Rechercherecap</h3>
+                          <h3 class="sg-card-heading"><span class="sg-icon">🔄</span>Wissensbasis &amp; Rechercherecap</h3>
+                          <div class="sg-underline sg-underline--green"></div>
                           <ul class="sg-ul">
                             <li><strong>Systematisches Recherchieren:</strong> Klare Forschungsfrage, gezielter Einsatz von Fachdatenbanken &amp; Suchstrategien für hochwertige Quellen.</li>
                             <li><strong>Qualität vor Quantität:</strong> Bevorzugung geprüfter, zitierwürdiger Fachliteratur.</li>
@@ -1107,7 +1136,8 @@ von Größen- und Schriftrichtlinien zur optimalen Lesbarkeit.</div>
                         </div>
  
                         <div class="sg-card">
-                          <h3 class="sg-section-title">Literatur Review – Vergleich und Vorgehen</h3>
+                          <h3 class="sg-card-heading"><span class="sg-icon">📚</span>Literatur Review – Vergleich und Vorgehen</h3>
+                          <div class="sg-underline sg-underline--purple"></div>
                           <p style="font-size:0.9rem;font-weight:600;color:var(--dark);margin-bottom:0.5rem;">Deskriptiver Literatur Review Ablauf:</p>
                           <p style="font-size:0.9rem;color:#333;line-height:1.6;margin-bottom:1rem;">„Lückenlose" Literatur-Recherche, Identifikation relevanter Studien/Theorien, Begründung eigener Hypothesen, Grundlagen- und aktuelle Literatur.</p>
                           <p style="font-size:0.9rem;font-weight:600;color:var(--dark);margin-bottom:0.5rem;">Systematischer Literatur Review Ablauf:</p>
@@ -1115,7 +1145,8 @@ von Größen- und Schriftrichtlinien zur optimalen Lesbarkeit.</div>
                         </div>
  
                         <div class="sg-card">
-                          <h3 class="sg-section-title">Systematic Literature Review Leitfaden (TU Berlin)</h3>
+                          <h3 class="sg-card-heading"><span class="sg-icon">📘</span>Systematic Literature Review Leitfaden (TU Berlin)</h3>
+                          <div class="sg-underline sg-underline--green"></div>
                           <ol class="sg-ol">
                             <li>Forschungsfragen definieren.</li>
                             <li>Literaturdatenbanken und weitere Quellen auswählen.</li>
@@ -1128,7 +1159,8 @@ von Größen- und Schriftrichtlinien zur optimalen Lesbarkeit.</div>
                         </div>
  
                         <div class="sg-card">
-                          <h3 class="sg-section-title">Argumentation nach Toulmin</h3>
+                          <h3 class="sg-card-heading"><span class="sg-icon">🧠</span>Argumentation nach Toulmin</h3>
+                          <div class="sg-underline sg-underline--orange"></div>
                           <p style="font-size:0.9rem;color:#333;line-height:1.6;margin-bottom:0.75rem;">Entwicklung fundierter, nachvollziehbarer Argumentationen unter Einbeziehung von drei Kernelementen:</p>
                           <ul class="sg-ul">
                             <li><strong>Behauptung:</strong> Die zu belegende These oder Aussage.</li>
@@ -1138,7 +1170,8 @@ von Größen- und Schriftrichtlinien zur optimalen Lesbarkeit.</div>
                         </div>
 
                         <div class="sg-card">
-                          <h3 class="sg-section-title">Fünfsatz-Strukturen</h3>
+                          <h3 class="sg-card-heading"><span class="sg-icon">🧩</span>Fünfsatz-Strukturen</h3>
+                          <div class="sg-underline sg-underline--purple"></div>
                           <ul class="sg-ul">
                             <li><strong>Linearer Fünfsatz:</strong> Argumente aufeinander aufbauend.</li>
                             <li><strong>Paralleler Fünfsatz:</strong> Mehrere gleichwertige Argumente nebeneinander.</li>
@@ -1148,7 +1181,8 @@ von Größen- und Schriftrichtlinien zur optimalen Lesbarkeit.</div>
                         </div>
 
                         <div class="sg-card">
-                          <h3 class="sg-section-title">Wissenschaftliches Schreiben – Zeitform (Tempus)</h3>
+                          <h3 class="sg-card-heading"><span class="sg-icon">📝</span>Wissenschaftliches Schreiben – Zeitform (Tempus)</h3>
+                          <div class="sg-underline sg-underline--green"></div>
                           <ul class="sg-ul">
                             <li><strong>Präsens:</strong> Für die Beschreibung des Vorhabens und die Darstellung andauernder Erkenntnisse (z.B. „Die Ergebnisse zeigen…").</li>
                             <li><strong>Vergangenheitsform:</strong> Für die Berichterstattung über Befunde anderer Autoren und die Beschreibung des methodischen Vorgehens (z.B. „Voss et al. (2008) untersuchten…").</li>
@@ -1156,7 +1190,8 @@ von Größen- und Schriftrichtlinien zur optimalen Lesbarkeit.</div>
                         </div>
 
                         <div class="sg-card">
-                          <h3 class="sg-section-title">Grundregeln für Argumentieren &amp; Formulieren</h3>
+                          <h3 class="sg-card-heading"><span class="sg-icon">✍️</span>Grundregeln für Argumentieren &amp; Formulieren</h3>
+                          <div class="sg-underline sg-underline--orange"></div>
                           <ul class="sg-ul">
                             <li>Klare, verständliche Sprache; kurze Sätze.</li>
                             <li>Nicht wertend (neutral); bevorzugt dritte Person.</li>
@@ -1167,7 +1202,8 @@ von Größen- und Schriftrichtlinien zur optimalen Lesbarkeit.</div>
                         </div>
 
                         <div class="sg-card">
-                          <h3 class="sg-section-title">Struktur &amp; Gliederung wissenschaftlicher Arbeiten</h3>
+                          <h3 class="sg-card-heading"><span class="sg-icon">🏗️</span>Struktur &amp; Gliederung wissenschaftlicher Arbeiten</h3>
+                          <div class="sg-underline sg-underline--purple"></div>
                           <p style="font-size:0.9rem;font-weight:600;color:var(--dark);margin-bottom:0.5rem;">Proportionale Aufteilung:</p>
                           <ul class="sg-ul" style="margin-bottom:1rem;">
                             <li>Einleitung: ca. 10 %</li>
@@ -1179,7 +1215,8 @@ von Größen- und Schriftrichtlinien zur optimalen Lesbarkeit.</div>
                         </div>
 
                         <div class="sg-card">
-                          <h3 class="sg-section-title">Inhalt der einzelnen Abschnitte</h3>
+                          <h3 class="sg-card-heading"><span class="sg-icon">📄</span>Inhalt der einzelnen Abschnitte</h3>
+                          <div class="sg-underline sg-underline--green"></div>
                           <ul class="sg-ul">
                             <li><strong>Titelblatt:</strong> Titel der Arbeit, Hochschule/Studiengang, Dozent/Gutachter, Name, Matrikelnummer, Wörteranzahl Hauptteil, Abgabedatum.</li>
                             <li><strong>Abstract:</strong> Forschungsfrage, Theorie, Hypothesen, Stichprobe, Versuchsaufbau, Auswertung/Ergebnisse, Diskussion. Erst nach Finalisierung der Arbeit schreiben; kein Literaturangaben.</li>
@@ -1194,7 +1231,8 @@ von Größen- und Schriftrichtlinien zur optimalen Lesbarkeit.</div>
                         </div>
 
                         <div class="sg-card">
-                          <h3 class="sg-section-title">Gliederungshinweise &amp; häufige Fehler</h3>
+                          <h3 class="sg-card-heading"><span class="sg-icon">⚠️</span>Gliederungshinweise &amp; häufige Fehler</h3>
+                          <div class="sg-underline sg-underline--orange"></div>
                           <ul class="sg-ul">
                             <li>Drei bis fünf Gliederungspunkte erster Ordnung; maximal dreistufige Gliederung.</li>
                             <li>Jedes Kapitel mindestens zwei Absätze; jeder Absatz mindestens zwei Sätze.</li>
@@ -1206,7 +1244,8 @@ von Größen- und Schriftrichtlinien zur optimalen Lesbarkeit.</div>
                         </div>
 
                         <div class="sg-card">
-                          <h3 class="sg-section-title">Schlüsselentitäten &amp; Klassifikationen</h3>
+                          <h3 class="sg-card-heading"><span class="sg-icon">🏷️</span>Schlüsselentitäten &amp; Klassifikationen</h3>
+                          <div class="sg-underline sg-underline--purple"></div>
                           <p style="font-size:0.9rem;font-weight:600;color:var(--dark);margin-bottom:0.5rem;">Typen von Literaturreviews:</p>
                           <p style="font-size:0.9rem;color:#333;line-height:1.6;margin-bottom:0.75rem;">Narratives Review, Deskriptiver Review, Scoping Review, Meta-Analyse, Systematischer Literatur Review, Umbrella Review, Theoretisches Review, Realist Review, Kritisches Review.</p>
                           <p style="font-size:0.9rem;font-weight:600;color:var(--dark);margin-bottom:0.5rem;">Datenbanken (Beispiele):</p>
