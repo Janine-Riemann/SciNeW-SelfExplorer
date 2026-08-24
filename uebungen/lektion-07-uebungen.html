@@ -208,6 +208,10 @@
     border-radius: 20px;
     margin-bottom: 12px;
   }
+  .exercise-intro {
+    margin-bottom: 18px;
+    font-size: .95rem;
+  }
   .exercise h3 {
     font-size: 1rem;
     font-weight: 700;
@@ -367,6 +371,98 @@
   .feedback-msg.success { background: var(--success-bg); color: var(--success); display: flex; align-items: center; gap: 8px; }
   .feedback-msg.error   { background: var(--error-bg);   color: var(--error);   display: flex; align-items: center; gap: 8px; }
 
+  /* ── ACTIVE RECALL ── */
+  .recall-item {
+    padding: 16px 20px;
+    background: var(--bg);
+    border-radius: 8px;
+    border-left: 4px solid var(--accent);
+    margin-bottom: 14px;
+  }
+  .recall-item:last-child { margin-bottom: 0; }
+  .recall-question {
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.55;
+    margin-bottom: 10px;
+  }
+  .reveal-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: transparent;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    border-radius: 24px;
+    padding: 7px 16px;
+    font-family: inherit;
+    font-size: .85rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background .15s, color .15s;
+  }
+  .reveal-btn:hover { background: var(--accent); color: #fff; }
+  .reveal-content {
+    display: none;
+    margin-top: 12px;
+    padding: 14px 18px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: .93rem;
+    line-height: 1.6;
+  }
+  .reveal-content.open { display: block; }
+
+  /* ── OFFENE SYNTHESEAUFGABEN ── */
+  .task-block {
+    margin-bottom: 8px;
+  }
+  .task-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    margin-right: 8px;
+  }
+  .task-title {
+    font-size: 1.02rem;
+    font-weight: 700;
+    color: var(--primary-text);
+    margin-bottom: 10px;
+  }
+  .task-text {
+    margin-bottom: 14px;
+    font-size: .97rem;
+  }
+  .task-textarea {
+    width: 100%;
+    min-height: 140px;
+    resize: vertical;
+    font-family: inherit;
+    font-size: .95rem;
+    line-height: 1.5;
+    color: var(--text);
+    background: var(--bg);
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    padding: 14px 16px;
+    transition: border-color .15s;
+  }
+  .task-textarea:focus { outline: none; border-color: var(--primary-dark); }
+  .task-hint {
+    margin-top: 10px;
+    font-size: .85rem;
+    color: var(--muted);
+    font-style: italic;
+  }
+
+  hr.divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 28px 0;
+  }
+
   @media (max-width: 640px) {
     .match-item { flex-direction: column; align-items: stretch; }
     .match-select { flex: 1 1 auto; }
@@ -500,6 +596,98 @@
   </section>
 
   <!-- ============================================================
+       ACTIVE RECALL-AUFFORDERUNGEN
+       ============================================================ -->
+  <section class="exercise" id="ex5">
+    <div class="exercise-label">Aufgabe 5 · Active Recall</div>
+    <h3>🧩 Active Recall-Aufforderungen</h3>
+    <p class="exercise-intro">Beantworten Sie die folgenden Fragen zunächst frei aus dem Gedächtnis, bevor Sie sich die Musterantwort anzeigen lassen.</p>
+
+    <div class="recall-item">
+      <div class="recall-question">Wie unterscheiden sich qualitative und quantitative Forschung in Bezug auf ihre Ziele und die Art der generierten Daten, und welche Implikationen hat dies für das Forschungsdesign?</div>
+      <button class="reveal-btn" id="recall1-btn" onclick="toggleReveal('recall1','Musterantwort')">💡 Musterantwort anzeigen</button>
+      <button class="btn-reset" onclick="resetReveal('recall1','Musterantwort')">↺ Zurücksetzen</button>
+      <div class="reveal-content" id="recall1"><strong>Qualitative Forschung</strong> zielt auf ein tiefes, exploratives Verständnis von Phänomenen, Bedeutungen und Zusammenhängen ab und erzeugt primär non-numerische Daten (Texte, Interviews, Beobachtungsprotokolle), die interpretativ ausgewertet werden. <strong>Quantitative Forschung</strong> zielt auf Messung, Vergleich und statistische Verallgemeinerung ab und erzeugt numerische Daten, die mittels statistischer Verfahren analysiert werden, um Hypothesen zu testen. Für das <strong>Forschungsdesign</strong> bedeutet das: Qualitative Studien nutzen meist offene, flexible Designs (z. B. leitfadengestützte Interviews, Fallstudien) mit kleinen, gezielt ausgewählten Stichproben, während quantitative Studien standardisierte, im Vorfeld festgelegte Designs (z. B. Experimente, Fragebogenstudien) mit größeren, oft zufällig gezogenen Stichproben verwenden, um Repräsentativität und statistische Aussagekraft zu erreichen.</div>
+    </div>
+
+    <div class="recall-item">
+      <div class="recall-question">Warum ist die Operationalisierung von Konstrukten so entscheidend für die Durchführung empirischer Studien, und welche Gütekriterien müssen dabei beachtet werden?</div>
+      <button class="reveal-btn" id="recall2-btn" onclick="toggleReveal('recall2','Musterantwort')">💡 Musterantwort anzeigen</button>
+      <button class="btn-reset" onclick="resetReveal('recall2','Musterantwort')">↺ Zurücksetzen</button>
+      <div class="reveal-content" id="recall2"><strong>Operationalisierung</strong> bedeutet, ein abstraktes, theoretisches Konstrukt (z. B. „Konzentrationsfähigkeit") in konkret messbare Indikatoren zu übersetzen. Sie ist entscheidend, weil ein Konstrukt erst dadurch überhaupt erhoben und ausgewertet werden kann – ohne Operationalisierung bleibt es empirisch nicht greifbar. Dabei müssen die klassischen <strong>Gütekriterien</strong> beachtet werden: <strong>Objektivität</strong> (Ergebnisse sind unabhängig von der durchführenden Person), <strong>Reliabilität</strong> (Zuverlässigkeit bzw. Wiederholbarkeit der Messung) und <strong>Validität</strong> (der Grad, in dem tatsächlich das gemessen wird, was gemessen werden soll). Nur wenn diese Kriterien erfüllt sind, liefert die Operationalisierung aussagekräftige und vertrauenswürdige Daten.</div>
+    </div>
+
+    <div class="recall-item">
+      <div class="recall-question">Erläutere den gesamten empirischen Forschungsprozess von der initialen Forschungsfrage bis zur Interpretation der Ergebnisse, und wie sich die Wahl der Methoden in jeder Phase beeinflusst.</div>
+      <button class="reveal-btn" id="recall3-btn" onclick="toggleReveal('recall3','Musterantwort')">💡 Musterantwort anzeigen</button>
+      <button class="btn-reset" onclick="resetReveal('recall3','Musterantwort')">↺ Zurücksetzen</button>
+      <div class="reveal-content" id="recall3">Der empirische Forschungsprozess durchläuft typischerweise folgende Phasen: <strong>(1)</strong> Formulierung der Forschungsfrage und Ableitung von Hypothesen aus Theorie und Literatur; <strong>(2)</strong> Operationalisierung der Konstrukte und Wahl eines passenden Forschungsdesigns (z. B. Experiment, Befragung, Beobachtung), abhängig davon, ob kausale Zusammenhänge, Korrelationen oder Beschreibungen im Fokus stehen; <strong>(3)</strong> Festlegung von Stichprobe und Erhebungsmethode (z. B. Fragebogen, Interview, Eye-Tracking); <strong>(4)</strong> Datenerhebung; <strong>(5)</strong> Datenauswertung mit statistischen oder qualitativen Analyseverfahren, passend zur Datenart und Fragestellung; <strong>(6)</strong> Interpretation der Ergebnisse im Licht der Ausgangshypothesen und Rückbindung an die Theorie. Die Methodenwahl in jeder Phase hängt dabei maßgeblich von der vorherigen Phase ab: Die Forschungsfrage bestimmt das Design, das Design bestimmt die Erhebungsmethode, und die Art der erhobenen Daten (qualitativ/quantitativ) bestimmt wiederum die passende Auswertungsmethode – die Phasen bauen also konsistent aufeinander auf.</div>
+    </div>
+
+    <div class="recall-item">
+      <div class="recall-question">Stimme der folgenden Aussage zu oder widerspreche und begründe: „Wir wollen den kausalen Zusammenhang zwischen Powernaps und Leistungsfähigkeit überprüfen. Dafür eignet sich ein experimentelles Design in Form einer qualitativen Beobachtung am besten." (K07 p.39)</div>
+      <button class="reveal-btn" id="recall4-btn" onclick="toggleReveal('recall4','Musterantwort')">💡 Musterantwort anzeigen</button>
+      <button class="btn-reset" onclick="resetReveal('recall4','Musterantwort')">↺ Zurücksetzen</button>
+      <div class="reveal-content" id="recall4"><strong>Widerspruch.</strong> Dass für die Überprüfung eines kausalen Zusammenhangs ein experimentelles Design nötig ist (Manipulation der unabhängigen Variable, Kontrollgruppe, Randomisierung), ist korrekt. Die Kombination mit einer „qualitativen Beobachtung" ist jedoch widersprüchlich: Um Kausalität statistisch nachzuweisen, muss die abhängige Variable (hier: Leistungsfähigkeit) quantitativ und standardisiert gemessen werden (z. B. über Testergebnisse oder Reaktionszeiten), nicht rein qualitativ-deskriptiv beobachtet. Eine qualitative Beobachtung liefert keine ausreichend präzisen, vergleichbaren Messwerte, um einen kausalen Effekt statistisch zu testen. Richtig wäre: ein Experiment mit quantitativer Messung der AV in Versuchs- und Kontrollgruppe (z. B. Powernap- vs. Kontrollgruppe, Leistungsmessung per standardisiertem Konzentrationstest).</div>
+    </div>
+
+    <div class="recall-item">
+      <div class="recall-question">Stimme der folgenden Aussage zu oder widerspreche und begründe: „Mit der Erhebungsmethode Eye Tracking kann ich herausfinden, welche Emotionen ein Proband z. B. beim Betrachten eines Videos hat. Mittels Affective Computing sehe ich, wohin der Proband wie lange schaut, d. h. was seine Aufmerksamkeit erlangt."</div>
+      <button class="reveal-btn" id="recall5-btn" onclick="toggleReveal('recall5','Musterantwort')">💡 Musterantwort anzeigen</button>
+      <button class="btn-reset" onclick="resetReveal('recall5','Musterantwort')">↺ Zurücksetzen</button>
+      <div class="reveal-content" id="recall5"><strong>Widerspruch – die Zuordnung ist vertauscht.</strong> <strong>Eye Tracking</strong> misst Blickbewegungen und Fixationsdauer und zeigt damit, wohin eine Person schaut und wie lange – also ihre visuelle Aufmerksamkeit. <strong>Affective Computing</strong> (z. B. Analyse von Gesichtsausdrücken oder physiologischen Signalen) erkennt und interpretiert dagegen Emotionen. Die Aussage hat die beiden Methoden also genau umgekehrt zugeordnet.</div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       ÜBUNGSAUFGABEN & SYNTHESEFRAGEN
+       ============================================================ -->
+  <section class="exercise" id="ex6">
+    <div class="exercise-label">Aufgabe 6 · Synthese</div>
+    <h3>✏️ Übungsaufgaben &amp; Synthesefragen</h3>
+    <p class="exercise-intro">Diese Aufgaben haben keine einzelne „richtige" Lösung – nutzen Sie das Textfeld, um Ihre Antwort zu formulieren, und besprechen Sie diese ggf. mit Kommiliton:innen oder in der Übung.</p>
+
+    <div class="task-block">
+      <div class="task-title"><span class="task-number">1️⃣</span>Aufgabe 1: Fallstudie – Kaffeekonsum und Konzentration (K07 p.35–37)</div>
+      <div class="task-text">Stell dir vor, du möchtest die Forschungsfrage „Erhöht Kaffee die Konzentrationsfähigkeit (bei AWM-Studierenden im 1. Semester)?" untersuchen. Formuliere zwei klare Hypothesen, die aus dieser Frage abgeleitet werden könnten. Beschreibe ein experimentelles Forschungsdesign, das zur Überprüfung dieser Hypothesen geeignet wäre. Gehe dabei auf die unabhängige Variable (UV), die abhängige Variable (AV), die Randomisierung, die Bildung von Versuchs- und Kontrollgruppe sowie die Art der Messung ein. Welche Analysemethode würdest du zur Überprüfung der Wirkung vorschlagen?</div>
+      <textarea class="task-textarea" id="task6-1-ta" placeholder="Ihre Hypothesen, das experimentelle Design (UV, AV, Randomisierung, Versuchs-/Kontrollgruppe, Messung) sowie die vorgeschlagene Analysemethode …"></textarea>
+      <div class="task-hint">💡 Tipp: Überlege dir zuerst H0 und H1, bevor du das Design daraus ableitest – das Design muss so gebaut sein, dass es die Hypothesen tatsächlich prüfen kann.</div>
+      <button class="reveal-btn" id="task6-1-sol-btn" onclick="toggleReveal('task6-1-sol','Musterlösung')">💡 Musterlösung anzeigen</button>
+      <button class="btn-reset" onclick="resetReveal('task6-1-sol','Musterlösung','task6-1-ta')">↺ Zurücksetzen</button>
+      <div class="reveal-content" id="task6-1-sol"><strong>Hypothesen:</strong><br>
+        H1 (gerichtet): Studierende, die vor einer Konzentrationsaufgabe koffeinhaltigen Kaffee konsumieren, zeigen eine höhere Konzentrationsleistung als Studierende, die koffeinfreien Kaffee konsumieren.<br>
+        H0: Es gibt keinen Unterschied in der Konzentrationsleistung zwischen Studierenden mit und ohne Koffeinkonsum.<br><br>
+        <strong>Experimentelles Design:</strong><br>
+        <strong>UV:</strong> Kaffeekonsum mit zwei Stufen (koffeinhaltiger Kaffee vs. koffeinfreier Kaffee als Placebo).<br>
+        <strong>AV:</strong> Konzentrationsleistung, gemessen über einen standardisierten Konzentrationstest (z. B. Anzahl korrekt bearbeiteter Items in fester Zeit, etwa d2-Test).<br>
+        <strong>Randomisierung:</strong> Die teilnehmenden AWM-Erstsemester werden per Zufall auf Versuchs- und Kontrollgruppe verteilt, damit Störvariablen (z. B. individuelle Konzentrationsfähigkeit, Schlafmangel) gleichmäßig auf beide Gruppen verteilt sind.<br>
+        <strong>Versuchs-/Kontrollgruppe:</strong> Die Versuchsgruppe erhält echten Kaffee, die Kontrollgruppe optisch und geschmacklich identischen, koffeinfreien Kaffee (Placebo-Kontrolle, idealerweise doppelblind, damit weder Proband:innen noch Versuchsleitung wissen, wer welche Bedingung erhält).<br>
+        <strong>Messung:</strong> Ein Vor-Test (Baseline) vor der Kaffeegabe und ein Nach-Test nach einer definierten Wirkzeit (ca. 30–45 Minuten) in beiden Gruppen; verglichen werden die Differenzwerte bzw. die Endwerte zwischen den Gruppen.<br><br>
+        <strong>Analysemethode:</strong> Ein t-Test für unabhängige Stichproben zum Vergleich der mittleren Konzentrationsleistung zwischen Versuchs- und Kontrollgruppe; alternativ eine Kovarianzanalyse (ANCOVA) mit dem Baseline-Wert als Kovariate, um Ausgangsunterschiede statistisch zu kontrollieren.</div>
+    </div>
+
+    <hr class="divider">
+
+    <div class="task-block">
+      <div class="task-title"><span class="task-number">2️⃣</span>Aufgabe 2: Knobelaufgabe (K07 p.8, p.23)</div>
+      <div class="task-text">Ein Buch und ein Stift kosten zusammen 27 EUR. Das Buch kostet 21 EUR mehr als der Stift. Wie viel kostet der Stift? Zeige den Lösungsweg.</div>
+      <textarea class="task-textarea" id="task6-2-ta" placeholder="Ihr Lösungsweg: Gleichungen aufstellen und nach dem gesuchten Wert auflösen …"></textarea>
+      <div class="task-hint">💡 Tipp: Setze für Buch (B) und Stift (S) zwei Gleichungen auf und setze eine in die andere ein.</div>
+      <button class="reveal-btn" id="task6-2-sol-btn" onclick="toggleReveal('task6-2-sol','Musterlösung')">💡 Musterlösung anzeigen</button>
+      <button class="btn-reset" onclick="resetReveal('task6-2-sol','Musterlösung','task6-2-ta')">↺ Zurücksetzen</button>
+      <div class="reveal-content" id="task6-2-sol">Sei <strong>B</strong> der Preis des Buches und <strong>S</strong> der Preis des Stifts. Aus der Angabe ergeben sich zwei Gleichungen:<br>
+        B + S = 27<br>
+        B = S + 21<br><br>
+        Setzt man die zweite Gleichung in die erste ein:<br>
+        (S + 21) + S = 27<br>
+        2S + 21 = 27<br>
+        2S = 6<br>
+        S = 3<br><br>
+        Der <strong>Stift kostet 3 EUR</strong>, das Buch entsprechend 3 + 21 = <strong>24 EUR</strong> (Probe: 24 + 3 = 27 ✓).</div>
+    </div>
+  </section>
+
+  <!-- ============================================================
        MERKE – Checkliste als Bild
        Bild austauschen: neue Datei "merke-checkliste.png" in den
        Ordner "bilder" legen, oder Dateinamen unten anpassen.
@@ -608,6 +796,29 @@ const MATCH_PAIRS = [
 /* ================================================================
    ENGINE – keine Änderungen notwendig unterhalb dieser Linie
    ================================================================ */
+
+/* ── Active Recall / Musterlösung Engine ──
+   id = ID des .reveal-content-Elements
+   label = Text auf dem Button, z. B. "Musterantwort" oder "Musterlösung"
+   Der zugehörige Button braucht die ID "<id>-btn". */
+function toggleReveal(id, label) {
+  const content = document.getElementById(id);
+  const btn = document.getElementById(id + '-btn');
+  const isOpen = content.classList.toggle('open');
+  btn.textContent = isOpen ? ('🙈 ' + label + ' ausblenden') : ('💡 ' + label + ' anzeigen');
+}
+
+/* Blendet die Musterlösung/-antwort wieder aus und setzt optional
+   ein zugehöriges Textfeld (textareaId) zurück. */
+function resetReveal(id, label, textareaId) {
+  const content = document.getElementById(id);
+  const btn = document.getElementById(id + '-btn');
+  content.classList.remove('open');
+  btn.textContent = '💡 ' + label + ' anzeigen';
+  if (textareaId) {
+    document.getElementById(textareaId).value = '';
+  }
+}
 
 /* ── Quiz Engine ── */
 const QUIZ_STATE = {};

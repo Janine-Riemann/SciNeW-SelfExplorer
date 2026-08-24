@@ -5,8 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Workbook – Kapitel 5</title>
 <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
- <link rel="stylesheet" href="assets/lightbox.css">
-
 <style>
   /* ============================================================
      FARBEN & GRUNDEINSTELLUNGEN
@@ -275,6 +273,37 @@
   .quiz-option-btn.wrong   { border-color: var(--error);   background: var(--error-bg);   color: var(--error);   }
   .quiz-option-btn:disabled { cursor: default; }
 
+  /* ── MEHRTEILIGES QUIZ (eine Frage nach der anderen, mit Fortschrittsbalken) ── */
+  .quiz-counter {
+    font-size: .82rem;
+    color: var(--muted);
+    margin-bottom: 16px;
+  }
+  .quiz-nav { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+  .quiz-score {
+    display: none;
+    margin-top: 18px;
+    padding: 14px 18px;
+    background: var(--success-bg);
+    border-radius: 8px;
+    font-weight: 700;
+    color: var(--success);
+    font-size: .97rem;
+  }
+  .quiz-progress {
+    height: 5px;
+    background: var(--border);
+    border-radius: 10px;
+    margin-bottom: 18px;
+    overflow: hidden;
+  }
+  .quiz-progress-bar {
+    height: 100%;
+    background: var(--primary-dark);
+    border-radius: 10px;
+    transition: width .3s ease;
+  }
+
   .quiz-feedback, .tf-feedback {
     display: none;
     margin-top: 12px;
@@ -285,6 +314,39 @@
   }
   .quiz-feedback.success, .tf-feedback.success { background: var(--success-bg); color: var(--success); display: flex; align-items: center; gap: 8px; }
   .quiz-feedback.error, .tf-feedback.error     { background: var(--error-bg);   color: var(--error);   display: flex; align-items: center; gap: 8px; }
+
+  /* ── FRAGEKARTEN / BOXEN (wie bei Aufgabe 3) ── */
+  .question-box {
+    background: #f8fffd;
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--primary-dark);
+    border-radius: 12px;
+    padding: 18px 18px 14px;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 10px rgba(75, 235, 185, 0.06);
+  }
+  .question-box + .question-box {
+    margin-top: 8px;
+  }
+  .question-box:last-child {
+    margin-bottom: 0;
+  }
+  .question-box .quiz-question-text,
+  .question-box .tf-question-text {
+    margin-bottom: 14px;
+    padding: 0;
+    background: transparent;
+    border-left: none;
+    border-radius: 0;
+  }
+  .question-box .quiz-options,
+  .question-box .tf-options {
+    margin-bottom: 6px;
+  }
+  .question-box .btn-reset {
+    margin-left: 0;
+    margin-top: 10px;
+  }
 
   /* ── MEHRFACHAUSWAHL (mehrere richtige Antworten möglich) ── */
   .mc-options { display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px; }
@@ -611,59 +673,15 @@
   <section class="exercise" id="ex1">
     <div class="exercise-label">Aufgabe 1 · Quiz</div>
     <h3>Bewerten Sie, ob die folgenden Überschriften auch gute Überschriften sind.</h3>
-
-    <!-- Frage 1 -->
-    <div class="quiz-question-text" id="q1-text">Warum das Thema wichtig ist</div>
-    <div class="quiz-options" id="q1-options">
-      <button class="quiz-option-btn" onclick="checkAnswer('q1', this, true)">Schlechte Überschrift</button>
-      <button class="quiz-option-btn" onclick="checkAnswer('q1', this, false)">Gute Überschrift</button>
+    <div class="quiz-progress"><div class="quiz-progress-bar" id="quiz1-bar" style="width:0%"></div></div>
+    <div class="quiz-counter" id="quiz1-counter">Frage 1 von 5</div>
+    <div class="quiz-question-text" id="quiz1-question"></div>
+    <div class="quiz-options" id="quiz1-options"></div>
+    <div class="quiz-nav">
+      <button class="btn-check" id="quiz1-next" style="display:none" onclick="quizNext('quiz1')">Nächste Frage →</button>
+      <button class="btn-reset" onclick="quizReset('quiz1')">↺ Neu starten</button>
     </div>
-    <div class="quiz-feedback" id="q1-feedback"></div>
-    <button class="btn-reset" onclick="resetQuestion('q1')">↺ Zurücksetzen</button>
-
-    <hr class="divider">
-
-    <!-- Frage 2 -->
-    <div class="quiz-question-text" id="q2-text">Die Auswirkungen der Digitalisierung auf die Arbeitswelt im Kontext globaler Transformationsprozesse mit Blick auf historische Entwicklungen in der westlichen Welt</div>
-    <div class="quiz-options" id="q2-options">
-      <button class="quiz-option-btn" onclick="checkAnswer('q2', this, true)">Schlechte Überschrift</button>
-      <button class="quiz-option-btn" onclick="checkAnswer('q2', this, false)">Gute Überschrift</button>
-    </div>
-    <div class="quiz-feedback" id="q2-feedback"></div>
-    <button class="btn-reset" onclick="resetQuestion('q2')">↺ Zurücksetzen</button>
-
-    <hr class="divider">
-
-    <!-- Frage 3 -->
-    <div class="quiz-question-text" id="q3-text">Digitalisierung</div>
-    <div class="quiz-options" id="q3-options">
-      <button class="quiz-option-btn" onclick="checkAnswer('q3', this, true)">Schlechte Überschrift</button>
-      <button class="quiz-option-btn" onclick="checkAnswer('q3', this, false)">Gute Überschrift</button>
-    </div>
-    <div class="quiz-feedback" id="q3-feedback"></div>
-    <button class="btn-reset" onclick="resetQuestion('q3')">↺ Zurücksetzen</button>
-
-    <hr class="divider">
-
-    <!-- Frage 4 -->
-    <div class="quiz-question-text" id="q4-text">Historische Entwicklung der Sozialen Arbeit</div>
-    <div class="quiz-options" id="q4-options">
-      <button class="quiz-option-btn" onclick="checkAnswer('q4', this, true)">Gute Überschrift</button>
-      <button class="quiz-option-btn" onclick="checkAnswer('q4', this, false)">Schlechte Überschrift</button>
-    </div>
-    <div class="quiz-feedback" id="q4-feedback"></div>
-    <button class="btn-reset" onclick="resetQuestion('q4')">↺ Zurücksetzen</button>
-
-    <hr class="divider">
-
-    <!-- Frage 5 -->
-    <div class="quiz-question-text" id="q5-text">Rahmenbedingungen inklusiver Schulentwicklung</div>
-    <div class="quiz-options" id="q5-options">
-      <button class="quiz-option-btn" onclick="checkAnswer('q5', this, true)">Gute Überschrift</button>
-      <button class="quiz-option-btn" onclick="checkAnswer('q5', this, false)">Schlechte Überschrift</button>
-    </div>
-    <div class="quiz-feedback" id="q5-feedback"></div>
-    <button class="btn-reset" onclick="resetQuestion('q5')">↺ Zurücksetzen</button>
+    <div class="quiz-score" id="quiz1-score"></div>
   </section>
 
   <!-- ============================================================
@@ -730,54 +748,15 @@
   <section class="exercise" id="ex3">
     <div class="exercise-label">Aufgabe 3 · Wahr oder Falsch</div>
     <h3>Was stimmt zum Thema „Abstract"?</h3>
-
-    <div class="tf-question-text" id="tf1-text">Der Abstract fasst alle genannten Theorien nochmals kurz zusammen.</div>
-    <div class="tf-options" id="tf1-options">
-      <button class="tf-option-btn" onclick="checkTF('tf1', this, true)">✓ Wahr</button>
-      <button class="tf-option-btn" onclick="checkTF('tf1', this, false)">✗ Falsch</button>
+    <div class="quiz-progress"><div class="quiz-progress-bar" id="quiz3-bar" style="width:0%"></div></div>
+    <div class="quiz-counter" id="quiz3-counter">Frage 1 von 5</div>
+    <div class="quiz-question-text" id="quiz3-question"></div>
+    <div class="quiz-options" id="quiz3-options"></div>
+    <div class="quiz-nav">
+      <button class="btn-check" id="quiz3-next" style="display:none" onclick="quizNext('quiz3')">Nächste Frage →</button>
+      <button class="btn-reset" onclick="quizReset('quiz3')">↺ Neu starten</button>
     </div>
-    <div class="tf-feedback" id="tf1-feedback"></div>
-    <button class="btn-reset" onclick="resetTF('tf1')">↺ Zurücksetzen</button>
-
-    <hr class="divider">
-
-    <div class="tf-question-text" id="tf2-text">Der Abstract ist eine stark verkürzte, prägnante und wertfreie Darstellung der wissenschaftlichen Arbeit.</div>
-    <div class="tf-options" id="tf2-options">
-      <button class="tf-option-btn" onclick="checkTF('tf2', this, true)">✓ Wahr</button>
-      <button class="tf-option-btn" onclick="checkTF('tf2', this, false)">✗ Falsch</button>
-    </div>
-    <div class="tf-feedback" id="tf2-feedback"></div>
-    <button class="btn-reset" onclick="resetTF('tf2')">↺ Zurücksetzen</button>
-
-    <hr class="divider">
-
-    <div class="tf-question-text" id="tf3-text">Der Abstract ist immer genau eine Seite lang.</div>
-    <div class="tf-options" id="tf3-options">
-      <button class="tf-option-btn" onclick="checkTF('tf3', this, false)">✓ Wahr</button>
-      <button class="tf-option-btn" onclick="checkTF('tf3', this, true)">✗ Falsch</button>
-    </div>
-    <div class="tf-feedback" id="tf3-feedback"></div>
-    <button class="btn-reset" onclick="resetTF('tf3')">↺ Zurücksetzen</button>
-
-    <hr class="divider">
-
-    <div class="tf-question-text" id="tf4-text">Der Abstract sollte keine Informationen über genaue Messinstrumente beinhalten.</div>
-    <div class="tf-options" id="tf4-options">
-      <button class="tf-option-btn" onclick="checkTF('tf4', this, false)">✓ Wahr</button>
-      <button class="tf-option-btn" onclick="checkTF('tf4', this, true)">✗ Falsch</button>
-    </div>
-    <div class="tf-feedback" id="tf4-feedback"></div>
-    <button class="btn-reset" onclick="resetTF('tf4')">↺ Zurücksetzen</button>
-
-    <hr class="divider">
-
-    <div class="tf-question-text" id="tf5-text">Im Abstract sind Quellenangaben nötig.</div>
-    <div class="tf-options" id="tf5-options">
-      <button class="tf-option-btn" onclick="checkTF('tf5', this, false)">✓ Wahr</button>
-      <button class="tf-option-btn" onclick="checkTF('tf5', this, true)">✗ Falsch</button>
-    </div>
-    <div class="tf-feedback" id="tf5-feedback"></div>
-    <button class="btn-reset" onclick="resetTF('tf5')">↺ Zurücksetzen</button>
+    <div class="quiz-score" id="quiz3-score"></div>
   </section>
 
   <!-- ============================================================
@@ -786,44 +765,15 @@
   <section class="exercise" id="ex4">
     <div class="exercise-label">Aufgabe 4 · Wahr oder Falsch</div>
     <h3>Was stimmt zum Thema „Einleitung"?</h3>
-
-    <div class="tf-question-text" id="tf6-text">Die Einleitung dient in erster Linie dazu, das Thema einzuführen und dessen Relevanz zu verdeutlichen.</div>
-    <div class="tf-options" id="tf6-options">
-      <button class="tf-option-btn" onclick="checkTF('tf6', this, true)">✓ Wahr</button>
-      <button class="tf-option-btn" onclick="checkTF('tf6', this, false)">✗ Falsch</button>
+    <div class="quiz-progress"><div class="quiz-progress-bar" id="quiz4-bar" style="width:0%"></div></div>
+    <div class="quiz-counter" id="quiz4-counter">Frage 1 von 4</div>
+    <div class="quiz-question-text" id="quiz4-question"></div>
+    <div class="quiz-options" id="quiz4-options"></div>
+    <div class="quiz-nav">
+      <button class="btn-check" id="quiz4-next" style="display:none" onclick="quizNext('quiz4')">Nächste Frage →</button>
+      <button class="btn-reset" onclick="quizReset('quiz4')">↺ Neu starten</button>
     </div>
-    <div class="tf-feedback" id="tf6-feedback"></div>
-    <button class="btn-reset" onclick="resetTF('tf6')">↺ Zurücksetzen</button>
-
-    <hr class="divider">
-
-    <div class="tf-question-text" id="tf7-text">In der Einleitung sollte die Forschungslücke benannt werden.</div>
-    <div class="tf-options" id="tf7-options">
-      <button class="tf-option-btn" onclick="checkTF('tf7', this, true)">✓ Wahr</button>
-      <button class="tf-option-btn" onclick="checkTF('tf7', this, false)">✗ Falsch</button>
-    </div>
-    <div class="tf-feedback" id="tf7-feedback"></div>
-    <button class="btn-reset" onclick="resetTF('tf7')">↺ Zurücksetzen</button>
-
-    <hr class="divider">
-
-    <div class="tf-question-text" id="tf8-text">Die Methodik darf in der Einleitung noch nicht erwähnt werden.</div>
-    <div class="tf-options" id="tf8-options">
-      <button class="tf-option-btn" onclick="checkTF('tf8', this, false)">✓ Wahr</button>
-      <button class="tf-option-btn" onclick="checkTF('tf8', this, true)">✗ Falsch</button>
-    </div>
-    <div class="tf-feedback" id="tf8-feedback"></div>
-    <button class="btn-reset" onclick="resetTF('tf8')">↺ Zurücksetzen</button>
-
-    <hr class="divider">
-
-    <div class="tf-question-text" id="tf9-text">Fachbegriffe werden detailliert in der Einleitung eingeführt.</div>
-    <div class="tf-options" id="tf9-options">
-      <button class="tf-option-btn" onclick="checkTF('tf9', this, false)">✓ Wahr</button>
-      <button class="tf-option-btn" onclick="checkTF('tf9', this, true)">✗ Falsch</button>
-    </div>
-    <div class="tf-feedback" id="tf9-feedback"></div>
-    <button class="btn-reset" onclick="resetTF('tf9')">↺ Zurücksetzen</button>
+    <div class="quiz-score" id="quiz4-score"></div>
   </section>
 
   <!-- ============================================================
@@ -832,34 +782,15 @@
   <section class="exercise" id="ex5">
     <div class="exercise-label">Aufgabe 5 · Wahr oder Falsch</div>
     <h3>Was stimmt zum Thema „Theorieteil"?</h3>
-
-    <div class="tf-question-text" id="tf10-text">Im Theorieteil steht alles, was für die Forschungsfrage von Belang ist sowie die Implikationen.</div>
-    <div class="tf-options" id="tf10-options">
-      <button class="tf-option-btn" onclick="checkTF('tf10', this, true)">✓ Wahr</button>
-      <button class="tf-option-btn" onclick="checkTF('tf10', this, false)">✗ Falsch</button>
+    <div class="quiz-progress"><div class="quiz-progress-bar" id="quiz5-bar" style="width:0%"></div></div>
+    <div class="quiz-counter" id="quiz5-counter">Frage 1 von 3</div>
+    <div class="quiz-question-text" id="quiz5-question"></div>
+    <div class="quiz-options" id="quiz5-options"></div>
+    <div class="quiz-nav">
+      <button class="btn-check" id="quiz5-next" style="display:none" onclick="quizNext('quiz5')">Nächste Frage →</button>
+      <button class="btn-reset" onclick="quizReset('quiz5')">↺ Neu starten</button>
     </div>
-    <div class="tf-feedback" id="tf10-feedback"></div>
-    <button class="btn-reset" onclick="resetTF('tf10')">↺ Zurücksetzen</button>
-
-    <hr class="divider">
-
-    <div class="tf-question-text" id="tf11-text">Der Theorieteil ist die Hinführung und Untersuchung zu existenten Theorien, um auf die Lücke und dann zu eigenen Forschungsfragen zu gelangen.</div>
-    <div class="tf-options" id="tf11-options">
-      <button class="tf-option-btn" onclick="checkTF('tf11', this, false)">✓ Wahr</button>
-      <button class="tf-option-btn" onclick="checkTF('tf11', this, true)">✗ Falsch</button>
-    </div>
-    <div class="tf-feedback" id="tf11-feedback"></div>
-    <button class="btn-reset" onclick="resetTF('tf11')">↺ Zurücksetzen</button>
-
-    <hr class="divider">
-
-    <div class="tf-question-text" id="tf12-text">Die Hypothesen kommen nicht in den Theorieteil.</div>
-    <div class="tf-options" id="tf12-options">
-      <button class="tf-option-btn" onclick="checkTF('tf12', this, false)">✓ Wahr</button>
-      <button class="tf-option-btn" onclick="checkTF('tf12', this, true)">✗ Falsch</button>
-    </div>
-    <div class="tf-feedback" id="tf12-feedback"></div>
-    <button class="btn-reset" onclick="resetTF('tf12')">↺ Zurücksetzen</button>
+    <div class="quiz-score" id="quiz5-score"></div>
   </section>
 
   <!-- ============================================================
@@ -867,7 +798,7 @@
        ============================================================ -->
   <section class="exercise" id="ex6">
     <div class="exercise-label">Aufgabe 6 · Lückentext</div>
-    <h3>Wählen Sie das passende Wort aus der Dropdown-Liste!</h3>
+    <h3>Ziehen Sie die Wörter in die richtigen Felder!</h3>
     <p class="exercise-intro">Wähle für jede Lücke das passende Wort aus dem Dropdown-Menü.</p>
 
     <div class="fill-text" id="fill1-text">
@@ -935,54 +866,15 @@
   <section class="exercise" id="ex9">
     <div class="exercise-label">Aufgabe 9 · Wahr oder Falsch</div>
     <h3>Was stimmt zum Thema „Ergebnisteil"?</h3>
-
-    <div class="tf-question-text" id="tf13-text">Auch kleine Zahlenmengen sollte man in Tabellen darstellen.</div>
-    <div class="tf-options" id="tf13-options">
-      <button class="tf-option-btn" onclick="checkTF('tf13', this, false)">✓ Wahr</button>
-      <button class="tf-option-btn" onclick="checkTF('tf13', this, true)">✗ Falsch</button>
+    <div class="quiz-progress"><div class="quiz-progress-bar" id="quiz9-bar" style="width:0%"></div></div>
+    <div class="quiz-counter" id="quiz9-counter">Frage 1 von 5</div>
+    <div class="quiz-question-text" id="quiz9-question"></div>
+    <div class="quiz-options" id="quiz9-options"></div>
+    <div class="quiz-nav">
+      <button class="btn-check" id="quiz9-next" style="display:none" onclick="quizNext('quiz9')">Nächste Frage →</button>
+      <button class="btn-reset" onclick="quizReset('quiz9')">↺ Neu starten</button>
     </div>
-    <div class="tf-feedback" id="tf13-feedback"></div>
-    <button class="btn-reset" onclick="resetTF('tf13')">↺ Zurücksetzen</button>
-
-    <hr class="divider">
-
-    <div class="tf-question-text" id="tf14-text">Selbst sehr große Zahlenmengen müssen aufgrund der Vollständigkeit im Ergebnisteil stehen.</div>
-    <div class="tf-options" id="tf14-options">
-      <button class="tf-option-btn" onclick="checkTF('tf14', this, false)">✓ Wahr</button>
-      <button class="tf-option-btn" onclick="checkTF('tf14', this, true)">✗ Falsch</button>
-    </div>
-    <div class="tf-feedback" id="tf14-feedback"></div>
-    <button class="btn-reset" onclick="resetTF('tf14')">↺ Zurücksetzen</button>
-
-    <hr class="divider">
-
-    <div class="tf-question-text" id="tf15-text">R-Syntax oder KI-Prompts sollten immer direkt hinter dem Text stehen.</div>
-    <div class="tf-options" id="tf15-options">
-      <button class="tf-option-btn" onclick="checkTF('tf15', this, false)">✓ Wahr</button>
-      <button class="tf-option-btn" onclick="checkTF('tf15', this, true)">✗ Falsch</button>
-    </div>
-    <div class="tf-feedback" id="tf15-feedback"></div>
-    <button class="btn-reset" onclick="resetTF('tf15')">↺ Zurücksetzen</button>
-
-    <hr class="divider">
-
-    <div class="tf-question-text" id="tf16-text">Eine gute Gliederung des Ergebnisteils wäre: 1. Deskriptive Ergebnisse, 2. Zentrale Ergebnisse und 3. Explorative Ergebnisse.</div>
-    <div class="tf-options" id="tf16-options">
-      <button class="tf-option-btn" onclick="checkTF('tf16', this, true)">✓ Wahr</button>
-      <button class="tf-option-btn" onclick="checkTF('tf16', this, false)">✗ Falsch</button>
-    </div>
-    <div class="tf-feedback" id="tf16-feedback"></div>
-    <button class="btn-reset" onclick="resetTF('tf16')">↺ Zurücksetzen</button>
-
-    <hr class="divider">
-
-    <div class="tf-question-text" id="tf17-text">Deskriptive Ergebnisse beinhalten alles, was mit Zahlen zu tun hat.</div>
-    <div class="tf-options" id="tf17-options">
-      <button class="tf-option-btn" onclick="checkTF('tf17', this, false)">✓ Wahr</button>
-      <button class="tf-option-btn" onclick="checkTF('tf17', this, true)">✗ Falsch</button>
-    </div>
-    <div class="tf-feedback" id="tf17-feedback"></div>
-    <button class="btn-reset" onclick="resetTF('tf17')">↺ Zurücksetzen</button>
+    <div class="quiz-score" id="quiz9-score"></div>
   </section>
 
   <!-- ============================================================
@@ -1045,7 +937,7 @@
            Ordner wie diese HTML-Datei einfach durch eine neue Version ersetzen,
            um das Bild auszutauschen (Dateiname beibehalten). -->
       <div class="image-placeholder">
-        <img src="Etappe5_Psychische_Gesundheit_Gliederung.png" class="hero-img" alt="Gliederung der Seminararbeit „Psychische Gesundheit"">
+        <img src="gliederung-psychische-gesundheit.png" alt="Gliederung der Seminararbeit „Psychische Gesundheit"">
         <div class="image-caption">Abb.: Gliederung der Seminararbeit „Psychische Gesundheit"</div>
       </div>
 
@@ -1368,7 +1260,147 @@ function resetFillText(id) {
   feedback.className = 'feedback-msg';
   feedback.style.display = 'none';
 }
+
+/* ============================================================
+   MEHRTEILIGES QUIZ (Aufgaben 3, 5, 9)
+   Zeigt jeweils eine Frage nach der anderen mit Fortschrittsbalken,
+   statt alle Fragen untereinander. Fragen/Antworten unten anpassen.
+   correct: 0 = erste Antwort ist richtig, 1 = zweite Antwort usw.
+   ============================================================ */
+const QUIZ_DATA = {
+
+  quiz1: [
+    { question: 'Warum das Thema wichtig ist',
+      options: ['Gute Überschrift', 'Schlechte Überschrift'], correct: 1 },
+    { question: 'Die Auswirkungen der Digitalisierung auf die Arbeitswelt im Kontext globaler Transformationsprozesse mit Blick auf historische Entwicklungen in der westlichen Welt',
+      options: ['Gute Überschrift', 'Schlechte Überschrift'], correct: 1 },
+    { question: 'Digitalisierung',
+      options: ['Gute Überschrift', 'Schlechte Überschrift'], correct: 1 },
+    { question: 'Historische Entwicklung der Sozialen Arbeit',
+      options: ['Gute Überschrift', 'Schlechte Überschrift'], correct: 0 },
+    { question: 'Rahmenbedingungen inklusiver Schulentwicklung',
+      options: ['Gute Überschrift', 'Schlechte Überschrift'], correct: 0 },
+  ],
+
+  quiz3: [
+    { question: 'Der Abstract fasst alle genannten Theorien nochmals kurz zusammen.',
+      options: ['✓ Wahr', '✗ Falsch'], correct: 0 },
+    { question: 'Der Abstract ist eine stark verkürzte, prägnante und wertfreie Darstellung der wissenschaftlichen Arbeit.',
+      options: ['✓ Wahr', '✗ Falsch'], correct: 0 },
+    { question: 'Der Abstract ist immer genau eine Seite lang.',
+      options: ['✓ Wahr', '✗ Falsch'], correct: 1 },
+    { question: 'Der Abstract sollte keine Informationen über genaue Messinstrumente beinhalten.',
+      options: ['✓ Wahr', '✗ Falsch'], correct: 1 },
+    { question: 'Im Abstract sind Quellenangaben nötig.',
+      options: ['✓ Wahr', '✗ Falsch'], correct: 1 },
+  ],
+
+  quiz5: [
+    { question: 'Im Theorieteil steht alles, was für die Forschungsfrage von Belang ist sowie die Implikationen.',
+      options: ['✓ Wahr', '✗ Falsch'], correct: 0 },
+    { question: 'Der Theorieteil ist die Hinführung und Untersuchung zu existenten Theorien, um auf die Lücke und dann zu eigenen Forschungsfragen zu gelangen.',
+      options: ['✓ Wahr', '✗ Falsch'], correct: 1 },
+    { question: 'Die Hypothesen kommen nicht in den Theorieteil.',
+      options: ['✓ Wahr', '✗ Falsch'], correct: 1 },
+  ],
+
+  quiz4: [
+    { question: 'Die Einleitung dient in erster Linie dazu, das Thema einzuführen und dessen Relevanz zu verdeutlichen.',
+      options: ['✓ Wahr', '✗ Falsch'], correct: 0 },
+    { question: 'In der Einleitung sollte die Forschungslücke benannt werden.',
+      options: ['✓ Wahr', '✗ Falsch'], correct: 0 },
+    { question: 'Die Methodik darf in der Einleitung noch nicht erwähnt werden.',
+      options: ['✓ Wahr', '✗ Falsch'], correct: 1 },
+    { question: 'Fachbegriffe werden detailliert in der Einleitung eingeführt.',
+      options: ['✓ Wahr', '✗ Falsch'], correct: 1 },
+  ],
+
+  quiz9: [
+    { question: 'Auch kleine Zahlenmengen sollte man in Tabellen darstellen.',
+      options: ['✓ Wahr', '✗ Falsch'], correct: 1 },
+    { question: 'Selbst sehr große Zahlenmengen müssen aufgrund der Vollständigkeit im Ergebnisteil stehen.',
+      options: ['✓ Wahr', '✗ Falsch'], correct: 1 },
+    { question: 'R-Syntax oder KI-Prompts sollten immer direkt hinter dem Text stehen.',
+      options: ['✓ Wahr', '✗ Falsch'], correct: 1 },
+    { question: 'Eine gute Gliederung des Ergebnisteils wäre: 1. Deskriptive Ergebnisse, 2. Zentrale Ergebnisse und 3. Explorative Ergebnisse.',
+      options: ['✓ Wahr', '✗ Falsch'], correct: 0 },
+    { question: 'Deskriptive Ergebnisse beinhalten alles, was mit Zahlen zu tun hat.',
+      options: ['✓ Wahr', '✗ Falsch'], correct: 1 },
+  ],
+
+};
+
+const QUIZ_STATE = {};
+
+function quizInit(id) {
+  QUIZ_STATE[id] = { current: 0, score: 0, answered: false };
+  renderQuiz(id);
+}
+
+function renderQuiz(id) {
+  const state = QUIZ_STATE[id];
+  const data = QUIZ_DATA[id];
+  const q = data[state.current];
+  const total = data.length;
+
+  document.getElementById(id + '-bar').style.width = (state.current / total * 100) + '%';
+  document.getElementById(id + '-counter').textContent = `Frage ${state.current + 1} von ${total}`;
+  document.getElementById(id + '-question').textContent = q.question;
+
+  const optDiv = document.getElementById(id + '-options');
+  optDiv.innerHTML = '';
+  q.options.forEach((opt, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'quiz-option-btn';
+    btn.textContent = opt;
+    btn.onclick = () => answerQuiz(id, i);
+    optDiv.appendChild(btn);
+  });
+
+  document.getElementById(id + '-next').style.display = 'none';
+  document.getElementById(id + '-score').style.display = 'none';
+  state.answered = false;
+}
+
+function answerQuiz(id, chosen) {
+  const state = QUIZ_STATE[id];
+  if (state.answered) return;
+  state.answered = true;
+
+  const q = QUIZ_DATA[id][state.current];
+  const btns = document.querySelectorAll('#' + id + '-options .quiz-option-btn');
+  btns.forEach((btn, i) => {
+    btn.disabled = true;
+    if (i === q.correct) btn.classList.add('correct');
+    else if (i === chosen) btn.classList.add('wrong');
+  });
+  if (chosen === q.correct) state.score++;
+
+  const isLast = state.current === QUIZ_DATA[id].length - 1;
+  if (isLast) {
+    document.getElementById(id + '-bar').style.width = '100%';
+    const scoreEl = document.getElementById(id + '-score');
+    scoreEl.style.display = 'block';
+    scoreEl.textContent = `🎯 Ergebnis: ${state.score} von ${QUIZ_DATA[id].length} richtig!`;
+  } else {
+    document.getElementById(id + '-next').style.display = 'inline-flex';
+  }
+}
+
+function quizNext(id) {
+  QUIZ_STATE[id].current++;
+  renderQuiz(id);
+}
+
+function quizReset(id) {
+  quizInit(id);
+}
+
+quizInit('quiz1');
+quizInit('quiz3');
+quizInit('quiz4');
+quizInit('quiz5');
+quizInit('quiz9');
 </script>
-<script src="assets/lightbox.js"></script>
 </body>
 </html>
