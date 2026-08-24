@@ -67,6 +67,55 @@
     opacity: .9;
     font-style: italic;
   }
+
+  .intro-card {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    padding: 20px 24px;
+    min-height: 240px;
+    margin-bottom: 30px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+  }
+  .intro-visual {
+    width: 170px;
+    height: 270px;
+    object-fit: contain;
+    object-position: center;
+    border-radius: 12px;
+    border: none;
+    box-shadow: none;
+    flex-shrink: 0;
+    background: transparent;
+    padding: 0;
+  }
+  .intro-copy {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .intro-copy p {
+    margin: 0;
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--text);
+    font-style: normal;
+  }
+  @media (max-width: 640px) {
+    .intro-card {
+      flex-direction: column;
+      align-items: flex-start;
+      min-height: auto;
+    }
+    .intro-visual {
+      width: 120px;
+      height: 180px;
+    }
+  }
  
   /* ── INFO CARD ── */
   .info-card {
@@ -439,20 +488,34 @@
   }
 </style>
 </head>
-<body>
+
+body>
 <div class="page-wrapper">
- 
+
   <!-- ============================================================
-       SEITENHEADER
+       SEITENHEADER  –  Text hier bearbeiten
        ============================================================ -->
   <header class="page-header">
-    <div class="label">Workbook · Kapitel 4</div>
-    <h1>🏔️ Klug lesen –<br>unterwegs zum Gipfel der Erkenntnis</h1>
-    <div class="subtitle">In dieser kleinen Workbook-Einheit werden nochmals die wichtigsten Informationen von Kapitel 4 wiederholt. Das Bearbeiten der Übungen ist freiwillig und soll Ihnen als Selbstlerneinheit dienen.</div>
+    <div class="label">Übung · Etappe 4</div>
+    <h1>🏔️ Sicher lesen –<br>unterwegs zum Gipfel der Erkenntnis</h1>
+    <div class="subtitle">Das Bearbeiten der Übungen ist freiwillig und soll Ihnen als Selbstlerneinheit dienen.</div>
   </header>
- 
+<!-- ============================================================
+       EINLEITUNGSBILD
+       Bildpfad anpassen: "kapitel6-bild.png" muss im gleichen
+       Ordner wie diese HTML-Datei liegen.
+       ============================================================ -->
+  <div class="image-wrap intro-card">
+    <img class="intro-visual" src="Guide_allgemein.png" alt="Beim wissenschaftlichen Arbeiten ist richtiges Zitieren wie das Setzen von Sicherungen beim Bergsteigen – es schützt vor Plagiaten.">
+    <div class="intro-copy">
+      <p>Wissenschaftliches Arbeiten ohne effiziente Lesestrategien ist wie der Versuch, einen steilen Alpengipfel im dichten Nebel zu erklimmen: Wer sich blind durch jeden Text kämpft, verliert schnell die Kraft und verläuft sich im Unterholz der Informationen. Bereit für den Aufstieg?</p>
+     
+    </div>
+  </div>
 
  
+  
+
   <!-- ============================================================
        AUFGABE 1 – Empirischer vs. Review Beitrag (Quiz)
        ============================================================ -->

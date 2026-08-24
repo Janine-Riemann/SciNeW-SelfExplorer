@@ -68,6 +68,55 @@
     font-style: italic;
   }
 
+  .intro-card {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    padding: 20px 24px;
+    min-height: 240px;
+    margin-bottom: 30px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+  }
+  .intro-visual {
+    width: 170px;
+    height: 270px;
+    object-fit: contain;
+    object-position: center;
+    border-radius: 12px;
+    border: none;
+    box-shadow: none;
+    flex-shrink: 0;
+    background: transparent;
+    padding: 0;
+  }
+  .intro-copy {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .intro-copy p {
+    margin: 0;
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--text);
+    font-style: normal;
+  }
+  @media (max-width: 640px) {
+    .intro-card {
+      flex-direction: column;
+      align-items: flex-start;
+      min-height: auto;
+    }
+    .intro-visual {
+      width: 120px;
+      height: 180px;
+    }
+  }
+
   /* ── INTRO CARD ── */
   .intro-card {
     background: var(--surface);
@@ -358,23 +407,23 @@
        SEITENHEADER  –  Text hier bearbeiten
        ============================================================ -->
   <header class="page-header">
-    <div class="label">Workbook · Kapitel 1</div>
+    <div class="label">Übung · Etappe 1</div>
     <h1>Warum wir nicht einfach draufloswandern –<br>Wissenschaft als geplante Expedition</h1>
-    <div class="subtitle">In dieser kleinen Workbook-Einheit werden nochmals die wichtigsten Informationen von Kapitel 1 wiederholt. Das Bearbeiten der Übungen ist freiwillig und soll Ihnen als Selbstlerneinheit dienen.</div>
+    <div class="subtitle">Das Bearbeiten der Übungen ist freiwillig und soll Ihnen als Selbstlerneinheit dienen.</div>
   </header>
-
-  <!-- ============================================================
-       INTRO-KARTE  –  Sprechblasentext und Titel hier bearbeiten
+<!-- ============================================================
+       EINLEITUNGSBILD
+       Bildpfad anpassen: "kapitel6-bild.png" muss im gleichen
+       Ordner wie diese HTML-Datei liegen.
        ============================================================ -->
-  <div class="intro-card">
-    <h2>„Warum wir nicht einfach draufloswandern – Wissenschaft als geplante Expedition"</h2>
-    <div class="speech-bubble-row">
-      <div class="avatar-placeholder" title="Illustration: Forscher AWM">🧗</div>
-      <div class="bubble">
-        Wenn man eine große Wanderung plant, verlässt man sich auf Karten, gutes Schuhwerk und eine klare Route, denn ohne Orientierung wird aus Abenteuern schnell Chaos. In der Forschung ist es ähnlich: Ohne klare Standards weiß niemand, ob man auf dem richtigen Weg ist. Qualitätskriterien helfen, Vertrauen zu schaffen, zwischen Forschenden, Leser*innen, und der Gesellschaft. Sie sorgen dafür, dass Erkenntnisse nicht nur zufällig wirken, sondern nachvollziehbar und belastbar sind. Wie bei einer Wanderung zählt nicht nur das Ziel, sondern auch, wie sicher und ehrlich man es erreicht.
-      </div>
+  <div class="image-wrap intro-card">
+    <img class="intro-visual" src="Guide_allgemein.png" alt="Beim wissenschaftlichen Arbeiten ist richtiges Zitieren wie das Setzen von Sicherungen beim Bergsteigen – es schützt vor Plagiaten.">
+    <div class="intro-copy">
+      <p>Qualitätskriterien helfen, Vertrauen zu schaffen, zwischen Forschenden, Leser*innen, und der Gesellschaft. Sie sorgen dafür, dass Erkenntnisse nicht nur zufällig wirken, sondern nachvollziehbar und belastbar sind. Wie bei einer Wanderung zählt nicht nur das Ziel, sondern auch, wie sicher und ehrlich man es erreicht. Bereit für den Aufstieg?</p>
+     
     </div>
   </div>
+ 
 
   <!-- ============================================================
        AUFGABE 1 – Multiple Choice

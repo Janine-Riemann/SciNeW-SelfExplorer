@@ -117,6 +117,54 @@
     font-style: italic;
   }
 
+  .intro-card {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    padding: 20px 24px;
+    min-height: 240px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+  }
+  .intro-visual {
+    width: 170px;
+    height: 270px;
+    object-fit: contain;
+    object-position: center;
+    border-radius: 12px;
+    border: none;
+    box-shadow: none;
+    flex-shrink: 0;
+    background: transparent;
+    padding: 0;
+  }
+  .intro-copy {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .intro-copy p {
+    margin: 0;
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--text);
+    font-style: normal;
+  }
+  @media (max-width: 640px) {
+    .intro-card {
+      flex-direction: column;
+      align-items: flex-start;
+      min-height: auto;
+    }
+    .intro-visual {
+      width: 120px;
+      height: 150px;
+    }
+  }
+
   /* ── VIDEO EMBED ── */
   .video-wrap {
     background: var(--surface);
@@ -378,18 +426,30 @@
   }
 </style>
 </head>
+
 <body>
 <div class="page-wrapper">
 
   <!-- ============================================================
-       SEITENHEADER
-       Hier Titel, Untertitel und Kapitelbezeichnung anpassen.
+       SEITENHEADER  –  Text hier bearbeiten
        ============================================================ -->
   <header class="page-header">
-    <div class="label">Workbook · Kapitel 6</div>
-    <h1>🏔️ Sicher schreiben –<br>Plagiate vermeiden</h1>
-    <div class="subtitle">In dieser kleinen Workbook-Einheit werden nochmals die wichtigsten Informationen von Kapitel 6 wiederholt. Das Bearbeiten der Übungen ist freiwillig und soll Ihnen als Selbstlerneinheit dienen.</div>
+    <div class="label">Übung · Etappe 6</div>
+    <h1>🏔️ Sicher schreiben –<br>Plagiate vermeiden </h1>
+    <div class="subtitle">Das Bearbeiten der Übungen ist freiwillig und soll Ihnen als Selbstlerneinheit dienen.</div>
   </header>
+<!-- ============================================================
+       EINLEITUNGSBILD
+       Bildpfad anpassen: "kapitel6-bild.png" muss im gleichen
+       Ordner wie diese HTML-Datei liegen.
+       ============================================================ -->
+  <div class="image-wrap intro-card">
+    <img class="intro-visual" src="Guide_allgemein.png" alt="Beim wissenschaftlichen Arbeiten ist richtiges Zitieren wie das Setzen von Sicherungen beim Bergsteigen – es schützt vor Plagiaten.">
+    <div class="intro-copy">
+      <p>Jeder Gedanke, den Sie aus anderen Quellen übernehmen, braucht eine klare Markierung - wie ein Haken im Feld, der zeigt, woher sie kommen. Bereit für den Aufstieg?</p>
+     
+    </div>
+  </div>
 
 
   <!-- ============================================================
@@ -397,9 +457,11 @@
        Bildpfad anpassen: "kapitel6-bild.png" muss im gleichen
        Ordner wie diese HTML-Datei liegen.
        ============================================================ -->
-  <div class="image-wrap" style="padding: 24px 32px; text-align: left;">
-    <div class="image-caption" style="margin-top: 0; font-size: 1rem; color: var(--text); font-style: normal; line-height: 1.7; margin-bottom: 12px;">
-      Beim wissenschaftlichen Arbeiten ist richtiges Zitieren wie das Setzen von Sicherungen beim Bergsteigen – es schützt vor Plagiaten. Richtiges Zitieren schützt vor gefährlichen Fehltritten – wie eine Sicherung beim Bergsteigen.
+  <div class="image-wrap intro-card">
+    <img class="intro-visual" src="Guide_allgemein.png" alt="Beim wissenschaftlichen Arbeiten ist richtiges Zitieren wie das Setzen von Sicherungen beim Bergsteigen – es schützt vor Plagiaten.">
+    <div class="intro-copy">
+      <p>Beim wissenschaftlichen Arbeiten ist richtiges Zitieren wie das Setzen von Sicherungen beim Bergsteigen – es schützt vor Plagiaten.</p>
+      <p>Richtiges Zitieren schützt vor gefährlichen Fehltrritten – wie eine Sicherung beim Bergsteigen.</p>
     </div>
   </div>
 
