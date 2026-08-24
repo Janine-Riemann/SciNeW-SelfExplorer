@@ -482,6 +482,37 @@
   }
   .task-textarea:focus { outline: none; border-color: var(--primary-dark); }
 
+  /* ── MUSTERLÖSUNG: BUTTON + ANZEIGE-BOX ── */
+  .btn-row { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 10px; }
+  .btn-sample {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--surface);
+    color: var(--accent);
+    border: 1.5px solid var(--accent);
+    border-radius: 24px;
+    padding: 9px 20px;
+    font-family: inherit;
+    font-size: .9rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background .15s, color .15s;
+  }
+  .btn-sample:hover { background: var(--accent); color: #fff; }
+  .sample-answer {
+    display: none;
+    margin-top: 12px;
+    background: #e8f4ff;
+    border: 1.5px solid var(--accent);
+    border-radius: 8px;
+    padding: 14px 18px;
+    font-size: .93rem;
+    line-height: 1.6;
+    color: var(--text);
+  }
+  .sample-answer strong { color: var(--accent); }
+
   @media (max-width: 640px) {
     .page-header { padding: 22px 20px; }
     .exercise, .info-card, .video-wrap { padding: 20px 18px; }
@@ -700,27 +731,65 @@
 
     <div class="recall-item">
       <div class="recall-question">1. Wie unterscheidet sich die Zitierfähigkeit von der Zitierwürdigkeit und warum ist diese Unterscheidung für wissenschaftliche Arbeiten entscheidend?</div>
-      <textarea class="task-textarea" placeholder="Ihre Antwort …" style="min-height:90px;"></textarea>
+      <textarea class="task-textarea" id="ex5-a1" placeholder="Ihre Antwort …" style="min-height:90px;"></textarea>
+      <div class="btn-row">
+        <button class="btn-sample" onclick="toggleSample('ex5-s1', this)">💡 Musterlösung anzeigen</button>
+        <button class="btn-reset" onclick="resetSample('ex5-a1', 'ex5-s1', this)">↺ Zurücksetzen</button>
+      </div>
+      <div class="sample-answer" id="ex5-s1">
+        <strong>Musterlösung:</strong> <em>Zitierfähigkeit</em> beschreibt, ob eine Quelle rein formal auffindbar und nachprüfbar ist (z. B. über eine URL, ISBN oder DOI abrufbar) – das sagt aber noch nichts über ihre Qualität aus. <em>Zitierwürdigkeit</em> bewertet dagegen den inhaltlichen Wert einer Quelle, z. B. mithilfe des CRAAP-Tests (Aktualität, Relevanz, Autorität, Genauigkeit, Zweck). Die Unterscheidung ist entscheidend, weil eine Quelle formal zitierfähig sein kann (also technisch belegbar), inhaltlich aber ungeeignet ist – ein Blogeintrag ist z. B. zitierfähig, aber meist nicht zitierwürdig. Für eine wissenschaftliche Arbeit reicht formale Zitierfähigkeit allein nicht aus; die Quelle muss zusätzlich inhaltlich vertrauenswürdig sein.
+      </div>
     </div>
 
     <div class="recall-item">
       <div class="recall-question">2. Erläutere den Workflow „Denken – Lesen – Schreiben" und begründe, warum die Reihenfolge „Denken" vor „Formulieren" wichtig ist.</div>
-      <textarea class="task-textarea" placeholder="Ihre Antwort …" style="min-height:90px;"></textarea>
+      <textarea class="task-textarea" id="ex5-a2" placeholder="Ihre Antwort …" style="min-height:90px;"></textarea>
+      <div class="btn-row">
+        <button class="btn-sample" onclick="toggleSample('ex5-s2', this)">💡 Musterlösung anzeigen</button>
+        <button class="btn-reset" onclick="resetSample('ex5-a2', 'ex5-s2', this)">↺ Zurücksetzen</button>
+      </div>
+      <div class="sample-answer" id="ex5-s2">
+        <strong>Musterlösung:</strong> Der Workflow bedeutet: Zuerst wird über die eigene Fragestellung und Argumentationslinie <em>nachgedacht</em>, bevor gezielt <em>gelesen</em> wird, um passende Belege und Erkenntnisse zu finden, und erst danach wird das Ergebnis <em>geschrieben</em>. Die Reihenfolge „Denken vor Formulieren" ist wichtig, weil man sonst Gefahr läuft, unreflektiert die Gedankenstruktur der gelesenen Quellen zu übernehmen (Gefahr von Plagiaten und eines „Flickenteppichs" aus fremden Formulierungen), statt eine eigene, klare Argumentation zu entwickeln. Wer zuerst denkt, liest gezielter und schreibt am Ende in eigenen Worten.
+      </div>
     </div>
 
     <div class="recall-item">
       <div class="recall-question">3. Beschreibe die fünf Kriterien des CRAAP-Tests und erkläre an einem Beispiel, wie eine Quelle durch diesen Test fallen könnte.</div>
-      <textarea class="task-textarea" placeholder="Ihre Antwort …" style="min-height:90px;"></textarea>
+      <textarea class="task-textarea" id="ex5-a3" placeholder="Ihre Antwort …" style="min-height:90px;"></textarea>
+      <div class="btn-row">
+        <button class="btn-sample" onclick="toggleSample('ex5-s3', this)">💡 Musterlösung anzeigen</button>
+        <button class="btn-reset" onclick="resetSample('ex5-a3', 'ex5-s3', this)">↺ Zurücksetzen</button>
+      </div>
+      <div class="sample-answer" id="ex5-s3">
+        <strong>Musterlösung:</strong> <strong>C</strong>urrency (Aktualität): Wann wurde die Quelle veröffentlicht/zuletzt aktualisiert? <strong>R</strong>elevance (Relevanz): Passt der Inhalt zur eigenen Fragestellung und Zielgruppe? <strong>A</strong>uthority (Autorität): Wer ist der Autor bzw. Herausgeber, und welche Qualifikation liegt vor? <strong>A</strong>ccuracy (Genauigkeit): Sind die Aussagen belegt, nachprüfbar und frei von Fehlern? <strong>P</strong>urpose (Zweck): Zu welchem Zweck wurde die Quelle erstellt (informieren, überzeugen, verkaufen)? <br><br><strong>Beispiel:</strong> Ein Blogartikel zum Klimawandel von 2012 ohne Autorenangabe und ohne Quellenverweise würde bei „Currency" (veraltet), „Authority" (kein erkennbarer Autor) und „Accuracy" (keine Belege) durchfallen – er wäre damit nicht zitierwürdig.
+      </div>
     </div>
 
     <div class="recall-item">
       <div class="recall-question">4. Welche drei Haupt-Lesedurchläufe werden empfohlen (Skimming, Scanning, Close Reading) und für welchen Zweck wird jeder einzelne eingesetzt?</div>
-      <textarea class="task-textarea" placeholder="Ihre Antwort …" style="min-height:90px;"></textarea>
+      <textarea class="task-textarea" id="ex5-a4" placeholder="Ihre Antwort …" style="min-height:90px;"></textarea>
+      <div class="btn-row">
+        <button class="btn-sample" onclick="toggleSample('ex5-s4', this)">💡 Musterlösung anzeigen</button>
+        <button class="btn-reset" onclick="resetSample('ex5-a4', 'ex5-s4', this)">↺ Zurücksetzen</button>
+      </div>
+      <div class="sample-answer" id="ex5-s4">
+        <strong>Musterlösung:</strong> <strong>Skimming</strong> (Querlesen) verschafft einen schnellen groben Überblick über Thema und Aufbau eines Textes, z. B. durch Lesen von Titel, Überschriften und Einleitung – geeignet zur ersten Relevanzprüfung. <strong>Scanning</strong> (gezieltes Suchlesen) wird eingesetzt, um im Text nach ganz bestimmten Informationen zu suchen (z. B. einer Zahl, einem Begriff oder Autorennamen), ohne den gesamten Text zu lesen. <strong>Close Reading</strong> (intensives Lesen) dient dem tiefen, gründlichen Verständnis eines als relevant erkannten Textes, inklusive kritischer Auseinandersetzung mit Argumentation und Methodik – wird meist erst nach Skimming/Scanning für ausgewählte Kernquellen eingesetzt.
+      </div>
     </div>
 
     <div class="recall-item">
       <div class="recall-question">5. Nenne mindestens drei konkrete Einsatzmöglichkeiten von KI-Tools im wissenschaftlichen Kontext und erläutere jeweils ein damit verbundenes Risiko.</div>
-      <textarea class="task-textarea" placeholder="Ihre Antwort …" style="min-height:90px;"></textarea>
+      <textarea class="task-textarea" id="ex5-a5" placeholder="Ihre Antwort …" style="min-height:90px;"></textarea>
+      <div class="btn-row">
+        <button class="btn-sample" onclick="toggleSample('ex5-s5', this)">💡 Musterlösung anzeigen</button>
+        <button class="btn-reset" onclick="resetSample('ex5-a5', 'ex5-s5', this)">↺ Zurücksetzen</button>
+      </div>
+      <div class="sample-answer" id="ex5-s5">
+        <strong>Musterlösung:</strong><br><br>
+        <strong>1. Literaturrecherche/Zusammenfassung:</strong> KI-Tools können helfen, sich schnell einen Überblick über ein Themenfeld zu verschaffen oder lange Artikel zusammenzufassen. <em>Risiko:</em> Halluzinationen – die KI kann plausibel klingende, aber frei erfundene Quellen oder Fakten nennen.<br><br>
+        <strong>2. Sprachliche Überarbeitung:</strong> KI kann beim Formulieren, Umformulieren oder bei der Grammatik-/Stilkorrektur eigener Texte unterstützen. <em>Risiko:</em> Verlust der eigenen Stimme/des eigenen Stils sowie unklare Grenzen zur eigenständigen Leistung, was in Bezug auf wissenschaftliche Redlichkeit problematisch werden kann.<br><br>
+        <strong>3. Strukturierung/Ideenfindung:</strong> KI kann bei der Gliederung einer Arbeit oder beim Brainstorming von Gliederungspunkten helfen. <em>Risiko:</em> Übernahme einer vorgeschlagenen Struktur ohne eigene kritische Prüfung, wodurch wichtige fachspezifische Aspekte übersehen werden können.
+      </div>
     </div>
   </section>
 
@@ -738,7 +807,16 @@
         <strong>a)</strong> Wählen Sie eine Fachzeitschrift aus Ihrer Studienrichtung und recherchieren Sie ihr Ranking (z. B. VHB oder SJR-Quartil). Begründen Sie, warum diese Zeitschrift für Ihre wissenschaftliche Arbeit als zitierwürdig/nicht zitierwürdig einzustufen wäre.<br><br>
         <strong>b)</strong> Nehmen Sie einen beliebigen Wikipedia-Artikel zu einem wissenschaftlichen Thema und wenden Sie den CRAAP-Test auf ihn an. Fassen Sie zusammen, welche Kriterien der Artikel erfüllt und welche nicht, und begründen Sie, warum er für eine wissenschaftliche Arbeit nur bedingt zitierfähig ist.
       </div>
-      <textarea class="task-textarea" placeholder="Ihre Antwort zu a) und b) …"></textarea>
+      <textarea class="task-textarea" id="ex6-a1" placeholder="Ihre Antwort zu a) und b) …"></textarea>
+      <div class="btn-row">
+        <button class="btn-sample" onclick="toggleSample('ex6-s1', this)">💡 Musterlösung anzeigen</button>
+        <button class="btn-reset" onclick="resetSample('ex6-a1', 'ex6-s1', this)">↺ Zurücksetzen</button>
+      </div>
+      <div class="sample-answer" id="ex6-s1">
+        <strong>Musterlösung (Beispielhafte Vorgehensweise):</strong><br><br>
+        <strong>a)</strong> Beispiel: Wählt man etwa eine Zeitschrift aus dem Marketing-Bereich, recherchiert man deren Ranking im VHB-JOURQUAL (z. B. „A", „B", „C") oder das SJR-Quartil (z. B. Q1) auf scimagojr.com. Eine Zeitschrift im Top-Quartil bzw. mit gutem VHB-Ranking gilt i. d. R. als zitierwürdig, da sie ein anerkanntes Peer-Review-Verfahren durchläuft, von Fachleuten redaktionell geprüft wird und im jeweiligen Fachbereich hohe Sichtbarkeit/Zitierhäufigkeit besitzt. Eine Zeitschrift ohne Ranking oder aus einem unseriösen Verlag (z. B. „Predatory Journal") wäre dagegen nicht zitierwürdig, da Qualitätssicherung und Autorität fehlen.<br><br>
+        <strong>b)</strong> Wendet man den CRAAP-Test auf einen Wikipedia-Artikel an, zeigt sich meist folgendes Bild: <em>Currency</em> ist oft gut erfüllt (Artikel werden laufend aktualisiert). <em>Relevance</em> kann gegeben sein, wenn das Thema passt. Bei <em>Authority</em> hapert es meist, da Autoren anonym und ohne belegte Fachexpertise sind. <em>Accuracy</em> ist nur bedingt erfüllt, da Inhalte von jedem verändert werden können und nicht durchgehend fachlich geprüft sind. <em>Purpose</em> ist informativ, aber nicht wissenschaftlich ausgerichtet. In Summe ist ein Wikipedia-Artikel daher meist nur bedingt zitierfähig: gut geeignet als erster Überblick oder um über die dort verlinkten Primärquellen weiterzurecherchieren, aber ungeeignet als eigenständiger Beleg in einer wissenschaftlichen Arbeit.
+      </div>
     </div>
 
     <hr class="divider">
@@ -746,7 +824,14 @@
     <div class="task-block">
       <div class="task-title"><span class="task-number">2️⃣</span>Aufgabe 2: Anwendung der Drei-Blicke-Methode</div>
       <div class="task-text">Laden Sie sich den Artikel <em>„Surprise, Surprise. Ambient Media as Promotion Tool for Retailers"</em> (Hutter &amp; Hoffmann, 2014) herunter. Wenden Sie den „Blick 1: Die Essenz" an, um die Forschungsfrage, die Antwort darauf und den groben Studienablauf zu identifizieren. Fassen Sie die Essenz des Artikels in zwei bis drei Sätzen zusammen.</div>
-      <textarea class="task-textarea" placeholder="Ihre Zusammenfassung der Essenz (2–3 Sätze) …" style="min-height:90px;"></textarea>
+      <textarea class="task-textarea" id="ex6-a2" placeholder="Ihre Zusammenfassung der Essenz (2–3 Sätze) …" style="min-height:90px;"></textarea>
+      <div class="btn-row">
+        <button class="btn-sample" onclick="toggleSample('ex6-s2', this)">💡 Musterlösung anzeigen</button>
+        <button class="btn-reset" onclick="resetSample('ex6-a2', 'ex6-s2', this)">↺ Zurücksetzen</button>
+      </div>
+      <div class="sample-answer" id="ex6-s2">
+        <strong>Musterlösung (Beispielhafte Antwortstruktur):</strong> Beim „Blick 1: Die Essenz" geht es darum, in wenigen Sätzen auf den Punkt zu bringen, <em>welche Forschungsfrage</em> der Artikel stellt, <em>welche Antwort/welches zentrale Ergebnis</em> die Autor:innen liefern, und <em>wie</em> sie grob methodisch vorgegangen sind (z. B. Feldexperiment, Befragung, Sekundärdatenanalyse). Eine gute Essenz-Zusammenfassung könnte z. B. so aufgebaut sein: „Der Artikel untersucht, [Forschungsfrage in eigenen Worten]. Die Autor:innen zeigen anhand von [grober Studienablauf, z. B. einem Experiment/einer Befragung mit X Teilnehmenden], dass [zentrales Ergebnis]." Da der genaue Inhalt vom tatsächlich gelesenen Artikel abhängt, dient dies als Formulierungs-Vorlage – ersetzen Sie die Platzhalter durch die konkreten Inhalte aus „Surprise, Surprise" (Hutter &amp; Hoffmann, 2014).
+      </div>
     </div>
   </section>
 </div><!-- /.page-wrapper -->
@@ -801,6 +886,25 @@ function toggleMethod(id, headerBtn) {
   const isOpen = body.classList.contains('open');
   body.classList.toggle('open', !isOpen);
   headerBtn.classList.toggle('open', !isOpen);
+}
+
+/* ── Musterlösung: Anzeigen/Verbergen & Zurücksetzen ── */
+function toggleSample(id, btn) {
+  const el = document.getElementById(id);
+  const isVisible = el.style.display === 'block';
+  el.style.display = isVisible ? 'none' : 'block';
+  btn.textContent = isVisible ? '💡 Musterlösung anzeigen' : '🙈 Musterlösung verbergen';
+}
+
+function resetSample(textareaId, sampleId, btn) {
+  const textarea = document.getElementById(textareaId);
+  textarea.value = '';
+  if (sampleId) {
+    const sample = document.getElementById(sampleId);
+    sample.style.display = 'none';
+    const sampleBtn = btn.parentElement.querySelector('.btn-sample');
+    if (sampleBtn) sampleBtn.textContent = '💡 Musterlösung anzeigen';
+  }
 }
 </script>
 </body>
