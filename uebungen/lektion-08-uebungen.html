@@ -432,6 +432,92 @@
   }
   .link-box a:hover { color: var(--primary-text); }
 
+  /* ── ACTIVE RECALL ── */
+  .recall-item {
+    padding: 16px 20px;
+    background: var(--bg);
+    border-radius: 8px;
+    border-left: 4px solid var(--accent);
+    margin-bottom: 14px;
+  }
+  .recall-item:last-child { margin-bottom: 0; }
+  .recall-question {
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.55;
+    margin-bottom: 10px;
+  }
+  .reveal-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: transparent;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    border-radius: 24px;
+    padding: 7px 16px;
+    font-family: inherit;
+    font-size: .85rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background .15s, color .15s;
+  }
+  .reveal-btn:hover { background: var(--accent); color: #fff; }
+  .reveal-content {
+    display: none;
+    margin-top: 12px;
+    padding: 14px 18px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: .93rem;
+    line-height: 1.6;
+  }
+  .reveal-content.open { display: block; }
+
+  /* ── OFFENE SYNTHESEAUFGABEN ── */
+  .task-block {
+    margin-bottom: 8px;
+  }
+  .task-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    margin-right: 8px;
+  }
+  .task-title {
+    font-size: 1.02rem;
+    font-weight: 700;
+    color: var(--primary-text);
+    margin-bottom: 10px;
+  }
+  .task-text {
+    margin-bottom: 14px;
+    font-size: .97rem;
+  }
+  .task-textarea {
+    width: 100%;
+    min-height: 140px;
+    resize: vertical;
+    font-family: inherit;
+    font-size: .95rem;
+    line-height: 1.5;
+    color: var(--text);
+    background: var(--bg);
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    padding: 14px 16px;
+    transition: border-color .15s;
+  }
+  .task-textarea:focus { outline: none; border-color: var(--primary-dark); }
+  .task-hint {
+    margin-top: 10px;
+    font-size: .85rem;
+    color: var(--muted);
+    font-style: italic;
+  }
+
   @media (max-width: 640px) {
     .page-header { padding: 22px 20px; }
     .exercise, .info-card { padding: 20px 18px; }
@@ -464,32 +550,9 @@
     </div>
   </div>
 
-  <!-- ============================================================
-       INFO-TEXT – Von Ergebnissen zur Bedeutung
-       ============================================================ -->
-  <div class="info-card">
-    <h2>🌉 Von Ergebnissen zur Bedeutung</h2>
-    <p>In diesem Kapitel geht es darum, die Brücke zwischen Ergebnissen und Theorie zu schlagen. Denn nur wenn wir einem Ergebnis eine Bedeutung zuweisen und es im Kontext der wissenschaftlichen Literatur und der Forschungsfrage deuten, können wir:</p>
-    <ul>
-      <li>✅ <strong>Erkenntnisse generieren</strong></li>
-      <li>✅ <strong>Trends und Muster identifizieren</strong></li>
-      <li>✅ <strong>Hypothesen prüfen und Annahmen empirisch belegen</strong></li>
-    </ul>
-  </div>
+ 
 
-  <!-- ============================================================
-       INFO-TEXT – Qualitativ oder quantitativ?
-       ============================================================ -->
-  <div class="info-card">
-    <h2>⚖️ Qualitativ oder quantitativ – wie unterscheiden sich die Ergebnisse?</h2>
-    <p>Sie haben bereits gelernt, qualitative und quantitative Forschung zu unterscheiden. Auch die Ergebnispräsentation und die Interpretation unterscheiden sich deutlich.</p>
-    <h3>Qualitative Forschung</h3>
-    <p>Die Ergebnisse werden <strong>nach Themen oder Kategorien</strong> gegliedert. Typisch ist die Verwendung von <strong>Zitaten</strong> aus Interviews, um die Aussagen der Teilnehmenden zu illustrieren. Statt Zahlen zeigt man <strong>Muster, Bedeutungen und Zusammenhänge</strong>.</p>
-    <h3>Quantitative Forschung</h3>
-    <p>Hier findet man Berichte von statistischen Werten <strong>als Text</strong> oder <strong>als Tabelle</strong>.</p>
-    <p>Wichtig ist außerdem, die <strong>APA-Formalia</strong> einzuhalten und die Ergebnisse entweder in Worten <em>oder</em> tabellarisch darzustellen – aber nicht beides, denn sonst berichtet man doppelt. Die Ergebnisse werden an dieser Stelle noch nicht interpretiert – das folgt erst im Diskussionsteil.</p>
-  </div>
-
+ 
   <!-- ============================================================
        AUFGABE 1 – Qualitativ oder quantitativ?
        (Einfache Auswahl: jeweils eine richtige Antwort anklicken)
@@ -530,24 +593,7 @@
     <button class="btn-reset" onclick="resetQuestion('q3')">↺ Zurücksetzen</button>
   </section>
 
-  <!-- ============================================================
-       INFO-TEXT – 4 Schritte zur Interpretation
-       ============================================================ -->
-  <div class="info-card">
-    <h2>🧭 4 Schritte zur Interpretation</h2>
-    <h3>1. Daten verstehen</h3>
-    <p>Muster und Trends erkennen – von der Aufzählung zur deskriptiven Analyse.</p>
-    <p><em>Beispiel: In der Umfrage gaben <strong>68 % der Konsumenten</strong> an, <strong>nachhaltige Produkte zu bevorzugen</strong>. ✅</em></p>
-    <h3>2. Theoriebezug herstellen</h3>
-    <p>Ergebnisse mit wissenschaftlichen Konzepten und theoretischen Rahmenwerken verknüpfen.</p>
-    <p><em>Beispiel: Dieses Ergebnis deutet auf ein <strong>wachsendes Umweltbewusstsein</strong> hin. Diese Tendenz passt zu aktuellen Erkenntnissen zur CSR-Kommunikation. ✅</em></p>
-    <h3>3. Hypothesen prüfen</h3>
-    <p>Explizit klären, ob die Daten und die Theorie die Forschungsfrage beantworten.</p>
-    <p><em>Beispiel: Die Beobachtung, dass Personen mit höherer Social-Media-Nutzung häufiger einkaufen, bestätigt die angenommene <strong>positive Korrelation mit r = 0,79</strong>. ✅</em></p>
-    <h3>4. Erklärungen bieten</h3>
-    <p>Kausalität, Mechanismen und wissenschaftliche Implikationen beleuchten.</p>
-    <p><em>Beispiel: Als Erklärung kann angenommen werden, dass diese Präferenz mit <strong>emotionaler Zufriedenheit</strong> verbunden ist, wobei alternative Erklärungen wie <strong>soziale Normen</strong> ebenfalls in Betracht gezogen werden müssen – denn Korrelation impliziert keine Kausalität. ✅</em></p>
-  </div>
+ 
 
   <!-- ============================================================
        INFO-TEXT – Beschreiben oder Interpretieren?
@@ -600,6 +646,91 @@
     <button class="btn-check" onclick="checkFillText('fill1')">✓ Überprüfen</button>
     <button class="btn-reset" onclick="resetFillText('fill1')">↺ Zurücksetzen</button>
     <div class="feedback-msg" id="fill1-feedback"></div>
+  </section>
+
+  <!-- ============================================================
+       AUFGABE 4 – Active Recall
+       ============================================================ -->
+  <section class="exercise" id="ex4">
+    <div class="exercise-label">Aufgabe 4 · Active Recall</div>
+    <h3>🧩 Active Recall-Aufforderungen</h3>
+    <p class="exercise-intro">Beantworten Sie die folgenden Fragen zunächst frei aus dem Gedächtnis, bevor Sie sich die Musterantwort anzeigen lassen.</p>
+
+    <div class="recall-item">
+      <div class="recall-question">Wie unterscheidest du zwischen einer rein deskriptiven Aussage und einer Interpretation in wissenschaftlichen Ergebnissen? Gib zwei Beispiele.</div>
+      <button class="reveal-btn" id="recall1-btn" onclick="toggleReveal('recall1','Musterantwort')">💡 Musterantwort anzeigen</button>
+      <button class="btn-reset" onclick="resetReveal('recall1','Musterantwort')">↺ Zurücksetzen</button>
+      <div class="reveal-content" id="recall1">Eine <strong>deskriptive</strong> Aussage gibt lediglich wieder, was in den Daten beobachtet oder gemessen wurde – Zahlen, Häufigkeiten oder statistische Kennwerte –, ohne eine Erklärung, Bewertung oder Ursache hinzuzufügen. Eine <strong>Interpretation</strong> geht darüber hinaus, indem sie den Befund erklärt, in einen theoretischen Zusammenhang einordnet oder eine mögliche Ursache benennt. Beispiele: Deskriptiv – „45 % der Befragten bevorzugen nachhaltige Verpackungen." Interpretation – „Die hohe Zustimmung könnte auf ein gestiegenes Umweltbewusstsein zurückzuführen sein."</div>
+    </div>
+
+    <div class="recall-item">
+      <div class="recall-question">Erläutere den 4-Schritte-Interpretationsprozess und wie er zur Beantwortung von Forschungsfragen beiträgt.</div>
+      <button class="reveal-btn" id="recall2-btn" onclick="toggleReveal('recall2','Musterantwort')">💡 Musterantwort anzeigen</button>
+      <button class="btn-reset" onclick="resetReveal('recall2','Musterantwort')">↺ Zurücksetzen</button>
+      <div class="reveal-content" id="recall2">Der Interpretationsprozess lässt sich in vier Schritte gliedern: (1) den Befund zunächst neutral in eigenen Worten zusammenfassen, (2) ihn auf die Forschungsfrage bzw. Hypothese beziehen (wurde sie bestätigt, widerlegt oder teilweise gestützt?), (3) ihn vor dem Hintergrund bestehender Theorie und Literatur einordnen (passt er zu bisherigen Befunden oder weicht er ab?) und (4) daraus praktische oder theoretische Implikationen ableiten. So wird aus einem reinen Zahlenwert eine inhaltliche Aussage, die erklärt, was der Befund für die ursprüngliche Fragestellung bedeutet.</div>
+    </div>
+
+    <div class="recall-item">
+      <div class="recall-question">Warum ist die Berücksichtigung von Limitationen ein Zeichen wissenschaftlicher Reife, und welche vier Hauptkategorien von Limitationen gibt es?</div>
+      <button class="reveal-btn" id="recall3-btn" onclick="toggleReveal('recall3','Musterantwort')">💡 Musterantwort anzeigen</button>
+      <button class="btn-reset" onclick="resetReveal('recall3','Musterantwort')">↺ Zurücksetzen</button>
+      <div class="reveal-content" id="recall3">Limitationen offen zu benennen zeigt, dass Forschende die Grenzen der eigenen Methodik reflektieren und Ergebnisse nicht überinterpretieren – das stärkt statt schwächt die Glaubwürdigkeit einer Arbeit. Vier typische Hauptkategorien sind: <strong>Stichprobe</strong> (Größe, Zusammensetzung, Repräsentativität), <strong>Methodik/Design</strong> (z. B. Querschnitt statt Längsschnitt, Messinstrumente), <strong>Datenerhebung</strong> (z. B. Selbstauskünfte, soziale Erwünschtheit) und <strong>Generalisierbarkeit</strong> (Übertragbarkeit auf andere Kontexte oder Populationen).</div>
+    </div>
+
+    <div class="recall-item">
+      <div class="recall-question">Beschreibe die drei Ethik-Ebenen wissenschaftlicher Studien und nenne jeweils ein Kernprinzip.</div>
+      <button class="reveal-btn" id="recall4-btn" onclick="toggleReveal('recall4','Musterantwort')">💡 Musterantwort anzeigen</button>
+      <button class="btn-reset" onclick="resetReveal('recall4','Musterantwort')">↺ Zurücksetzen</button>
+      <div class="reveal-content" id="recall4">Man unterscheidet meist drei Ebenen: die <strong>individuelle Ebene</strong> (Kernprinzip: informierte Einwilligung – Teilnehmende müssen wissen, worauf sie sich einlassen), die <strong>institutionelle Ebene</strong> (Kernprinzip: Prüfung durch eine Ethikkommission sowie Einhaltung von Datenschutzvorgaben) und die <strong>gesellschaftliche Ebene</strong> (Kernprinzip: Abwägung von Nutzen und möglichem Schaden der Forschung für die Gesellschaft als Ganzes).</div>
+    </div>
+
+    <div class="recall-item">
+      <div class="recall-question">Erkläre anhand eines Beispiels, warum Korrelation nicht gleich Kausalität ist, und welche Fehler sich daraus ergeben können.</div>
+      <button class="reveal-btn" id="recall5-btn" onclick="toggleReveal('recall5','Musterantwort')">💡 Musterantwort anzeigen</button>
+      <button class="btn-reset" onclick="resetReveal('recall5','Musterantwort')">↺ Zurücksetzen</button>
+      <div class="reveal-content" id="recall5">Ein klassisches Beispiel: Eisverkauf und Ertrinkungsfälle korrelieren im Jahresverlauf positiv – steigen beide im Sommer an –, obwohl Eis niemand ertrinken lässt. Beide hängen stattdessen von einer <strong>Drittvariable</strong> ab, der Temperatur bzw. Jahreszeit. Wird eine reine Korrelation fälschlich als Ursache-Wirkungs-Beziehung interpretiert, drohen typische Fehler: die Verwechslung von Ursache und Wirkung (<em>reverse causation</em>), das Übersehen einer Drittvariable oder das Fehlinterpretieren eines rein zufälligen Zusammenhangs (Scheinkorrelation).</div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       AUFGABE 5 – Übungsaufgaben & Synthesefragen
+       ============================================================ -->
+  <section class="exercise" id="ex5">
+    <div class="exercise-label">Aufgabe 5 · Synthese</div>
+    <h3>✏️ Übungsaufgaben &amp; Synthesefragen</h3>
+    <p class="exercise-intro">Diese Aufgaben haben teils keine einzelne „richtige" Lösung – nutzen Sie das Textfeld, um Ihre Antwort zu formulieren, und vergleichen Sie diese anschließend mit der Musterlösung.</p>
+
+    <div class="task-block">
+      <div class="task-title"><span class="task-number">1️⃣</span>Analyse von Aussagen</div>
+      <div class="task-text">Überprüfen Sie die folgenden Aussagen und kennzeichnen Sie sie als Beschreibung (B) oder Interpretation (I). Wenn es sich um eine Interpretation handelt, überlegen Sie, welche theoretischen Hintergründe oder weiteren Daten diese stützen könnten.<br><br>
+        a) „45 % der Befragten bevorzugen nachhaltige Verpackungen." (K08 p.8)<br>
+        b) „Personen mit höherem Koffeinkonsum schlafen durchschnittlich 45 Minuten kürzer." (K08 p.7)<br>
+        c) „Der höhere Rabatt könnte erklären, warum mehr Personen einen eigenen Becher nutzten." (K08 p.13)<br>
+        d) „Dass nur 38 % einen eigenen Becher nutzen, legt nahe, dass Bequemlichkeitsbarrieren eine große Rolle spielen." (K08 p.13)</div>
+      <textarea class="task-textarea" id="task5-1-ta" placeholder="Ihre Einordnung: a) B/I – b) B/I – c) B/I – d) B/I, jeweils mit kurzer Begründung …"></textarea>
+      <button class="reveal-btn" id="task5-1-sol-btn" onclick="toggleReveal('task5-1-sol','Musterlösung')">💡 Musterlösung anzeigen</button>
+      <button class="btn-reset" onclick="resetReveal('task5-1-sol','Musterlösung','task5-1-ta')">↺ Zurücksetzen</button>
+      <div class="reveal-content" id="task5-1-sol">
+        <strong>a) Beschreibung (B).</strong> Es wird nur ein gemessener Prozentwert wiedergegeben, ohne Erklärung oder Deutung.<br><br>
+        <strong>b) Beschreibung (B).</strong> Auch hier wird lediglich ein statistischer Unterschied zwischen zwei Gruppen berichtet – die Aussage bleibt bei dem, was gemessen wurde, ohne eine Ursache zu benennen.<br><br>
+        <strong>c) Interpretation (I).</strong> Das Wort „könnte erklären" zeigt, dass hier eine mögliche Ursache für einen beobachteten Effekt vermutet wird. Gestützt werden könnte diese Deutung z. B. durch verhaltensökonomische Theorien zu Preisanreizen oder durch zusätzliche Befragungsdaten zur Kaufmotivation.<br><br>
+        <strong>d) Interpretation (I).</strong> „Legt nahe" signalisiert eine Schlussfolgerung über die dahinterliegende Ursache (Bequemlichkeit), die über die reine Zahl hinausgeht. Stützen ließe sich dies z. B. durch Theorien zu Gewohnheitsverhalten oder durch ergänzende Fragen zu wahrgenommenen Hürden bei der Nutzung.</div>
+    </div>
+
+    <hr class="divider">
+
+    <div class="task-block">
+      <div class="task-title"><span class="task-number">2️⃣</span>Ethik-Fallstudie</div>
+      <div class="task-text">Identifizieren Sie für Fall 1 („UX-Studie zu Apps") und Fall 3 („Studie zu Konsumverhalten") von Seite 41 den jeweiligen Ethikverstoß. Erklären Sie kurz, gegen welches Prinzip bzw. welche Ebene der Wissenschaftsethik verstoßen wird und warum. (K08 p.41, p.59)<br><br>
+        <strong>Fall 1:</strong> Ein Forscher fragt Probanden nach Meinungen zu Apps und zeichnet die Reaktionen auf. Er erwähnt nicht, dass es eigentlich um manipulative Designs geht, und es folgt kein Nachgespräch.<br><br>
+        <strong>Fall 3:</strong> Ein Forscher lädt Studierende über Uni-Social-Media-Gruppen zu einer anonymen Umfrage ein, die Einkaufspräferenzen erfasst. Die Daten werden später mit Einwilligung für eine Branchenkooperation genutzt, wobei die Partner anonym bleiben.</div>
+      <textarea class="task-textarea" id="task5-2-ta" placeholder="Ihre Einschätzung zu Fall 1 und Fall 3: welches Prinzip bzw. welche Ebene ist jeweils betroffen, und warum?"></textarea>
+      <button class="reveal-btn" id="task5-2-sol-btn" onclick="toggleReveal('task5-2-sol','Musterlösung')">💡 Musterlösung anzeigen</button>
+      <button class="btn-reset" onclick="resetReveal('task5-2-sol','Musterlösung','task5-2-ta')">↺ Zurücksetzen</button>
+      <div class="reveal-content" id="task5-2-sol">
+        <strong>Fall 1 – Verstoß auf individueller Ebene gegen das Prinzip der informierten Einwilligung.</strong> Da der wahre Zweck der Studie (Reaktionen auf manipulative Designs) verschwiegen wird, können die Probanden nicht wirklich informiert zustimmen. Ohne ein anschließendes Debriefing bleibt zudem unklar, worüber ihre Reaktionen tatsächlich aufgezeichnet wurden – eine Täuschung ohne Aufklärung danach verletzt die Aufklärungspflicht gegenüber den Teilnehmenden.<br><br>
+        <strong>Fall 3 – Verstoß auf institutioneller/gesellschaftlicher Ebene gegen den Grundsatz der Zweckbindung.</strong> Die Umfrage wurde ursprünglich für einen bestimmten (Forschungs-)Zweck erhoben; die spätere Nutzung für eine kommerzielle Branchenkooperation ist eine Zweckänderung. Selbst wenn die Partner anonym bleiben und formal eine Einwilligung vorliegt, bleibt für die Teilnehmenden intransparent, wer letztlich von ihren Daten profitiert – das widerspricht dem Transparenzgebot beim Umgang mit personenbezogenen bzw. forschungsbezogenen Daten.</div>
+    </div>
   </section>
 
   <!-- ============================================================
@@ -736,6 +867,31 @@ function resetFillText(id) {
   const feedback = document.getElementById(id + '-feedback');
   feedback.className = 'feedback-msg';
   feedback.style.display = 'none';
+}
+
+/* ============================================================
+   ACTIVE RECALL & SYNTHESEAUFGABEN (Aufgabe 4, 5)
+   ============================================================ */
+/* id = ID des .reveal-content-Elements
+   label = Text auf dem Button, z. B. "Musterantwort" oder "Musterlösung"
+   Der zugehörige Button braucht die ID "<id>-btn". */
+function toggleReveal(id, label) {
+  const content = document.getElementById(id);
+  const btn = document.getElementById(id + '-btn');
+  const isOpen = content.classList.toggle('open');
+  btn.textContent = isOpen ? ('🙈 ' + label + ' ausblenden') : ('💡 ' + label + ' anzeigen');
+}
+
+/* Blendet die Musterlösung/-antwort wieder aus und setzt optional
+   ein zugehöriges Textfeld (textareaId) zurück. */
+function resetReveal(id, label, textareaId) {
+  const content = document.getElementById(id);
+  const btn = document.getElementById(id + '-btn');
+  content.classList.remove('open');
+  btn.textContent = '💡 ' + label + ' anzeigen';
+  if (textareaId) {
+    document.getElementById(textareaId).value = '';
+  }
 }
 </script>
 </body>
