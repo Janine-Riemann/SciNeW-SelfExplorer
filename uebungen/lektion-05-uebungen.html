@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Workbook – Kapitel 5</title>
 <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+ <link rel="stylesheet" href="assets/lightbox.css">
+
 <style>
   /* ============================================================
      FARBEN & GRUNDEINSTELLUNGEN
@@ -530,6 +532,32 @@
     font-style: italic;
   }
 
+  /* ── BILD-PLATZHALTER (z. B. Screenshot einer Gliederung) ──
+     Um das Bild auszutauschen: einfach die Datei mit dem
+     gleichen Dateinamen ersetzen, der Code muss NICHT
+     angepasst werden. Dateiname siehe img-src unten. */
+  .image-placeholder {
+    margin-bottom: 16px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--surface);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+  }
+  .image-placeholder img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  .image-placeholder .image-caption {
+    padding: 8px 14px;
+    font-size: .82rem;
+    color: var(--muted);
+    font-style: italic;
+    border-top: 1px solid var(--border);
+    background: var(--bg);
+  }
+
   @media (max-width: 640px) {
     .page-header { padding: 22px 20px; }
     .exercise, .info-card { padding: 20px 18px; }
@@ -839,7 +867,7 @@
        ============================================================ -->
   <section class="exercise" id="ex6">
     <div class="exercise-label">Aufgabe 6 · Lückentext</div>
-    <h3>Ziehen Sie die Wörter in die richtigen Felder!</h3>
+    <h3>Wählen Sie das passende Wort aus der Dropdown-Liste!</h3>
     <p class="exercise-intro">Wähle für jede Lücke das passende Wort aus dem Dropdown-Menü.</p>
 
     <div class="fill-text" id="fill1-text">
@@ -967,31 +995,36 @@
 
     <div class="recall-item">
       <div class="recall-question">Wie unterscheidet sich die Funktion eines Literatur-Reviews, wenn er als „deskriptiv" versus „systematisch" eingestuft wird, und welche konkreten Schritte sind für letzteren notwendig?</div>
-      <button class="reveal-btn" onclick="toggleReveal('recall1')">👁 Musterantwort anzeigen</button>
+      <button class="reveal-btn" id="recall1-btn" onclick="toggleReveal('recall1','Musterantwort')">💡 Musterantwort anzeigen</button>
+      <button class="btn-reset" onclick="resetReveal('recall1','Musterantwort')">↺ Zurücksetzen</button>
       <div class="reveal-content" id="recall1">Ein <strong>deskriptiver</strong> Review fasst vorhandene Literatur zu einem Thema überblicksartig zusammen, ohne einem festen, nachvollziehbaren Suchprotokoll zu folgen – die Auswahl der Quellen bleibt subjektiv. Ein <strong>systematischer</strong> Review verfolgt dagegen das Ziel, alle relevante Literatur zu einer Fragestellung möglichst vollständig und nachvollziehbar zu erfassen. Dafür sind u. a. notwendig: eine präzise, im Vorfeld festgelegte Fragestellung, eine dokumentierte Suchstrategie (Datenbanken, Suchbegriffe, Zeitraum), transparente Ein- und Ausschlusskriterien für Quellen sowie eine strukturierte, meist tabellarische Auswertung der gefundenen Studien.</div>
     </div>
 
     <div class="recall-item">
       <div class="recall-question">Erläutere das Toulmin-Modell der Argumentation anhand eines selbstgewählten Beispiels und zeige auf, wie „Behauptung", „Beweis" und „Einschränkung" interagieren.</div>
-      <button class="reveal-btn" onclick="toggleReveal('recall2')">👁 Musterantwort anzeigen</button>
+      <button class="reveal-btn" id="recall2-btn" onclick="toggleReveal('recall2','Musterantwort')">💡 Musterantwort anzeigen</button>
+      <button class="btn-reset" onclick="resetReveal('recall2','Musterantwort')">↺ Zurücksetzen</button>
       <div class="reveal-content" id="recall2">Das Toulmin-Modell beschreibt den Aufbau einer schlüssigen Argumentation über mehrere Bausteine, von denen drei zentral sind: Die <strong>Behauptung</strong> (Claim) ist die These, die begründet werden soll. Der <strong>Beweis</strong> (Data/Grounds) liefert die Fakten, Daten oder Belege, auf denen die Behauptung fußt. Die <strong>Einschränkung</strong> (Qualifier/Rebuttal) grenzt ein, unter welchen Bedingungen die Behauptung gilt bzw. wann sie nicht zutrifft. Beispiel: Behauptung – „Regelmäßige Bewegung verbessert die Konzentrationsfähigkeit von Studierenden." Beweis – Studien zeigen einen Zusammenhang zwischen körperlicher Aktivität und kognitiver Leistungsfähigkeit. Einschränkung – Dieser Effekt gilt vor allem für moderate, regelmäßige Bewegung; bei Übertraining oder Erschöpfung kann sich der Effekt umkehren. Erst das Zusammenspiel aller drei Elemente macht ein Argument tragfähig und nachvollziehbar.</div>
     </div>
 
     <div class="recall-item">
       <div class="recall-question">Welche spezifischen Regeln gelten für die Zeitform und das Gendern im wissenschaftlichen Schreiben, und warum ist deren konsistente Anwendung wichtig?</div>
-      <button class="reveal-btn" onclick="toggleReveal('recall3')">👁 Musterantwort anzeigen</button>
+      <button class="reveal-btn" id="recall3-btn" onclick="toggleReveal('recall3','Musterantwort')">💡 Musterantwort anzeigen</button>
+      <button class="btn-reset" onclick="resetReveal('recall3','Musterantwort')">↺ Zurücksetzen</button>
       <div class="reveal-content" id="recall3">Bei der <strong>Zeitform</strong> gilt im deutschsprachigen wissenschaftlichen Schreiben meist: Theorieteil, Methodenbeschreibung von Studien anderer sowie allgemeingültige Aussagen im Präsens; die eigene Durchführung und Ergebnisse der eigenen Untersuchung im Präteritum. Beim <strong>Gendern</strong> ist zunächst die Vorgabe der jeweiligen Hochschule bzw. des Fachbereichs zu prüfen (z. B. Gender-Doppelpunkt, Beidnennung, neutrale Formulierungen); wichtig ist, sich einmal für eine Form zu entscheiden. In beiden Fällen ist die <strong>konsistente Anwendung</strong> entscheidend, weil uneinheitliche Zeitformen oder wechselnde Gender-Schreibweisen den Lesefluss stören, unprofessionell wirken und in der Bewertung als formaler Mangel gewertet werden können.</div>
     </div>
 
     <div class="recall-item">
       <div class="recall-question">Warum ist der „Rote Faden" für die Gliederung einer wissenschaftlichen Arbeit entscheidend, und welche Auswirkungen hat eine fehlende Logik auf die Bewertung?</div>
-      <button class="reveal-btn" onclick="toggleReveal('recall4')">👁 Musterantwort anzeigen</button>
+      <button class="reveal-btn" id="recall4-btn" onclick="toggleReveal('recall4','Musterantwort')">💡 Musterantwort anzeigen</button>
+      <button class="btn-reset" onclick="resetReveal('recall4','Musterantwort')">↺ Zurücksetzen</button>
       <div class="reveal-content" id="recall4">Der „Rote Faden" sorgt dafür, dass Kapitel und Unterkapitel logisch aufeinander aufbauen und die Argumentation nachvollziehbar zur Forschungsfrage hinführt – jeder Abschnitt sollte erkennbar auf den vorherigen aufbauen und den nächsten vorbereiten. Fehlt diese Logik, wirkt die Arbeit fragmentiert und beliebig zusammengestellt, Leserinnen und Leser können den Erkenntnisgewinn nicht nachvollziehen, und zentrale Zusammenhänge gehen verloren. In der Bewertung führt ein fehlender Roter Faden meist zu Punktabzug bei Kriterien wie Struktur, Kohärenz und wissenschaftlicher Argumentationsfähigkeit, selbst wenn die einzelnen Inhalte fachlich korrekt sind.</div>
     </div>
 
     <div class="recall-item">
       <div class="recall-question">Welche Informationen gehören zwingend in den Abstract einer wissenschaftlichen Arbeit, und welche nicht? Begründe dies.</div>
-      <button class="reveal-btn" onclick="toggleReveal('recall5')">👁 Musterantwort anzeigen</button>
+      <button class="reveal-btn" id="recall5-btn" onclick="toggleReveal('recall5','Musterantwort')">💡 Musterantwort anzeigen</button>
+      <button class="btn-reset" onclick="resetReveal('recall5','Musterantwort')">↺ Zurücksetzen</button>
       <div class="reveal-content" id="recall5">Zwingend in den Abstract gehören: die Forschungsfrage bzw. Zielsetzung der Arbeit, ein kurzer Hinweis auf die verwendete Methode, die zentralen Ergebnisse sowie eine knappe Einordnung bzw. Schlussfolgerung. Nicht hinein gehören: ausführliche Literaturverweise oder Zitate, detaillierte Zwischenergebnisse und Nebenbefunde, längere theoretische Herleitungen sowie neue Informationen, die im Haupttext nicht vorkommen. Der Grund dafür ist, dass der Abstract als eigenständiger, knapper Überblick funktionieren muss, der Leserinnen und Lesern in kürzester Zeit ermöglicht, Relevanz und Kernaussage der Arbeit zu erfassen – Details und Belege gehören in den entsprechenden Hauptteil.</div>
     </div>
   </section>
@@ -1007,8 +1040,33 @@
     <div class="task-block">
       <div class="task-title"><span class="task-number">1️⃣</span>Aufgabe 1: Gliederungsanalyse</div>
       <div class="task-text">Analysiere die Gliederung der Seminararbeit „Psychische Gesundheit" und identifiziere basierend auf den vermittelten Kriterien (inhaltlich, stilistisch, formal) mindestens drei Mängel. Begründe deine Einschätzung und schlage Verbesserungen vor.</div>
-      <textarea class="task-textarea" placeholder="Ihre Analyse: Nennen Sie mindestens drei Mängel (inhaltlich / stilistisch / formal), begründen Sie diese und schlagen Sie jeweils eine Verbesserung vor …"></textarea>
+
+      <!-- Platzhalter-Bild: Datei "gliederung-psychische-gesundheit.png" im selben
+           Ordner wie diese HTML-Datei einfach durch eine neue Version ersetzen,
+           um das Bild auszutauschen (Dateiname beibehalten). -->
+      <div class="image-placeholder">
+        <img src="Etappe5_Psychische_Gesundheit_Gliederung.png" class="hero-img" alt="Gliederung der Seminararbeit „Psychische Gesundheit"">
+        <div class="image-caption">Abb.: Gliederung der Seminararbeit „Psychische Gesundheit"</div>
+      </div>
+
+      <textarea class="task-textarea" id="task11-1-ta" placeholder="Ihre Analyse: Nennen Sie mindestens drei Mängel (inhaltlich / stilistisch / formal), begründen Sie diese und schlagen Sie jeweils eine Verbesserung vor …"></textarea>
       <div class="task-hint">💡 Tipp: Prüfen Sie Aussagekraft der Überschriften, Gliederungstiefe, Ausgewogenheit der Kapitel sowie den Roten Faden.</div>
+      <button class="reveal-btn" id="task11-1-sol-btn" onclick="toggleReveal('task11-1-sol','Musterlösung')">💡 Musterlösung anzeigen</button>
+      <button class="btn-reset" onclick="resetReveal('task11-1-sol','Musterlösung','task11-1-ta')">↺ Zurücksetzen</button>
+      <div class="reveal-content" id="task11-1-sol">Anhand der abgebildeten Gliederung lassen sich u. a. folgende Mängel identifizieren:<br><br>
+        <strong>1. Stilistisch – Überschrift 1 „Einleitung und Hintergrund und Problemstellung und Ziel"</strong><br>
+        Die Überschrift reiht vier Begriffe mit „und" aneinander, statt einen inhaltlichen Zusammenhang zu benennen. Sie ist damit kein aussagekräftiger Titel nach dem „X-führt-zu-Y"-Prinzip, sondern eine bloße Aufzählung der Kapitelbestandteile.<br>
+        <em>Verbesserung:</em> z. B. „1. Psychische Gesundheit im Studium: Hintergrund, Problemstellung und Zielsetzung".<br><br>
+        <strong>2. Formal – Gliederungstiefe bei 2.3.1 „Entwicklungen unter Studierenden"</strong><br>
+        Unter 2.3 „Depression und Burnout und Stress" steht nur ein einziger Unterpunkt (2.3.1). Nach der Regel „Wer A sagt, muss auch B sagen" ist eine weitere Untergliederung nur zulässig, wenn mindestens zwei Unterpunkte entstehen.<br>
+        <em>Verbesserung:</em> entweder einen zweiten Unterpunkt ergänzen (z. B. 2.3.2 „Ursachen und Risikofaktoren") oder den Inhalt von 2.3.1 direkt in den Fließtext von 2.3 integrieren.<br><br>
+        <strong>3. Inhaltlich / Roter Faden – „3.3 Eigene Meinung"</strong><br>
+        Eine explizit als „eigene Meinung" bezeichnete Unterüberschrift im Empirie-Kapitel widerspricht dem Grundsatz des distanzierten, objektiven wissenschaftlichen Schreibens; subjektive Wertungen gehören nicht in den Ergebnisteil.<br>
+        <em>Verbesserung:</em> Umbenennung in „Interpretation der Ergebnisse" und inhaltliche Verortung in einem Diskussionsteil statt im Empirie-Kapitel.<br><br>
+        <strong>4. Formal – „4.2 Literatur" als Unterpunkt des Fazits</strong><br>
+        Das Literaturverzeichnis ist kein inhaltlicher Bestandteil des Fazits, sondern ein eigenständiges, in der Regel nicht nummeriertes Verzeichnis nach dem Haupttext.<br>
+        <em>Verbesserung:</em> „Literatur" als separates, nicht nummeriertes Kapitel nach dem Fazit (vor dem Anhang) führen.<br><br>
+        <em>Zusatzbeobachtung:</em> Bei 3.2 und 3.3 wechselt zudem die Schriftart – ein Hinweis auf uneinheitliche Formatierung, die vor Abgabe vereinheitlicht werden sollte.</div>
     </div>
 
     <hr class="divider">
@@ -1016,8 +1074,22 @@
     <div class="task-block">
       <div class="task-title"><span class="task-number">2️⃣</span>Aufgabe 2: Theorieteil-Konzeption</div>
       <div class="task-text">Du planst eine Bachelorarbeit zum Thema „Einfluss von Gamification-Elementen auf die Nutzerbindung in Lern-Apps". Entwirf eine exemplarische Gliederung für den Theorieteil (maximal drei Ebenen tief), die dem „X führt zu Y"-Prinzip folgt und die Regeln für aussagekräftige Überschriften beachtet.</div>
-      <textarea class="task-textarea" placeholder="Ihre Gliederung: z. B. 2. Theoretischer Hintergrund / 2.1 … / 2.1.1 … (maximal drei Ebenen, aussagekräftige Überschriften nach dem X-führt-zu-Y-Prinzip)"></textarea>
+      <textarea class="task-textarea" id="task11-2-ta" placeholder="Ihre Gliederung: z. B. 2. Theoretischer Hintergrund / 2.1 … / 2.1.1 … (maximal drei Ebenen, aussagekräftige Überschriften nach dem X-führt-zu-Y-Prinzip)"></textarea>
       <div class="task-hint">💡 Tipp: Jede Überschrift sollte bereits einen inhaltlichen Zusammenhang andeuten, statt nur ein Schlagwort zu nennen.</div>
+      <button class="reveal-btn" id="task11-2-sol-btn" onclick="toggleReveal('task11-2-sol','Musterlösung')">💡 Musterlösung anzeigen</button>
+      <button class="btn-reset" onclick="resetReveal('task11-2-sol','Musterlösung','task11-2-ta')">↺ Zurücksetzen</button>
+      <div class="reveal-content" id="task11-2-sol">Eine mögliche Gliederung, die dem „X-führt-zu-Y"-Prinzip folgt und drei Ebenen nicht überschreitet:<br><br>
+        <strong>2. Theoretischer Hintergrund</strong><br>
+        <strong>2.1 Gamification als Gestaltungsansatz für Lern-Apps</strong><br>
+        &nbsp;&nbsp;2.1.1 Spielelemente (Punkte, Badges, Level) als Treiber intrinsischer Motivation<br>
+        &nbsp;&nbsp;2.1.2 Abgrenzung von Gamification zu spielbasiertem Lernen<br>
+        <strong>2.2 Nutzerbindung als Zielgröße digitaler Lernangebote</strong><br>
+        &nbsp;&nbsp;2.2.1 Nutzungsdauer und Wiederkehrrate als Indikatoren für Bindung<br>
+        &nbsp;&nbsp;2.2.2 Motivationale Faktoren, die zu langfristiger Nutzung führen<br>
+        <strong>2.3 Zusammenhang zwischen Gamification-Elementen und Nutzerbindung</strong><br>
+        &nbsp;&nbsp;2.3.1 Empirische Befunde zum Einfluss einzelner Spielelemente auf die Bindung<br>
+        &nbsp;&nbsp;2.3.2 Moderierende Faktoren (z. B. Nutzertyp, Fachbereich, Alter)<br><br>
+        Jede Überschrift benennt hier bereits einen inhaltlichen Zusammenhang (z. B. „Spielelemente … als Treiber …" statt nur „Spielelemente"), sodass das „X-führt-zu-Y"-Prinzip erkennbar bleibt, und die Struktur bewegt sich konsequent von der Begriffsklärung (2.1) über die Zielgröße (2.2) hin zur eigentlichen Fragestellung des Zusammenhangs (2.3) – der Rote Faden der Arbeit wird so bereits im Theorieteil sichtbar.</div>
     </div>
   </section>
 
@@ -1208,11 +1280,26 @@ function resetMC(id) {
 /* ============================================================
    ACTIVE RECALL (Aufgabe 10)
    ============================================================ */
-function toggleReveal(id) {
+/* id = ID des .reveal-content-Elements
+   label = Text auf dem Button, z. B. "Musterantwort" oder "Musterlösung"
+   Der zugehörige Button braucht die ID "<id>-btn". */
+function toggleReveal(id, label) {
   const content = document.getElementById(id);
-  const btn = content.previousElementSibling;
+  const btn = document.getElementById(id + '-btn');
   const isOpen = content.classList.toggle('open');
-  btn.textContent = isOpen ? '🙈 Musterantwort ausblenden' : '👁 Musterantwort anzeigen';
+  btn.textContent = isOpen ? ('🙈 ' + label + ' ausblenden') : ('💡 ' + label + ' anzeigen');
+}
+
+/* Blendet die Musterlösung/-antwort wieder aus und setzt optional
+   ein zugehöriges Textfeld (textareaId) zurück. */
+function resetReveal(id, label, textareaId) {
+  const content = document.getElementById(id);
+  const btn = document.getElementById(id + '-btn');
+  content.classList.remove('open');
+  btn.textContent = '💡 ' + label + ' anzeigen';
+  if (textareaId) {
+    document.getElementById(textareaId).value = '';
+  }
 }
 
 /* ============================================================
@@ -1282,5 +1369,6 @@ function resetFillText(id) {
   feedback.style.display = 'none';
 }
 </script>
+<script src="assets/lightbox.js"></script>
 </body>
 </html>
