@@ -534,7 +534,7 @@
 
     .sg-table-wrap { overflow-x: auto; border-radius: 12px; border: 1px solid var(--border); box-shadow: var(--shadow-sm); }
     .sg-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; background: var(--surface); }
-    .sg-table thead tr { background: var(--dark); color: #fff; }
+    .sg-table thead tr { background: var(--green); color: var(--dark); }
     .sg-table th { padding: 1rem 1.25rem; text-align: left; font-weight: 600; font-size: 0.85rem; letter-spacing: 0.05em; text-transform: uppercase; }
     .sg-table td { padding: 1rem 1.25rem; vertical-align: top; border-bottom: 1px solid var(--border); line-height: 1.6; color: #333; }
     .sg-table tbody tr:last-child td { border-bottom: none; }
@@ -617,8 +617,8 @@
   
   /* Die erste Spalte (Art der Hypothese) heben wir optisch als Titel hervor */
   .sg-table td:first-child {
-    background: var(--dark);
-    color: #fff;
+    background: var(--green);
+    color: var(--dark);
     font-weight: 600;
   }
   
@@ -882,32 +882,11 @@ einem statistischen Zusammenhang (Korrelation) und einer Ursache-Wirkungs-Bezieh
                           <div class="sg-def-item"><span class="sg-def-term">Cherry-Picking</span><span class="sg-def-def">Selektive Auswahl von Ergebnissen, die die eigene These stützen, unter Ignorierung widersprechender Daten.</span></div>
                         </div>
 
-                        <h3 class="kp-heading" style="margin-top:1.75rem;"><span class="kp-icon">🏷️</span>Schlüsselentitäten &amp; Klassifikationen</h3>
-                        <hr class="kp-divider">
-                        <div class="sg-card">
-                          <p style="font-size:0.9rem;font-weight:600;color:var(--dark);margin-bottom:0.5rem;">Forschungsansätze (quantitativ):</p>
-                          <p style="font-size:0.9rem;color:#333;line-height:1.6;margin-bottom:0.75rem;">Experiment, Korrelationsstudie, Prognosestudie, Metaanalyse, Querschnittstudie, Längsschnittstudie</p>
-                          <p style="font-size:0.9rem;font-weight:600;color:var(--dark);margin-bottom:0.5rem;">Forschungsansätze (qualitativ):</p>
-                          <p style="font-size:0.9rem;color:#333;line-height:1.6;margin-bottom:0.75rem;">Ethnografie, partizipative/emanzipatorische Ansätze, gegenstandsbezogene Theoriebildung, Fallstudie</p>
-                          <p style="font-size:0.9rem;font-weight:600;color:var(--dark);margin-bottom:0.5rem;">Analysetools:</p>
-                          <p style="font-size:0.9rem;color:#333;line-height:1.6;margin-bottom:0.75rem;">Jamovi, R/RStudio, JASP, SPSS</p>
-                          <p style="font-size:0.9rem;font-weight:600;color:var(--dark);margin-bottom:0.5rem;">Ethikprinzipien:</p>
-                          <p style="font-size:0.9rem;color:#333;line-height:1.6;margin-bottom:0.75rem;">Selbstbestimmung, Nicht-Schädigung, Fürsorge, Gerechtigkeit, Objektivität, Nachvollziehbarkeit</p>
-                          <p style="font-size:0.9rem;font-weight:600;color:var(--dark);margin-bottom:0.5rem;">Häufige Interpretationsfehler:</p>
-                          <p style="font-size:0.9rem;color:#333;line-height:1.6;">Ergebnisse ohne Kontext, Überinterpretation, p-Hacking, Cherry-Picking, Korrelation als Kausalität, Effektstärke vergessen</p>
-                        </div>
-
+                      
                       </div>
                     </div>
 
-                        <h3 class="sg-section-title">Hauptargumente &amp; Kernaussagen</h3>
-                        <div class="sg-card">
-                          <p class="sg-card-title">Wissenschaftliches Zitieren &amp; Forschungsmethoden</p>
-                          <ul class="sg-ul">
-                            <li>Zitieren dient der Nachvollziehbarkeit, schafft Transparenz, gewährleistet wissenschaftliche Redlichkeit (verhindert Plagiate), bildet die Grundlage für Bewertung und bietet Orientierung für weitere Forschung.</li>
-                            <li>Die Auseinandersetzung mit Forschungsmethoden und Studiendesign ist notwendig, um Studien anderer verstehen und bewerten sowie eigene Studien durchführen zu können.</li>
-                          </ul>
-                        </div>
+                    
 
                         <div class="sg-card" style="margin-top:1.25rem;">
                           <p class="sg-card-title">Forschungsdesign &amp; Wissenschaftsprozess</p>
@@ -1029,7 +1008,7 @@ einem statistischen Zusammenhang (Korrelation) und einer Ursache-Wirkungs-Bezieh
                         <div class="sg-card" style="margin-top:1.25rem;">
                           <p class="sg-card-title">Gütekriterien</p>
                           <div class="sg-table-wrap" style="margin-top:0.75rem;">
-                            <table class="sg-table--green">
+                            <table class="sg-table">
                               <thead><tr><th>Kriterium</th><th>Bedeutung</th></tr></thead>
                               <tbody>
                                 <tr><td>Objektivität</td><td>Ausmaß, in dem die Messung unabhängig von der Person des Messenden ist (Unabhängigkeit vom Kontext).</td></tr>
