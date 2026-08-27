@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -535,7 +534,32 @@
     .sg-card {
       background: #F9F9F6; border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem;
     }
-    .sg-card-title { font-size: 1.05rem; font-weight: 600; color: var(--dark); margin-bottom: 1rem; }
+    .sg-card-title {
+      font-size: 1.05rem; font-weight: 700; color: var(--dark);
+      margin-bottom: 1rem; padding-bottom: 0.65rem;
+      border-bottom: 1px solid rgba(116,194,168,0.35);
+      display: flex; align-items: center; gap: 0.6rem;
+    }
+    .sg-card-title::before {
+      content: ''; width: 8px; height: 8px; border-radius: 50%;
+      background: var(--green); flex-shrink: 0;
+    }
+
+    /* VERGLEICH (Qualitativ vs. Quantitativ) */
+    .sg-compare { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+    @media (max-width: 640px) { .sg-compare { grid-template-columns: 1fr; } }
+    .sg-compare-col {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
+      padding: 1.1rem 1.25rem; display: flex; flex-direction: column; gap: 0.65rem;
+    }
+    .sg-compare-col--qual { border-top: 3px solid #7C6FCD; }
+    .sg-compare-col--quant { border-top: 3px solid var(--green); }
+    .sg-compare-heading { font-size: 1rem; font-weight: 700; color: var(--dark); margin-bottom: 0.25rem; }
+    .sg-compare-row { display: flex; flex-direction: column; gap: 0.15rem; }
+    .sg-compare-label {
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted);
+    }
+    .sg-compare-value { font-size: 0.9rem; line-height: 1.55; color: #333; }
     .sg-ul, .sg-ol { padding-left: 1.5rem; display: flex; flex-direction: column; gap: 0.5rem; }
     .sg-ul li, .sg-ol li { font-size: 0.95rem; line-height: 1.65; color: #333; }
     .sg-flow {
@@ -862,153 +886,213 @@ Validität gibt an, inwieweit ein Messinstrument tatsächlich das misst, was es 
  
                         <h3 class="sg-heading"><span class="sg-heading-emoji">📖</span>Schlüsselbegriffe</h3>
                         <div class="sg-def-list">
-                          <div class="sg-def-item"><span class="sg-term">Empirische Beiträge</span><span class="sg-def">Qualitative oder quantitative Studien/Experimente zur Hypothesenprüfung, Beschreibung und Erklärung, oft mit (einfachem) Literatur Review.</span></div>
-                          <div class="sg-def-item"><span class="sg-term">Review Beiträge</span><span class="sg-def">(Systematische) Literatur Reviews zur zusammenfassenden Analyse anderer Studien, um Überblick, Forschungslücken und Quellen zu identifizieren.</span></div>
-                          <div class="sg-def-item"><span class="sg-term">Deskriptiver Literatur Review</span><span class="sg-def">Übersicht über existierende Forschung zum Verständnis eines Themas; fasst Erkenntnisse zusammen, fundamentiert eigene Studien und leitet Modelle/Hypothesen ab.</span></div>
-                          <div class="sg-def-item"><span class="sg-term">Systematischer Literatur Review</span><span class="sg-def">Systematische Zusammenfassung existierender Forschung zur Wissenserweiterung und Generierung neuer Erkenntnisse (z.B. Konsens/Dissens, Forschungslücken).</span></div>
-                          <div class="sg-def-item"><span class="sg-term">PRISMA Flow Chart</span><span class="sg-def">Preferred Reporting Items for Systematic Reviews and Meta Analyses – Diagramm zur transparenten Darstellung des Studienauswahlprozesses in systematischen Reviews.</span></div>
-                          <div class="sg-def-item"><span class="sg-term">Argumentieren</span><span class="sg-def">Sprachliche Handlungen zur Klärung strittiger Punkte mit dem Ziel der Unstrittigkeit (Beweisen).</span></div>
-                          <div class="sg-def-item"><span class="sg-term">Argumentationsketten</span><span class="sg-def">Schlüssige Verknüpfung von Argumenten zur nachvollziehbaren Herleitung von Schlussfolgerungen.</span></div>
-                          <div class="sg-def-item"><span class="sg-term">Abstract</span><span class="sg-def">Stark verkürzte, prägnante, wertfreie Darstellung der wissenschaftlichen Arbeit (ca. 150–250 Wörter); steht nach dem Deckblatt, nicht in der Gliederung.</span></div>
-                          <div class="sg-def-item"><span class="sg-term">Reproduzierbarkeit</span><span class="sg-def">Möglichkeit, eine Analyse nachzurechnen und zum gleichen Ergebnis zu kommen.</span></div>
-                          <div class="sg-def-item"><span class="sg-term">Replizierbarkeit</span><span class="sg-def">Wissen, wie eine Studie wiederholt werden könnte.</span></div>
-                          <div class="sg-def-item"><span class="sg-term">Narrative Review</span><span class="sg-def">Zusammenfassung und Diskussion der Literatur zu einem Thema, oft ohne systematische Methode oder festgelegte Kriterien.</span></div>
-                          <div class="sg-def-item"><span class="sg-term">Systematic Literature Review (SLR)</span><span class="sg-def">Umfassende, systematische Sammlung und Analyse aller relevanten Studien zu einer spezifischen Forschungsfrage, mit strengen, transparenten Protokollen.</span></div>
-                          <div class="sg-def-item"><span class="sg-term">Meta-Analyse</span><span class="sg-def">Quantitative Zusammenfassung der Ergebnisse mehrerer Studien zur Identifizierung allgemeiner Trends mittels statistischer Methoden.</span></div>
-                          <div class="sg-def-item"><span class="sg-term">Bibliometric Review</span><span class="sg-def">Quantitative Analyse der Literatur eines Forschungsbereichs zur Identifikation von Trends, Netzwerken und Zitationen mittels statistischer Methoden.</span></div>
+                          <div class="sg-def-item"><span class="sg-term">Empirie</span><span class="sg-def">Wissen, das auf Erfahrungen beruht; systematische und nachvollziehbare Sammlung und Analyse von Daten.</span></div>
+                          <div class="sg-def-item"><span class="sg-term">Forschungsdesign</span><span class="sg-def">Konzeptionelle Planung einer Studie, die Vorgehensweise zur systematischen, nachvollziehbaren und zuverlässigen Beantwortung einer Forschungsfrage.</span></div>
+                          <div class="sg-def-item"><span class="sg-term">Qualitative Forschung</span><span class="sg-def">Induktiver Ansatz, daten-/empiriebasiert, Ziel: Hypothesengenerierung zur Theoriebildung, textbasiert, sinnverstehend.</span></div>
+                          <div class="sg-def-item"><span class="sg-term">Quantitative Forschung</span><span class="sg-def">Deduktiver Ansatz, theoriebasiert, Ziel: Hypothesenüberprüfung, zahlenbasiert, numerische Darstellung.</span></div>
+                          <div class="sg-def-item"><span class="sg-term">Mixed Methods</span><span class="sg-def">Gezielte systematische Kombination qualitativer und quantitativer Methoden zur Datenerhebung und -analyse.</span></div>
+                          <div class="sg-def-item"><span class="sg-term">Triangulation</span><span class="sg-def">Kombination mehrerer Methoden.</span></div>
+                          <div class="sg-def-item"><span class="sg-term">Datenerhebung</span><span class="sg-def">Systematische Aktivitäten zur Beschaffung von Datenmaterial.</span></div>
+                          <div class="sg-def-item"><span class="sg-term">Sekundärforschung (Desk Research)</span><span class="sg-def">Nutzung vorhandener Daten.</span></div>
+                          <div class="sg-def-item"><span class="sg-term">Primärforschung</span><span class="sg-def">Erhebung eigener Daten.</span></div>
+                          <div class="sg-def-item"><span class="sg-term">Konstrukt</span><span class="sg-def">Nicht direkt beobachtbarer Sachverhalt (z.B. Konzentrationsfähigkeit).</span></div>
+                          <div class="sg-def-item"><span class="sg-term">Operationalisieren</span><span class="sg-def">Abstrakte Begriffe in messbare Größen übersetzen, sodass sie zählbar werden.</span></div>
+                          <div class="sg-def-item"><span class="sg-term">Messen</span><span class="sg-def">Übersetzung einer Antwort in Zahlen nach festen Regeln.</span></div>
+                          <div class="sg-def-item"><span class="sg-term">Objektivität (Gütekriterium)</span><span class="sg-def">Ausmaß, in dem die Messung unabhängig von der Person des Messenden ist.</span></div>
+                          <div class="sg-def-item"><span class="sg-term">Reliabilität (Gütekriterium)</span><span class="sg-def">Messgenauigkeit; Ausmaß, in dem ein Messwert frei von Zufallsfehlern ist.</span></div>
+                          <div class="sg-def-item"><span class="sg-term">Validität (Gütekriterium)</span><span class="sg-def">Gültigkeit; Ausmaß, in dem ein Messinstrument tatsächlich misst, was es zu messen vorgibt.</span></div>
+                          <div class="sg-def-item"><span class="sg-term">Psychologischer Test</span><span class="sg-def">Inhaltlich psychologisch und methodisch psychometrisch fundierter Fragebogen zur quantitativen Aussage über Merkmalsausprägung.</span></div>
+                          <div class="sg-def-item"><span class="sg-term">Item</span><span class="sg-def">Eine Frage in einem Test, die einen Teilaspekt eines Konstrukts operationalisiert.</span></div>
+                          <div class="sg-def-item"><span class="sg-term">Subtest</span><span class="sg-def">Untertest aus mehreren Items, die zu einem gemeinsamen Punktwert zusammengefasst werden.</span></div>
+                          <div class="sg-def-item"><span class="sg-term">Skala</span><span class="sg-def">Bezeichnung für einen Subtest oder Gesamttest aus einem einzelnen Punktwert.</span></div>
+                          <div class="sg-def-item"><span class="sg-term">Score</span><span class="sg-def">Punktwert eines Probanden aus einem Subtest oder Test.</span></div>
+                          <div class="sg-def-item"><span class="sg-term">Hypothesen</span><span class="sg-def">Erwartungen bzw. Annahmen darüber, was im empirischen Forschungsprojekt herausgefunden werden soll.</span></div>
                         </div>
  
                         <h3 class="sg-heading sg-heading--orange" style="margin-top:1.75rem;"><span class="sg-heading-emoji">⚙️</span>Kernprozesse, Modelle &amp; Regeln</h3>
  
-                        <div class="sg-card">
-                          <h3 class="sg-card-heading"><span class="sg-icon">🔄</span>Wissensbasis &amp; Rechercherecap</h3>
-                          <div class="sg-underline sg-underline--green"></div>
+                        <div class="sg-card" style="margin-top:1.25rem;">
+                          <p class="sg-card-title">Forschungsdesign &amp; Wissenschaftsprozess</p>
                           <ul class="sg-ul">
-                            <li><strong>Systematisches Recherchieren:</strong> Klare Forschungsfrage, gezielter Einsatz von Fachdatenbanken &amp; Suchstrategien für hochwertige Quellen.</li>
-                            <li><strong>Qualität vor Quantität:</strong> Bevorzugung geprüfter, zitierwürdiger Fachliteratur.</li>
-                            <li><strong>Kritisches Bewerten &amp; transparentes Zitieren:</strong> Prüfung von Quellen auf Zitierfähigkeit (z.B. mit CRAAP-Test).</li>
-                            <li><strong>Mehrphasiges Lesen:</strong> Überblick, gezielte Suche, analytische Vertiefung (z.B. 3 Blicke, PQ4R, SQ3R).</li>
-                            <li><strong>KI-Tools reflektiert nutzen:</strong> Unterstützender Einsatz (z.B. Consensus, Semantic Scholar), kritische Prüfung der Ergebnisse.</li>
-                          </ul>
-                        </div>
- 
-                        <div class="sg-card">
-                          <h3 class="sg-card-heading"><span class="sg-icon">📚</span>Literatur Review – Vergleich und Vorgehen</h3>
-                          <div class="sg-underline sg-underline--purple"></div>
-                          <p style="font-size:0.9rem;font-weight:600;color:var(--dark);margin-bottom:0.5rem;">Deskriptiver Literatur Review Ablauf:</p>
-                          <p style="font-size:0.9rem;color:#333;line-height:1.6;margin-bottom:1rem;">„Lückenlose" Literatur-Recherche, Identifikation relevanter Studien/Theorien, Begründung eigener Hypothesen, Grundlagen- und aktuelle Literatur.</p>
-                          <p style="font-size:0.9rem;font-weight:600;color:var(--dark);margin-bottom:0.5rem;">Systematischer Literatur Review Ablauf:</p>
-                          <p style="font-size:0.9rem;color:#333;line-height:1.6;">Systematische Literaturrecherche (mit In-/Exklusionskriterien), transparenter Auswahlprozess (PRISMA-FlowChart), standardisierte Literaturanalyse &amp; Synthese (Bibliografie, Qualität).</p>
-                        </div>
- 
-                        <div class="sg-card">
-                          <h3 class="sg-card-heading"><span class="sg-icon">📘</span>Systematic Literature Review Leitfaden (TU Berlin)</h3>
-                          <div class="sg-underline sg-underline--green"></div>
-                          <ol class="sg-ol">
-                            <li>Forschungsfragen definieren.</li>
-                            <li>Literaturdatenbanken und weitere Quellen auswählen.</li>
-                            <li>Suchbegriffe festlegen.</li>
-                            <li>Treffer aus verschiedenen Datenbanken zusammenführen.</li>
-                            <li>Ein- und Ausschlusskriterien anwenden.</li>
-                            <li>Review durchführen.</li>
-                            <li>Ergebnisse synthetisieren.</li>
-                          </ol>
-                        </div>
- 
-                        <div class="sg-card">
-                          <h3 class="sg-card-heading"><span class="sg-icon">🧠</span>Argumentation nach Toulmin</h3>
-                          <div class="sg-underline sg-underline--orange"></div>
-                          <p style="font-size:0.9rem;color:#333;line-height:1.6;margin-bottom:0.75rem;">Entwicklung fundierter, nachvollziehbarer Argumentationen unter Einbeziehung von drei Kernelementen:</p>
-                          <ul class="sg-ul">
-                            <li><strong>Behauptung:</strong> Die zu belegende These oder Aussage.</li>
-                            <li><strong>Beweis:</strong> Empirische oder theoretische Belege, die die Behauptung stützen.</li>
-                            <li><strong>Einschränkung:</strong> Bedingungen oder Ausnahmen, unter denen die Behauptung nicht gilt.</li>
+                            <li><strong>Forschungsdesign:</strong> Konzeptionelle Planung einer wissenschaftlichen Studie; legt fest, wie eine Forschungsfrage systematisch, nachvollziehbar und zuverlässig beantwortet wird, und bestimmt, welche Forschungs-, Erhebungs- und Analysemethoden zum Einsatz kommen.</li>
+                            <li><strong>Prozess von Wissenschaft:</strong> Ein iterativer Ablauf aus Forschungsfrage, Literaturrecherche, Versuchsplanung, Durchführung, Datenanalyse und Interpretation.</li>
+                            <li><strong>Empirische Forschung:</strong> Wissen, das auf Erfahrung beruht – die systematische und nachvollziehbare Sammlung und Analyse von Daten.</li>
                           </ul>
                         </div>
 
-                        <div class="sg-card">
-                          <h3 class="sg-card-heading"><span class="sg-icon">🧩</span>Fünfsatz-Strukturen</h3>
-                          <div class="sg-underline sg-underline--purple"></div>
+                        <div class="sg-card" style="margin-top:1.25rem;">
+                          <p class="sg-card-title">Qualitative vs. Quantitative Forschung</p>
+                          <div class="sg-compare">
+                            <div class="sg-compare-col sg-compare-col--qual">
+                              <div class="sg-compare-heading">Qualitativ</div>
+                              <div class="sg-compare-row">
+                                <span class="sg-compare-label">Ansatz</span>
+                                <span class="sg-compare-value">Induktiv</span>
+                              </div>
+                              <div class="sg-compare-row">
+                                <span class="sg-compare-label">Ausgangsbasis</span>
+                                <span class="sg-compare-value">Daten / Empirie</span>
+                              </div>
+                              <div class="sg-compare-row">
+                                <span class="sg-compare-label">Ziel</span>
+                                <span class="sg-compare-value">Generierung von Hypothesen zur Theoriebildung, Sinn verstehen, Merkmale finden (explorativ)</span>
+                              </div>
+                              <div class="sg-compare-row">
+                                <span class="sg-compare-label">Datentyp</span>
+                                <span class="sg-compare-value">Textbasiert, deskriptive Aussagen; statistische Analyse schwieriger</span>
+                              </div>
+                              <div class="sg-compare-row">
+                                <span class="sg-compare-label">Beispiele</span>
+                                <span class="sg-compare-value">Interviews, textinterpretative Verfahren (z.&nbsp;B. systematischer Literatur-Review), Fallanalysen</span>
+                              </div>
+                            </div>
+                            <div class="sg-compare-col sg-compare-col--quant">
+                              <div class="sg-compare-heading">Quantitativ</div>
+                              <div class="sg-compare-row">
+                                <span class="sg-compare-label">Ansatz</span>
+                                <span class="sg-compare-value">Deduktiv</span>
+                              </div>
+                              <div class="sg-compare-row">
+                                <span class="sg-compare-label">Ausgangsbasis</span>
+                                <span class="sg-compare-value">Theorie</span>
+                              </div>
+                              <div class="sg-compare-row">
+                                <span class="sg-compare-label">Ziel</span>
+                                <span class="sg-compare-value">Überprüfung von aus der Theorie abgeleiteten Hypothesen, Messung der Ausprägung eines Merkmals (deskriptiv/kausal)</span>
+                              </div>
+                              <div class="sg-compare-row">
+                                <span class="sg-compare-label">Datentyp</span>
+                                <span class="sg-compare-value">Zahlenbasiert, numerisch messbar; statistische Analyse einfacher</span>
+                              </div>
+                              <div class="sg-compare-row">
+                                <span class="sg-compare-label">Beispiele</span>
+                                <span class="sg-compare-value">Fragebogen, Tests, Experimente</span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="sg-card" style="margin-top:1.25rem;">
+                          <p class="sg-card-title">Mixed Methods &amp; Triangulation</p>
                           <ul class="sg-ul">
-                            <li><strong>Linearer Fünfsatz:</strong> Argumente aufeinander aufbauend.</li>
-                            <li><strong>Paralleler Fünfsatz:</strong> Mehrere gleichwertige Argumente nebeneinander.</li>
-                            <li><strong>Diskrepanz-Fünfsatz:</strong> Aufzeigen von Widersprüchen.</li>
-                            <li><strong>Divergierender Fünfsatz:</strong> Argumente und Gegenargumente dialektisch aufeinander beziehen zur Darstellung von Unvereinbarkeiten oder Kompromissen.</li>
+                            <li><strong>Mixed Methods:</strong> Gezielte und systematische Kombination von quantitativen und qualitativen Methoden zur Datenerhebung und Datenanalyse.</li>
+                            <li><strong>Triangulation:</strong> Kombination mehrerer Methoden, um ein Phänomen aus verschiedenen Perspektiven zu betrachten.</li>
                           </ul>
                         </div>
 
-                        <div class="sg-card">
-                          <h3 class="sg-card-heading"><span class="sg-icon">📝</span>Wissenschaftliches Schreiben – Zeitform (Tempus)</h3>
-                          <div class="sg-underline sg-underline--green"></div>
+                        <div class="sg-card" style="margin-top:1.25rem;">
+                          <p class="sg-card-title">Datenerhebung: Sekundär- vs. Primärforschung</p>
                           <ul class="sg-ul">
-                            <li><strong>Präsens:</strong> Für die Beschreibung des Vorhabens und die Darstellung andauernder Erkenntnisse (z.B. „Die Ergebnisse zeigen…").</li>
-                            <li><strong>Vergangenheitsform:</strong> Für die Berichterstattung über Befunde anderer Autoren und die Beschreibung des methodischen Vorgehens (z.B. „Voss et al. (2008) untersuchten…").</li>
+                            <li><strong>Datenerhebung:</strong> Systematische Aktivitäten zur Beschaffung von Datenmaterial.</li>
+                            <li><strong>Sekundärforschung:</strong> Nutzung vorhandener Daten (z.&nbsp;B. Statistiken, Studien, Publikationen) zur Beantwortung der Forschungsfrage, Konkretisierung oder Hypothesenableitung (Desk Research); meist der erste Schritt in empirischen Forschungsprojekten.</li>
+                            <li><strong>Primärforschung:</strong> Erhebung eigener Daten zur Beantwortung der Forschungsfrage oder zum Testen von Hypothesen; zweiter Schritt in empirischen Forschungsprojekten.</li>
+                            <li><strong>Qualitative Primärmethoden:</strong> Fokusgruppen, (Experten-)Interview, qualitative Beobachtung.</li>
+                            <li><strong>Quantitative Primärmethoden:</strong> Experiment, Befragung, quantitative Beobachtung.</li>
                           </ul>
                         </div>
 
-                        <div class="sg-card">
-                          <h3 class="sg-card-heading"><span class="sg-icon">✍️</span>Grundregeln für Argumentieren &amp; Formulieren</h3>
-                          <div class="sg-underline sg-underline--orange"></div>
+                        <div class="sg-card" style="margin-top:1.25rem;">
+                          <p class="sg-card-title">Forschungsziele &amp; Design-Verknüpfung</p>
                           <ul class="sg-ul">
-                            <li>Klare, verständliche Sprache; kurze Sätze.</li>
-                            <li>Nicht wertend (neutral); bevorzugt dritte Person.</li>
-                            <li>„Ich"/„Wir" sparsam oder nicht verwenden.</li>
-                            <li>Aktiv statt Passiv; Verben statt Nomen.</li>
-                            <li>Gendern: Konsequente Verwendung einer gewählten Form.</li>
+                            <li><strong>Forschungsziele:</strong> Entdecken (Exploration), Beschreibung (Deskription), Erklärung (Kausalität), Vorhersage (Prognose).</li>
+                            <li><strong>Design-Verknüpfung:</strong> Nicht-experimentelles Design (qualitativ oder quantitativ), experimentelles Design (quantitativ).</li>
+                            <li>Verschiedene wissenschaftliche Methoden spielen in unterschiedlichen Phasen des Forschungsprozesses eine Rolle und werden aufeinander abgestimmt.</li>
                           </ul>
                         </div>
 
-                        <div class="sg-card">
-                          <h3 class="sg-card-heading"><span class="sg-icon">🏗️</span>Struktur &amp; Gliederung wissenschaftlicher Arbeiten</h3>
-                          <div class="sg-underline sg-underline--purple"></div>
-                          <p style="font-size:0.9rem;font-weight:600;color:var(--dark);margin-bottom:0.5rem;">Proportionale Aufteilung:</p>
-                          <ul class="sg-ul" style="margin-bottom:1rem;">
-                            <li>Einleitung: ca. 10 %</li>
-                            <li>Hauptteil: ca. 70–80 %</li>
-                            <li>Schluss: ca. 10–20 %</li>
-                          </ul>
-                          <p style="font-size:0.9rem;font-weight:600;color:var(--dark);margin-bottom:0.5rem;">Grundaufbau (immer vorhanden):</p>
-                          <p style="font-size:0.9rem;color:#333;line-height:1.6;">Titelblatt → Abstract → Inhaltsverzeichnis → Text → Literaturverzeichnis. Optional: Abbildungsverzeichnis, Tabellenverzeichnis, Abkürzungsverzeichnis, Anhang, Ehrenwörtliche Erklärung.</p>
+                        <div class="sg-card" style="margin-top:1.25rem;">
+                          <p class="sg-card-title">Forschungsansätze &amp; Erhebungsmethoden im Überblick</p>
+                          <p style="font-size:0.9rem;font-weight:600;color:var(--dark);margin-bottom:0.5rem;">Forschungsansätze (quantitativ):</p>
+                          <p style="font-size:0.9rem;color:#333;line-height:1.6;margin-bottom:0.75rem;">Experiment, Korrelationsstudie, Prognosestudie, Metaanalyse, Querschnittstudie, Längsschnittstudie</p>
+                          <p style="font-size:0.9rem;font-weight:600;color:var(--dark);margin-bottom:0.5rem;">Forschungsansätze (qualitativ):</p>
+                          <p style="font-size:0.9rem;color:#333;line-height:1.6;margin-bottom:0.75rem;">Ethnografie, partizipative/emanzipatorische Ansätze, gegenstandsbezogene Theoriebildung, Fallstudie</p>
+                          <p style="font-size:0.9rem;font-weight:600;color:var(--dark);margin-bottom:0.5rem;">Beobachtung &amp; Befragung im Labor:</p>
+                          <p style="font-size:0.9rem;color:#333;line-height:1.6;margin-bottom:0.75rem;">Fokusgruppen, Konzepttests, Usability-Tests (z.&nbsp;B. Lautes Denken)</p>
+                          <p style="font-size:0.9rem;font-weight:600;color:var(--dark);margin-bottom:0.5rem;">Beobachtung im Feld:</p>
+                          <p style="font-size:0.9rem;color:#333;line-height:1.6;margin-bottom:0.75rem;">Messung von Einkaufsverhalten (z.&nbsp;B. Kundenfluss, Produktbetrachtung, Kaufentscheidung)</p>
+                          <p style="font-size:0.9rem;font-weight:600;color:var(--dark);margin-bottom:0.5rem;">Erhebungsmethoden (quantitativ):</p>
+                          <p style="font-size:0.9rem;color:#333;line-height:1.6;margin-bottom:0.75rem;">Beobachten, Testen, schriftliches und mündliches Befragen</p>
+                          <p style="font-size:0.9rem;font-weight:600;color:var(--dark);margin-bottom:0.5rem;">Erhebungsmethoden (qualitativ):</p>
+                          <p style="font-size:0.9rem;color:#333;line-height:1.6;margin-bottom:0.75rem;">Interview, (teilnehmende) Beobachtung, Gruppendiskussion, nonreaktive Daten</p>
+                          <p style="font-size:0.9rem;font-weight:600;color:var(--dark);margin-bottom:0.5rem;">Moderne Erhebungsmethoden:</p>
+                          <p style="font-size:0.9rem;color:#333;line-height:1.6;">Eye Tracking, physiologische Messung (EEG, EKG), Affective Computing (Emotionsmessung); dazu klassische Befragungen wie Lehrevaluationen und Umfragen.</p>
                         </div>
 
+                        <h3 class="sg-section-title" style="margin-top:1.75rem;">Messinstrumente &amp; Gütekriterien</h3>
                         <div class="sg-card">
-                          <h3 class="sg-card-heading"><span class="sg-icon">📄</span>Inhalt der einzelnen Abschnitte</h3>
-                          <div class="sg-underline sg-underline--green"></div>
+                          <p class="sg-card-title">Messinstrumente verstehen</p>
                           <ul class="sg-ul">
-                            <li><strong>Titelblatt:</strong> Titel der Arbeit, Hochschule/Studiengang, Dozent/Gutachter, Name, Matrikelnummer, Wörteranzahl Hauptteil, Abgabedatum.</li>
-                            <li><strong>Abstract:</strong> Forschungsfrage, Theorie, Hypothesen, Stichprobe, Versuchsaufbau, Auswertung/Ergebnisse, Diskussion. Erst nach Finalisierung der Arbeit schreiben; kein Literaturangaben.</li>
-                            <li><strong>Einleitung:</strong> Relevanz des Themas, Forschungsdefizite („gap"), Abgrenzung, wiss. Beitrag, Forschungsfrage, Ziele/Ablauf. Keine theoretischen Grundlagen.</li>
-                            <li><strong>Theorieteil:</strong> Alle relevanten theoretischen Bezüge zur Forschungsfrage; Überblick über Forschungsstand; Hypothesen am Ende. Bei „X führt zu Y": 1. Konstrukt X, 2. Konstrukt Y, 3. Zusammenhang X &amp; Y.</li>
-                            <li><strong>Methodenteil:</strong> Stichprobe, Versuchsmaterial, Versuchsablauf, Analyse-Software, statistisches Vorgehen.</li>
-                            <li><strong>Ergebnisteil:</strong> Fakten, keine Meinungen; zuerst deskriptive, dann komplexere Ergebnisse; keine Interpretationen.</li>
-                            <li><strong>Diskussion &amp; Schluss:</strong> Kommentar zu Ergebnissen im Bezug zum Wissensstand, Limitationen, Implikationen für Forschung und Praxis.</li>
-                            <li><strong>Literaturverzeichnis:</strong> Nur zitierte Literatur; nach Zitierstil (z.B. APA); linksbündig, hängender Einzug; alphabetisch nach Autor.</li>
-                            <li><strong>Anhang:</strong> Details zur Studie; Messinstrumente, Statistiken, Syntax, Ehrenwörtliche Erklärung, Deklaration KI-Hilfsmittel.</li>
+                            <li><strong>Konstrukt:</strong> Nicht direkt beobachtbarer Sachverhalt (z.&nbsp;B. Konzentrationsfähigkeit, sozialer Status).</li>
+                            <li><strong>Operationalisierung:</strong> Übersetzung abstrakter theoretischer Begriffe/Konstrukte in messbare Größen, sodass sie zählbar werden (z.&nbsp;B. Anzahl richtig bearbeiteter Aufgaben für Konzentrationsfähigkeit).</li>
+                            <li><strong>Messen:</strong> Eine Antwort nach festen Regeln in Zahlen „übersetzen", damit die Zahlen die Realität widerspiegeln.</li>
                           </ul>
                         </div>
 
-                        <div class="sg-card">
-                          <h3 class="sg-card-heading"><span class="sg-icon">⚠️</span>Gliederungshinweise &amp; häufige Fehler</h3>
-                          <div class="sg-underline sg-underline--orange"></div>
+                        <div class="sg-card" style="margin-top:1.25rem;">
+                          <p class="sg-card-title">Gütekriterien</p>
+                          <div class="sg-table-wrap" style="margin-top:0.75rem;">
+                            <table class="sg-table">
+                              <thead><tr style="background: var(--green); color: var(--dark);"><th>Kriterium</th><th>Bedeutung</th></tr></thead>
+                              <tbody>
+                                <tr><td>Objektivität</td><td>Ausmaß, in dem die Messung unabhängig von der Person des Messenden ist (Unabhängigkeit vom Kontext).</td></tr>
+                                <tr><td>Reliabilität</td><td>Ausmaß, in dem ein Messwert frei von Zufallsfehlern ist (Messgenauigkeit).</td></tr>
+                                <tr><td>Validität</td><td>Ausmaß, in dem ein Messinstrument tatsächlich das misst, was es zu messen vorgibt (Gültigkeit).</td></tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+
+                        <div class="sg-card" style="margin-top:1.25rem;">
+                          <p class="sg-card-title">Bezugsquellen für Messinstrumente</p>
                           <ul class="sg-ul">
-                            <li>Drei bis fünf Gliederungspunkte erster Ordnung; maximal dreistufige Gliederung.</li>
-                            <li>Jedes Kapitel mindestens zwei Absätze; jeder Absatz mindestens zwei Sätze.</li>
-                            <li>Keine Sätze, Fragen oder Aufforderungen als Überschriften.</li>
-                            <li>Jede Gliederungsstufe muss mindestens zwei Punkte enthalten (kein 3.2.1 ohne 3.2.2).</li>
-                            <li>Keine Mischung von Theorie und Empirie in empirischen Arbeiten.</li>
-                            <li>Kein Punkt nach der Gliederungsnummer.</li>
+                            <li><strong>Literaturreview (Papers), Itemhandbücher, Datenbanken.</strong></li>
+                            <li><strong>Gesis-ZIS:</strong> Open-Access-Repositorium für wissenschaftlich untersuchte Fragebögen (z.&nbsp;B. BFI-10 für Big Five).</li>
+                            <li><strong>Psyndex:</strong> Verzeichnis deutschsprachiger psychologischer Tests (ca. 7.000).</li>
+                            <li><strong>OpenTestArchive:</strong> Repositorium für 230 Open-Access-Testverfahren in deutscher Sprache.</li>
+                            <li><strong>Handbook of Marketing Scales:</strong> Multi-Item Measures for Marketing and Consumer Behavior Research (Netemeyer et al., 2011).</li>
                           </ul>
                         </div>
 
+                        <div class="sg-card" style="margin-top:1.25rem;">
+                          <p class="sg-card-title">Fragebogen als psychologischer Test</p>
+                          <p style="font-size:0.9rem;color:#333;line-height:1.6;margin-bottom:0.75rem;">Ein inhaltlich psychologisch und methodisch psychometrisch fundierter Fragebogen besteht aus folgenden Elementen:</p>
+                          <ul class="sg-ul">
+                            <li><strong>Item:</strong> Eine Frage, die einen Teilaspekt eines Konstrukts operationalisiert.</li>
+                            <li><strong>Subtest:</strong> Untertest aus mehreren Items, die zu einem Punktwert zusammengezogen werden.</li>
+                            <li><strong>Itemantwort:</strong> Antwortmöglichkeiten eines Items (z.&nbsp;B. Skala von 1–4).</li>
+                            <li><strong>Skala:</strong> Andere Bezeichnung für Subtest oder Gesamttest aus einem Punktwert.</li>
+                            <li><strong>Score:</strong> Punktwert eines Probanden aus Subtest oder Test.</li>
+                          </ul>
+                        </div>
+
+                        <h3 class="sg-section-title" style="margin-top:1.75rem;">Datenerhebungstools &amp; Datenanalyse</h3>
                         <div class="sg-card">
-                          <h3 class="sg-card-heading"><span class="sg-icon">🏷️</span>Schlüsselentitäten &amp; Klassifikationen</h3>
-                          <div class="sg-underline sg-underline--purple"></div>
-                          <p style="font-size:0.9rem;font-weight:600;color:var(--dark);margin-bottom:0.5rem;">Typen von Literaturreviews:</p>
-                          <p style="font-size:0.9rem;color:#333;line-height:1.6;margin-bottom:0.75rem;">Narratives Review, Deskriptiver Review, Scoping Review, Meta-Analyse, Systematischer Literatur Review, Umbrella Review, Theoretisches Review, Realist Review, Kritisches Review.</p>
-                          <p style="font-size:0.9rem;font-weight:600;color:var(--dark);margin-bottom:0.5rem;">Datenbanken (Beispiele):</p>
-                          <p style="font-size:0.9rem;color:#333;line-height:1.6;margin-bottom:0.75rem;">EBSCO Host, Emerald, ProQuest, Science Direct, Web of Science.</p>
-                          <p style="font-size:0.9rem;font-weight:600;color:var(--dark);margin-bottom:0.5rem;">Analysesoftware (Beispiele):</p>
-                          <p style="font-size:0.9rem;color:#333;line-height:1.6;">R/RStudio, SPSS, Jamovi, JASP.</p>
+                          <p class="sg-card-title">Datenerhebungstools</p>
+                          <ul class="sg-ul">
+                            <li>Tools für einfache Umfragen (z.&nbsp;B. Typeform, UmfrageOnline).</li>
+                            <li>Tools für empirische Forschung mit Randomisierung (z.&nbsp;B. SoSciSurvey).</li>
+                            <li><strong>SoSciSurvey:</strong> Empfohlenes Tool für wissenschaftliche Studien – deutschsprachig, DSGVO-konform (Server in München), mächtig (Randomisierung möglich), kostenlos für wissenschaftliche Studien (bis 5.000 Interviews).</li>
+                          </ul>
+                        </div>
+
+                        <div class="sg-card" style="margin-top:1.25rem;">
+                          <p class="sg-card-title">Ablauf der Datenanalyse</p>
+                          <ul class="sg-ul">
+                            <li><strong>Vorbereitung:</strong> Saubere Datendokumentation (Codebook), Datenbereinigung (Plausibilitätschecks, Ausreißer, fehlende Werte, Ein-/Ausschlusskriterien), klare Analyseplanung.</li>
+                            <li><strong>Durchführung:</strong> Umgang mit fehlenden Werten (Listwise, Pairwise, Imputation), deskriptive Statistik (Verteilung, Mittelwerte), Inferenzstatistik (Hypothesenprüfung), Dokumentation der Analyseschritte.</li>
+                            <li><strong>Interpretation &amp; Bericht:</strong> Transparente Berichterstattung (auch nicht-signifikante Effekte, Effektstärken, Konfidenzintervalle), Rückbindung an die Theorie, Reflexion von Limitationen und alternativen Erklärungen.</li>
+                          </ul>
+                        </div>
+
+                        <div class="sg-card" style="margin-top:1.25rem;">
+                          <p class="sg-card-title">Analysetools</p>
+                          <ul class="sg-ul">
+                            <li><strong>Jamovi:</strong> Open-Source, intuitiv, für Einsteiger.</li>
+                            <li><strong>R (RStudio):</strong> Open-Source, flexibel für komplexe Analysen.</li>
+                            <li><strong>JASP:</strong> Open-Source, Schwerpunkt auf Bayes-Statistik.</li>
+                            <li><strong>SPSS:</strong> Kostenpflichtig, vielseitiges Analysetool.</li>
+                          </ul>
+                          <p style="font-size:0.9rem;color:var(--muted);margin-top:1rem;line-height:1.6;">Ergebnisse werden mittels Diagrammen und Tabellen visualisiert; Werte (Signifikanz, Effektstärken) werden nach APA-Richtlinien korrekt berichtet. Datenanalyse verbindet Theorie, Methodik und Statistik.</p>
                         </div>
 
                       </div>
@@ -1306,8 +1390,3 @@ Validität gibt an, inwieweit ein Messinstrument tatsächlich das misst, was es 
   <script src="assets/podcast-player.js" defer></script>
   <script src="assets/lightbox.js"></script>
 </html>
- 
-
-
-
-
