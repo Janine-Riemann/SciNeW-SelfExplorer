@@ -374,6 +374,7 @@
       transition: all 0.25s ease;
     }
     .accordion-item:hover { border-color: var(--green); box-shadow: var(--shadow-md); }
+    #tab-input .accordion-item:hover { border-color: var(--green); box-shadow: var(--shadow-md); }
     
     .accordion-item summary {
       padding: 1.5rem; font-size: 1.1rem; font-weight: 600; color: var(--dark);
@@ -473,34 +474,34 @@
     .phase-body > p { font-size: 1rem; line-height: 1.7; color: #333; }
 
     .sg-section-title {
-      font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted);
-      margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border);
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--dark);
+      margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 3px solid var(--green);
     }
 
     /* Farbige Überschriften mit Emoji-Badge (Design wie Lektion 3) */
     .sg-heading {
       display: flex; align-items: center; gap: 0.85rem;
-      font-size: 1.15rem; font-weight: 700; color: var(--dark);
-      letter-spacing: -0.01em;
-      margin-bottom: 1.1rem; padding-bottom: 0.65rem;
-      border-bottom: 2px solid var(--green);
+      font-size: 0.75rem; font-weight: 700; color: var(--dark);
+      letter-spacing: 0.12em; text-transform: uppercase;
+      margin: 1.75rem 0 1rem; padding-bottom: 0.5rem;
+      border-bottom: 3px solid var(--green);
     }
     .sg-heading-emoji {
       display: inline-flex; align-items: center; justify-content: center;
-      width: 2.25rem; height: 2.25rem; flex-shrink: 0;
-      border-radius: 50%; font-size: 1.15rem;
-      background: rgba(116,194,168,0.16);
+      font-size: 1rem;
     }
-    .sg-heading--orange { border-bottom-color: var(--orange); }
-    .sg-heading--orange .sg-heading-emoji { background: rgba(238,112,80,0.14); }
-    .sg-heading--purple { border-bottom-color: #7C6FCD; }
-    .sg-heading--purple .sg-heading-emoji { background: rgba(124,111,205,0.14); }
-    .sg-heading--blue { border-bottom-color: #3B82F6; }
-    .sg-heading--blue .sg-heading-emoji { background: rgba(59,130,246,0.14); }
+    .sg-heading--orange { border-bottom-color: var(--green); }
+    .sg-heading--purple { border-bottom-color: var(--green); }
+    .sg-heading--blue { border-bottom-color: var(--green); }
+    .sg-card > .sg-heading,
+    .info-box > .sg-heading {
+      font-size: 1.05rem; letter-spacing: normal; text-transform: none;
+      color: var(--dark); margin: 0 0 1rem; padding-bottom: 0.5rem;
+    }
     .sg-def-list { display: flex; flex-direction: column; gap: 0.75rem; }
     .sg-def-item {
       display: grid; grid-template-columns: 240px 1fr; gap: 0.5rem 1.5rem;
-      padding: 1rem 1.25rem; background: #F9F9F6; border-radius: 8px; font-size: 0.95rem; border: 1px solid var(--border);
+      padding: 1rem 1.25rem; background: #FFFFFF; border-radius: 8px; font-size: 0.95rem; border: 1px solid var(--border);
     }
     @media(max-width:640px){ .sg-def-item { grid-template-columns: 1fr; } }
     .sg-term { font-weight: 600; color: var(--dark); line-height: 1.5; }
@@ -509,7 +510,7 @@
     .sg-card {
       background: #F9F9F6; border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem;
     }
-    .sg-card-title { font-size: 1.05rem; font-weight: 600; color: var(--dark); margin-bottom: 1rem; }
+    .sg-card-title { display: flex; width: 100%; font-size: 1.05rem; font-weight: 600; color: var(--dark); margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 3px solid var(--green); }
     .sg-ul, .sg-ol { padding-left: 1.5rem; display: flex; flex-direction: column; gap: 0.5rem; }
     .sg-ul li, .sg-ol li { font-size: 0.95rem; line-height: 1.65; color: #333; }
     .sg-flow {
@@ -824,8 +825,10 @@
                       </div>
                       <div class="phase-body">
                         <p>Eigne dir das notwendige Wissen über korrektes Zitieren und die verschiedenen Zitierstile an. Beginne damit, den gesamten Stoff in <strong>10–15 Minuten</strong> grob zu überfliegen. Notiere dir dann <strong>3–5 Kernlernziele</strong>, die dir besonders wichtig erscheinen oder die du vertiefen möchtest. Arbeite anschließend die folgenden Schlüsselthemen und Definitionen in fokussierten Lernblöcken durch (<strong>25 Minuten Lernen, 5 Minuten Pause</strong> – Pomodoro-Technik).</p>
+                      </div>
+                    </div>
 
-                        <!-- PHASE 2 -->
+                    <!-- PHASE 2 -->
                     <div class="phase-block">
                       <div class="phase-header">
                         <span class="phase-badge phase-badge--orange">Phase 2</span>
@@ -833,7 +836,7 @@
                       </div>
                       <div class="phase-body">
 
-                        <h3 class="sg-heading"><span class="sg-heading-emoji">📖</span>Schlüsselbegriffe</h3>
+                         <h3 class="sg-section-title">🗝️ Schlüsselbegriffe</h3>
                         <div class="sg-def-list">
                           <div class="sg-def-item"><span class="sg-def-term">APA-Zitierweise</span><span class="sg-def-def">Eine der am häufigsten genutzten Zitierstile der American Psychological Association, seit 2019 in der 7. Version.</span></div>
                           <div class="sg-def-item"><span class="sg-def-term">Harvard-Zitierweise</span><span class="sg-def-def">Keine Vorgaben einer Organisation; individuelle Vorgaben an Hochschulen oder von Gutachtenden.</span></div>
@@ -973,9 +976,6 @@
                             <img src="bilder/Lektion06_QRCode_Zotero.png" alt="QR-Code Zotero" style="width:180px;height:180px;border:1px solid var(--border);border-radius:10px;background:#fff;" />
                           </div>
                         </div>
-
-                      </div>
-                    </div>
 
                       </div>
                     </div>

@@ -374,6 +374,7 @@
       transition: all 0.25s ease;
     }
     .accordion-item:hover { border-color: var(--green); box-shadow: var(--shadow-md); }
+    #tab-input .accordion-item:hover { border-color: var(--green); box-shadow: var(--shadow-md); }
     
     .accordion-item summary {
       padding: 1.5rem; font-size: 1.1rem; font-weight: 600; color: var(--dark);
@@ -473,39 +474,35 @@
     .phase-body > p { font-size: 1rem; line-height: 1.7; color: #333; }
 
     .sg-section-title {
-      font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted);
-      margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border);
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--dark);
+      margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 3px solid var(--green);
     }
 
     /* KERNPROZESSE-STIL: Emoji-Überschriften mit farbigem Unterstrich (wie Etappe 4) */
     .kp-heading {
       display: flex; align-items: center; gap: 0.65rem;
-      font-size: 1.2rem; font-weight: 700; color: var(--dark);
-      margin: 1.75rem 0 0.9rem;
+      width: 100%; font-size: 0.75rem; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase; color: var(--dark);
+      margin: 1.75rem 0 1rem; padding-bottom: 0.5rem;
+      border-bottom: 3px solid var(--green);
     }
     .kp-heading .kp-icon { font-size: 1.3rem; line-height: 1; }
-    .kp-divider {
-      height: 2px; background: var(--green); border: none; border-radius: 2px;
-      margin: 0 0 1.5rem;
-    }
+    .kp-divider { display: none; }
     .sg-card-heading {
       display: flex; align-items: center; gap: 0.55rem;
       font-size: 1.05rem; font-weight: 700; color: var(--dark);
-      margin-bottom: 0;
+      width: 100%; margin-bottom: 1rem; padding-bottom: 0.5rem;
+      border-bottom: 3px solid var(--green);
     }
     .sg-card-heading .sg-icon { font-size: 1.15rem; line-height: 1; }
-    .sg-underline {
-      width: 56px; height: 3px; border-radius: 2px;
-      margin: 0.5rem 0 1.1rem;
-    }
+    .sg-underline { display: none; }
     .sg-underline--green  { background: var(--green); }
-    .sg-underline--purple { background: #7C6FCD; }
-    .sg-underline--orange { background: var(--orange); }
-
+    .sg-underline--purple { background: var(--green); }
+    .sg-underline--orange { background: var(--green); }
     .sg-def-list { display: flex; flex-direction: column; gap: 0.75rem; }
     .sg-def-item {
       display: grid; grid-template-columns: 240px 1fr; gap: 0.5rem 1.5rem;
-      padding: 1rem 1.25rem; background: #F9F9F6; border-radius: 8px; font-size: 0.95rem; border: 1px solid var(--border);
+      padding: 1rem 1.25rem; background: #FFFFFF; border-radius: 8px; font-size: 0.95rem; border: 1px solid var(--border);
     }
     @media(max-width:640px){ .sg-def-item { grid-template-columns: 1fr; } }
     .sg-term { font-weight: 600; color: var(--dark); line-height: 1.5; }
@@ -514,7 +511,7 @@
     .sg-card {
       background: #F9F9F6; border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem;
     }
-    .sg-card-title { font-size: 1.05rem; font-weight: 600; color: var(--dark); margin-bottom: 1rem; }
+    .sg-card-title { display: flex; width: 100%; font-size: 1.05rem; font-weight: 600; color: var(--dark); margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 3px solid var(--green); }
     .sg-ul, .sg-ol { padding-left: 1.5rem; display: flex; flex-direction: column; gap: 0.5rem; }
     .sg-ul li, .sg-ol li { font-size: 0.95rem; line-height: 1.65; color: #333; }
     .sg-flow {
@@ -840,7 +837,7 @@ von Größen- und Schriftrichtlinien zur optimalen Lesbarkeit.</div>
                       </div>
                       <div class="phase-body">
 
-                        <h3 class="sg-section-title">Schlüsselbegriffe</h3>
+                         <h3 class="sg-section-title">🗝️ Schlüsselbegriffe</h3>
                         <div class="sg-def-list">
                           <div class="sg-def-item"><span class="sg-term">Limitationen</span><span class="sg-def">Einschränkungen oder Grenzen, die während einer Studie auftreten und die Ergebnisse beeinflussen. Das Identifizieren zeigt wissenschaftliche Reife.</span></div>
                           <div class="sg-def-item"><span class="sg-term">Further Research</span><span class="sg-def">Ableiten von Empfehlungen und Fragen aus den Ergebnissen und Limitationen einer Studie.</span></div>
@@ -980,10 +977,10 @@ beispielsweise diversere Stichproben oder experimentelle Langzeitstudien umfasse
 
         
 
-                    <!-- PHASE 4 -->
+                    <!-- PHASE 3 -->
                     <div class="phase-block">
                       <div class="phase-header">
-                        <span class="phase-badge" style="background:#3B82F6;color:#fff;">Phase 4</span>
+                        <span class="phase-badge" style="background:#3B82F6;color:#fff;">Phase 3</span>
                         <span class="phase-title">Festigen &amp; Erinnern</span>
                         <span class="phase-time">Nächste Schritte</span>
                       </div>

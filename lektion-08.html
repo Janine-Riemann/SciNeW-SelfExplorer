@@ -373,6 +373,7 @@
       transition: all 0.25s ease;
     }
     .accordion-item:hover { border-color: var(--green); box-shadow: var(--shadow-md); }
+    #tab-input .accordion-item:hover { border-color: var(--green); box-shadow: var(--shadow-md); }
     
     .accordion-item summary {
       padding: 1.5rem; font-size: 1.1rem; font-weight: 600; color: var(--dark);
@@ -455,39 +456,35 @@
     .phase-body > p { font-size: 1rem; line-height: 1.7; color: #333; }
 
     .sg-section-title {
-      font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted);
-      margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border);
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--dark);
+      margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 3px solid var(--green);
     }
 
     /* KERNPROZESSE-STIL: Emoji-Überschriften mit farbigem Unterstrich (wie Etappe 4) */
     .kp-heading {
       display: flex; align-items: center; gap: 0.65rem;
-      font-size: 1.2rem; font-weight: 700; color: var(--dark);
-      margin: 1.75rem 0 0.9rem;
+      width: 100%; font-size: 0.75rem; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase; color: var(--dark);
+      margin: 1.75rem 0 1rem; padding-bottom: 0.5rem;
+      border-bottom: 3px solid var(--green);
     }
     .kp-heading .kp-icon { font-size: 1.3rem; line-height: 1; }
-    .kp-divider {
-      height: 2px; background: var(--green); border: none; border-radius: 2px;
-      margin: 0 0 1.5rem;
-    }
+    .kp-divider { display: none; }
     .sg-card-heading {
       display: flex; align-items: center; gap: 0.55rem;
       font-size: 1.05rem; font-weight: 700; color: var(--dark);
-      margin-bottom: 0;
+      width: 100%; margin-bottom: 1rem; padding-bottom: 0.5rem;
+      border-bottom: 3px solid var(--green);
     }
     .sg-card-heading .sg-icon { font-size: 1.15rem; line-height: 1; }
-    .sg-underline {
-      width: 56px; height: 3px; border-radius: 2px;
-      margin: 0.5rem 0 1.1rem;
-    }
+    .sg-underline { display: none; }
     .sg-underline--green  { background: var(--green); }
-    .sg-underline--purple { background: #7C6FCD; }
-    .sg-underline--orange { background: var(--orange); }
-
+    .sg-underline--purple { background: var(--green); }
+    .sg-underline--orange { background: var(--green); }
     .sg-def-list { display: flex; flex-direction: column; gap: 0.75rem; }
     .sg-def-item {
       display: grid; grid-template-columns: 240px 1fr; gap: 0.5rem 1.5rem;
-      padding: 1rem 1.25rem; background: #F9F9F6; border-radius: 8px; font-size: 0.95rem; border: 1px solid var(--border);
+      padding: 1rem 1.25rem; background: #FFFFFF; border-radius: 8px; font-size: 0.95rem; border: 1px solid var(--border);
     }
     @media(max-width:640px){ .sg-def-item { grid-template-columns: 1fr; } }
     .sg-term { font-weight: 600; color: var(--dark); line-height: 1.5; }
@@ -497,16 +494,11 @@
       background: #F9F9F6; border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem;
     }
     .sg-card-title {
-      font-size: 1.1rem; font-weight: 700; color: var(--dark);
+      display: flex; width: 100%; font-size: 1.1rem; font-weight: 700; color: var(--dark);
       margin-bottom: 1.1rem; padding-bottom: 0.65rem;
-      border-bottom: 2px solid rgba(116,194,168,0.35);
-      display: flex; align-items: center; gap: 0.6rem;
+      border-bottom: 3px solid var(--green);
+      align-items: center; gap: 0.6rem;
     }
-    .sg-card-title::before {
-      content: ''; display: inline-block; width: 8px; height: 8px;
-      border-radius: 50%; background: var(--green); flex-shrink: 0;
-    }
-
     /* VERGLEICHS-BOX (links vs. rechts) */
     .sg-compare { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin-top: 0.75rem; }
     @media (max-width: 640px) { .sg-compare { grid-template-columns: 1fr; } }
@@ -515,7 +507,7 @@
     .sg-compare-col--quant { background: rgba(238,112,80,0.07); border-color: rgba(238,112,80,0.3); }
     .sg-compare-heading {
       font-size: 0.95rem; font-weight: 700; text-align: center; text-transform: uppercase; letter-spacing: 0.06em;
-      margin-bottom: 1rem; padding-bottom: 0.6rem; border-bottom: 2px solid currentColor;
+      margin-bottom: 1rem; padding-bottom: 0.6rem; border-bottom: 3px solid var(--green);
     }
     .sg-compare-col--qual .sg-compare-heading { color: #4f9880; }
     .sg-compare-col--quant .sg-compare-heading { color: var(--orange); }
@@ -863,7 +855,7 @@ einem statistischen Zusammenhang (Korrelation) und einer Ursache-Wirkungs-Bezieh
                       </div>
                       <div class="phase-body">
 
-                        <h3 class="sg-section-title">Schlüsselbegriffe</h3>
+                         <h3 class="sg-section-title">🗝️ Schlüsselbegriffe</h3>
                         <div class="sg-def-list">
                           <div class="sg-def-item"><span class="sg-def-term">Interpretation</span><span class="sg-def-def">Bedeutung von Ergebnissen im Kontext von Literatur und Forschungsfrage.</span></div>
                           <div class="sg-def-item"><span class="sg-def-term">Beschreibung</span><span class="sg-def-def">Objektive Darstellung von Daten ohne Wertung.</span></div>
@@ -887,8 +879,6 @@ einem statistischen Zusammenhang (Korrelation) und einer Ursache-Wirkungs-Bezieh
                         </div>
 
                       
-                      </div>
-                    </div>
 
                     
 
@@ -951,7 +941,8 @@ Schritte nach Mayring: Paraphrasieren, Generalisieren, Reduzieren, Themencluster
                           <div class="sg-underline sg-underline--orange"></div>
                           <p style="font-size:0.9rem;color:#333;line-height:1.6;margin-bottom:0.75rem;"><strong>Struktur:</strong> Limitation beschreiben → Auswirkung → Implikation/Empfehlung.</p>
                           <div style="background:#F5F5F0;border-left:3px solid var(--orange);border-radius:0 10px 10px 0;padding:1rem 1.25rem;font-family:var(--mono);font-size:0.85rem;line-height:1.8;color:#333;">
-                            „Die Stichprobe (N&nbsp;=&nbsp;60, 18–25 Jahre) hat eine limitierte Generalisierbarkeit; zukünftig sollten diverse Altersgruppen einbezogen werden." </div>
+                            „Die Stichprobe (N&nbsp;=&nbsp;60, 18–25 Jahre) hat eine limitierte Generalisierbarkeit; zukünftig sollten diverse Altersgruppen einbezogen werden." </div> <br> <br> 
+                            
 
                             <h4 class="sg-card-heading">Kategorien</h4>
                             <div class="sg-underline sg-underline--green"></div>

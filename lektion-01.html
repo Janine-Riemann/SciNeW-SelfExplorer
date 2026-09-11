@@ -524,13 +524,20 @@
     .phase-body > p { font-size: 1rem; line-height: 1.7; color: #333; }
 
     .sg-section-title {
-      font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted);
-      margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border);
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--dark);
+      margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 3px solid var(--green);
+    }
+    .sg-heading {
+      display: flex; width: 100%; align-items: center; gap: 0.55rem;
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--dark);
+      margin: 1.75rem 0 1rem; padding-bottom: 0.5rem;
+      border-bottom: 3px solid var(--green);
     }
     .sg-def-list { display: flex; flex-direction: column; gap: 0.75rem; }
     .sg-def-item {
       display: grid; grid-template-columns: 240px 1fr; gap: 0.5rem 1.5rem;
-      padding: 1rem 1.25rem; background: #F9F9F6; border-radius: 8px; font-size: 0.95rem; border: 1px solid var(--border);
+      padding: 1rem 1.25rem; background: #FFFFFF; border-radius: 8px; font-size: 0.95rem; border: 1px solid var(--border);
     }
     @media(max-width:640px){ .sg-def-item { grid-template-columns: 1fr; } }
     .sg-term { font-weight: 600; color: var(--dark); line-height: 1.5; }
@@ -541,8 +548,8 @@
     }
     .sg-card-title {
       font-size: 1.05rem; font-weight: 600; color: var(--dark); margin-bottom: 1.1rem;
-      display: inline-flex; align-items: center; gap: 0.5rem;
-      padding-bottom: 0.5rem; border-bottom: 2px solid var(--green);
+      display: flex; width: 100%; align-items: center; gap: 0.5rem;
+      padding-bottom: 0.5rem; border-bottom: 3px solid var(--green);
     }
     .sg-ul, .sg-ol { padding-left: 1.5rem; display: flex; flex-direction: column; gap: 0.5rem; }
     .sg-ul li, .sg-ol li { font-size: 0.95rem; line-height: 1.65; color: #333; }
