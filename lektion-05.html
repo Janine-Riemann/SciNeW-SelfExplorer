@@ -539,6 +539,15 @@
       background: #F9F9F6; border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem;
     }
     .sg-card-title { display: flex; width: 100%; font-size: 1.05rem; font-weight: 600; color: var(--dark); margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 3px solid var(--green); }
+    .abstract-grid {
+      display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1.5rem; margin-top: 1rem;
+    }
+    .abstract-grid ul { padding-left: 1.25rem; color: #333; line-height: 1.65; }
+    .abstract-grid li + li { margin-top: 0.45rem; }
+    .abstract-note { color: #333; line-height: 1.7; }
+    .abstract-note strong { color: var(--green); }
+    @media (max-width: 700px) { .abstract-grid { grid-template-columns: 1fr; } }
     .sg-ul, .sg-ol { padding-left: 1.5rem; display: flex; flex-direction: column; gap: 0.5rem; }
     .sg-ul li, .sg-ol li { font-size: 0.95rem; line-height: 1.65; color: #333; }
     .sg-flow {
@@ -929,6 +938,9 @@ Schlussfolgerungen zu ziehen. </div>
                             <li><strong>Deskriptiver Literatur Review:</strong> Unverzichtbar für jede empirische Arbeit als theoretische Fundierung. Bietet eine Übersicht der Forschung, fasst Erkenntnisse zusammen und dient als Fundament für die eigene Studie und Hypothesenbildung (Status Quo der Forschung).</li>
                             <li><strong>Systematischer Literatur Review:</strong> Systematische Zusammenfassung existierender Forschung zur Erweiterung des Wissens, Identifikation von Forschungslücken und Generierung neuer Erkenntnisse. Eine eigenständige Methode, die qualitative (Textanalyse) oder quantitative (Meta-Analyse) Varianten haben kann.</li>
                             <li><strong>Systematic Literatur Review Leitfaden:</strong> Ein strukturierter Prozess, der Schritte wie das Definieren von Forschungsfragen, Auswahl von Datenbanken, Festlegen von Suchbegriffen, Anwenden von Ein-/Ausschlusskriterien, Durchführung des Reviews und Synthetisieren der Ergebnisse umfasst.</li>
+                            <li><strong>Meta-Analyse:</strong>Quantitative Zusammenfassung der Ergebnisse mehrerer Studien, um allgemeine Trends zu identifizieren. Es werden statistische methoden genutzt zur Berechnung eines Gesamteffekts basierend auf den ergebnissen mehrerer Studien. </li>
+                             
+
                           </ul>
                         </div>
 
@@ -999,6 +1011,7 @@ ersten Identifikation bis zur endgültigen Einschlussentscheidung nachvollziehba
                             <li>„Ich"/„Wir" sparsam oder nicht verwenden.</li>
                             <li>Aktiv statt Passiv; Verben statt Nomen.</li>
                             <li>Gendern: Konsequente Verwendung einer gewählten Form.</li>
+                            
                           </ul>
                         </div>
 
@@ -1012,6 +1025,13 @@ ersten Identifikation bis zur endgültigen Einschlussentscheidung nachvollziehba
                           </ul>
                           <p style="font-size:0.9rem;font-weight:600;color:var(--dark);margin-bottom:0.5rem;">Grundaufbau (immer vorhanden):</p>
                           <p style="font-size:0.9rem;color:#333;line-height:1.6;">Titelblatt → Abstract → Inhaltsverzeichnis → Text → Literaturverzeichnis. Optional: Abbildungsverzeichnis, Tabellenverzeichnis, Abkürzungsverzeichnis, Anhang, Ehrenwörtliche Erklärung.</p>
+                        
+                          <p style="font-size:0.9rem;font-weight:600;color:var(--dark);margin-bottom:0.5rem;">Sonstige Hinweise:</p>
+                          <p style="font-size:0.9rem;color:#333;line-height:1.6;">▪ Drei bis fünf Gliederungspunkte erster Ordnung → Thema sollte strukturiert werden <br>
+▪ Maximal dreistufige Gliederung → Tiefe der Gliederung sollte dem Umfang der Arbeit entsprechen <br>
+▪ Jedes Kapitel sollte aus mindestens zwei Absätzen bestehen → Themen sollten vertieft behandelt werden <br>
+▪ Jeder Absatz sollte aus mindestens zwei Sätzen bestehen →Autor muss argumentieren. Dies ist mit nur einem Satz nicht möglich.</p>
+                        
                         </div>
 
                         <div class="sg-card">
@@ -1041,6 +1061,27 @@ ersten Identifikation bis zur endgültigen Einschlussentscheidung nachvollziehba
                           </ul>
                         </div>
 
+                        <div class="info-box">
+                          <h3 class="sg-heading sg-heading--orange"><span class="sg-heading-emoji">🔗</span>Überschirften formulieren</h3>
+                          <ul class="sg-ul">
+                            <li><strong>Keine Sätze (bzw- Verben)!:</strong> Bsp.: Weltweite Zusammenarbeit bringt Fortschritt
+VS. Die neugewonnene Macht der Kunden beeinflusst das Handeln der Unternehmen.</li>
+                            <li><strong>Keine Fragen!</strong> Bsp.: Was überwiegt? Fragmentierung oder Homogenisierung</li>
+                            <li><strong>Keine Aufforderung!</strong> Bsp.: Arbeitet miteinander! </li>
+                            <li> <strong> Keine Optionen!</strong> Bsp.: Welchen Wert hat / bringt Marketing?</li>
+                            <li> <strong> Keine Beispiele!</strong> Bsp.: Neue Herausforderungen - Bsp. Herausforderung Internet</li>
+                            <li> <strong> Keine Bezüge!</strong>Bsp.: Die Schlussfolgerungen dieser Einordnung
+/ Anpassungsfähigkeit der fundamentalen Themen auf diese Veränderungen</li>
+<li><strong> Keine Metasprache!</strong> Bsp.: Einführende Fragestellungen zu dem Thema
+/ Vorstellung von bisherigen Erklärungsansätzen
+/ Betrachtung des Aspekts des Wettbewerbs</li>
+<li><strong> Nicht zu lang...</strong>Bsp.: Die Schwierigkeit des Treffens richtiger Prognosen als Grund für die erforderliche Flexibilität von 
+Organisationen </li>
+<li><strong> ...und nich tzu kurz!</strong> Valide Folgerungen
+/ Übergreifende Disziplin</li>
+                          </ul>
+                        </div>
+
                         <div class="sg-card">
                           <h3 class="sg-heading"><span class="sg-heading-emoji">🗃️</span>Schlüsselentitäten &amp; Klassifikationen</h3>
                           <p style="font-size:0.9rem;font-weight:600;color:var(--dark);margin-bottom:0.5rem;">Typen von Literaturreviews:</p>
@@ -1050,6 +1091,127 @@ ersten Identifikation bis zur endgültigen Einschlussentscheidung nachvollziehba
                           <p style="font-size:0.9rem;font-weight:600;color:var(--dark);margin-bottom:0.5rem;">Analysesoftware (Beispiele):</p>
                           <p style="font-size:0.9rem;color:#333;line-height:1.6;">R/RStudio, SPSS, Jamovi, JASP.</p>
                         </div>
+
+                        <div class="sg-card">
+                          <h3 class="sg-heading"><span class="sg-heading-emoji">💡</span>Zusammenfassung (Abstract)</h3>
+                          <p class="abstract-note">Eine wissenschaftliche Arbeit sollte einen <strong>Abstract</strong> aufweisen. Er ist eine stark <strong>verkürzte, prägnante und wertfreie Darstellung</strong> der Arbeit und umfasst ungefähr <strong>150 bis 250 Wörter</strong>. Der Abstract steht nach dem Deckblatt und erscheint nicht in der Gliederung. Die wichtigsten Informationen werden so knapp wie möglich, aber klar und verständlich dargestellt.</p>
+                          <p class="abstract-note" style="margin-top:0.75rem;">Er orientiert sich am Aufbau der Arbeit und enthält typischerweise:</p>
+                          <div class="abstract-grid">
+                            <ul>
+                              <li>Warum ist dieses Thema relevant?</li>
+                              <li>Was ist die theoretische Grundlage?</li>
+                              <li>Was ist die zentrale Aussage bzw. Fragestellung der Arbeit?</li>
+                              <li>Welches Untersuchungsdesign wurde angewandt?</li>
+                              <li>Welche Befunde/Ergebnisse wurden erzielt, auch bei theoretischen Arbeiten?</li>
+                              <li>Was trägt die Arbeit zur Theorie und Praxis bei?</li>
+                            </ul>
+                            <ul>
+                              <li>Der Abstract orientiert sich am Aufbau der Arbeit.</li>
+                              <li>Er wird in nur einem Absatz geschrieben.</li>
+                              <li>Er darf nichts enthalten, was nicht auch in der Arbeit vorkommt.</li>
+                              <li>Literaturangaben werden im Abstract nicht gemacht.</li>
+                              <li>Hypothesen werden im Abstract nicht genannt.</li>
+                              <li>Der Abstract wird erst nach Fertigstellung der Arbeit geschrieben.</li>
+                            </ul>
+                          </div>
+                        </div>
+
+                        <h3 class="sg-heading" style="margin-top:1.75rem;"><span class="sg-heading-emoji">🧩</span>Die Bausteine der Arbeit im Detail</h3>
+
+                        <div class="sg-card">
+                          <h3 class="sg-heading sg-heading--purple"><span class="sg-heading-emoji">🔎</span>Theorie(teil)</h3>
+                          <ul class="sg-ul">
+                            <li>Stellt alle für die Forschungsfrage relevanten theoretischen Bezüge her – nicht mehr, nicht weniger; er ist quasi die „Ausformulierung der Forschungsfrage".</li>
+                            <li>Zielpublikum: ein Fachkollege. Erschöpft sich der Theorieteil in Lehrbuchwissen statt im aktuellen Forschungsstand, wird er seiner Aufgabe nicht gerecht.</li>
+                            <li>Fungiert als Literatur-Review zum Forschungsstand; die (Sach-)Hypothesen können am Ende platziert und optisch hervorgehoben werden.</li>
+                            <li>Häufiger Fehler: Abschweifen von der Forschungsfrage, z.B. mit einer ausführlichen Konzeptgeschichte.</li>
+                            <li>Forschungsfragen folgen oft dem Muster „X führt zu Y" – die Studie gliedert sich dann in X, Y und den (meist kausalen) Zusammenhang beider.</li>
+                          </ul>
+                        </div>
+
+                        <div class="sg-card">
+                          <h3 class="sg-heading"><span class="sg-heading-emoji">📝</span>Theorie(teil) – Gliederungsübung</h3>
+                          <ul class="sg-ul">
+                            <li>Eine gute Gliederung des Theorieteils entsteht aus Thema &amp; Forschungsfrage, den notwendigen Elementen des Theorieteils und einer daraus abgeleiteten, exemplarischen Struktur.</li>
+                            <li><strong>Achtung:</strong> Gliederung ≠ Inhaltsverzeichnis – aussagekräftige, „sprechende" Überschriften statt bloßer Schlagworte wählen.</li>
+                            <li>Beispiel (Achtsamkeit &amp; affektive Reaktivität): Gliederung in Konstrukt-Kapitel (z.B. „Achtsamkeit im Spiegel der Forschung"), Wirkforschung, Zusammenhang der Konstrukte sowie abschließend Bewertung des Forschungsstands und Modellentwicklung/Hypothesen.</li>
+                          </ul>
+                        </div>
+
+                        <div class="sg-card">
+                          <h3 class="sg-heading sg-heading--orange"><span class="sg-heading-emoji">🛠️</span>Methodenteil</h3>
+                          <ul class="sg-ul">
+                            <li>Beschreibt alle relevanten Verfahrensdetails, sodass die Studie „nachgekocht", also exakt reproduziert werden kann; allgemein bekannte Verfahren (z.B. Regressionsanalyse) werden nicht erklärt.</li>
+                            <li>Zentral sind <strong>Reproduzierbarkeit</strong> (Analyse ist nachrechenbar) und <strong>Replizierbarkeit</strong> (Studie ist wiederholbar).</li>
+                            <li>Auskunft wird gegeben über: Stichprobe (Versuchspersonen), Versuchsmaterial (Messinstrumente, Fragebögen), Versuchsablauf (Design, Bedingungen) sowie Analyse (Software, statistische Verfahren).</li>
+                          </ul>
+                        </div>
+
+                        <div class="sg-card">
+                          <h3 class="sg-heading sg-heading--purple"><span class="sg-heading-emoji">📈</span>Ergebnis(teil)</h3>
+                          <ul class="sg-ul">
+                            <li>Enthält ausschließlich Fakten, keine Meinungen oder Interpretationen – diese folgen erst in der Diskussion.</li>
+                            <li>Berichtet werden primär die Ergebnisse zu Hypothesen bzw. Forschungsfragen; sinnvoll ist die Reihenfolge einfache (deskriptive) vor komplexeren (interferenzstatistischen) Ergebnissen.</li>
+                            <li>Sprachlicher Hinweis: Handlungen im Präteritum („Es fand sich ein Unterschied…"), überdauernde Tatsachen im Präsens („Dieser Wert ist statistisch signifikant").</li>
+                          </ul>
+                        </div>
+
+                        <div class="sg-card">
+                          <h3 class="sg-heading"><span class="sg-heading-emoji">💬</span>Diskussion(teil) &amp; Schluss</h3>
+                          <ul class="sg-ul">
+                            <li>Enthält den neutral formulierten Kommentar des Autors zu den Ergebnissen mit Bezug zum in der Einleitung beschriebenen Forschungsstand; der wissenschaftliche Beitrag der Untersuchung wird herausgestellt.</li>
+                            <li>Ablauf: kritische Zusammenfassung der Haupterergebnisse und Vergleich mit anderen Studien → sinnvoller (theoretischer) Erklärungsansatz, ggf. mit Gründen für nicht bestätigte Hypothesen.</li>
+                            <li>Ein eigener Absatz zu den <strong>Limitationen</strong> der Studie ist Pflicht; zum Abschluss folgen Verbesserungsvorschläge und Implikationen für weitere Forschung, jeweils rückbezogen auf die Literatur.</li>
+                          </ul>
+                        </div>
+
+                        <div class="sg-card">
+                          <h3 class="sg-heading sg-heading--orange"><span class="sg-heading-emoji">📚</span>Literaturverzeichnis</h3>
+                          <ul class="sg-ul">
+                            <li>Bildet ohne eigenen Gliederungspunkt genau die zitierte Literatur ab – nicht mehr, nicht weniger – und wird nach den Regeln des verwendeten Zitierstils (z.B. APA) gestaltet.</li>
+                            <li>Formatierung: linksbündig, ab der 2. Zeile mehrzeiliger Einträge eingerückt.</li>
+                            <li>Die Qualität der Quellen ist ein wichtiges Beurteilungskriterium – hochwertige Quellen sind meist empirische Fachartikel oder Review-Artikel.</li>
+                            <li>Da der Großteil der relevanten Literatur englischsprachig ist, sollte ein rein deutschsprachiges Verzeichnis vermieden und englischsprachige Artikel reichhaltig genutzt werden.</li>
+                          </ul>
+                        </div>
+ <div class="sg-card">
+                          <h3 class="sg-heading sg-heading--orange"><span class="sg-heading-emoji"> 📦</span>Anhang</h3>
+                          <ul class="sg-ul">
+                            <li> Im Anhang stehen Details zu Ihrer Studie.</li>
+                            <li>Die einzelnen Teile des Anhangs werden durchnummeriert.</li>
+                            <li>Alle Inhalte des Anhangs müssen im Haupttext referenziert werden (z.B. „Der Interviewleitfaden findet sich im 
+Anhang B“.) und vice versa.</li>
+                            <li>Eine Funktion des Anhangs ist es, die Informationen, die zur Reproduktion der Studie nötig sind, im Detail 
+vorzuhalten. Auch wenn Sie im Anhang “nur” auf Dateien verweisen, sollte im Anhang aufgeführt sein, welche 
+weiterführenden Informationen dem Haupttext beigefügt sind.</li>
+<li>Typische Inhalte des Anhangs sind: 
+− Details zu Messinstrumenten, 
+− Interviewleitfäden oder Stimuli, 
+− weiterführende Statistiken, 
+− Syntax oder Probandeninformationen. Sofern verfügbar, können Sie anstelle z.B. Ihres Fragebogens die URL zu 
+Ihrem Fragebogen einfügen. </li>
+<li>In ähnlicher Manier wie Tabellen oder Abbildungen im Text sollten Sie Ihre Daten keinesfalls (schon gar nicht per 
+Screenshot → Tabellen/Abbildungen erstellen) in den Anhang einfügen. Verweisen Sie stattdessen im Anhang auf die 
+entsprechende Datei (achten Sie auf prägnante Dateinamen und zugängliche Formate wie CSV).  </li>
+<li>Die ehrenwörtliche Erklärung, steht ebenfalls im Anhang.</li>
+<li> Die Deklaration der (KI-basierter) Hilfsmittel muss ebenfalls in den Anhang</li>
+<li> Optional kann eine Danksagung an die Betreuer oder Teilnehmenden der Studie eingefügt werden. </li>
+                          </ul>
+                        </div>
+
+<h3 class="sg-heading sg-heading--orange" style="margin-top:0.5rem;"><span class="sg-heading-emoji">📝 </span>Tabellen formatieren </h3>
+                        <p style="font-size:0.9rem;color:#333;line-height:1.6;margin-bottom:0.75rem;">Genauere Merkmale lassen sich aus dem APA-Manual nehmen.</p>
+                        <img src="bilder/Kapitel5-TabelleFormatieren.png" class="clickable-img" alt="APATabelle" style="display:block; width:min(100%, 720px); max-width:100%; border-radius:12px; margin:1.25rem auto 0;">
+                        <p style="font-size:0.8rem;margin-top:0.4rem;"></p>
+                          <img src="bilder/Kapitel5-Abbildung Formatieren1.png" class="clickable-img" alt="APAAbbildung" style="display:block; width:min(100%, 720px); max-width:100%; border-radius:12px; margin:1.25rem auto 0;">
+                        <p style="font-size:0.8rem;margin-top:0.4rem;"> </p>
+                        
+                        <img src="bilder/Kapitel5-AbbildungFormatieren2.png" class="clickable-img" alt="APAbb2" style="display:block; width:min(100%, 720px); max-width:100%; border-radius:12px; margin:1.25rem auto 0;">
+                        <p style="font-size:0.8rem;margin-top:0.4rem;"></p>
+                        
+                          Quelle: <a href="https://apastyle.apa.org/style-grammar-guidelines/tables-figures/tables" target="_blank" rel="noopener" style="color:#2563EB;text-decoration:underline;">Tabelle nach APA</a>
+                        
+
 
 <!-- PDF DOWNLOADS -->
 <h3 class="sg-heading sg-heading--orange" style="margin-top:1.75rem;"><span class="sg-heading-emoji">📎</span>Materialien</h3>

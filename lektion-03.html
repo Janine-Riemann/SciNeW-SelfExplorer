@@ -506,6 +506,32 @@
     .sg-term { font-weight: 600; color: var(--dark); line-height: 1.5; }
     .sg-def { color: #333; line-height: 1.6; }
 
+    .literature-steps {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1.5rem;
+    }
+    .literature-steps-title {
+      font-size: 1.25rem; font-weight: 700; color: var(--dark); margin-bottom: 0.25rem;
+    }
+    .literature-steps-subtitle { font-size: 1rem; color: #555; margin-bottom: 1rem; }
+    .literature-step {
+      display: grid; grid-template-columns: 3rem 1fr; gap: 1rem;
+      padding: 0.85rem 0; border-bottom: 1px solid var(--border); color: #555; line-height: 1.55;
+    }
+    .literature-step:first-of-type,
+    .literature-step:nth-of-type(2) { background: rgba(116,194,168,0.16); }
+    .literature-step:last-child { border-bottom: none; }
+    .literature-step-number {
+      width: 2rem; height: 2rem; display: flex; align-items: center; justify-content: center;
+      border: 2px solid var(--green); border-radius: 6px; color: var(--green); font-weight: 700;
+      background: var(--surface);
+    }
+    .literature-step strong { color: var(--dark); }
+    .literature-step em { color: #555; }
+    @media (max-width: 560px) {
+      .literature-step { grid-template-columns: 2.5rem 1fr; gap: 0.75rem; }
+    }
+
     .sg-card {
       background: #F9F9F6; border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem;
     }
@@ -953,6 +979,31 @@ und überprüfenden Umgang ab</div>
                             <li><strong>Systematische Suche 🧭:</strong> Fragestellung schärfen, Suchbegriffe ableiten, geeignete Quellen/Datenbanken wählen, Suchstrategie festlegen, sichten und auswerten. Bietet eine „Hubschrauberperspektive".</li>
                             <li><strong>Vorwärtssuche ➡️:</strong> Suche nach Quellen, die die gefundene Literatur zitieren.</li>
                           </ul>
+                        </div>
+
+                        <div class="literature-steps">
+                          <h3 class="literature-steps-title">Literaturrecherche &amp; Literaturhandling</h3>
+                          <p class="literature-steps-subtitle">Step by Step</p>
+                          <div class="literature-step">
+                            <span class="literature-step-number">1</span>
+                            <div><strong>Suchen</strong> ist das Ausfindigmachen geeigneter Literatur. Dazu sucht man meist in einschlägigen wissenschaftlichen Literatur-Datenbanken wie z. B. ScienceDirect. Beim Suchen unterscheidet man zwischen <em>Zitierinformationen</em> (Autor, Titel, Veröffentlichungsdatum oder ID-Nummer), <em>Open-Access-Elementen</em> (Titel, Abstract, Literaturverzeichnis) und <em>Volltexten</em>.</div>
+                          </div>
+                          <div class="literature-step">
+                            <span class="literature-step-number">2</span>
+                            <div>Im nächsten Schritt, <strong>Screenen</strong>, sind zumeist die Open-Access-Elemente am wichtigsten, damit man einschätzen kann, ob das Werk geeignet ist. Der Volltext ist an dieser Stelle nicht unbedingt nötig.</div>
+                          </div>
+                          <div class="literature-step">
+                            <span class="literature-step-number">3</span>
+                            <div>Geeignete Werke <strong>sammelt</strong> man in einer Liste, z. B. via dem Literaturprogramm Zotero. Dabei werden pro Werk die Zitierinformationen festgehalten.</div>
+                          </div>
+                          <div class="literature-step">
+                            <span class="literature-step-number">4</span>
+                            <div>Jetzt folgt das <strong>Lesen</strong> eines geeigneten Werks.</div>
+                          </div>
+                          <div class="literature-step">
+                            <span class="literature-step-number">5</span>
+                            <div>Zentrale Inhalte <strong>extrahiert</strong> man aus dem Werk und hält sie an geeigneter Stelle fest, z. B. als Tag oder Notiz in Zotero.</div>
+                          </div>
                         </div>
 
                         <div class="sg-card">
