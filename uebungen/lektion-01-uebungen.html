@@ -448,7 +448,7 @@
     <div class="exercise-label">Aufgabe 1 · Multiple Choice</div>
     <h3>Was sind hilfreiche Inspirationsquellen für die Ideenfindung bei Seminararbeiten, aber keine zitierfähigen wissenschaftlichen Quellen?</h3>
 
-    <ul class="choice-list" id="mc-list">
+    <ul class="choice-list" id="mc-list-1">
       <!-- ✅ korrekt = true | ❌ falsch = false -->
       <li class="choice-item"><label><input type="checkbox" data-correct="false">  Instagram-Posts</label></li>
       <li class="choice-item"><label><input type="checkbox" data-correct="false"> Fachbücher</label></li>
@@ -459,10 +459,10 @@
     </ul>
 
     <div>
-      <button class="btn-check" onclick="checkMC()">✔ Überprüfen</button>
-      <button class="btn-reset" onclick="resetMC()">↺ Zurücksetzen</button>
+      <button class="btn-check" onclick="checkMC('mc-list-1')">✔ Überprüfen</button>
+      <button class="btn-reset" onclick="resetMC('mc-list-1')">↺ Zurücksetzen</button>
     </div>
-    <div class="feedback-msg" id="mc-feedback"></div>
+    <div class="feedback-msg" id="mc-feedback-1"></div>
   </section>
 
   <!-- ============================================================
@@ -521,7 +521,7 @@
     <div class="exercise-label">Aufgabe 6 · Multiple Choice</div>
     <h3>Welche zentralen Kriterien definieren den Begriff des wissenschaftlichen Arbeitens und zeichnen eine wissenschaftliche Vorgehensweise im Gegensatz zur Pseudowissenschaft aus?</h3>
 
-    <ul class="choice-list" id="mc-list">
+    <ul class="choice-list" id="mc-list-6">
       <!-- ✅ korrekt = true | ❌ falsch = false -->
       <li class="choice-item"><label><input type="checkbox" data-correct="false"> Wissenschaftliches Arbeiten basiert ausschließlich auf dem unkritischen Glauben an traditionelle Glaubenssätze und vermeidet jegliche empirische Evidenz zur systematischen Erklärung von Phänomenen.</label></li>
       <li class="choice-item"><label><input type="checkbox" data-correct="true"> Wissenschaftliches Arbeiten erfordert eine systematische Erkenntnisgewinnung, die stets durch objektive Prüfbarkeit, regelbasiertes methodisches Vorgehen sowie Nachvollziehbarkeit gekennzeichnet ist.</label></li>
@@ -530,10 +530,10 @@
       
     </ul>
      <div>
-      <button class="btn-check" onclick="checkMC()">✔ Überprüfen</button>
-      <button class="btn-reset" onclick="resetMC()">↺ Zurücksetzen</button>
+      <button class="btn-check" onclick="checkMC('mc-list-6')">✔ Überprüfen</button>
+      <button class="btn-reset" onclick="resetMC('mc-list-6')">↺ Zurücksetzen</button>
     </div>
-    <div class="feedback-msg" id="mc-feedback"></div>
+    <div class="feedback-msg" id="mc-feedback-6"></div>
   </section>
 
 <!-- ============================================================
@@ -697,8 +697,8 @@ const CHIPS_EX4 = [
    ENGINE – keine Änderungen notwendig unterhalb dieser Linie
    ================================================================ */
 
-function checkMC() {
-  const items = document.querySelectorAll('#mc-list .choice-item label');
+function checkMC(listId) {
+  const items = document.querySelectorAll('#' + listId + ' .choice-item label');
   let correct = 0;
   items.forEach(label => {
     const cb = label.querySelector('input');
@@ -708,9 +708,9 @@ function checkMC() {
     if (cb.checked && !isCorrect) { label.classList.add('wrong'); }
     if (!cb.checked && isCorrect) { label.classList.add('missed'); }
   });
-  const total = document.querySelectorAll('#mc-list input[data-correct="true"]').length;
-  const fb = document.getElementById('mc-feedback');
-  if (correct === total && !document.querySelector('#mc-list label.wrong')) {
+  const total = document.querySelectorAll('#' + listId + ' input[data-correct="true"]').length;
+  const fb = document.getElementById(listId === 'mc-list-1' ? 'mc-feedback-1' : 'mc-feedback-6');
+  if (correct === total && !document.querySelector('#' + listId + ' label.wrong')) {
     fb.className = 'feedback-msg success';
     fb.textContent = '✓ Alle Antworten korrekt!';
   } else {
@@ -718,10 +718,10 @@ function checkMC() {
     fb.textContent = `✗ ${correct} von ${total} richtig. Falsche Auswahl = rot | fehlende korrekte Antworten = grün gedimmt.`;
   }
 }
-function resetMC() {
-  document.querySelectorAll('#mc-list input').forEach(cb => cb.checked = false);
-  document.querySelectorAll('#mc-list label').forEach(l => l.className = '');
-  document.getElementById('mc-feedback').className = 'feedback-msg';
+function resetMC(listId) {
+  document.querySelectorAll('#' + listId + ' input').forEach(cb => cb.checked = false);
+  document.querySelectorAll('#' + listId + ' label').forEach(l => l.className = '');
+  document.getElementById(listId === 'mc-list-1' ? 'mc-feedback-1' : 'mc-feedback-6').className = 'feedback-msg';
 }
 
 const DND_STATE = {};

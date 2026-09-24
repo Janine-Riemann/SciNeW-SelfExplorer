@@ -762,7 +762,7 @@
     <div class="exercise-label">Aufgabe 6 · Multiple Choice</div>
     <h3>Welche der folgenden Aussagen beschreiben Kriterien für gute Forschungsfragen im Rahmen wissenschaftlicher Arbeiten gemäß den bereitgestellten Unterlagen korrekt? Wählen Sie alle zutreffenden Aussagen aus.</h3>
 
-    <ul class="choice-list" id="mc-list">
+    <ul class="choice-list" id="mc-list-6">
       <!-- ✅ korrekt = true | ❌ falsch = false -->
       <li class="choice-item"><label><input type="checkbox" data-correct="true"> Eine gelungene Forschungsfrage zeichnet sich durch Ergebnisoffenheit und Neutralität aus, das heißt, sie darf keinesfalls suggestiv formuliert sein.</label></li>
       <li class="choice-item"><label><input type="checkbox" data-correct="true"> Die empirische Überprüfbarkeit ist ein zentrales Kriterium, wodurch sichergestellt wird, dass die Fragestellung mithilfe wissenschaftlicher Methoden beantwortet werden kann.</label></li>
@@ -772,10 +772,10 @@
     </ul>
 
     <div>
-      <button class="btn-check" onclick="checkMC()">✔ Überprüfen</button>
-      <button class="btn-reset" onclick="resetMC()">↺ Zurücksetzen</button>
+      <button class="btn-check" onclick="checkMC('mc-list-6','mc-feedback-6')">✔ Überprüfen</button>
+      <button class="btn-reset" onclick="resetMC('mc-list-6','mc-feedback-6')">↺ Zurücksetzen</button>
     </div>
-    <div class="feedback-msg" id="mc-feedback"></div>
+    <div class="feedback-msg" id="mc-feedback-6"></div>
   </section>
 
 
@@ -787,7 +787,7 @@
     <div class="exercise-label">Aufgabe 7 · Multiple Choice</div>
     <h3>Welche der folgenden Aussagen beschreiben die wissenschaftlichen Anforderungen an Hypothesen hinsichtlich Präzision, Widerspruchsfreiheit, Widerlegbarkeit und Operationalisierbarkeit korrekt? Wählen Sie alle zutreffenden Aussagen aus.</h3>
 
-    <ul class="choice-list" id="mc-list">
+    <ul class="choice-list" id="mc-list-7">
       <!-- ✅ korrekt = true | ❌ falsch = false -->
       <li class="choice-item"><label><input type="checkbox" data-correct="false"> Eine Hypothese gilt automatisch dann als wissenschaftlich wertvoll und vollkommen unproblematisch, wenn sie möglichst schwammige Begriffe verwendet, um breitere Interpretationsspielräume offen zu halten.</label></li>
       <li class="choice-item"><label><input type="checkbox" data-correct="true"> Wissenschaftliche Hypothesen müssen präzise und widerspruchsfrei formuliert sein, da in sich widersprüchliche Hypothesen prinzipiell nicht widerlegbar und somit ohne empirischen Gehalt sind.</label></li>
@@ -797,10 +797,10 @@
     </ul>
 
     <div>
-      <button class="btn-check" onclick="checkMC()">✔ Überprüfen</button>
-      <button class="btn-reset" onclick="resetMC()">↺ Zurücksetzen</button>
+      <button class="btn-check" onclick="checkMC('mc-list-7','mc-feedback-7')">✔ Überprüfen</button>
+      <button class="btn-reset" onclick="resetMC('mc-list-7','mc-feedback-7')">↺ Zurücksetzen</button>
     </div>
-    <div class="feedback-msg" id="mc-feedback"></div>
+    <div class="feedback-msg" id="mc-feedback-7"></div>
   </section>
 
 
@@ -1298,6 +1298,56 @@ function checkMTW() {
 function resetMTW() {
   document.getElementById('mtw-feedback').className = 'feedback-msg';
   buildMTW();
+}
+
+/* ── Multiple Choice Engine (Aufgabe 6 & 7) ──────────────────────
+   Prüft jede Checkbox einzeln gegen data-correct:
+   - angekreuzt + richtig  → grün  (correct)
+   - angekreuzt + falsch   → rot   (wrong)
+   - nicht angekreuzt + richtig → grün, abgeblendet (missed)
+   ---------------------------------------------------------------- */
+function checkMC(listId, feedbackId) {
+  const checkboxes = document.querySelectorAll('#' + listId + ' input[type="checkbox"]');
+  let correctSelected = 0;
+  let totalCorrect = 0;
+  let wrongSelected = 0;
+
+  checkboxes.forEach(cb => {
+    const label = cb.closest('label');
+    label.classList.remove('correct', 'wrong', 'missed');
+    const isCorrect = cb.dataset.correct === 'true';
+    if (isCorrect) totalCorrect++;
+
+    if (cb.checked && isCorrect) {
+      label.classList.add('correct');
+      correctSelected++;
+    } else if (cb.checked && !isCorrect) {
+      label.classList.add('wrong');
+      wrongSelected++;
+    } else if (!cb.checked && isCorrect) {
+      label.classList.add('missed');
+    }
+    cb.disabled = true;
+  });
+
+  const fb = document.getElementById(feedbackId);
+  const allCorrectFound = correctSelected === totalCorrect && wrongSelected === 0;
+  if (allCorrectFound) {
+    fb.className = 'feedback-msg success';
+    fb.textContent = `✓ Alle ${totalCorrect} richtigen Antworten korrekt ausgewählt!`;
+  } else {
+    fb.className = 'feedback-msg error';
+    fb.textContent = `✗ ${correctSelected} von ${totalCorrect} richtigen Antworten erkannt. Falsch angekreuzte Antworten sind rot, übersehene richtige Antworten grün-blass markiert.`;
+  }
+}
+
+function resetMC(listId, feedbackId) {
+  document.querySelectorAll('#' + listId + ' input[type="checkbox"]').forEach(cb => {
+    cb.checked = false;
+    cb.disabled = false;
+    cb.closest('label').classList.remove('correct', 'wrong', 'missed');
+  });
+  document.getElementById(feedbackId).className = 'feedback-msg';
 }
 
 /* ── IFRAME-HÖHE SYNCHRONISIEREN (verhindert "Scroll im Scroll") ──
