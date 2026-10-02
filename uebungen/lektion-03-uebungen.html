@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="de">
 <head>
 <meta charset="UTF-8">
@@ -559,7 +559,7 @@
        ============================================================ -->
   <section class="exercise" id="ex1">
     <div class="exercise-label">Aufgabe 1 · Quiz</div>
-    <h3>Wähle jeweils die korrekte Aussage zu wissenschaftlichen Fachzeitschriften und -artikeln.</h3>
+    <h3>Wählen Sie jeweils die korrekte Aussage zu wissenschaftlichen Fachzeitschriften und -artikeln.</h3>
 
     <!-- Frage 1 -->
     <div class="quiz-question-text" id="q1-text">Warum sind wissenschaftliche Fachzeitschriften so zitierwürdig?</div>
@@ -635,7 +635,7 @@
     <div class="exercise-label">Aufgabe 2 · Multiple Choice</div>
     <h3>Welche Eigenschaften und Vorgehensweisen treffen auf die systematische Suche im Vergleich zur kumulativen (Schneeballsuche) Literaturrecherche zu? Wählen Sie die zutreffende Antwort.</h3>
 
-    <ul class="choice-list" id="mc-list">
+    <ul class="choice-list" id="mc-list-ex2">
       <!-- ✅ korrekt = true | ❌ falsch = false -->
       <li class="choice-item"><label><input type="checkbox" data-correct="false"> Da moderne KI-Modelle direkt an universelle wissenschaftliche Datenbanken angebunden sind, können sämtliche ermittelten Literaturangaben völlig bedenkenlos ohne weitere Verifikation übernommen werden.</label></li>
       <li class="choice-item"><label><input type="checkbox" data-correct="true">  Systematische Verzerrungen und probabilistische Fehler in den Trainingsdaten können unberkannte algorithmische Fehler verursachen, weshalb die Vertrauenswürdigkeit der Ergebnisse stets kritisch zu hinterfragen bleibt.</label></li>
@@ -644,10 +644,10 @@
       
     </ul>
      <div>
-      <button class="btn-check" onclick="checkMC()">✔ Überprüfen</button>
-      <button class="btn-reset" onclick="resetMC()">↺ Zurücksetzen</button>
+      <button class="btn-check" onclick="checkMC('ex2')">✔ Überprüfen</button>
+      <button class="btn-reset" onclick="resetMC('ex2')">↺ Zurücksetzen</button>
     </div>
-    <div class="feedback-msg" id="mc-feedback"></div>
+    <div class="feedback-msg" id="mc-feedback-ex2"></div>
 
   </section>
 <!-- ============================================================
@@ -658,7 +658,7 @@
     <div class="exercise-label">Aufgabe 3 · Multiple Choice</div>
     <h3>Basierend auf den Grundlagen des wissenschaftlichen Publizierens, welche der folgenden Aussagen treffen auf Fachartikel und den wissenschaftlichen Publikationsprozess zu? Wählen Sie alle zutreffenden Aussagen aus.</h3>
 
-    <ul class="choice-list" id="mc-list">
+    <ul class="choice-list" id="mc-list-ex3">
       <!-- ✅ korrekt = true | ❌ falsch = false -->
       <li class="choice-item"><label><input type="checkbox" data-correct="true">  Im Rahmen des Publikationsprozesses folgt auf die Manuskripterstellung üblicherweise die Einreichung beim Journal sowie das anschließende Peer Review vor einer Publikationsentscheidung.</label></li>
       <li class="choice-item"><label><input type="checkbox" data-correct="false"> Preprints stellen vorab veröffentlichte wissenschaftliche Texte dar, welche bereits erfolgreich das formale Peer Review sowie alle Qualitätsprüfungen durchlaufen haben.</label></li>
@@ -667,10 +667,10 @@
       
     </ul>
       <div>
-      <button class="btn-check" onclick="checkMC()">✔ Überprüfen</button>
-      <button class="btn-reset" onclick="resetMC()">↺ Zurücksetzen</button>
+      <button class="btn-check" onclick="checkMC('ex3')">✔ Überprüfen</button>
+      <button class="btn-reset" onclick="resetMC('ex3')">↺ Zurücksetzen</button>
     </div>
-    <div class="feedback-msg" id="mc-feedback"></div>
+    <div class="feedback-msg" id="mc-feedback-ex3"></div>
 
     </section>
      <!-- ============================================================
@@ -681,7 +681,7 @@
     <div class="exercise-label">Aufgabe 4 · Multiple Choice</div>
     <h3>Welche der folgenden Aussagen beschreiben die Eigenschaften und Einsatzmöglichkeiten von Google Scholar im Rahmen einer wissenschaftlichen Literaturrecherche treffend? (Wählen Sie zwei zutreffende Aussagen aus)</h3>
 
-    <ul class="choice-list" id="mc-list">
+    <ul class="choice-list" id="mc-list-ex4">
       <!-- ✅ korrekt = true | ❌ falsch = false -->
       <li class="choice-item"><label><input type="checkbox" data-correct="false"> Google Scholar umfasst sämtliche weltweit relevanten wissenschaftlichen Artikel und ersetzt dadurch vollständig die traditionelle Suche in spezialisierten Fachdatenbanken.</label></li>
       <li class="choice-item"><label><input type="checkbox" data-correct="true"> Die Plattform liefert oft eine sehr große Anzahl an Treffern, weshalb die tatsächliche Qualität der gefundenen Ergebnisse immer kritisch überprüft werden muss.</label></li>
@@ -691,10 +691,10 @@
     </ul>
 
     <div>
-      <button class="btn-check" onclick="checkMC()">✔ Überprüfen</button>
-      <button class="btn-reset" onclick="resetMC()">↺ Zurücksetzen</button>
+      <button class="btn-check" onclick="checkMC('ex4')">✔ Überprüfen</button>
+      <button class="btn-reset" onclick="resetMC('ex4')">↺ Zurücksetzen</button>
     </div>
-    <div class="feedback-msg" id="mc-feedback"></div>
+    <div class="feedback-msg" id="mc-feedback-ex4"></div>
   </section>
 
 
@@ -706,8 +706,8 @@
 
         <li class="reflect-item">
           <div class="q-text"><strong>Peer Review &amp; Fachartikel:</strong> Warum sind Fachartikel mit Peer Review besonders wichtig, und wie unterscheidet sich das Single-Blind vom Double-Blind Peer Review?</div>
-          <textarea class="answer-textarea" id="ex5-a1" placeholder="Schreibe hier deine Antwort..."></textarea>
-          <div class="answer-hint">Denke an die Merkmale: Qualitätssicherung · Unabhängigkeit der Gutachter · Anonymität</div>
+          <textarea class="answer-textarea" id="ex5-a1" placeholder="Schreiben Sie hier Ihre Antwort..."></textarea>
+          <div class="answer-hint">Denken Sie an die Merkmale: Qualitätssicherung · Unabhängigkeit der Gutachter · Anonymität</div>
           <div class="btn-row">
             <button class="btn-sample" onclick="toggleSample('ex5-s1', this)">💡 Musterlösung anzeigen</button>
             <button class="btn-reset" onclick="resetReflect('ex5-a1', 'ex5-s1', this)">↺ Zurücksetzen</button>
@@ -719,8 +719,8 @@
 
         <li class="reflect-item">
           <div class="q-text"><strong>Rabbit Hole vermeiden:</strong> Wie können Sie verhindern, in ein „Rabbit Hole“ zu geraten – und welche konkreten Strategien helfen dabei?</div>
-          <textarea class="answer-textarea" id="ex5-a2" placeholder="Schreibe hier deine Antwort..."></textarea>
-          <div class="answer-hint">Denke an die Merkmale: klare Fragestellung · Zeitlimit · Fokussierung</div>
+          <textarea class="answer-textarea" id="ex5-a2" placeholder="Schreiben Sie hier Ihre Antwort..."></textarea>
+          <div class="answer-hint">Denken Sie an die Merkmale: klare Fragestellung · Zeitlimit · Fokussierung</div>
           <div class="btn-row">
             <button class="btn-sample" onclick="toggleSample('ex5-s2', this)">💡 Musterlösung anzeigen</button>
             <button class="btn-reset" onclick="resetReflect('ex5-a2', 'ex5-s2', this)">↺ Zurücksetzen</button>
@@ -732,8 +732,8 @@
 
         <li class="reflect-item">
           <div class="q-text"><strong>Google Scholar vs. Fachdatenbanken:</strong> Welche Vor- und Nachteile bieten Google Scholar und spezialisierte Fachdatenbanken, und wann würden Sie welches Tool bevorzugen?</div>
-          <textarea class="answer-textarea" id="ex5-a3" placeholder="Schreibe hier deine Antwort..."></textarea>
-          <div class="answer-hint">Denke an die Merkmale: Abdeckung · Filtermöglichkeiten · Qualitätssicherung der Treffer</div>
+          <textarea class="answer-textarea" id="ex5-a3" placeholder="Schreiben Sie hier Ihre Antwort..."></textarea>
+          <div class="answer-hint">Denken Sie an die Merkmale: Abdeckung · Filtermöglichkeiten · Qualitätssicherung der Treffer</div>
           <div class="btn-row">
             <button class="btn-sample" onclick="toggleSample('ex5-s3', this)">💡 Musterlösung anzeigen</button>
             <button class="btn-reset" onclick="resetReflect('ex5-a3', 'ex5-s3', this)">↺ Zurücksetzen</button>
@@ -745,8 +745,8 @@
 
         <li class="reflect-item">
           <div class="q-text"><strong>W-Fragen der Recherche:</strong> Welche „W-Fragen“ leiten den Rechercheprozess, und wie hilft eine systematische Suche im Vergleich zur kumulativen Suche?</div>
-          <textarea class="answer-textarea" id="ex5-a4" placeholder="Schreibe hier deine Antwort..."></textarea>
-          <div class="answer-hint">Denke an die Merkmale: Wer, Was, Wann, Wo, Warum, Wie · Struktur vs. Zufall</div>
+          <textarea class="answer-textarea" id="ex5-a4" placeholder="Schreiben Sie hier Ihre Antwort..."></textarea>
+          <div class="answer-hint">Denken Sie an die Merkmale: Wer, Was, Wann, Wo, Warum, Wie · Struktur vs. Zufall</div>
           <div class="btn-row">
             <button class="btn-sample" onclick="toggleSample('ex5-s4', this)">💡 Musterlösung anzeigen</button>
             <button class="btn-reset" onclick="resetReflect('ex5-a4', 'ex5-s4', this)">↺ Zurücksetzen</button>
@@ -758,8 +758,8 @@
 
         <li class="reflect-item">
           <div class="q-text"><strong>KI kritisch nutzen:</strong> Warum ist eine kritische Überprüfung von KI-Ergebnissen unerlässlich, und welche Best-Practice-Hinweise sind dabei zentral?</div>
-          <textarea class="answer-textarea" id="ex5-a5" placeholder="Schreibe hier deine Antwort..."></textarea>
-          <div class="answer-hint">Denke an die Merkmale: Halluzinationen · Quellenprüfung · Transparenz der Nutzung</div>
+          <textarea class="answer-textarea" id="ex5-a5" placeholder="Schreiben Sie hier Ihre Antwort..."></textarea>
+          <div class="answer-hint">Denken Sie an die Merkmale: Halluzinationen · Quellenprüfung · Transparenz der Nutzung</div>
           <div class="btn-row">
             <button class="btn-sample" onclick="toggleSample('ex5-s5', this)">💡 Musterlösung anzeigen</button>
             <button class="btn-reset" onclick="resetReflect('ex5-a5', 'ex5-s5', this)">↺ Zurücksetzen</button>
@@ -771,8 +771,8 @@
 
         <li class="reflect-item">
           <div class="q-text"><strong>Suchbegriffsentwicklung:</strong> Angenommen, Sie schreiben eine Arbeit zum Thema <em>„Der Einfluss von Nachhaltigkeitskommunikation auf das Kaufverhalten junger Erwachsener in Deutschland“</em>. Erstellen Sie eine Tabelle mit mindestens drei Konzepten und sammeln Sie für jedes Konzept mindestens zwei alternative Begriffe. Wenden Sie anschließend mindestens drei verschiedene Suchoperatoren an, um eine mögliche Suchanfrage zu formulieren.</div>
-          <textarea class="answer-textarea" id="ex5-a6" placeholder="Schreibe hier deine Antwort..."></textarea>
-          <div class="answer-hint">Denke an die Merkmale: Synonyme · Boolesche Operatoren (AND/OR/NOT) · Trunkierung/Phrasensuche</div>
+          <textarea class="answer-textarea" id="ex5-a6" placeholder="Schreiben Sie hier Ihre Antwort..."></textarea>
+          <div class="answer-hint">Denken Sie an die Merkmale: Synonyme · Boolesche Operatoren (AND/OR/NOT) · Trunkierung/Phrasensuche</div>
           <div class="btn-row">
             <button class="btn-sample" onclick="toggleSample('ex5-s6', this)">💡 Musterlösung anzeigen</button>
             <button class="btn-reset" onclick="resetReflect('ex5-a6', 'ex5-s6', this)">↺ Zurücksetzen</button>
@@ -790,8 +790,8 @@
 
         <li class="reflect-item">
           <div class="q-text"><strong>Quellenbewertung:</strong> Ihnen liegen folgende Quellen vor. Beurteilen Sie, welche als <strong>zitierwürdig</strong> gelten und begründen Sie Ihre Einschätzung (Aktualität, Belegbarkeit, Autorität, Publikationsort, Erkenntnisinteresse): Ein Blogbeitrag von einem unbekannten Autor; eine Studie aus dem <em>Journal of Consumer Research</em>; ein aktueller Artikel aus der <em>Süddeutschen Zeitung</em>; ein Preprint auf arXiv; ein Lehrbuch zur <em>Allgemeinen Betriebswirtschaftslehre</em>.</div>
-          <textarea class="answer-textarea" id="ex5-a7" placeholder="Schreibe hier deine Antwort..."></textarea>
-          <div class="answer-hint">Denke an die Merkmale: CRAAP-Kriterien · Peer Review · Publikationsort</div>
+          <textarea class="answer-textarea" id="ex5-a7" placeholder="Schreiben Sie hier Ihre Antwort..."></textarea>
+          <div class="answer-hint">Denken Sie an die Merkmale: CRAAP-Kriterien · Peer Review · Publikationsort</div>
           <div class="btn-row">
             <button class="btn-sample" onclick="toggleSample('ex5-s7', this)">💡 Musterlösung anzeigen</button>
             <button class="btn-reset" onclick="resetReflect('ex5-a7', 'ex5-s7', this)">↺ Zurücksetzen</button>
@@ -808,7 +808,7 @@
 
         <li class="reflect-item">
           <div class="q-text"><strong>Wiederholungsfokus:</strong> Notieren Sie 1–2 Punkte, die Ihnen noch unklar sind oder die Sie noch nicht sicher beantworten konnten. Diese Punkte sind Ihre Schwerpunkte für die nächste Wiederholung.</div>
-          <textarea class="answer-textarea" id="ex5-a8" placeholder="Schreibe hier deine Antwort..."></textarea>
+          <textarea class="answer-textarea" id="ex5-a8" placeholder="Schreiben Sie hier Ihre Antwort..."></textarea>
           <div class="answer-hint">Diese Frage ist individuell – es gibt keine Musterlösung.</div>
           <div class="btn-row">
             <button class="btn-reset" onclick="resetReflect('ex5-a8', null, this)">↺ Zurücksetzen</button>
@@ -856,6 +856,67 @@ function resetQuestion(id) {
   });
   feedback.className = 'quiz-feedback';
   feedback.style.display = 'none';
+}
+
+/* ── Multiple-Choice Quiz Engine ── */
+function checkMC(sectionId) {
+  const section = sectionId ? document.getElementById(sectionId) : document.querySelector('.exercise .choice-list')?.closest('.exercise');
+  if (!section) return;
+
+  const list = section.querySelector('.choice-list');
+  if (!list) return;
+
+  const options = [...list.querySelectorAll('input[type="checkbox"]')];
+  const feedback = section.querySelector('.feedback-msg');
+
+  const correctOptions = options.filter(option => option.dataset.correct === 'true');
+  const checkedOptions = options.filter(option => option.checked);
+  const checkedCorrect = checkedOptions.filter(option => option.dataset.correct === 'true').length;
+  const checkedWrong = checkedOptions.filter(option => option.dataset.correct !== 'true').length;
+
+  options.forEach(option => {
+    option.disabled = true;
+    const label = option.closest('label');
+    if (option.dataset.correct === 'true') {
+      label.classList.add('correct');
+    } else if (option.checked) {
+      label.classList.add('wrong');
+    }
+  });
+
+  const allCorrectSelected = checkedCorrect === correctOptions.length && checkedWrong === 0 && checkedOptions.length === correctOptions.length;
+
+  if (allCorrectSelected) {
+    feedback.className = 'feedback-msg success';
+    feedback.textContent = '✓ Richtig!';
+    feedback.style.display = 'flex';
+  } else {
+    feedback.className = 'feedback-msg error';
+    feedback.textContent = '✗ Nicht ganz. Bitte prüfen Sie Ihre Auswahl und versuchen Sie es erneut.';
+    feedback.style.display = 'flex';
+  }
+}
+
+function resetMC(sectionId) {
+  const section = sectionId ? document.getElementById(sectionId) : document.querySelector('.exercise .choice-list')?.closest('.exercise');
+  if (!section) return;
+
+  const list = section.querySelector('.choice-list');
+  const feedback = section.querySelector('.feedback-msg');
+  if (!list) return;
+
+  list.querySelectorAll('input[type="checkbox"]').forEach(option => {
+    option.checked = false;
+    option.disabled = false;
+    const label = option.closest('label');
+    label.classList.remove('correct', 'wrong', 'missed');
+  });
+
+  if (feedback) {
+    feedback.className = 'feedback-msg';
+    feedback.textContent = '';
+    feedback.style.display = 'none';
+  }
 }
 
 /* ── Reflexionsfragen: Musterlösung Toggle & Reset ── */
@@ -910,3 +971,4 @@ syncIframeHeight();
 </script>
 </body>
 </html>
+
