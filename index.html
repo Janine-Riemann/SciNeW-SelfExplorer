@@ -9,40 +9,27 @@
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,300&display=swap" rel="stylesheet" />
 
   <style>
-    /* ============================================================
-       CSS CUSTOM PROPERTIES – Zentrale Designvariablen
-       Hier können Sie alle Farben, Abstände und Typo-Werte ändern.
-       ============================================================ */
     :root {
-      --clr-primary:    #74C2A8;      /* Mintgrün – Hauptfarbe */
-      --clr-primary-dk: #5aaa90;      /* Dunkleres Mintgrün für Hover */
-      --clr-dark:       #121616;      /* Fast-Schwarz – Hintergrund & Text */
-      --clr-dark-2:     #1c2222;      /* Etwas helleres Dunkel für Cards */
-      --clr-dark-3:     #242c2c;      /* Card-Hover & Borders */
-      --clr-accent:     #EE7050;      /* Coral – sparsam für CTAs & Highlights */
-      --clr-text:       #e8efed;      /* Heller Text auf dunklem Grund */
-      --clr-text-muted: #8aa89e;      /* Gedimmter Text */
-      --clr-border:     rgba(116,194,168,0.15); /* Subtile Rand-Farbe */
-
+      --clr-primary: #74C2A8;
+      --clr-primary-dk: #5aaa90;
+      --clr-dark: #121616;
+      --clr-dark-2: #1c2222;
+      --clr-dark-3: #242c2c;
+      --clr-accent: #EE7050;
+      --clr-text: #e8efed;
+      --clr-text-muted: #8aa89e;
+      --clr-border: rgba(116,194,168,0.15);
       --font-main: 'DM Sans', sans-serif;
-
-      --radius-sm:  6px;
-      --radius-md:  12px;
-      --radius-lg:  20px;
-
+      --radius-sm: 6px;
+      --radius-md: 12px;
+      --radius-lg: 20px;
       --drawer-width: 300px;
-      --nav-height:   64px;
-
+      --nav-height: 64px;
       --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    /* ============================================================
-       RESET & BASE
-       ============================================================ */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     html { scroll-behavior: smooth; }
-
     body {
       font-family: var(--font-main);
       background-color: var(--clr-dark);
@@ -50,13 +37,9 @@
       line-height: 1.6;
       overflow-x: hidden;
     }
-
     a { color: inherit; text-decoration: none; }
     img { display: block; max-width: 100%; }
 
-    /* ============================================================
-       TOPBAR / NAVBAR
-       ============================================================ */
     .topbar {
       position: fixed;
       top: 0; left: 0; right: 0;
@@ -97,22 +80,12 @@
       transition: transform var(--transition), opacity var(--transition);
       transform-origin: center;
     }
-    /* Animated X when drawer is open */
     body.drawer-open .burger-btn span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
     body.drawer-open .burger-btn span:nth-child(2) { opacity: 0; transform: scaleX(0); }
     body.drawer-open .burger-btn span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
-    .topbar-logo {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .topbar-logo img {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      object-fit: cover;
-    }
+    .topbar-logo { display: flex; align-items: center; gap: 10px; }
+    .topbar-logo img { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; }
     .topbar-logo-text {
       font-size: 1rem;
       font-weight: 600;
@@ -121,29 +94,6 @@
     }
     .topbar-logo-text span { color: #ffffff; }
 
-    .topbar-nav {
-      margin-left: auto;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .topbar-nav a {
-      font-size: 0.875rem;
-      font-weight: 500;
-      color: var(--clr-text-muted);
-      padding: 6px 12px;
-      border-radius: var(--radius-sm);
-      transition: color var(--transition), background var(--transition);
-    }
-    .topbar-nav a:hover {
-      color: var(--clr-text);
-      background: rgba(116,194,168,0.08);
-    }
-    .topbar-nav a.active { color: var(--clr-primary); }
-
-    /* ============================================================
-       SIDE DRAWER
-       ============================================================ */
     .drawer-overlay {
       position: fixed;
       inset: 0;
@@ -208,7 +158,6 @@
     }
 
     .drawer-nav { flex: 1; padding: 0 10px 20px; }
-
     .drawer-item {
       display: flex;
       align-items: center;
@@ -248,30 +197,8 @@
       margin: 12px 0;
     }
 
-    .drawer-footer {
-      padding: 16px 20px;
-      border-top: 1px solid var(--clr-border);
-    }
-    .drawer-footer a {
-      font-size: 0.8rem;
-      color: var(--clr-text-muted);
-      display: block;
-      padding: 6px 0;
-      transition: color var(--transition);
-    }
-    .drawer-footer a:hover { color: var(--clr-primary); }
+    .main { padding-top: var(--nav-height); min-height: 100vh; }
 
-    /* ============================================================
-       MAIN CONTENT WRAPPER
-       ============================================================ */
-    .main {
-      padding-top: var(--nav-height);
-      min-height: 100vh;
-    }
-
-    /* ============================================================
-       HERO SECTION
-       ============================================================ */
     .hero {
       position: relative;
       width: 100%;
@@ -338,10 +265,7 @@
       max-width: 640px;
       margin-bottom: 12px;
     }
-    .hero-title em {
-      font-style: normal;
-      color: var(--clr-primary);
-    }
+    .hero-title em { font-style: normal; color: var(--clr-primary); }
 
     .hero-sub {
       font-size: clamp(0.875rem, 1.5vw, 1rem);
@@ -389,16 +313,9 @@
       color: var(--clr-primary);
       border: 1px solid rgba(116,194,168,0.25);
     }
-    .btn-ghost:hover {
-      background: rgba(116,194,168,0.18);
-    }
+    .btn-ghost:hover { background: rgba(116,194,168,0.18); }
 
-    /* ============================================================
-       SECTION COMMON
-       ============================================================ */
-    .section {
-      padding: clamp(48px, 6vw, 80px) clamp(20px, 5vw, 80px);
-    }
+    .section { padding: clamp(48px, 6vw, 80px) clamp(20px, 5vw, 80px); }
 
     .section-header {
       display: flex;
@@ -423,55 +340,60 @@
       font-weight: 400;
     }
 
-    /* ============================================================
-       INTRO STRIP
-       ============================================================ */
-    .intro-strip {
+    .welcome-section {
       background: var(--clr-dark-2);
       border-top: 1px solid var(--clr-border);
       border-bottom: 1px solid var(--clr-border);
-      padding: clamp(32px, 4vw, 56px) clamp(20px, 5vw, 80px);
     }
 
-    .intro-grid {
+    .welcome-inner {
       display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 32px;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(32px, 4vw, 64px);
+      align-items: center;
     }
 
-    .intro-stat {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-    .intro-stat-num {
-      font-size: clamp(1.8rem, 3vw, 2.4rem);
+    .welcome-text h2 {
+      font-size: clamp(1.3rem, 2.5vw, 1.8rem);
       font-weight: 700;
-      color: var(--clr-primary);
-      letter-spacing: -0.04em;
-      line-height: 1;
+      letter-spacing: -0.03em;
+      margin-bottom: 16px;
+      line-height: 1.2;
     }
-    .intro-stat-label {
-      font-size: 0.8rem;
-      color: var(--clr-text-muted);
-      font-weight: 400;
-    }
-
-    .intro-text-col {
-      grid-column: span 2;
-    }
-    .intro-text-col p {
-      font-size: clamp(0.9rem, 1.4vw, 1rem);
+    .welcome-text h2 em { font-style: normal; color: var(--clr-primary); }
+    .welcome-text p {
+      font-size: 0.9rem;
       color: var(--clr-text-muted);
       line-height: 1.8;
       font-weight: 300;
-      max-width: 640px;
+      margin-bottom: 12px;
     }
-    .intro-text-col p + p { margin-top: 14px; }
 
-    /* ============================================================
-       LESSON CARDS GRID
-       ============================================================ */
+    .welcome-features { display: flex; flex-direction: column; gap: 16px; }
+    .welcome-feature { display: flex; align-items: flex-start; gap: 14px; }
+    .welcome-feature-icon {
+      width: 36px; height: 36px;
+      border-radius: 10px;
+      background: rgba(116,194,168,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+    .welcome-feature-text strong {
+      display: block;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--clr-text);
+      margin-bottom: 2px;
+    }
+    .welcome-feature-text span {
+      font-size: 0.8rem;
+      color: var(--clr-text-muted);
+      line-height: 1.5;
+    }
+
     .lessons-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(min(280px, 100%), 1fr));
@@ -566,78 +488,6 @@
       color: var(--clr-primary);
     }
 
-    /* ============================================================
-       WELCOME SECTION
-       ============================================================ */
-    .welcome-section {
-      background: var(--clr-dark-2);
-      border-top: 1px solid var(--clr-border);
-      border-bottom: 1px solid var(--clr-border);
-    }
-
-    .welcome-inner {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: clamp(32px, 4vw, 64px);
-      align-items: center;
-    }
-
-    .welcome-text h2 {
-      font-size: clamp(1.3rem, 2.5vw, 1.8rem);
-      font-weight: 700;
-      letter-spacing: -0.03em;
-      margin-bottom: 16px;
-      line-height: 1.2;
-    }
-    .welcome-text h2 em {
-      font-style: normal;
-      color: var(--clr-primary);
-    }
-    .welcome-text p {
-      font-size: 0.9rem;
-      color: var(--clr-text-muted);
-      line-height: 1.8;
-      font-weight: 300;
-      margin-bottom: 12px;
-    }
-
-    .welcome-features {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-
-    .welcome-feature {
-      display: flex;
-      align-items: flex-start;
-      gap: 14px;
-    }
-    .welcome-feature-icon {
-      width: 36px; height: 36px;
-      border-radius: 10px;
-      background: rgba(116,194,168,0.1);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1rem;
-      flex-shrink: 0;
-    }
-    .welcome-feature-text strong {
-      display: block;
-      font-size: 0.875rem;
-      font-weight: 600;
-      color: var(--clr-text);
-      margin-bottom: 2px;
-    }
-    .welcome-feature-text span {
-      font-size: 0.8rem;
-      color: var(--clr-text-muted);
-      line-height: 1.5;
-    }
-
-    /* ============================================================
-       FOOTER
-       ============================================================ */
     footer {
       padding: 32px clamp(20px, 5vw, 80px);
       border-top: 1px solid var(--clr-border);
@@ -662,21 +512,8 @@
 
     .footer-links { display: flex; gap: 20px; }
 
-    /* ============================================================
-       RESPONSIVE
-       ============================================================ */
     @media (max-width: 768px) {
-      .intro-grid {
-        grid-template-columns: 1fr;
-      }
-      .intro-text-col { grid-column: span 1; }
-
-      .welcome-inner {
-        grid-template-columns: 1fr;
-      }
-
-      .topbar-nav a:not(.active) { display: none; }
-
+      .welcome-inner { grid-template-columns: 1fr; }
       footer { flex-direction: column; align-items: flex-start; }
     }
 
@@ -685,9 +522,6 @@
       .btn { width: 100%; justify-content: center; }
     }
 
-    /* ============================================================
-       SCROLL REVEAL ANIMATION
-       ============================================================ */
     .reveal {
       opacity: 0;
       transform: translateY(20px);
@@ -700,171 +534,88 @@
   </style>
 </head>
 <body>
-
-  <!-- ============================================================
-       DRAWER OVERLAY
-       ============================================================ -->
   <div class="drawer-overlay" id="drawerOverlay" onclick="closeDrawer()"></div>
 
-  <!-- ============================================================
-       SIDE DRAWER
-       ============================================================ -->
   <aside class="drawer" id="drawer" role="navigation" aria-label="Kursnavigation">
-
     <div class="drawer-header">
       <img src="Logo_klein.png" alt="SciNeW Logo" />
       <div class="drawer-header-text">
         <strong>Self-Explorer</strong>
-        <span>9 Etappen </span>
+        <span>9 Etappen</span>
       </div>
     </div>
 
     <nav class="drawer-nav">
       <div class="drawer-section-label">Navigation</div>
-
-      <a href="index.html" class="drawer-item active">
-        <span class="drawer-item-num">⌂</span>
-        Startseite
-      </a>
-
+      <a href="index.html" class="drawer-item active"><span class="drawer-item-num">⌂</span>Startseite</a>
       <div class="drawer-divider"></div>
       <div class="drawer-section-label">Etappen</div>
-
-      <!-- =========================================================
-           LEKTION-LINKS – Hier einfach href und Text anpassen
-           ========================================================= -->
-      <a href="lektion-01.html" class="drawer-item">
-        <span class="drawer-item-num">01</span>
-        Wissenschaft verstehen & Thema finden
-      </a>
-      <a href="lektion-02.html" class="drawer-item">
-        <span class="drawer-item-num">02</span>
-        Fragen schärfen, Hypothesen schmieden
-      </a>
-      <a href="lektion-03.html" class="drawer-item">
-        <span class="drawer-item-num">03</span>
-        Zielsicher recherchieren
-      </a>
-      <a href="lektion-04.html" class="drawer-item">
-        <span class="drawer-item-num">04</span>
-        Klug lesen
-      </a>
-      <a href="lektion-05.html" class="drawer-item">
-        <span class="drawer-item-num">05</span>
-        Theorie fundiert aufbauen
-      </a>
-      <a href="lektion-06.html" class="drawer-item">
-        <span class="drawer-item-num">06</span>
-        Sauber zitieren
-      </a>
-      <a href="lektion-07.html" class="drawer-item">
-        <span class="drawer-item-num">07</span>
-        Methoden und Daten überblicken
-      </a>
-      <a href="lektion-08.html" class="drawer-item">
-        <span class="drawer-item-num">08</span>
-        Ergebnisse deuten
-      </a>
-      <a href="lektion-09.html" class="drawer-item">
-        <span class="drawer-item-num">09</span>
-        Abschluss feinschleifen
-      </a>
+      <a href="lektion-01.html" class="drawer-item"><span class="drawer-item-num">01</span>Wissenschaft verstehen &amp; Thema finden</a>
+      <a href="lektion-02.html" class="drawer-item"><span class="drawer-item-num">02</span>Fragen schärfen, Hypothesen schmieden</a>
+      <a href="lektion-03.html" class="drawer-item"><span class="drawer-item-num">03</span>Zielsicher recherchieren</a>
+      <a href="lektion-04.html" class="drawer-item"><span class="drawer-item-num">04</span>Klug lesen</a>
+      <a href="lektion-05.html" class="drawer-item"><span class="drawer-item-num">05</span>Theorie fundiert aufbauen</a>
+      <a href="lektion-06.html" class="drawer-item"><span class="drawer-item-num">06</span>Sauber zitieren</a>
+      <a href="lektion-07.html" class="drawer-item"><span class="drawer-item-num">07</span>Methoden und Daten überblicken</a>
+      <a href="lektion-08.html" class="drawer-item"><span class="drawer-item-num">08</span>Ergebnisse deuten</a>
+      <a href="lektion-09.html" class="drawer-item"><span class="drawer-item-num">09</span>Abschluss feinschleifen</a>
     </nav>
-
-    
-    
   </aside>
 
-  <!-- ============================================================
-       TOPBAR
-       ============================================================ -->
   <header class="topbar">
     <button class="burger-btn" id="burgerBtn" onclick="toggleDrawer()" aria-label="Menü öffnen / schließen" aria-expanded="false">
       <span></span>
       <span></span>
       <span></span>
     </button>
-
     <a href="index.html" class="topbar-logo">
       <img src="Logo_klein.png" alt="SciNeW Logo" />
       <span class="topbar-logo-text"><span>Self</span>Explorer</span>
     </a>
-
   </header>
 
-  <!-- ============================================================
-       MAIN CONTENT
-       ============================================================ -->
   <main class="main">
-
-    <!-- HERO -->
     <section class="hero">
-      <img
-        class="hero-img"
-        src="Banner_Kursübersicht.png"
-        alt="Gebirgslandschaft – Wissenschaftliches Arbeiten (in der Psychologie)"
-        onload="this.classList.add('loaded')"
-      />
+      <img class="hero-img" src="Banner_Kursübersicht.png" alt="Gebirgslandschaft – Wissenschaftliches Arbeiten (in der Psychologie)" onload="this.classList.add('loaded')" />
       <div class="hero-overlay"></div>
       <div class="hero-content">
         <div class="hero-badge">Wissenschaftliches Arbeiten (in der Psychologie)</div>
-        <h1 class="hero-title">
-          Wissen beginnt mit der richtigen <em>Methode</em>.
-        </h1>
+        <h1 class="hero-title">Wissen beginnt mit der richtigen <em>Methode</em>.</h1>
         <p class="hero-sub">
           Der Self-Explorer begleitet Sie Schritt für Schritt durch die Grundlagen wissenschaftlichen
           Arbeitens – strukturiert, verständlich und praxisnah.
         </p>
         <div class="hero-cta">
-          <a href="lektion-01.html" class="btn btn-primary">
-            Jetzt starten
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-          </a>
+          <a href="lektion-01.html" class="btn btn-primary">Jetzt starten</a>
           <a href="#lektionen" class="btn btn-ghost">Alle Etappen ansehen</a>
         </div>
       </div>
     </section>
 
-
-    <!-- WELCOME -->
     <section class="section welcome-section">
       <div class="welcome-inner">
         <div class="welcome-text reveal">
           <h2>Willkommen beim <em>Self-Explorer</em></h2>
-          <p>
-            Diese Plattform dient Ihnen, liebe Studierende, als begleitendes Lernen zum Modul "Wissenschaftliches Arbeiten (in der Psychologie)". Zu jedem Kapitel gibt es Lernziele zum Abhaken, eine Liste mit Kernkonzepten sowie interaktive Übungen.
-          </p>
-          <p>
-            Die Etappen bauen aufeinander auf, sind miteinadner abgestimmt und helfen Ihnen, wissenschaftliches Denken und Arbeit erfolgreich zu erlernen.
-          </p>
+          <p>Diese Plattform dient Ihnen, liebe Studierende, als begleitendes Lernen zum Modul "Wissenschaftliches Arbeiten (in der Psychologie)". Zu jedem Kapitel gibt es Lernziele zum Abhaken, eine Lernstruktur und praxisnahe Übungen.</p>
+          <p>Die Etappen bauen aufeinander auf, sind miteinander abgestimmt und helfen Ihnen, wissenschaftliches Denken und Arbeiten erfolgreich zu erlernen.</p>
         </div>
         <div class="welcome-features reveal">
           <div class="welcome-feature">
             <div class="welcome-feature-icon">📖</div>
-            <div class="welcome-feature-text">
-              <strong>Strukturierte Lerninhalte</strong>
-              <span>Jede Etappe folgt einem klaren Aufbau – so wissen Sie immer, wo Sie stehen.</span>
-            </div>
+            <div class="welcome-feature-text"><strong>Strukturierte Lerninhalte</strong><span>Jede Etappe folgt einem klaren Aufbau – so wissen Sie immer, wo Sie stehen.</span></div>
           </div>
           <div class="welcome-feature">
             <div class="welcome-feature-icon">✏️</div>
-            <div class="welcome-feature-text">
-              <strong>Übungen zum Vertiefen</strong>
-              <span>Jede Etappe enthält Übungsaufgaben, die Ihr Wissen festigen.</span>
-            </div>
+            <div class="welcome-feature-text"><strong>Übungen zum Vertiefen</strong><span>Jede Etappe enthält Übungsaufgaben, die Ihr Wissen festigen.</span></div>
           </div>
           <div class="welcome-feature">
             <div class="welcome-feature-icon">🔬</div>
-            <div class="welcome-feature-text">
-              <strong>Wissenschaftlich fundiert</strong>
-              <span>Inhalte orientieren sich an etablierten Methoden der Forschung.</span>
-            </div>
+            <div class="welcome-feature-text"><strong>Wissenschaftlich fundiert</strong><span>Inhalte orientieren sich an etablierten Methoden der Forschung.</span></div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- LESSONS OVERVIEW -->
     <section class="section" id="lektionen">
       <div class="section-header reveal">
         <h2 class="section-title">Alle <span>Etappen</span></h2>
@@ -872,115 +623,80 @@
       </div>
 
       <div class="lessons-grid">
-        <!-- =========================================================
-             LEKTIONSKARTEN – Titel und Beschreibung anpassen
-             ========================================================= -->
         <a href="lektion-01.html" class="lesson-card reveal">
           <div class="lesson-card-num">01</div>
           <div class="lesson-card-title">Wissenschaft verstehen &amp; Thema finden</div>
           <div class="lesson-card-desc">Was ist Wissenschaft? Wie grenzt man ein Forschungsthema ein und formuliert eine erste Fragestellung?</div>
-          <div class="lesson-card-footer">
-            <span class="lesson-card-tag">Einführung</span>
-            <span class="lesson-card-arrow">→</span>
-          </div>
+          <div class="lesson-card-footer"><span class="lesson-card-tag">Einführung</span><span class="lesson-card-arrow">→</span></div>
         </a>
 
         <a href="lektion-02.html" class="lesson-card reveal">
           <div class="lesson-card-num">02</div>
           <div class="lesson-card-title">Fragen schärfen, Hypothesen schmieden</div>
           <div class="lesson-card-desc">Was ist eine gute Forschungsfrage? Und wie formuliert man gute Hypothesen?</div>
-          <div class="lesson-card-footer">
-            <span class="lesson-card-tag">Grundlagen</span>
-            <span class="lesson-card-arrow">→</span>
-          </div>
+          <div class="lesson-card-footer"><span class="lesson-card-tag">Grundlagen</span><span class="lesson-card-arrow">→</span></div>
         </a>
 
         <a href="lektion-03.html" class="lesson-card reveal">
           <div class="lesson-card-num">03</div>
           <div class="lesson-card-title">Zielsicher recherchieren</div>
           <div class="lesson-card-desc">Wie sucht man effizient nach Quellen? Was sind gute Quellen? Und auf welche Qualitätskriterien muss man achten?</div>
-          <div class="lesson-card-footer">
-            <span class="lesson-card-tag">Recherche</span>
-            <span class="lesson-card-arrow">→</span>
-          </div>
+          <div class="lesson-card-footer"><span class="lesson-card-tag">Recherche</span><span class="lesson-card-arrow">→</span></div>
         </a>
 
         <a href="lektion-04.html" class="lesson-card reveal">
           <div class="lesson-card-num">04</div>
           <div class="lesson-card-title">Klug lesen</div>
           <div class="lesson-card-desc">Wie ist ein wissenschafticher Text aufgebaut? Welche Arten von wissenschaftlichen Texten gibt es?</div>
-          <div class="lesson-card-footer">
-            <span class="lesson-card-tag">Lesen</span>
-            <span class="lesson-card-arrow">→</span>
-          </div>
+          <div class="lesson-card-footer"><span class="lesson-card-tag">Lesen</span><span class="lesson-card-arrow">→</span></div>
         </a>
 
         <a href="lektion-05.html" class="lesson-card reveal">
           <div class="lesson-card-num">05</div>
           <div class="lesson-card-title">Theorie fundiert aufbauen</div>
-          <div class="lesson-card-desc">Wie schreibt man den Theorieteil einer wissenschaftlichen Arbeit? Welche sprachlichen Mittel sind empfehlenswert? </div>
-          <div class="lesson-card-footer">
-            <span class="lesson-card-tag">Theorie</span>
-            <span class="lesson-card-arrow">→</span>
-          </div>
+          <div class="lesson-card-desc">Wie schreibt man den Theorieteil einer wissenschaftlichen Arbeit? Welche sprachlichen Mittel sind empfehlenswert?</div>
+          <div class="lesson-card-footer"><span class="lesson-card-tag">Theorie</span><span class="lesson-card-arrow">→</span></div>
         </a>
 
         <a href="lektion-06.html" class="lesson-card reveal">
           <div class="lesson-card-num">06</div>
           <div class="lesson-card-title">Sauber zitieren</div>
           <div class="lesson-card-desc">Wie zitiert man nach APA-Style? Wie lassen sich Plagiate vermeiden?</div>
-          <div class="lesson-card-footer">
-            <span class="lesson-card-tag">Zitieren</span>
-            <span class="lesson-card-arrow">→</span>
-          </div>
+          <div class="lesson-card-footer"><span class="lesson-card-tag">Zitieren</span><span class="lesson-card-arrow">→</span></div>
         </a>
 
         <a href="lektion-07.html" class="lesson-card reveal">
           <div class="lesson-card-num">07</div>
           <div class="lesson-card-title">Methoden und Daten überblicken</div>
           <div class="lesson-card-desc">Welche Forschungs- und Studiendesigns gibt es? Wie kommt man an Daten?</div>
-          <div class="lesson-card-footer">
-            <span class="lesson-card-tag">Methodik</span>
-            <span class="lesson-card-arrow">→</span>
-          </div>
+          <div class="lesson-card-footer"><span class="lesson-card-tag">Methodik</span><span class="lesson-card-arrow">→</span></div>
         </a>
 
         <a href="lektion-08.html" class="lesson-card reveal">
           <div class="lesson-card-num">08</div>
           <div class="lesson-card-title">Ergebnisse deuten</div>
           <div class="lesson-card-desc">Wie argumentiert man überzeugend? Wie verfasst man einen Ergebnisteil?</div>
-          <div class="lesson-card-footer">
-            <span class="lesson-card-tag">Ergebnisse</span>
-            <span class="lesson-card-arrow">→</span>
-          </div>
+          <div class="lesson-card-footer"><span class="lesson-card-tag">Ergebnisse</span><span class="lesson-card-arrow">→</span></div>
         </a>
 
         <a href="lektion-09.html" class="lesson-card reveal">
           <div class="lesson-card-num">09</div>
           <div class="lesson-card-title">Abschluss feinschleifen</div>
           <div class="lesson-card-desc">Wie kann man Limitationen erkennen und benennen? Wie lassen sich Erkenntnisse souverän präsentieren?</div>
-          <div class="lesson-card-footer">
-            <span class="lesson-card-tag">Abschluss</span>
-            <span class="lesson-card-arrow">→</span>
-          </div>
+          <div class="lesson-card-footer"><span class="lesson-card-tag">Abschluss</span><span class="lesson-card-arrow">→</span></div>
         </a>
       </div>
     </section>
-
   </main>
 
-  <!-- ============================================================
-       FOOTER
-       ============================================================ -->
   <footer>
-    <p>© 2026 SciNeW – Scientific New Working</p>
-    
+    <p><a href="https://janine-riemann.github.io/News-about-SciNeW_HS-Ansbach/" target="_blank" rel="noopener">© 2026 SciNeW – Scientific New Working</a></p>
+    <div class="footer-links">
+      <a href="https://janine-riemann.github.io/News-about-SciNeW_HS-Ansbach/#contact" target="_blank" rel="noopener">Impressum</a>
+    </div>
+  </footer>
 
-  <!-- ============================================================
-       JAVASCRIPT
-       ============================================================ -->
   <script>
-    /* ---------- Burger / Drawer ---------- */
     function openDrawer() {
       document.body.classList.add('drawer-open');
       document.getElementById('burgerBtn').setAttribute('aria-expanded', 'true');
@@ -993,20 +709,20 @@
       document.body.classList.contains('drawer-open') ? closeDrawer() : openDrawer();
     }
 
-    /* Close drawer on ESC */
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDrawer(); });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeDrawer();
+    });
 
-    /* ---------- Scroll Reveal ---------- */
     const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
+      entries.forEach((entry) => {
         if (entry.isIntersecting) {
           entry.target.classList.add('visible');
           observer.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.1 });
+    }, { threshold: 0.15 });
 
-    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
   </script>
 </body>
 </html>
