@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Ergänzende Literatur und Abbildungen des SciNeW Self-Explorers." />
+  <title>Literatur- &amp; Abbildungsverzeichnis – SciNeW</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --green: #74C2A8;
+      --dark: #121616;
+      --bg: #F5F5F0;
+      --surface: #FFFFFF;
+      --border: #E2E2DC;
+      --text: #121616;
+      --muted: #6B7280;
+      --font: 'DM Sans', sans-serif;
+      --radius: 16px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font);
+      line-height: 1.6;
+    }
+    a { color: inherit; }
+    .top-header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 0.75rem clamp(1rem, 5vw, 3rem);
+      background: rgba(18, 22, 22, 0.96);
+      border-bottom: 1px solid rgba(116,194,168,0.12);
+    }
+    .site-brand {
+      color: #fff;
+      font-size: 1.05rem;
+      font-weight: 700;
+      text-decoration: none;
+      letter-spacing: -0.03em;
+    }
+    .site-brand span { color: var(--green); }
+    .back-link {
+      color: rgba(255,255,255,0.75);
+      font-size: 0.9rem;
+      text-decoration: none;
+    }
+    .back-link:hover, .back-link:focus-visible { color: var(--green); }
+    main {
+      width: min(100% - 2rem, 1000px);
+      margin: 2.5rem auto 4rem;
+      flex: 1;
+    }
+    .hero, .directory-section {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: 0 2px 8px rgba(18,22,22,0.04);
+    }
+    .hero {
+      padding: clamp(1.5rem, 5vw, 3rem);
+      margin-bottom: 1.5rem;
+    }
+    .eyebrow {
+      display: inline-block;
+      margin-bottom: 1rem;
+      padding: 0.3rem 0.85rem;
+      border: 1px solid rgba(116,194,168,0.35);
+      border-radius: 30px;
+      background: rgba(116,194,168,0.1);
+      color: #4f9880;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    h1 {
+      margin-bottom: 0.75rem;
+      font-size: clamp(1.8rem, 5vw, 2.6rem);
+      line-height: 1.15;
+      letter-spacing: -0.04em;
+    }
+    .hero p, .section-intro { color: var(--muted); }
+    .directory-section {
+      padding: clamp(1.25rem, 4vw, 2rem);
+      margin-top: 1.5rem;
+    }
+    h2 {
+      margin-bottom: 0.5rem;
+      font-size: clamp(1.35rem, 4vw, 1.75rem);
+      letter-spacing: -0.03em;
+    }
+    .section-intro { margin-bottom: 1.25rem; }
+    .reference-list, .figure-list { list-style: none; }
+    .reference-list li, .figure-list li {
+      padding: 1rem 0;
+      border-top: 1px solid var(--border);
+    }
+    .reference-list li:first-child, .figure-list li:first-child { border-top: 0; }
+    .reference-list li { padding-left: 1.25rem; text-indent: -1.25rem; }
+    .reference-list a, .figure-list a { color: #347b66; text-underline-offset: 0.15em; }
+    .reference-list a:hover, .figure-list a:hover { color: #205b49; }
+    .figure-list strong { display: block; color: var(--dark); }
+    .figure-source { display: block; margin-top: 0.2rem; color: var(--muted); font-size: 0.92rem; }
+    .figure-source a { white-space: normal; }
+    footer {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 1.5rem clamp(1rem, 5vw, 3rem);
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+    footer a { text-decoration: none; }
+    footer a:hover { color: #347b66; }
+    @media (max-width: 560px) {
+      .top-header { align-items: flex-start; flex-direction: column; justify-content: center; }
+      main { margin-top: 1.25rem; }
+      footer { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <header class="top-header">
+    <a class="site-brand" href="index.html"><span>SciNeW</span> Self-Explorer</a>
+    <a class="back-link" href="index.html">← Zur Kursübersicht</a>
+  </header>
+
+  <main>
+    <section class="hero" aria-labelledby="page-title">
+      <span class="eyebrow">Kursmaterialien</span>
+      <h1 id="page-title">Literatur- &amp; Abbildungsverzeichnis</h1>
+      <p>Hier finden Sie ergänzende Literatur und die Quellen der im Kurs verwendeten Abbildungen.</p>
+    </section>
+
+    <section class="directory-section" aria-labelledby="literatur">
+      <h2 id="literatur">Ergänzende Literatur</h2>
+      <p class="section-intro">Auswahl der in den Etappen empfohlenen Materialien. Links zu E-Books können einen Hochschulzugang erfordern.</p>
+      <ul class="reference-list">
+        <li>Jhangiani, R. S., Chiang, I. C. A., Cuttler, C., &amp; Leighton, D. C. (2019). <a href="https://opentextbc.ca/researchmethods/" target="_blank" rel="noopener noreferrer"><em>Research Methods in Psychology</em></a>. Kwantlen Polytechnic University. Kapitel II: The Science of Psychology (S. 25–58). Etappen 2–3.</li>
+        <li>Kornmeier, M. (2013). <a href="https://haupt.ch/search?search=Wissenschaftlich%20schreiben%20leicht%20gemacht" target="_blank" rel="noopener noreferrer"><em>Wissenschaftlich schreiben leicht gemacht: Für Bachelor, Master und Dissertation</em></a> (6. Aufl.). Haupt Verlag. Kapitel 1. Etappe 1.</li>
+        <li>Peters, J. H., &amp; Dörfler, T. (2019). <a href="https://elibrary.pearson.de/book/99.150005/9783863268589" target="_blank" rel="noopener noreferrer"><em>Planen, Durchführen und Auswerten von Abschlussarbeiten in der Psychologie und den Sozialwissenschaften</em></a> (2. Aufl.). Pearson. Empfohlene Kapitel in den Etappen 5 und 9.</li>
+        <li>Peters, J. H., &amp; Dörfler, T. (2019). <a href="https://elibrary.pearson.de/book/99.150005/9783863268596" target="_blank" rel="noopener noreferrer"><em>Schreiben und Gestalten von Abschlussarbeiten in der Psychologie und den Sozialwissenschaften</em></a> (2. Aufl.). Pearson. Empfohlene Kapitel in den Etappen 4–9.</li>
+      </ul>
+    </section>
+
+    <section class="directory-section" aria-labelledby="abbildungen">
+      <h2 id="abbildungen">Abbildungsverzeichnis</h2>
+      <p class="section-intro">Abbildungen aus Etappe 1: Wissenschaft verstehen &amp; Thema finden.</p>
+      <ol class="figure-list">
+        <li><strong>Abbildung 1. <em>Unbewusste Inkompetenz</em></strong><span class="figure-source">Foto von Alena Paulus (2023). <a href="https://www.gettyimages.dk/detail/photo/baby-sleeps-while-driving-in-the-child-seat-royalty-free-image/1733411349" target="_blank" rel="noopener noreferrer">Getty Images</a>.</span></li>
+        <li><strong>Abbildung 2. <em>Bewusste Inkompetenz</em></strong><span class="figure-source">Foto von standret (o. D.). <a href="https://stock.adobe.com/de/images/Mother-with-her-daughter-inside-of-modern-automobile-together/370770470" target="_blank" rel="noopener noreferrer">Adobe Stock</a>.</span></li>
+        <li><strong>Abbildung 3. <em>Bewusste Kompetenz</em></strong><span class="figure-source">Foto von Andrej Lišakov (2024). <a href="https://unsplash.com/de/fotos/ein-paar-leute-die-in-einem-auto-sitzen-98geb3dOXxU" target="_blank" rel="noopener noreferrer">Unsplash</a>.</span></li>
+        <li><strong>Abbildung 4. <em>Unbewusste Kompetenz</em></strong><span class="figure-source">Foto von Frank McKenna (2016). <a href="https://unsplash.com/de/fotos/mann-im-grauen-pullover-lehnt-sich-an-das-fenster-des-lieferwagens-Ap6t4U-VIqw" target="_blank" rel="noopener noreferrer">Unsplash</a>.</span></li>
+        <li><strong>Abbildung 5. <em>Kreislauf der Wissenschaft</em></strong><span class="figure-source">Eigene Darstellung.</span></li>
+        <li><strong>Abbildung 6. <em>Vom Themengebiet zur Forschungsfrage: Filter-Modell</em></strong><span class="figure-source">Mit Google Gemini erstellt (o. D.). <a href="https://gemini.google.com/" target="_blank" rel="noopener noreferrer">Google Gemini</a>.</span></li>
+      </ol>
+    </section>
+  </main>
+
+  <footer>
+    <a href="https://janine-riemann.github.io/News-about-SciNeW_HS-Ansbach/" target="_blank" rel="noopener noreferrer">© 2026 SciNeW – Scientific New Working</a>
+    <a href="https://janine-riemann.github.io/News-about-SciNeW_HS-Ansbach/#contact" target="_blank" rel="noopener noreferrer">Impressum</a>
+  </footer>
+</body>
+</html>
