@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>00 How To Study – Self-Explorer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <!--
+    BILD-PLATZHALTER (Dateiname im Code = Originaldatei aus Obsidian)
+    hhow-to-study_itsp-aufbau.pngg ............ Unbenannt 1.png
+    how-to-study_itsp-seiten.png ............ Unbenannt.png
+    how-to-study_itsp-links-1.png ........... itdss.png
+    how-to-study_itsp-links-2.png ........... itdssss.png
+    how-to-study_primuss-1.png .............. primusss2.png
+    how-to-study_primuss-2.png .............. primusss.png
+    how-to-study_moodle-startseite.png ...... mooodle 1.png
+    how-to-study_lernphasen.png ............. (Abbildung der drei Lernphasen)
+    how-to-study_ki-selbstueberschaetzung.png  Verzerrte Selbstwahrnehmung durch Selbstüberschätzung.png
+  -->
+
+  <style>
+    :root {
+      --green: #74C2A8;
+      --dark: #121616;
+      --orange: #EE7050;
+      --bg: #F5F5F0;
+      --surface: #FFFFFF;
+      --border: #E2E2DC;
+      --text: #121616;
+      --muted: #6B7280;
+      --sidebar-w: 320px;
+      --header-h: 72px;
+      --radius: 16px;
+      --font: 'DM Sans', sans-serif;
+      --mono: 'DM Mono', monospace;
+      --shadow-sm: 0 2px 8px rgba(18, 22, 22, 0.04);
+      --shadow-md: 0 10px 30px rgba(18, 22, 22, 0.05);
+      --shadow-lg: 0 20px 40px rgba(18, 22, 22, 0.12);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font);
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; }
+    :focus-visible { outline: 3px solid var(--orange); outline-offset: 2px; }
+
+    .top-header {
+      position: fixed;
+      inset: 0 0 auto;
+      height: var(--header-h);
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 0 2rem;
+      background: rgba(18, 22, 22, 0.9);
+      border-bottom: 1px solid rgba(116, 194, 168, 0.12);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      z-index: 100;
+    }
+    .header-left, .site-brand { display: flex; align-items: center; }
+    .header-left { gap: 1.25rem; }
+    .site-brand {
+      gap: 12px;
+      color: #fff;
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      text-decoration: none;
+    }
+    .site-brand img {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      object-fit: cover;
+      box-shadow: 0 0 0 2px rgba(114, 194, 168, 0.4);
+    }
+    .burger-btn {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      padding: 8px;
+      border: 0;
+      border-radius: 8px;
+      background: none;
+      cursor: pointer;
+    }
+    .burger-btn:hover { background: rgba(116, 194, 168, 0.12); }
+    .burger-btn span {
+      width: 22px;
+      height: 2px;
+      border-radius: 2px;
+      background: var(--green);
+      transition: transform 0.3s, opacity 0.3s;
+    }
+    .burger-btn.open span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+    .burger-btn.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .burger-btn.open span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+    .topbar-nav { margin-left: auto; }
+    .topbar-nav a {
+      padding: 8px 16px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.03);
+      color: rgba(255, 255, 255, 0.9);
+      font-size: 0.9rem;
+      font-weight: 500;
+      text-decoration: none;
+    }
+    .topbar-nav a:hover { background: rgba(116, 194, 168, 0.15); }
+
+    .sidebar {
+      position: fixed;
+      top: var(--header-h);
+      bottom: 0;
+      left: calc(-1 * var(--sidebar-w));
+      z-index: 90;
+      width: var(--sidebar-w);
+      padding: 2rem 0;
+      overflow-y: auto;
+      background: var(--dark);
+      box-shadow: var(--shadow-lg);
+      transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+    .sidebar.open { transform: translateX(var(--sidebar-w)); }
+    .sidebar-label, .sidebar-section-label {
+      padding: 0 2rem;
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+    .sidebar-label { margin-bottom: 1rem; }
+    .sidebar-section-label { margin: 1.5rem 0 0.5rem; }
+    .sidebar nav { display: flex; flex-direction: column; gap: 4px; padding: 0 1rem; }
+    .sidebar nav a {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.8rem 1.25rem;
+      border-radius: 10px;
+      color: rgba(255, 255, 255, 0.95);
+      font-size: 0.9rem;
+      text-decoration: none;
+    }
+    .sidebar nav a:hover { background: rgba(255, 255, 255, 0.1); }
+    .sidebar nav a.active {
+      background: var(--green);
+      color: var(--dark);
+      font-weight: 700;
+    }
+    .sidebar nav a .num {
+      min-width: 1.5rem;
+      color: var(--green);
+      font-family: var(--mono);
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+    .sidebar nav a.active .num { color: var(--dark); }
+    .sidebar-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 80;
+      display: none;
+      background: rgba(18, 22, 22, 0.3);
+      backdrop-filter: blur(4px);
+    }
+    .sidebar-overlay.show { display: block; }
+
+    .main-wrap {
+      flex: 1;
+      margin-top: var(--header-h);
+      padding: 2rem 1.5rem;
+    }
+    .page-content { width: 100%; max-width: 1400px; margin: 0 auto; display: flex; flex-direction: column; gap: 1.5rem; }
+    .page-hero {
+      padding: 2.5rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--surface);
+      box-shadow: var(--shadow-sm);
+    }
+    .chapter-badge {
+      display: inline-block;
+      margin-bottom: 1rem;
+      padding: 0.35rem 0.8rem;
+      border-radius: 100px;
+      background: rgba(116, 194, 168, 0.15);
+      color: #39745f;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .page-title { font-size: clamp(2rem, 5vw, 3rem); line-height: 1.15; }
+    .page-subtitle { max-width: 680px; margin-top: 0.75rem; color: var(--muted); line-height: 1.7; }
+
+    /* ---------- Inhalt ---------- */
+    .section {
+      padding: 2.5rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--surface);
+      box-shadow: var(--shadow-sm);
+      scroll-margin-top: calc(var(--header-h) + 1rem);
+    }
+    .section h2 { font-size: clamp(1.4rem, 3vw, 1.8rem); line-height: 1.25; letter-spacing: -0.02em; }
+    .section h3 {
+      margin-top: 2rem;
+      font-size: 1.1rem;
+      line-height: 1.35;
+      scroll-margin-top: calc(var(--header-h) + 1rem);
+    }
+    .section p, .section li { line-height: 1.75; }
+    .section p, .section ul, .section ol { max-width: 75ch; }
+    .section h2 + *, .section h3 + * { margin-top: 0.75rem; }
+    .section p + p { margin-top: 0.9rem; }
+    .section a { color: #2f6b57; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+    .section a:hover { color: var(--orange); }
+
+    .toc-list { margin-top: 1rem; padding-left: 1.4rem; columns: 2; column-gap: 3rem; }
+    .toc-list > li { margin-bottom: 0.5rem; break-inside: avoid; font-weight: 600; }
+    .toc-list ul { margin-top: 0.25rem; padding-left: 1.1rem; font-weight: 400; }
+    .toc-list ul li { line-height: 1.6; }
+    .toc-list a { color: inherit; text-decoration: none; }
+    .toc-list a:hover { color: #2f6b57; text-decoration: underline; }
+
+    .content-list { margin-top: 1rem; display: grid; gap: 0.9rem; padding-left: 1.3rem; }
+    .content-list ul { margin-top: 0.5rem; display: grid; gap: 0.4rem; padding-left: 1.2rem; }
+    .content-list li::marker { color: var(--green); }
+    .steps { margin-top: 1rem; display: grid; gap: 0.6rem; padding-left: 1.5rem; }
+    .steps li::marker { color: #39745f; font-weight: 700; }
+    .link-list { margin-top: 1rem; display: grid; gap: 0.5rem; padding-left: 1.3rem; }
+
+    .figure { margin-top: 1.25rem; }
+    .figure img {
+      display: block;
+      max-width: 100%;
+      min-height: 120px;
+      height: auto;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: var(--bg);
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+    .figure figcaption { margin-top: 0.5rem; color: var(--muted); font-size: 0.85rem; }
+    .figure .figure-caption { margin: 0.5rem 0; font-size: 9px; line-height: 1.35; }
+    .figure.narrow img { max-width: 549px; width: 100%; }
+    .figure-row { margin-top: 1.25rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem; align-items: start; }
+    .figure-row .figure { margin-top: 0; }
+    .figure-stack { display: grid; gap: 1rem; }
+
+    footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+      padding: 32px clamp(20px, 5vw, 80px);
+      border-top: 1px solid var(--border);
+      background: var(--bg);
+    }
+    footer p, footer a { color: var(--muted); font-size: 0.8rem; }
+    footer a { text-decoration: none; }
+    footer a:hover { color: var(--green); }
+    .footer-links { display: flex; flex-wrap: wrap; gap: 20px; }
+
+    @media (max-width: 800px) {
+      .toc-list { columns: 1; }
+    }
+    @media (max-width: 600px) {
+      .top-header { padding: 0 1rem; }
+      .main-wrap { padding: 1rem 0; }
+      .page-hero, .section { padding: 2rem 1rem; border-right: 0; border-left: 0; border-radius: 0; }
+      footer { flex-direction: column; align-items: flex-start; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      * { transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <header class="top-header">
+    <div class="header-left">
+      <button class="burger-btn" id="burgerBtn" type="button" aria-label="Menü öffnen/schließen" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <a href="index.html" class="site-brand">
+        <img src="Logo_klein.png" alt="SciNeW Logo" />
+        <span>Self-Explorer</span>
+      </a>
+    </div>
+    <nav class="topbar-nav" aria-label="Hauptnavigation">
+      <a href="index.html">Startseite</a>
+    </nav>
+  </header>
+
+  <aside class="sidebar" id="sidebar" aria-label="Kursnavigation">
+    <p class="sidebar-label">Kursnavigation</p>
+    <nav>
+      <a href="index.html"><span class="num">⌂</span>Startseite</a>
+      <div class="sidebar-section-label">Etappen</div>
+      <a href="lektion-01.html"><span class="num">01</span>Wissenschaft verstehen &amp; Thema finden</a>
+      <a href="lektion-02.html"><span class="num">02</span>Fragen schärfen, Hypothesen schmieden</a>
+      <a href="lektion-03.html"><span class="num">03</span>Zielsicher recherchieren</a>
+      <a href="lektion-04.html"><span class="num">04</span>Klug lesen</a>
+      <a href="lektion-05.html"><span class="num">05</span>Theorie fundiert aufbauen</a>
+      <a href="lektion-06.html"><span class="num">06</span>Sauber zitieren</a>
+      <a href="lektion-07.html"><span class="num">07</span>Methoden und Daten überblicken</a>
+      <a href="lektion-08.html"><span class="num">08</span>Ergebnisse deuten</a>
+      <a href="lektion-09.html"><span class="num">09</span>Abschluss feinschleifen</a>
+      <div class="sidebar-section-label">Extra</div>
+      <a href="how-to-study.html" class="active" aria-current="page"><span class="num">00</span>How To Study</a>
+    </nav>
+  </aside>
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <main class="main-wrap">
+    <div class="page-content">
+
+      <section class="page-hero">
+        <span class="chapter-badge">00 · Extra</span>
+        <h1 class="page-title">How To Study</h1>
+        <p class="page-subtitle">Wie lernt man effizient im Studium?</p>
+      </section>
+
+      <!-- ===== Inhaltsverzeichnis ===== -->
+      <nav class="section" id="inhalt" aria-labelledby="toc-title">
+        <h2 id="toc-title">Inhaltsverzeichnis</h2>
+        <ol class="toc-list">
+          <li><a href="#itsp">Aufbau der ITSP-Seite</a></li>
+          <li><a href="#primuss">Was kann man in Primuss machen?</a></li>
+          <li><a href="#moodle">Wie funktioniert Moodle?</a></li>
+          <li>
+            <a href="#scinew-moodle">Wie funktioniert der SciNeW-Moodle-Kurs?</a>
+          </li>
+          <li><a href="#email">Wann schreibe ich eine E-Mail?</a></li>
+          <li><a href="#studieren">Wie studiert man?</a></li>
+          <li><a href="#lernen">Wie lernt man?</a></li>
+        </ol>
+      </nav>
+
+      <!-- ===== 1. ITSP ===== -->
+      <section class="section" id="itsp">
+        <h2>1. Aufbau der ITSP-Seite</h2>
+
+        <figure class="figure">
+          <p class="figure-caption"><strong>Abbildung 0.1</strong><br><em>ITSP-Maildienste</em></p>
+          <img src="bilder/how-to-study_itsp-aufbau.png" alt="Screenshot: Aufbau der ITSP-Seite" />
+          <p class="figure-caption"><em>Anmerkung.</em> Eigene Darstellung.</p>
+        </figure>
+<br> 
+        <p>Unter E-Mail-Dienste – <a href="https://itsp.hs-ansbach.de/apps/mailadressensuche/" target="_blank" rel="noopener noreferrer">Mailadressensuche</a> können Sie die E-Mail-Adressen von Professorinnen und Professoren sowie von Kommilitoninnen und Kommilitonen suchen.</p>
+
+        <p>Folgende Seiten lohnen sich zum Durchlesen:</p>
+
+        <div class="figure-stack">
+          <figure class="figure">
+            <p class="figure-caption"><strong>Abbildung 0.2</strong><br><em>ITSP-Unterseiten</em></p>
+            <img src="bilder/how-to-study_itsp-seiten.png" alt="Screenshot: empfohlene Seiten der ITSP-Seite" />
+            <p class="figure-caption"><em>Anmerkung.</em> Eigene Darstellung.</p>
+          </figure>
+          <figure class="figure">
+            <p class="figure-caption"><strong>Abbildung 0.3</strong><br><em>ITSP-Shortlinks</em></p>
+            <img src="bilder/how-to-study_itsp-links-1.png" alt="Screenshot: Links der ITSP-Seite (1)" />
+            <p class="figure-caption"><em>Anmerkung.</em> Eigene Darstellung.</p>
+          </figure>
+        
+        </div>
+
+        <p style="margin-top:1.25rem">Vor allem die letzten drei Links sind für Studierende wichtig:</p>
+        <ul class="link-list">
+          <li><strong>PRIMUSS</strong> führt Sie zu <!-- TODO: Link zu Primuss einfügen --><a href="#">Primuss</a> (weitere Informationen dazu im nächsten Kapitel).</li>
+          <li><strong>LRZ-OWA</strong> führt Sie zu Ihrem Outlook-E-Mail-Postfach <!-- TODO: Link zu OWA auf das Wort setzen, z. B. um „Outlook-E-Mail-Postfach“ -->.</li>
+          <li><strong>SDL-Moodle</strong> führt Sie zur Lernplattform <a href="https://moodle.hs-ansbach.de/" target="_blank" rel="noopener">Moodle</a> der Hochschule Ansbach.</li>
+        </ul>
+      </section>
+
+      <!-- ===== 2. Primuss ===== -->
+      <section class="section" id="primuss">
+        <h2>2. Was kann man in Primuss machen?</h2>
+        <p>In Primuss finden Sie Ihren aktuellen Stundenplan, gestellte Anträge, Ihre Prüfungsanmeldung, Bescheinigungen, Ihr Notenblatt sowie Abschlussdokumente und die Rückmeldung für das nächste Semester.</p>
+        <p><strong>Anmerkung:</strong> Beim Stundenplan müssen Sie zuerst Ihre Studiengruppe, das Semester und die Fächer auswählen, die Sie belegen möchten.</p>
+
+        <div class="figure-row">
+          <figure class="figure">
+            <p class="figure-caption"><strong>Abbildung 0.4</strong><br><em>Primuss-Studienangelegenheiten</em></p>
+            <img src="bilder/how-to-study_primuss-1.png" alt="Screenshot: Primuss (1)" />
+            <p class="figure-caption"><em>Anmerkung.</em> Eigene Darstellung.</p>
+          </figure>
+          <figure class="figure">
+            <p class="figure-caption"><strong>Abbildung 0.5</strong><br><em>Primuss-Stundenplan</em></p>
+            <img src="bilder/how-to-study_primuss-2.png" alt="Screenshot: Primuss (2)" />
+            <p class="figure-caption"><em>Anmerkung.</em> Eigene Darstellung.</p>
+          </figure>
+        </div>
+      </section>
+
+      <!-- ===== 3. Moodle ===== -->
+      <section class="section" id="moodle">
+        <h2>3. Wie funktioniert Moodle?</h2>
+
+        <figure class="figure">
+          <p class="figure-caption"><strong>Abbildung 0.6</strong><br><em>Moodle-Startseite</em></p>
+          <img src="bilder/how-to-study_moodle-startseite.png" alt="Screenshot: Startseite von Moodle" />
+          <p class="figure-caption"><em>Anmerkung.</em> Eigene Darstellung.</p>
+        </figure>
+
+        <p>Unter Startseite finden Sie die verschiedenen Moodle-Kurse, die Sie wählen können. Für einige benötigen Sie einen Einschreibeschlüssel. Diesen erhalten Sie in der Regel in der ersten Vorlesung.</p>
+        <p>Ein Kurs, in den Sie sich auf jeden Fall einschreiben sollten, ist der <a href="https://moodle.hs-ansbach.de/course/view.php?id=3681" target="_blank" rel="noopener">AWM-Infokurs</a>. Hier finden Sie Informationen, die spezifisch für Ihren Studiengang sind (z. B. Schwerpunkte, Abschlussarbeit, Organisatorisches).</p>
+      </section>
+
+      <!-- ===== 4. SciNeW-Moodle-Kurs ===== -->
+      <section class="section" id="scinew-moodle">
+        <h2>4. Wie funktioniert der SciNeW-Moodle-Kurs?</h2>
+
+    
+        <h3 id="theoretical-horizon">Was ist der Theoretical Horizon?</h3>
+        <p>Der Theoretical Horizon vermittelt Ihnen die Theorie des Moduls. Er basiert auf den Folien, der Pflichtliteratur und ausgewählten YouTube-Videos.</p>
+
+         <h3 id="skill-lab">Was ist das Skill Lab?</h3>
+        <p>Das Skill Lab sind die Übungsstunden zu unserer Vorlesung. Hier wenden wir die Theorie praktisch an. Im Skill Lab erstellen Sie geführt Ihren eigenen Science Guide. Dieser soll Ihnen als Nachschlagewerk dienen, wenn Sie eine wissenschaftliche Arbeit schreiben. Darin finden Sie später alle Informationen zum richtigen Zitieren, zum Formatieren in Word und zu den jeweiligen Kapitelinhalten einer wissenschaftlichen Arbeit.</p>
+        <p>Anders als bei einer KI, die verschiedene Zitierstile vermischt oder Informationen aus dem gesamten Internet nutzt, können Sie sich sicher sein, dass Ihr Science Guide Ihnen immer die richtige Antwort liefert.</p>
+<h3 id="gruppe">Wann werde ich in meine Gruppe eingeteilt?</h3>
+       
+         <p> Diese Informationen werden in der ersten Veranstaltung bekannt gegeben. Sie können diese danach in den Veranstaltungsfolien nachlesen. </p>   
+        
+         <h3 id="self-explorer">Was sind die Self Explorer?</h3>
+        <p>Der Self Explorer (also diese Website) dient Ihnen zum Lernen für die Prüfung in diesem Modul. Er muss <strong>nicht verpflichtend</strong> bearbeitet werden. Alle Inhalte auf dieser Website stammen aus den Vorlesungsfolien oder der Pflichtliteratur. Sie finden hier also keine Inhalte, die nicht auch dort vorkommen, und verpassen nichts, wenn Sie nicht alle Podcasts, Leseeinheiten oder Videos ansehen.</p>
+        <p>Der Self Explorer dient dem Verständnis und der Prüfungsvorbereitung, damit Sie keine Zeit mit Zusammenfassungen oder Lernzielen verbringen müssen. Er enthält Übungen und Quizze, die in ähnlicher Form in der Prüfung vorkommen können. Es wird daher empfohlen, diese mindestens einmal zu lösen.</p>
+
+        <h3 id="zusatzmaterialien">Was sind die Zusatzmaterialien?</h3>
+        <p>Die Zusatzmaterialien dienen Ihnen als erster Einstiegspunkt für Inhalte, die Sie noch einmal wiederholen möchten oder nicht vollständig verstanden haben. Sie dienen der Vertiefung und machen die Theorie oft durch Beispiele und Anwendungsfälle verständlicher.</p>
+
+        
+
+        <h3 id="termin-verpasst">Was ist, wenn ich an einem Termin nicht kann?</h3>
+        <p> Wenn Sie an einem Termin nicht teilnehmen können, müssen Sie die Inhalte der Vorlesung mithilfe der Veranstaltungsfolien und dem Skill-Lab Begleitbuch selbstständig nacharbeiten.</p>
+
+        <h3 id="badges">Wofür bekomme ich Badges?</h3>
+        <p> Sie bekommen Badges, wenn Sie eine Abgabe erfolgreich eingereicht haben. Diese dienen als Belohnung für das aktive Mitmachen im Kurs.</p>
+
+        <h3 id="side-quest">Was ist die Side Quest?</h3>
+        <p>Die Side Quest dient der Modulverantwortlichen dazu, zu verstehen, ob die vermittelten Inhalte verständlich erklärt wurden oder ob sie zum Beispiel im nächsten Semester vertieft erklärt werden müssen. Sie hilft uns, den Kurs stetig zu verbessern. Im Gegenzug dient die Side Quest den Studierenden als Bonusleistung.</p>
+
+        <h3 id="bonusleistung">Wie erhalte ich die Bonusleistung?</h3>
+        <p>Diese Informationen erhalten Sie in der ersten Veranstaltung und können in den Folien der ersten Veranstaltung nachgelesen werden.</p>
+      </section>
+
+      <!-- ===== 5. E-Mail ===== -->
+      <section class="section" id="email">
+        <h2>5. Wann schreibe ich eine E-Mail?</h2>
+        <ol class="steps">
+          <li>Habe ich schon auf Primuss nach meinem Problem gesucht?</li>
+          <li>Habe ich schon auf Moodle nach meinem Problem gesucht?</li>
+          <li>Habe ich schon auf der ITSP-Seite nach meinem Problem gesucht?</li>
+          <li>Habe ich schon meine Kommilitoninnen und Kommilitonen gefragt (z. B. über WhatsApp)?</li>
+          <li>Wer ist der richtige Ansprechpartner für meine Frage? Die Dekanin bzw. der Dekan, der Studierendenservice, die Professorin bzw. der Professor oder die Studiengangsleitung?</li>
+          <li>Falls Professorin bzw. Professor: Kann die Frage bis zur nächsten Vorlesungseinheit warten?</li>
+        </ol>
+      </section>
+
+      <!-- ===== 6. Wie studiert man? ===== -->
+      <section class="section" id="studieren">
+        <h2>6. Wie studiert man?</h2>
+        <ul class="content-list">
+          <li><strong>Wichtige Termine im Blick behalten:</strong> Vor allem am Anfang des Semesters ist es wichtig, alle genannten Termine in Ihren Kalender einzutragen (z. B. Exkursionen, Blockwochen, längere Vorlesungen, Abgabetermine). Wenn Sie nebenbei berufstätig sind, lohnt es sich besonders, Arbeitstage rechtzeitig zu verlegen. Die wichtigsten Termine werden meist in der ersten Vorlesungsstunde mitgeteilt. Hilfreich ist es, alles an einem Ort einzutragen. Dafür eignen sich verschiedene Kalendertools, zum Beispiel Outlook, Google Kalender, Apple Kalender oder der Moodle-Kalender.</li>
+          <li>Nehmen Sie an Vorlesungen und Seminaren teil. Nutzen Sie Ihre Zeit sinnvoll: Eine <em>aktive Teilnahme</em> hilft Ihnen im Lernprozess, sodass Sie das Material in der Prüfungszeit nur noch wiederholen müssen. Fragen Sie nach, wenn Sie etwas in der Vorlesung nicht verstehen. Machen Sie sich während der Vorlesung Notizen, um sich Konzepte später leichter ins Gedächtnis zu rufen. Beteiligen Sie sich an Diskussionen und Gruppenarbeiten, um den Stoff besser zu verstehen und verschiedene Perspektiven Ihrer Kommilitoninnen und Kommilitonen kennenzulernen.</li>
+          <li>Nutzen Sie auch Ihren Zugang zu den unterschiedlichen Angeboten der Hochschule Ansbach. Die Hochschule bietet vielseitige Angebote und Aktivitäten.
+            <!-- TODO: Liste der Links zu Aktivitäten und Angeboten einfügen, z. B.:
+            <ul>
+              <li><a href="#">Angebot</a></li>
+            </ul>
+            -->
+          </li>
+        </ul>
+        <!-- TODO: Abschnitt „Thema Selbstverantwortung“ ergänzen (Notiz aus dem Entwurf) -->
+      </section>
+
+      <!-- ===== 7. Wie lernt man? ===== -->
+      <section class="section" id="lernen">
+        <h2>7. Wie lernt man?</h2>
+        <ul class="content-list">
+          <li>Unverzichtbar ist zunächst ein Lernplan für die Prüfungszeit. Bei sechs verschiedenen Modulen mit unterschiedlichen Prüfungsformen ist es normal, dass Sie nicht alles auswendig im Kopf haben. Planen Sie, wann Sie welches Modul lernen und an welchen Tagen Sie sich welche Kapitel vornehmen. Planen Sie am Ende außerdem Zeit zum Wiederholen ein. So behalten Sie auch in stressigen Phasen den Überblick. Ein guter Lernplan hilft Ihnen auch, Prokrastination und Überforderung zu vermeiden. Wenn Sie früh anfangen, ist die Wahrscheinlichkeit hoch, dass Sie das Gelernte auch länger behalten. Nutzen Sie das Privileg des Studierens und nehmen Sie so viel Wissen mit wie möglich! Unser Tipp: die Hochschulplattform <!-- TODO: Link zu DIAS einfügen --><a href="#">DIAS</a>.</li>
+          <li>Legen Sie sich für jede Lernsession persönliche Lernziele fest, die Sie an diesem Tag schaffen möchten. Viele Professorinnen und Professoren stellen diese zur Vorlesung oder in ihrem Moodle-Kurs bereits zur Verfügung. So können Sie auch kontrollieren, ob Ihre Lernsession produktiv war oder ob Sie ins <a href="https://schoolict.ch/passiv/aktiv-passiv-bildung/" target="_blank" rel="noopener" title="Die Bedeutung von aktivem und passivem Lernen in der Bildungswelt – schoolict.ch">passive Lernen</a> abgeschweift sind, zum Beispiel, indem Sie Inhalte nur abgeschrieben und somit kopiert haben, ohne wirklich darüber nachzudenken.</li>
+          <li>Konzentrieren Sie sich während einer Lernsession auf ein einziges Medium, anstatt Multitasking zu betreiben. Hören Sie entweder einen Podcast <strong>oder</strong> lesen Sie die Vorlesungsfolien. Beides zusammen führt zu geringer Konzentration und zu einer schlechteren Aufnahme der Inhalte.</li>
+          <li>Halten Sie diese drei Lernphasen ein: Organisieren, Anwenden, Wiederholen.
+            <figure class="figure">
+              <p class="figure-caption"><strong>Abbildung 0.7</strong><br><em>Drei Lernphasen</em></p>
+              <img src="bilder/how-to-study_lernphasen.jfif" alt="Abbildung: die drei Lernphasen Organisieren, Anwenden und Wiederholen" />
+              <p class="figure-caption"><em>Anmerkung.</em> Mit Google Gemini erstellt (2026).</p>
+            </figure>
+            <ul>
+              <li><strong>Organisieren:</strong> Lernplan und Lernziele festlegen, Überschriften und Themen oberflächlich durchgehen.</li>
+              <li><strong>Anwenden:</strong> Konzepte und Theorien verstehen, Anwendungsaufgaben und Quizze zur Selbstkontrolle bearbeiten, bei komplexen Themen weitere Informationen suchen, Anwendungsbeispiele finden sowie das Wissen mit Ihrem Alltagswissen verknüpfen.</li>
+              <li><strong>Wiederholen:</strong> wichtige Begriffe und Theorien wiederholen.</li>
+            </ul>
+          </li>
+          <li><a href="https://selbstgesteuertes-lernen.de/?sfid=660" target="_blank" rel="noopener">Methodenkoffer für selbstgesteuertes Lernen</a></li>
+          <li>Vor allem eine <em>aktive Teilnahme</em> wird Ihnen viel bringen. Fragen Sie während der Vorlesung nach, wenn Sie etwas nicht verstehen, und <em>versuchen Sie, die Konzepte mit Ihrem Alltag und bereits erlerntem Wissen zu verknüpfen!</em> Das neuronale Netzwerk des Gehirns lernt, indem es neue Verbindungen zwischen den Nervenzellen bildet. Neues Wissen wird also mit altem verknüpft, und es entstehen Verbindungen zwischen unterschiedlichen Themen. Denken Sie daher auch darüber nach, in welchen anderen Situationen die gelernten Inhalte relevant sein können, und überlegen Sie, welche Ähnlichkeiten und Unterschiede es gibt.</li>
+          <li>Wenn Sie erheblich länger als Ihre Kommilitoninnen und Kommilitonen zum Lernen brauchen oder an manchen Tagen lernen, ohne etwas davon zu behalten, sollten Sie Ihre Lernstrategie anpassen.</li>
+          <li>Um Ihren Lernprozess und Ihre Lernstrategie nachzuverfolgen und zu prüfen, ob das, was Sie tun, auch etwas gebracht hat, empfiehlt es sich, zu Beginn ein Lerntagebuch zu führen. Das hilft Ihnen auch langfristig herauszufinden, wie Sie effizient viele Module gleichzeitig lernen können.
+            <!-- TODO: Links zu einer physischen und einer Online-Lerntagebuch-Vorlage einfügen -->
+          </li>
+          <li>Versuchen Sie, vor allem bei komplizierten Themen, auf KI zu verzichten.
+            <figure class="figure narrow">
+              <p class="figure-caption"><strong>Abbildung 0.8</strong><br><em>Chancen und Risiken von KI</em></p>
+              <img src="bilder/how-to-study_ki-selbstueberschaetzung.png" alt="Abbildung: Verzerrte Selbstwahrnehmung durch Selbstüberschätzung" />
+              <p class="figure-caption"><em>Anmerkung.</em> Teilweise mit Hilfe von Google Gemini (2026) erstellt.</p>
+            </figure>
+          </li>
+          <li>Trainieren Sie Ihr Gehirn weiter und schreiben Sie Texte selbst, auch wenn es länger dauert, um Ihre Schreibkompetenz nicht zu verlieren. KI kann ein falsches Gefühl des Verständnisses vermitteln und dadurch das langfristige Lernen beeinträchtigen.</li>
+          <li>Überfordern Sie sich nicht und nehmen Sie sich ausreichend Pausen.</li>
+        </ul>
+      </section>
+
+    </div>
+  </main>
+
+  <footer>
+    <p><a href="https://janine-riemann.github.io/News-about-SciNeW_HS-Ansbach/" target="_blank" rel="noopener">© 2026 SciNeW – Scientific New Working</a></p>
+    <div class="footer-links">
+      <a href="verzeichnisse.html">Literatur- &amp; Abbildungsverzeichnis</a>
+      <a href="https://janine-riemann.github.io/News-about-SciNeW_HS-Ansbach/#contact" target="_blank" rel="noopener">Impressum</a>
+    </div>
+  </footer>
+
+  <script>
+    const sidebar = document.getElementById('sidebar');
+    const sidebarOverlay = document.getElementById('sidebarOverlay');
+    const burgerBtn = document.getElementById('burgerBtn');
+
+    function toggleSidebar() {
+      const open = sidebar.classList.toggle('open');
+      burgerBtn.classList.toggle('open', open);
+      burgerBtn.setAttribute('aria-expanded', String(open));
+      sidebarOverlay.classList.toggle('show', open);
+    }
+
+    burgerBtn.addEventListener('click', toggleSidebar);
+    sidebarOverlay.addEventListener('click', toggleSidebar);
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && sidebar.classList.contains('open')) toggleSidebar();
+    });
+  </script>
+</body>
+</html>

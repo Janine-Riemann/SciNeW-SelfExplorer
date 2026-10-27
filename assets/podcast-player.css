@@ -78,18 +78,8 @@
 .pcx2-row.is-playing .pcx2-icon-play { display: none; }
 .pcx2-row.is-playing .pcx2-icon-pause { display: block; }
 
-.pcx2-row-download {
-  flex: none;
-  width: 32px; height: 32px;
-  margin-top: 0.05rem;
-  border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  color: var(--pcx2-muted);
-  text-decoration: none;
-  transition: all 0.18s ease;
-}
-.pcx2-row-download:hover { background: var(--pcx2-mint); color: var(--pcx2-green-dark); }
-.pcx2-row-download svg { width: 15px; height: 15px; }
+.pcx2-row-download,
+.pcx2-ctrl-download { display: none !important; }
 
 .pcx2-row-body { flex: 1; min-width: 0; }
 .pcx2-row-eyebrow {
@@ -178,9 +168,6 @@
   width: auto; min-width: 38px; padding: 0 0.5rem; border-radius: 14px;
   font-family: 'DM Mono', monospace; font-size: 0.7rem; font-weight: 500;
 }
-.pcx2-ctrl-download { color: rgba(255,255,255,0.75); text-decoration: none; }
-.pcx2-ctrl-download:hover { color: #fff; }
-
 .pcx2-player-controls-divider {
   width: 1px; align-self: stretch; margin: 0.3rem 0.1rem;
   background: rgba(255,255,255,0.12); flex: none;
@@ -212,4 +199,3 @@
   .pcx2-wave span { animation: none; }
   .pcx2-player-inner { transition: opacity 0.2s ease; }
 }
-

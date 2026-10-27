@@ -517,7 +517,6 @@
       font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
       background: var(--green); color: var(--dark); border-radius: 20px; padding: 0.3rem 0.85rem;
     }
-    .phase-badge--orange { background: var(--orange); color: #fff; }
     .phase-badge--purple { background: #7C6FCD; color: #fff; }
     .phase-title { font-size: 1.05rem; font-weight: 600; color: var(--dark); }
     .phase-time { font-size: 0.85rem; color: var(--muted); margin-left: auto; }
@@ -594,14 +593,15 @@
     .competence-map-subtitle strong { color: var(--green); }
     .competence-grid {
       display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 0.75rem; align-items: end;
+      gap: 0.75rem; align-items: stretch;
     }
     .competence-step {
       min-height: 220px; display: flex; flex-direction: column;
-      justify-content: flex-end; background: #F3F3F0; border: 1px solid var(--border);
+      background: #F3F3F0; border: 1px solid var(--border);
+      border-radius: 8px; overflow: hidden;
     }
     .competence-visual {
-      min-height: 150px; display: flex; align-items: center; justify-content: center;
+      flex: 0 0 150px; display: flex; align-items: center; justify-content: center;
       background: rgba(116,194,168,0.16); overflow: hidden;
     }
     .competence-step:nth-child(1) .competence-visual { background: #F7DFAB; }
@@ -610,6 +610,12 @@
     .competence-step:nth-child(4) .competence-visual { background: #C8EAF5; }
     .competence-visual img {
       display: block; width: 100%; height: 150px; object-fit: contain;
+    }
+    .competence-step > .figure-caption:first-child {
+      min-height: 2.7em; margin-top: 0; padding: 0.75rem 0.75rem 0;
+    }
+    .competence-step > .figure-caption:nth-of-type(2) {
+      min-height: 3.8em; margin: 0; padding: 0.5rem 0.75rem 0.75rem;
     }
     .competence-copy { padding: 1rem; }
     .competence-copy h4 {
@@ -645,6 +651,7 @@
       border-radius: 8px; padding: 0.9rem; color: #555; line-height: 1.45;
     }
     .definition-point strong { display: block; color: var(--dark); margin-bottom: 0.25rem; }
+    .definition-point ul { padding-left: 1.1rem; }
     .criteria-diagram {
       background: var(--surface); border: 1px solid var(--border);
       border-radius: 12px; padding: 1.5rem;
@@ -676,8 +683,21 @@
       display: flex; width: 100%; align-items: center; gap: 0.5rem;
       padding-bottom: 0.5rem; border-bottom: 3px solid var(--green);
     }
+    .figure-caption { font-size: 9px; line-height: 1.35; margin: 0.5rem 0; }
+    .prose .figure-caption { font-size: 9px; }
+    .figure-image-large {
+      display: block; width: 100%; max-width: 520px; height: auto;
+      margin: 0; border-radius: 12px; border: 1px solid var(--border);
+      box-shadow: var(--shadow-sm);
+    }
+    .science-cycle-figure { width: 100%; display: flex; justify-content: flex-start; }
+    .science-cycle-figure img {
+      display: block; width: 100%; max-width: 100%; height: auto;
+      object-fit: contain;
+    }
     .sg-ul, .sg-ol { padding-left: 1.5rem; display: flex; flex-direction: column; gap: 0.5rem; }
     .sg-ul li, .sg-ol li { font-size: 0.95rem; line-height: 1.65; color: #333; }
+    .sg-ol > li::marker { font-size: 0.95rem; font-weight: 600; font-variant-numeric: tabular-nums; }
     .sg-flow {
       font-size: 1rem; font-weight: 600; color: var(--dark);
       background: rgba(116,194,168,0.1); border-radius: 8px; padding: 0.8rem 1.25rem; text-align: center;
@@ -697,9 +717,8 @@
     }
     .sg-repeat-badge {
       flex-shrink: 0; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;
-      background: var(--green); color: var(--dark); border-radius: 20px; padding: 0.25rem 0.75rem; margin-top: 2px;
+      background: #EE7050; color: #fff; border-radius: 20px; padding: 0.25rem 0.75rem; margin-top: 2px;
     }
-    .sg-repeat-badge--light { background: #7C6FCD; color: #fff; }
 
     .text-placeholder-box {
       background: var(--surface); border: 1px solid var(--border);
@@ -738,6 +757,10 @@
       <a href="lektion-07.html"><span class="num">07</span> Methoden und Daten überblicken</a>
       <a href="lektion-08.html"><span class="num">08</span> Ergebnisse deuten</a>
       <a href="lektion-09.html"><span class="num">09</span> Abschluss feinschleifen</a>
+    </nav>
+    <p class="sidebar-label">Extra</p>
+    <nav>
+      <a href="how-to-study.html"><span class="num">00</span> How To Study</a>
     </nav>
   </aside>
   <div class="sidebar-overlay" id="sidebarOverlay"></div>
@@ -921,14 +944,14 @@
                       <div class="phase-body">
                         <p>Am effektivsten lernen Sie in drei Phase: In Phase 1 verschaffen Sie sich zunächst einen groben Überblick über das gesamte Material, um anschließend in Phase 2 so richtig tief in die Materialien einzutauchen - aber nicht für Stunden, sondern nach fokussierten Lernstrategien (z.B. mit der Pomodoro-Technik; <strong>25 Minuten lernen & 5 Minuten Pause</strong>. Um Ihr Wissen langfristig zu sichern, wenden Sie abschließend in Phase 3 die gestaffelte Wiederholung an.</p>
                         <p>Beginnen Sie in Phase 1 damit, die verfügbaren Materialien 10–15 Minuten zu überfliegen, um einen Überblick zu bekommen. Notieren Sie sich dabei ihre persönlichen 3–5 Kernlernziele, die für Sie am wichtigsten erscheinen oder am schwierigsten sind.</p>
-                        <p>Anschlißend widmen Sie sich in Phase 2 fokussiert einzelnen Lernblöcken, um die folgenden Schlüsselthemen zu vertiefen.</p>
+                        <p>Anschließend widmen Sie sich in Phase 2 fokussiert einzelnen Lernblöcken, um die folgenden Schlüsselthemen zu vertiefen.</p>
                       </div>
                     </div>
 
                     <!-- PHASE 2 -->
                     <div class="phase-block">
                       <div class="phase-header">
-                        <span class="phase-badge phase-badge--orange">Phase 2</span>
+                        <span class="phase-badge">Phase 2</span>
                         <span class="phase-title">🔑 Schlüsselthemen &amp; Definitionen</span>
                       </div>
                       <div class="phase-body">
@@ -1001,44 +1024,44 @@
                           <p class="competence-map-subtitle"><strong>Mit Selbstorganisation &amp; zur Kompetenz im wissenschaftlichen Arbeiten</strong>, um die vier Stufen des Lernens zu meistern</p>
                           <div class="competence-grid">
                             <article class="competence-step">
-                              <p style="font-size: 0.8rem; line-height: 1.35; margin: 0.5rem;"><strong>Abbildung 1</strong><br><em>Unbewusste Inkompetenz</em></p>
+                              <p class="figure-caption"><strong>Abbildung 1.1</strong><br><em>Unbewusste Inkompetenz</em></p>
                               <div class="competence-visual">
-                                <img src="bilder/kapitel1-unbewusste-inkompetenz.png" class="clickable-img" alt="Baby schläft während der Autofahrt im Kindersitz" />
+                                <img src="bilder/kapitel1-unbewusste-inkompetenz.jpg" class="clickable-img" alt="Baby schläft während der Autofahrt im Kindersitz" />
                               </div>
-                              <p style="font-size: 0.75rem; line-height: 1.35; margin: 0.5rem;"><em>Anmerkung.</em> Foto von Alena Paulus (2023). <a href="https://www.gettyimages.dk/detail/photo/baby-sleeps-while-driving-in-the-child-seat-royalty-free-image/1733411349?adppopup=true" target="_blank" rel="noopener noreferrer">Quelle</a>.</p>
+                              <p class="figure-caption"><em>Anmerkung.</em> Foto von Alexander Grey (2018). <a href="https://unsplash.com/de/fotos/baby-auf-grauem-kinderwagen-k03ih6IqkDY" target="_blank" rel="noopener noreferrer">Quelle</a>.</p>
                               <div class="competence-copy">
                                 <h4>1: Unbewusste Inkompetenz</h4>
                                 <p>„Keine Idee, was möglich ist“</p>
                               </div>
                             </article>
                             <article class="competence-step">
-                              <p style="font-size: 0.8rem; line-height: 1.35; margin: 0.5rem;"><strong>Abbildung 2</strong><br><em>Bewusste Inkompetenz</em></p>
+                              <p class="figure-caption"><strong>Abbildung 1.2</strong><br><em>Bewusste Inkompetenz</em></p>
                               <div class="competence-visual">
                                 <img src="bilder/kapitel1-kompetenz-bewusste-inkompetenz.png" class="clickable-img" alt="Mutter und Tochter in einem modernen Auto" />
                               </div>
-                              <p style="font-size: 0.75rem; line-height: 1.35; margin: 0.5rem;"><em>Anmerkung.</em> Foto von standret (o. D.). <a href="https://stock.adobe.com/de/images/Mother-with-her-daughter-inside-of-modern-automobile-together/370770470" target="_blank" rel="noopener noreferrer">Quelle</a>.</p>
+                              <p class="figure-caption"><em>Anmerkung.</em> Foto von standret (o. D.). <a href="https://unsplash.com/de/fotos/mutter-mit-ihrer-tochter-im-modernen-automobil-zusammen-JXltYfXqHJ4" target="_blank" rel="noopener noreferrer">Quelle</a>.</p>
                               <div class="competence-copy">
                                 <h4>2: Bewusste Inkompetenz</h4>
                                 <p>„Wissensdurst“ &amp; Neugierde</p>
                               </div>
                             </article>
                             <article class="competence-step">
-                              <p style="font-size: 0.8rem; line-height: 1.35; margin: 0.5rem;"><strong>Abbildung 3</strong><br><em>Bewusste Kompetenz</em></p>
+                              <p class="figure-caption"><strong>Abbildung 1.3</strong><br><em>Bewusste Kompetenz</em></p>
                               <div class="competence-visual">
                                 <img src="bilder/kapitel1-kompetenz-bewusste-kompetenz.png" class="clickable-img" alt="Fahrerin beim Lernen mit einer Fahrlehrerin" />
                               </div>
-                              <p style="font-size: 0.75rem; line-height: 1.35; margin: 0.5rem;"><em>Anmerkung.</em> Foto von Andrej Lišakov (2024). <a href="https://unsplash.com/de/fotos/ein-paar-leute-die-in-einem-auto-sitzen-98geb3dOXxU" target="_blank" rel="noopener noreferrer">Quelle</a>.</p>
+                              <p class="figure-caption"><em>Anmerkung.</em> Foto von Andrej Lišakov (2024). <a href="https://unsplash.com/de/fotos/ein-paar-leute-die-in-einem-auto-sitzen-98geb3dOXxU" target="_blank" rel="noopener noreferrer">Quelle</a>.</p>
                               <div class="competence-copy">
                                 <h4>3: Bewusste Kompetenz</h4>
                                 <p>Theoretisches Wissen und Ablaufwissen</p>
                               </div>
                             </article>
                             <article class="competence-step">
-                              <p style="font-size: 0.8rem; line-height: 1.35; margin: 0.5rem;"><strong>Abbildung 4</strong><br><em>Unbewusste Kompetenz</em></p>
+                              <p class="figure-caption"><strong>Abbildung 1.4</strong><br><em>Unbewusste Kompetenz</em></p>
                               <div class="competence-visual">
                                 <img src="bilder/kapitel1-kompetenz-unbewusste-kompetenz.png" class="clickable-img" alt="Mann lehnt sich an das Fenster eines Lieferwagens" />
                               </div>
-                              <p style="font-size: 0.75rem; line-height: 1.35; margin: 0.5rem;"><em>Anmerkung.</em> Foto von Frank McKenna (2016). <a href="https://unsplash.com/de/fotos/mann-im-grauen-pullover-lehnt-sich-an-das-fenster-des-lieferwagens-Ap6t4U-VIqw" target="_blank" rel="noopener noreferrer">Quelle</a>.</p>
+                              <p class="figure-caption"><em>Anmerkung.</em> Foto von Frank McKenna (2016). <a href="https://unsplash.com/de/fotos/mann-im-grauen-pullover-lehnt-sich-an-das-fenster-des-lieferwagens-Ap6t4U-VIqw" target="_blank" rel="noopener noreferrer">Quelle</a>.</p>
                               <div class="competence-copy">
                                 <h4>4: Unbewusste Kompetenz</h4>
                                 <p>Erfahrungswissen und Handlungswissen</p>
@@ -1128,9 +1151,9 @@
                               </tbody>
                             </table>
                           </div>
-                          <p style="font-size: 0.9rem; line-height: 1.4; margin: 0.5rem 0;"><strong>Abbildung 5</strong><br><em>Wissenschaften im Überblick</em></p>
-                          <img src="bilder/Kapitel1-wissenschaft-nichtwissenschaft.png" class="clickable-img" alt="Wissenschaften im Überblick" style="flex: 0 1 220px; width: 220px; max-width: 100%; height: auto; border-radius: 12px; border: 1px solid var(--border); box-shadow: var(--shadow-sm);" />
-                            <p style="font-size: 0.85rem; line-height: 1.4; margin-top: 0.5rem;"><em>Anmerkung.</em> Eigene Darstellung (2026).</p>
+                          <p class="figure-caption"><strong>Abbildung 1.5</strong><br><em>Wissenschaften im Überblick</em></p>
+                          <img src="bilder/Kapitel1-wissenschaft-nichtwissenschaft.png" class="clickable-img figure-image-large" alt="Wissenschaften im Überblick" />
+                            <p class="figure-caption"><em>Anmerkung.</em> Eigene Darstellung (2026).</p>
                         </div>
 
                           <div class="sg-card">
@@ -1144,9 +1167,9 @@
                                 </ol>
                               </div>
                               <div style="flex: 0 1 220px; max-width: 100%;">
-                                <p style="font-size: 0.9rem; line-height: 1.4; margin: 0.5rem 0;"><strong>Abbildung 5</strong><br><em>Vom Themengebiet zur Forschungsfrage: Filter-Modell</em></p>
+                                <p class="figure-caption"><strong>Abbildung 1.6</strong><br><em>Induktion & Deduktion</em></p>
                                 <img src="bilder/Kapitel1-deduktion-induktion.png" class="clickable-img" alt="Filter-Modell vom breiten Themengebiet zur präzisen Forschungsfrage" style="width: 220px; max-width: 100%; height: auto; border-radius: 12px; border: 1px solid var(--border); box-shadow: var(--shadow-sm);" />
-                                <p style="font-size: 0.85rem; line-height: 1.4; margin-top: 0.5rem;"><em>Anmerkung.</em> Mit Google Gemini erstellt (2026).</p>
+                                <p class="figure-caption"><em>Anmerkung.</em> Mit Google Gemini erstellt (2026).</p>
                               </div>
                             </div>
                           </div>
@@ -1165,11 +1188,11 @@
 
                         <div class="sg-card">
                           <div class="sg-card-title">🔄 Kreislauf der Wissenschaft</div>
-                          <p style="font-size: 0.9rem; line-height: 1.4; margin: 0.5rem 0;"><strong>Abbildung 6</strong><br><em>Kreislauf der Wissenschaft</em></p>
-                          <div class="img-placeholder">
+                          <p class="figure-caption"><strong>Abbildung 1.7</strong><br><em>Kreislauf der Wissenschaft</em></p>
+                          <div class="science-cycle-figure">
                             <img src="bilder/Kapitel1-KreislaufDerWissenschaft.png" class="clickable-img" alt="Illustration zu wissenschaftlichem Publizieren">
                           </div>
-                          <p style="font-size: 0.85rem; line-height: 1.4; margin-top: 0.5rem;"><em>Anmerkung.</em> Eigene Darstellung.</p>
+                          <p class="figure-caption"><em>Anmerkung.</em> Eigene Darstellung.</p>
                         </div>
 
                         <div class="sg-card">
@@ -1194,9 +1217,9 @@
                               </ol>
                             </div>
                             <div style="flex: 0 1 220px; max-width: 100%;">
-                              <p style="font-size: 0.9rem; line-height: 1.4; margin: 0.5rem 0;"><strong>Abbildung 7</strong><br><em>Vom Themengebiet zur Forschungsfrage: Filter-Modell</em></p>
+                              <p class="figure-caption"><strong>Abbildung 1.8</strong><br><em>Filter-Modell</em></p>
                               <img src="bilder/trichter-modell-platzhalter.png" class="clickable-img" alt="Trichter-Modell vom breiten Themengebiet zur präzisen Forschungsfrage" style="width: 220px; max-width: 100%; height: auto; border-radius: 12px; border: 1px solid var(--border); box-shadow: var(--shadow-sm);" />
-                              <p style="font-size: 0.85rem; line-height: 1.4; margin-top: 0.5rem;"><em>Anmerkung.</em> Eigene Darstellung (2026).</p>
+                              <p class="figure-caption"><em>Anmerkung.</em> Eigene Darstellung (2026).</p>
                             </div>
                           </div>
                         </div>
@@ -1303,7 +1326,7 @@
                      <!-- PHASE 3 -->
                     <div class="phase-block">
                       <div class="phase-header">
-                        <span class="phase-badge" style="background:#3B82F6;color:#fff;">Phase 3</span>
+                        <span class="phase-badge">Phase 3</span>
                         <span class="phase-title">Festigen &amp; Erinnern</span>
                         <span class="phase-time">Nächste Schritte</span>
                       </div>
@@ -1315,11 +1338,11 @@
                             <div><strong>10 Min.:</strong>Gehen Sie Ihre „Unklarsten Punkte" durch und berbeiten Sie anschließend die Übungsaufgaben (im Tab "Übungen"). Versuchen Sie, die Fragen ohne Hilfsmittel zu beantworten.</div>
                           </div>
                           <div class="sg-repeat-item">
-                            <span class="sg-repeat-badge sg-repeat-badge--light">Übermorgen</span>
+                            <span class="sg-repeat-badge">Übermorgen</span>
                             <div><strong>5 Min.:</strong> Wiederholen Sie schnell die wichtigsten Schlüsselthemen &amp; Definitionen aus Phase 1. Überfliegen Sie die fettgedruckten Begriffe und deren Erklärungen.</div>
                           </div>
                           <div class="sg-repeat-item">
-                            <span class="sg-repeat-badge" style="background:#EE7050;color:#fff;">In 1 Woche</span>
+                            <span class="sg-repeat-badge">In einer Woche</span>
                             <div><strong>5–10 Min.:</strong> Bearbeiten Sie die Übungsaufgaben erneut oder erklären Sie jemandem (oder Ihnen selbst) die Konzepte der Operationalisierung und der Gütekriterien (<strong>Feynman-Technik</strong>).</div>
                           </div>
                         </div>
@@ -1328,16 +1351,6 @@
 
 
                   </div><!-- /study-guide -->
-
-                  <div class="text-placeholder-box">
-                    <h3 class="sg-card-title">Bildquellen (APA 7)</h3>
-                    <p style="font-size: 0.85rem; line-height: 1.5; margin-left: 1.25rem; text-indent: -1.25rem;">Paulus, A. (2023, 15. Oktober). <em>Baby sleeps while driving in the child seat</em> [Fotografie]. Getty Images. <a href="https://www.gettyimages.dk/detail/photo/baby-sleeps-while-driving-in-the-child-seat-royalty-free-image/1733411349?adppopup=true" target="_blank" rel="noopener noreferrer">https://www.gettyimages.dk/detail/photo/baby-sleeps-while-driving-in-the-child-seat-royalty-free-image/1733411349</a></p>
-                    <p style="font-size: 0.85rem; line-height: 1.5; margin-left: 1.25rem; text-indent: -1.25rem;">standret. (o. D.). <em>Mother with her daughter inside of modern automobile together</em> [Fotografie]. Adobe Stock. <a href="https://stock.adobe.com/de/images/Mother-with-her-daughter-inside-of-modern-automobile-together/370770470" target="_blank" rel="noopener noreferrer">https://stock.adobe.com/de/images/Mother-with-her-daughter-inside-of-modern-automobile-together/370770470</a></p>
-                    <p style="font-size: 0.85rem; line-height: 1.5; margin-left: 1.25rem; text-indent: -1.25rem;">Lišakov, A. (2024, 10. April). <em>Ein paar Leute, die in einem Auto sitzen</em> [Fotografie]. Unsplash. <a href="https://unsplash.com/de/fotos/ein-paar-leute-die-in-einem-auto-sitzen-98geb3dOXxU" target="_blank" rel="noopener noreferrer">https://unsplash.com/de/fotos/ein-paar-leute-die-in-einem-auto-sitzen-98geb3dOXxU</a></p>
-                    <p style="font-size: 0.85rem; line-height: 1.5; margin-left: 1.25rem; text-indent: -1.25rem;">McKenna, F. (2016, 12. September). <em>Mann im grauen Pullover lehnt sich an das Fenster des Lieferwagens</em> [Fotografie]. Unsplash. <a href="https://unsplash.com/de/fotos/mann-im-grauen-pullover-lehnt-sich-an-das-fenster-des-lieferwagens-Ap6t4U-VIqw" target="_blank" rel="noopener noreferrer">https://unsplash.com/de/fotos/mann-im-grauen-pullover-lehnt-sich-an-das-fenster-des-lieferwagens-Ap6t4U-VIqw</a></p>
-                    <p style="font-size: 0.85rem; line-height: 1.5; margin-left: 1.25rem; text-indent: -1.25rem;">Google. (o. D.). <em>Gemini</em> [Generative KI]. <a href="https://gemini.google.com/" target="_blank" rel="noopener noreferrer">https://gemini.google.com/</a></p>
-                  </div>
-
                   <div class="text-placeholder-box">
                     <h3 style="font-size: 1.05rem; margin-bottom: 0.5rem; color: var(--dark);">Ergänzende Materialien:</h3>
                     <p style="font-size: 0.92rem; color: var(--muted); line-height: 1.6;">Kornmeier, M. (2013). <a href="https://haupt.ch/search?search=Wissenschaftlich%20schreiben%20leicht%20gemacht" target="_blank" rel="noopener noreferrer">Wissenschaftlich schreiben leicht gemacht: Für Bachelor, Master und Dissertation</a> (6. Aufl.). Haupt Verlag. – Kapitel 1 Grundlagen wissenschaftlicher Arbeit</p>

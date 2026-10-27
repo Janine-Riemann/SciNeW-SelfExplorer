@@ -32,7 +32,6 @@
     var nextBtn   = playerEl.querySelector('[data-pcx2-next]');
     var closeBtn  = playerEl.querySelector('[data-pcx2-close]');
     var speedBtn  = playerEl.querySelector('[data-pcx2-speed]');
-    var downloadBtn = playerEl.querySelector('[data-pcx2-download]');
     var titleEl   = playerEl.querySelector('[data-pcx2-player-title]');
     var eyebrowEl = playerEl.querySelector('[data-pcx2-player-eyebrow]');
     var curEl     = playerEl.querySelector('[data-pcx2-current]');
@@ -48,13 +47,6 @@
       var m = Math.floor(sec / 60);
       var s = Math.floor(sec % 60);
       return m + ':' + (s < 10 ? '0' : '') + s;
-    }
-
-    function fileNameFromSrc(src, title) {
-      var ext = (src.split('.').pop() || 'mp3').split('?')[0];
-      var safeTitle = (title || 'folge').toLowerCase()
-        .replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
-      return safeTitle + '.' + ext;
     }
 
     function setActiveRow(index) {
@@ -73,10 +65,6 @@
       audio.playbackRate = speeds[speedIndex];
       titleEl.textContent = title;
       eyebrowEl.textContent = row.getAttribute('data-eyebrow');
-      if (downloadBtn) {
-        downloadBtn.href = src;
-        downloadBtn.setAttribute('download', fileNameFromSrc(src, title));
-      }
       setActiveRow(index);
       playerEl.classList.add('is-open');
       if (autoplay) audio.play();
@@ -98,20 +86,6 @@
         }
       });
 
-      // Download-Icon pro Zeile: Link-Ziel automatisch aus data-src/data-title
-      // befüllen, damit im HTML nichts doppelt gepflegt werden muss, und den
-      // Klick stoppen, bevor er die Zeile erreicht (sonst würde zusätzlich
-      // Play/Pause ausgelöst).
-      var rowDownload = row.querySelector('[data-pcx2-row-download]');
-      if (rowDownload) {
-        var rowSrc = row.getAttribute('data-src');
-        var rowTitle = row.getAttribute('data-title');
-        rowDownload.setAttribute('href', rowSrc);
-        rowDownload.setAttribute('download', fileNameFromSrc(rowSrc, rowTitle));
-        rowDownload.addEventListener('click', function (e) {
-          e.stopPropagation();
-        });
-      }
     });
 
     playBtn.addEventListener('click', function () {

@@ -19,8 +19,13 @@
       --muted: #6B7280;
       --font: 'DM Sans', sans-serif;
       --radius: 16px;
+      --header-h: 72px;
+      --sidebar-w: 320px;
+      --mono: 'DM Mono', monospace;
+      --shadow-lg: 0 20px 40px rgba(18,22,22,0.12);
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
     body {
       min-height: 100vh;
       display: flex;
@@ -29,38 +34,101 @@
       color: var(--text);
       font-family: var(--font);
       line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
     }
     a { color: inherit; }
     .top-header {
-      position: sticky;
-      top: 0;
-      z-index: 10;
-      min-height: 72px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
-      padding: 0.75rem clamp(1rem, 5vw, 3rem);
-      background: rgba(18, 22, 22, 0.96);
+      position: fixed; top: 0; left: 0; right: 0;
+      height: var(--header-h);
+      background: rgba(18, 22, 22, 0.9);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      display: flex; align-items: center; gap: 16px;
+      padding: 0 2rem;
       border-bottom: 1px solid rgba(116,194,168,0.12);
+      z-index: 100;
+      box-shadow: 0 4px 30px rgba(0,0,0,0.1);
     }
+    .header-left { display: flex; align-items: center; gap: 1.25rem; }
+    .burger-btn {
+      background: none; border: none; cursor: pointer;
+      display: flex; flex-direction: column; gap: 6px; padding: 8px;
+      border-radius: 8px;
+      transition: background 0.3s cubic-bezier(0.4,0,0.2,1);
+    }
+    .burger-btn:hover { background: rgba(116,194,168,0.12); }
+    .burger-btn span {
+      display: block; width: 22px; height: 2px;
+      background: var(--green); border-radius: 2px;
+      transition: transform 0.3s cubic-bezier(0.4,0,0.2,1), opacity 0.3s;
+    }
+    .burger-btn.open span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+    .burger-btn.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .burger-btn.open span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
     .site-brand {
+      display: flex; align-items: center; gap: 12px;
+      font-size: 1.1rem; font-weight: 700; color: #fff;
+      letter-spacing: -0.03em; text-decoration: none;
+    }
+    .site-brand img {
+      width: 36px; height: 36px;
+      border-radius: 50%; object-fit: cover;
+      box-shadow: 0 0 0 2px rgba(114,194,168,0.4);
+    }
+    .topbar-nav { margin-left: auto; }
+    .topbar-nav a {
+      font-size: 0.9rem; font-weight: 500;
+      color: rgba(255,255,255,0.9);
+      padding: 8px 16px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: all 0.25s ease;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.05);
+    }
+    .topbar-nav a:hover {
       color: #fff;
-      font-size: 1.05rem;
-      font-weight: 700;
-      text-decoration: none;
-      letter-spacing: -0.03em;
+      background: rgba(116,194,168,0.15);
+      border-color: rgba(116,194,168,0.3);
     }
-    .site-brand span { color: var(--green); }
-    .back-link {
-      color: rgba(255,255,255,0.75);
-      font-size: 0.9rem;
-      text-decoration: none;
+    .sidebar {
+      position: fixed; top: var(--header-h);
+      left: calc(-1 * var(--sidebar-w));
+      bottom: 0; width: var(--sidebar-w);
+      background: var(--dark); padding: 2.5rem 0;
+      overflow-y: auto;
+      transition: transform 0.4s cubic-bezier(0.25,1,0.5,1);
+      z-index: 90; box-shadow: var(--shadow-lg);
     }
-    .back-link:hover, .back-link:focus-visible { color: var(--green); }
+    .sidebar.open { transform: translateX(var(--sidebar-w)); }
+    .sidebar-label {
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 0.15em;
+      color: rgba(255,255,255,0.6); text-transform: uppercase;
+      padding: 0 2rem; margin-bottom: 1.25rem;
+    }
+    .sidebar nav { display: flex; flex-direction: column; gap: 6px; padding: 0 1rem; }
+    .sidebar nav a {
+      display: flex; align-items: center; gap: 1rem;
+      padding: 0.95rem 1.25rem; font-size: 0.95rem;
+      color: rgba(255,255,255,0.95); text-decoration: none;
+      border-radius: 10px;
+      transition: all 0.2s cubic-bezier(0.4,0,0.2,1);
+    }
+    .sidebar nav a:hover { background: rgba(255,255,255,0.1); color: #fff; }
+    .sidebar nav a .num {
+      font-size: 0.8rem; font-family: var(--mono); font-weight: 600;
+      color: var(--green); min-width: 1.5rem; opacity: 0.9;
+    }
+    .sidebar-overlay {
+      display: none; position: fixed; inset: 0;
+      background: rgba(18,22,22,0.3); z-index: 80;
+      opacity: 0; transition: opacity 0.4s ease;
+      backdrop-filter: blur(4px);
+    }
+    .sidebar-overlay.show { display: block; opacity: 1; }
     main {
       width: min(100% - 2rem, 1000px);
-      margin: 2.5rem auto 4rem;
+      margin: calc(var(--header-h) + 2.5rem) auto 4rem;
       flex: 1;
     }
     .hero, .directory-section {
@@ -113,6 +181,7 @@
     .reference-list a, .figure-list a { color: #347b66; text-underline-offset: 0.15em; }
     .reference-list a:hover, .figure-list a:hover { color: #205b49; }
     .figure-list strong { display: block; color: var(--dark); }
+    .figure-caption { font-size: 9px; }
     .figure-source { display: block; margin-top: 0.2rem; color: var(--muted); font-size: 0.92rem; }
     .figure-source a { white-space: normal; }
     footer {
@@ -128,17 +197,42 @@
     footer a { text-decoration: none; }
     footer a:hover { color: #347b66; }
     @media (max-width: 560px) {
-      .top-header { align-items: flex-start; flex-direction: column; justify-content: center; }
-      main { margin-top: 1.25rem; }
+      .top-header { padding: 0 1rem; }
+      main { margin-top: calc(var(--header-h) + 1.25rem); }
       footer { flex-direction: column; }
     }
   </style>
 </head>
 <body>
   <header class="top-header">
-    <a class="site-brand" href="index.html"><span>SciNeW</span> Self-Explorer</a>
-    <a class="back-link" href="index.html">← Zur Kursübersicht</a>
+    <div class="header-left">
+      <button class="burger-btn" id="burgerBtn" type="button" aria-label="Menü öffnen/schließen" aria-expanded="false" aria-controls="sidebar">
+        <span></span><span></span><span></span>
+      </button>
+      <a href="index.html" class="site-brand">
+        <img src="Logo_klein.png" alt="SciNeW Logo" />
+        <span>Self-Explorer</span>
+      </a>
+    </div>
+    <nav class="topbar-nav">
+      <a href="index.html">Startseite</a>
+    </nav>
   </header>
+  <aside class="sidebar" id="sidebar" aria-label="Etappen-Navigation">
+    <p class="sidebar-label">Etappen</p>
+    <nav>
+      <a href="lektion-01.html"><span class="num">01</span> Grundlagen wissenschaftlicher Arbeit</a>
+      <a href="lektion-02.html"><span class="num">02</span> Fragen schärfen, Hypothesen schmieden</a>
+      <a href="lektion-03.html"><span class="num">03</span> Zielsicher recherchieren</a>
+      <a href="lektion-04.html"><span class="num">04</span> Klug lesen</a>
+      <a href="lektion-05.html"><span class="num">05</span> Theorie fundiert aufbauen</a>
+      <a href="lektion-06.html"><span class="num">06</span> Sauber zitieren</a>
+      <a href="lektion-07.html"><span class="num">07</span> Methoden und Daten überblicken</a>
+      <a href="lektion-08.html"><span class="num">08</span> Ergebnisse deuten</a>
+      <a href="lektion-09.html"><span class="num">09</span> Abschluss feinschleifen</a>
+    </nav>
+  </aside>
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
   <main>
     <section class="hero" aria-labelledby="page-title">
@@ -155,19 +249,30 @@
         <li>Kornmeier, M. (2013). <a href="https://haupt.ch/search?search=Wissenschaftlich%20schreiben%20leicht%20gemacht" target="_blank" rel="noopener noreferrer"><em>Wissenschaftlich schreiben leicht gemacht: Für Bachelor, Master und Dissertation</em></a> (6. Aufl.). Haupt Verlag. Kapitel 1. Etappe 1.</li>
         <li>Peters, J. H., &amp; Dörfler, T. (2019). <a href="https://elibrary.pearson.de/book/99.150005/9783863268589" target="_blank" rel="noopener noreferrer"><em>Planen, Durchführen und Auswerten von Abschlussarbeiten in der Psychologie und den Sozialwissenschaften</em></a> (2. Aufl.). Pearson. Empfohlene Kapitel in den Etappen 5 und 9.</li>
         <li>Peters, J. H., &amp; Dörfler, T. (2019). <a href="https://elibrary.pearson.de/book/99.150005/9783863268596" target="_blank" rel="noopener noreferrer"><em>Schreiben und Gestalten von Abschlussarbeiten in der Psychologie und den Sozialwissenschaften</em></a> (2. Aufl.). Pearson. Empfohlene Kapitel in den Etappen 4–9.</li>
+        <li>Peters, J. H., &amp; Dörfler, T. <a href="https://eu.pearson.com/products/9783863269425" target="_blank" rel="noopener noreferrer"><em>Schreiben und Gestalten von Abschlussarbeiten in der Psychologie und den Sozialwissenschaften</em></a>. Neue Auflage. Pearson.</li>
       </ul>
     </section>
 
     <section class="directory-section" aria-labelledby="abbildungen">
       <h2 id="abbildungen">Abbildungsverzeichnis</h2>
-      <p class="section-intro">Abbildungen aus Etappe 1: Wissenschaft verstehen &amp; Thema finden.</p>
+      <p class="section-intro">Abbildungen aus How To Study und Etappe 1.</p>
       <ol class="figure-list">
-        <li><strong>Abbildung 1. <em>Unbewusste Inkompetenz</em></strong><span class="figure-source">Foto von Alena Paulus (2023). <a href="https://www.gettyimages.dk/detail/photo/baby-sleeps-while-driving-in-the-child-seat-royalty-free-image/1733411349" target="_blank" rel="noopener noreferrer">Getty Images</a>.</span></li>
-        <li><strong>Abbildung 2. <em>Bewusste Inkompetenz</em></strong><span class="figure-source">Foto von standret (o. D.). <a href="https://stock.adobe.com/de/images/Mother-with-her-daughter-inside-of-modern-automobile-together/370770470" target="_blank" rel="noopener noreferrer">Adobe Stock</a>.</span></li>
-        <li><strong>Abbildung 3. <em>Bewusste Kompetenz</em></strong><span class="figure-source">Foto von Andrej Lišakov (2024). <a href="https://unsplash.com/de/fotos/ein-paar-leute-die-in-einem-auto-sitzen-98geb3dOXxU" target="_blank" rel="noopener noreferrer">Unsplash</a>.</span></li>
-        <li><strong>Abbildung 4. <em>Unbewusste Kompetenz</em></strong><span class="figure-source">Foto von Frank McKenna (2016). <a href="https://unsplash.com/de/fotos/mann-im-grauen-pullover-lehnt-sich-an-das-fenster-des-lieferwagens-Ap6t4U-VIqw" target="_blank" rel="noopener noreferrer">Unsplash</a>.</span></li>
-        <li><strong>Abbildung 5. <em>Kreislauf der Wissenschaft</em></strong><span class="figure-source">Eigene Darstellung.</span></li>
-        <li><strong>Abbildung 6. <em>Vom Themengebiet zur Forschungsfrage: Filter-Modell</em></strong><span class="figure-source">Mit Google Gemini erstellt (o. D.). <a href="https://gemini.google.com/" target="_blank" rel="noopener noreferrer">Google Gemini</a>.</span></li>
+        <li><strong class="figure-caption">Abbildung 0.1. <em>ITSP-Maildienste</em></strong><span class="figure-source figure-caption"><em>Anmerkung.</em> Eigene Darstellung.</span></li>
+        <li><strong class="figure-caption">Abbildung 0.2. <em>ITSP-Unterseiten</em></strong><span class="figure-source figure-caption"><em>Anmerkung.</em> Eigene Darstellung.</span></li>
+        <li><strong class="figure-caption">Abbildung 0.3. <em>ITSP-Shortlinks</em></strong><span class="figure-source figure-caption"><em>Anmerkung.</em> Eigene Darstellung.</span></li>
+        <li><strong class="figure-caption">Abbildung 0.4. <em>Primuss-Studienangelegenheiten</em></strong><span class="figure-source figure-caption"><em>Anmerkung.</em> Eigene Darstellung.</span></li>
+        <li><strong class="figure-caption">Abbildung 0.5. <em>Primuss-Stundenplan</em></strong><span class="figure-source figure-caption"><em>Anmerkung.</em> Eigene Darstellung.</span></li>
+        <li><strong class="figure-caption">Abbildung 0.6. <em>Moodle-Startseite</em></strong><span class="figure-source figure-caption"><em>Anmerkung.</em> Eigene Darstellung.</span></li>
+        <li><strong class="figure-caption">Abbildung 0.7. <em>Drei Lernphasen</em></strong><span class="figure-source figure-caption"><em>Anmerkung.</em> Eigene Darstellung.</span></li>
+        <li><strong class="figure-caption">Abbildung 0.8. <em>Chancen und Risiken von KI</em></strong><span class="figure-source figure-caption"><em>Anmerkung.</em> Eigene Darstellung.</span></li>
+        <li><strong class="figure-caption">Abbildung 1.1. <em>Unbewusste Inkompetenz</em></strong><span class="figure-source figure-caption"><em>Anmerkung.</em> Foto von Alexander Grey (2018). <a href="https://unsplash.com/de/fotos/baby-auf-grauem-kinderwagen-k03ih6IqkDY" target="_blank" rel="noopener noreferrer">Getty Images</a>.</span></li>
+        <li><strong class="figure-caption">Abbildung 1.2. <em>Bewusste Inkompetenz</em></strong><span class="figure-source figure-caption"><em>Anmerkung.</em> Foto von standret (o. D.). <a href="https://unsplash.com/de/fotos/mutter-mit-ihrer-tochter-im-modernen-automobil-zusammen-JXltYfXqHJ4" target="_blank" rel="noopener noreferrer">Adobe Stock</a>.</span></li>
+        <li><strong class="figure-caption">Abbildung 1.3. <em>Bewusste Kompetenz</em></strong><span class="figure-source figure-caption"><em>Anmerkung.</em> Foto von Andrej Lišakov (2024). <a href="https://unsplash.com/de/fotos/ein-paar-leute-die-in-einem-auto-sitzen-98geb3dOXxU" target="_blank" rel="noopener noreferrer">Unsplash</a>.</span></li>
+        <li><strong class="figure-caption">Abbildung 1.4. <em>Unbewusste Kompetenz</em></strong><span class="figure-source figure-caption"><em>Anmerkung.</em> Foto von Frank McKenna (2016). <a href="https://unsplash.com/de/fotos/mann-im-grauen-pullover-lehnt-sich-an-das-fenster-des-lieferwagens-Ap6t4U-VIqw" target="_blank" rel="noopener noreferrer">Unsplash</a>.</span></li>
+        <li><strong class="figure-caption">Abbildung 1.5. <em>Wissenschaften im Überblick</em></strong><span class="figure-source figure-caption"><em>Anmerkung.</em> Eigene Darstellung (2026).</span></li>
+        <li><strong class="figure-caption">Abbildung 1.6. <em>Vom Themengebiet zur Forschungsfrage: Filter-Modell</em></strong><span class="figure-source figure-caption"><em>Anmerkung.</em> Mit Google Gemini erstellt (2026). <a href="https://gemini.google.com/" target="_blank" rel="noopener noreferrer">Google Gemini</a>.</span></li>
+        <li><strong class="figure-caption">Abbildung 1.7. <em>Kreislauf der Wissenschaft</em></strong><span class="figure-source figure-caption"><em>Anmerkung.</em> Eigene Darstellung.</span></li>
+        <li><strong class="figure-caption">Abbildung 1.8. <em>Vom Themengebiet zur Forschungsfrage: Filter-Modell</em></strong><span class="figure-source figure-caption"><em>Anmerkung.</em> Eigene Darstellung (2026).</span></li>
       </ol>
     </section>
   </main>
@@ -176,5 +281,21 @@
     <a href="https://janine-riemann.github.io/News-about-SciNeW_HS-Ansbach/" target="_blank" rel="noopener noreferrer">© 2026 SciNeW – Scientific New Working</a>
     <a href="https://janine-riemann.github.io/News-about-SciNeW_HS-Ansbach/#contact" target="_blank" rel="noopener noreferrer">Impressum</a>
   </footer>
+  <script>
+    const burgerBtn = document.getElementById('burgerBtn');
+    const sidebar = document.getElementById('sidebar');
+    const sidebarOverlay = document.getElementById('sidebarOverlay');
+
+    function toggleSidebar() {
+      const isOpen = sidebar.classList.toggle('open');
+      burgerBtn.classList.toggle('open', isOpen);
+      burgerBtn.setAttribute('aria-expanded', String(isOpen));
+      sidebarOverlay.classList.toggle('show', isOpen);
+      document.body.style.overflow = isOpen ? 'hidden' : '';
+    }
+
+    burgerBtn.addEventListener('click', toggleSidebar);
+    sidebarOverlay.addEventListener('click', toggleSidebar);
+  </script>
 </body>
 </html>
