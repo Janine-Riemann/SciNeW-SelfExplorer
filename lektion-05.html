@@ -556,6 +556,10 @@
 
     .sg-table-wrap { overflow-x: auto; border-radius: 12px; border: 1px solid var(--border); box-shadow: var(--shadow-sm); }
     .sg-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; background: var(--surface); }
+    .sg-figure { margin-top: 1.25rem; }
+    .sg-figure-caption { margin-bottom: 0.5rem; color: var(--dark); line-height: 1.5; }
+    .sg-figure img { display: block; width: 100%; max-width: 100%; height: auto; border-radius: 12px; }
+    .sg-figure-note { margin-top: 0.5rem; color: var(--muted); font-size: 0.85rem; }
     .sg-table thead tr { background: var(--dark); color: #fff; }
     .sg-table th { padding: 1rem 1.25rem; text-align: left; font-weight: 600; font-size: 0.85rem; letter-spacing: 0.05em; text-transform: uppercase; }
     .sg-table td { padding: 1rem 1.25rem; vertical-align: top; border-bottom: 1px solid var(--border); line-height: 1.6; color: #333; }
@@ -955,10 +959,11 @@ Schlussfolgerungen zu ziehen. </div>
 Studienauswahl in systematischen Reviews und Meta-Analysen darstellt, von der Identifikation bis
 zur endgültigen Einschlussentscheidung. Es wird genutzt, um den Auswahlprozess der Studien von der 
 ersten Identifikation bis zur endgültigen Einschlussentscheidung nachvollziehbar zu machen.</p>
-                        <img src="bilder/Kapitel5-prismaflowchart.png" class="clickable-img" alt="PRISMA-Flowchart" style="display:block; width:min(100%, 720px); max-width:100%; border-radius:12px; margin:1.25rem auto 0;">
-                        <p style="font-size:0.8rem;margin-top:0.4rem;">
-                          Quelle: <a href="https://www.prisma-statement.org/prisma-2020-flow-diagram" target="_blank" rel="noopener" style="color:#2563EB;text-decoration:underline;">Prisma 2020</a>
-                        </p>
+                        <figure class="sg-figure">
+                          <figcaption class="sg-figure-caption"><strong>Abbildung 5.1</strong><br><em>PRISMA-Flowchart</em></figcaption>
+                          <img src="bilder/Kapitel5-prismaflowchart.png" class="clickable-img" alt="PRISMA-Flowchart zur Studienauswahl in systematischen Reviews und Meta-Analysen" style="display:block; width:min(100%, 720px); max-width:100%; border-radius:12px; margin:1.25rem auto 0;">
+                          <p class="sg-figure-note"><em>Anmerkung.</em> Übernommen aus <em>PRISMA 2020 flow diagram</em>, von PRISMA (2020), <a href="https://www.prisma-statement.org/prisma-2020-flow-diagram" target="_blank" rel="noopener noreferrer">PRISMA 2020</a>.</p>
+                        </figure>
                         <div class="sg-card">
                           <h3 class="sg-heading"><span class="sg-heading-emoji">🗂️</span>Systematic Literature Review Leitfaden (TU Berlin)</h3>
                           <ol class="sg-ol">
@@ -989,7 +994,11 @@ ersten Identifikation bis zur endgültigen Einschlussentscheidung nachvollziehba
                             <li><strong>Beweis:</strong> Empirische oder theoretische Belege, die die Behauptung stützen.</li>
                             <li><strong>Einschränkung:</strong> Bedingungen oder Ausnahmen, unter denen die Behauptung nicht gilt.</li>
                           </ul>
-                          <img src="bilder/kapitel5-toulminmodell.png" class="clickable-img" alt="Toulmin-Modell" style="width:100%;border-radius:12px;margin-top:1.25rem;">
+                          <figure class="sg-figure">
+                            <figcaption class="sg-figure-caption"><strong>Abbildung 5.2</strong><br><em>Argumentation nach Toulmin</em></figcaption>
+                            <img src="bilder/kapitel5-toulminmodell.png" class="clickable-img" alt="Toulmin-Modell">
+                            <p class="sg-figure-note"><em>Anmerkung.</em> Eigene Darstellung.</p>
+                          </figure>
 </div>
                         <div class="sg-card">
                           <h3 class="sg-heading"><span class="sg-heading-emoji">✋</span>Fünfsatz-Strukturen</h3>
@@ -1207,17 +1216,24 @@ entsprechende Datei (achten Sie auf prägnante Dateinamen und zugängliche Forma
 
 <h3 class="sg-heading sg-heading--orange" style="margin-top:0.5rem;"><span class="sg-heading-emoji">📝 </span>Tabellen formatieren </h3>
                         <p style="font-size:0.9rem;color:#333;line-height:1.6;margin-bottom:0.75rem;">Genauere Merkmale lassen sich aus dem APA-Manual nehmen.</p>
-                        <img src="bilder/Kapitel5-TabelleFormatieren.png" class="clickable-img" alt="APATabelle" style="display:block; width:min(100%, 720px); max-width:100%; border-radius:12px; margin:1.25rem auto 0;">
-                        <p style="font-size:0.8rem;margin-top:0.4rem;"></p>
-                          <img src="bilder/Kapitel5-Abbildung Formatieren1.png" class="clickable-img" alt="APAAbbildung" style="display:block; width:min(100%, 720px); max-width:100%; border-radius:12px; margin:1.25rem auto 0;">
-                        <p style="font-size:0.8rem;margin-top:0.4rem;"> </p>
-                        
-                        <img src="bilder/Kapitel5-AbbildungFormatieren2.png" class="clickable-img" alt="APAbb2" style="display:block; width:min(100%, 720px); max-width:100%; border-radius:12px; margin:1.25rem auto 0;">
-                        <p style="font-size:0.8rem;margin-top:0.4rem;"></p>
-                        
-                          Quelle: <a href="https://apastyle.apa.org/style-grammar-guidelines/tables-figures/tables" target="_blank" rel="noopener" style="color:#2563EB;text-decoration:underline;">Tabelle nach APA</a>
-                        
+                        <figure class="sg-figure">
+                          <figcaption class="sg-figure-caption"><strong>Abbildung 5.3</strong><br><em>Elemente einer APA-Tabelle</em></figcaption>
+                          <img src="bilder/Kapitel5-TabelleFormatieren.png" class="clickable-img" alt="Grafik mit den Bestandteilen einer nach APA formatierten Tabelle" style="display:block; width:min(100%, 720px); max-width:100%; border-radius:12px; margin:1.25rem auto 0;">
+                          <p class="sg-figure-note"><em>Anmerkung.</em> Übernommen aus <em>Publication Manual of the American Psychological Association</em> (7. Aufl.), von American Psychological Association (2020). Weitere Informationen: <a href="https://apastyle.apa.org/style-grammar-guidelines/tables-figures/tables" target="_blank" rel="noopener noreferrer">Tabellen nach APA</a>.</p>
+                        </figure>
+                        <figure class="sg-figure">
+                          <figcaption class="sg-figure-caption"><strong>Abbildung 5.4</strong><br><em>Elemente einer APA-Abbildung</em></figcaption>
+                          <img src="bilder/Kapitel5-Abbildung Formatieren1.png" class="clickable-img" alt="Grafik mit den Bestandteilen einer nach APA formatierten Abbildung" style="display:block; width:min(100%, 720px); max-width:100%; border-radius:12px; margin:1.25rem auto 0;">
+                          <p class="sg-figure-note"><em>Anmerkung.</em> Übernommen aus <em>Publication Manual of the American Psychological Association</em> (7. Aufl.), von American Psychological Association (2020). Weitere Informationen: <a href="https://apastyle.apa.org/style-grammar-guidelines/tables-figures/figures" target="_blank" rel="noopener noreferrer">Abbildungen nach APA</a>.</p>
+                        </figure>
 
+                        <figure class="sg-figure">
+                          <figcaption class="sg-figure-caption"><strong>Abbildung 5.5</strong><br><em>Beispiele statistischer Abbildungen nach APA</em></figcaption>
+                          <img src="bilder/Kapitel5-AbbildungFormatieren2.png" class="clickable-img" alt="Beispiele für statistische Abbildungen und deren Beschriftung nach APA" style="display:block; width:min(100%, 720px); max-width:100%; border-radius:12px; margin:1.25rem auto 0;">
+                          <p class="sg-figure-note"><em>Anmerkung.</em> Übernommen aus <em>Publication Manual of the American Psychological Association</em> (7. Aufl.), von American Psychological Association (2020). Weitere Informationen: <a href="https://apastyle.apa.org/style-grammar-guidelines/tables-figures/figures" target="_blank" rel="noopener noreferrer">Abbildungen nach APA</a>.</p>
+                        </figure>
+                        
+                        
 
 <!-- PDF DOWNLOADS -->
 <h3 class="sg-heading sg-heading--orange" style="margin-top:1.75rem;"><span class="sg-heading-emoji">📎</span>Materialien</h3>

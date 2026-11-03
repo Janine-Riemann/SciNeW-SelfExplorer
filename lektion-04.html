@@ -510,6 +510,13 @@
 
     .sg-table-wrap { overflow-x: auto; border-radius: 12px; border: 1px solid var(--border); box-shadow: var(--shadow-sm); }
     .sg-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; background: var(--surface); }
+    .sg-table caption { caption-side: top; padding: 0 1rem 0.75rem; color: var(--dark); text-align: left; }
+    .sg-table-caption-title { display: block; margin-top: 0.2rem; font-style: italic; }
+    .sg-table-note { margin-top: 0.5rem; color: var(--muted); font-size: 0.85rem; }
+    .sg-figure { margin-top: 1.25rem; }
+    .sg-figure-caption { margin-bottom: 0.5rem; color: var(--dark); line-height: 1.5; }
+    .sg-figure img { display: block; width: min(100%, 720px); max-width: 100%; height: auto; margin: 0 auto; border-radius: 12px; }
+    .sg-figure-note { margin-top: 0.5rem; color: var(--muted); font-size: 0.85rem; }
     .sg-table thead tr { background: var(--green); color: var(--dark); }
     .sg-table th { padding: 1rem 1.25rem; text-align: left; font-weight: 600; font-size: 0.85rem; letter-spacing: 0.05em; text-transform: uppercase; }
     .sg-table td { padding: 1rem 1.25rem; vertical-align: top; border-bottom: 1px solid var(--border); line-height: 1.6; color: #333; }
@@ -864,8 +871,11 @@
                             <li><strong>VHB-Ranking:</strong> Basis: Befragung von BWL-Professoren in D/A/CH. Kriterium: Wahrgenommene wissenschaftliche Qualität. Ergebnis: Ranking-Stufe zwischen A+ (international führend) und E (weniger wiss. relevant).</li>
                             <li><strong>SJR-Ranking:</strong> Entwickelt von Scimago Research Group (Scopus-Daten, Elsevier). Ziel: Objektive Messung wissenschaftlicher Sichtbarkeit. Grundlage: Anzahl der Zitationen der letzten 3 Jahre, gewichtet nach Reputation der zitierenden Zeitschrift. Ergebnis: H-Index und Quartil-Einteilung (Q1 = führend bis Q4 = unterdurchschnittlich).</li>
                           </ul>
-                          <img src="bilder/Kapitel4-GuteQuelle.png" class="clickable-img" alt="GuteQuelle" style="display:block; width:min(100%, 720px); max-width:100%; border-radius:12px; margin:1.25rem auto 0;">
-                        <p style="font-size:0.8rem;margin-top:0.4rem;">
+                          <figure class="sg-figure">
+                            <figcaption class="sg-figure-caption"><strong>Abbildung 4.1</strong><br><em>Triple A statt Junk Bond: Wie unterscheide ich gute von schlechten Aufsätzen?</em></figcaption>
+                            <img src="bilder/Kapitel4-GuteQuelle.png" class="clickable-img" alt="EconBiz-Infografik mit Kriterien zur Beurteilung wissenschaftlicher Aufsätze">
+                            <p class="sg-figure-note"><em>Anmerkung.</em> Übernommen aus <em>Triple A statt Junk Bond: Wie unterscheide ich gute von schlechten Aufsätzen?</em>, von EconBiz (o. D.), <a href="https://www.econbiz.de/eb/de/wissenschaftlich-arbeiten/how-to-guides" target="_blank" rel="noopener noreferrer">https://www.econbiz.de/eb/de/wissenschaftlich-arbeiten/how-to-guides</a>.</p>
+                          </figure>
                         </div>
  
                         <div class="sg-card">
@@ -1004,9 +1014,12 @@
                           </ul>
                         </div>
  
-                        <h3 class="sg-section-title" style="margin-top:1.75rem;">Journal Rankings – Beispiele</h3>
                         <div class="sg-table-wrap">
                           <table class="sg-table">
+                            <caption>
+                              <strong>Tabelle 4.1</strong>
+                              <span class="sg-table-caption-title">Journal Rankings – Beispiele</span>
+                            </caption>
                             <thead>
                               <tr>
                                 <th>Journal</th>
@@ -1048,10 +1061,14 @@
                             </tbody>
                           </table>
                         </div>
+                        <p class="sg-table-note"><em>Anmerkung.</em> Eigene Darstellung.</p>
  
-                        <h3 class="sg-section-title" style="margin-top:1.75rem;">KI-Tools für wissenschaftliches Arbeiten</h3>
                         <div class="sg-table-wrap">
                           <table class="sg-table">
+                            <caption>
+                              <strong>Tabelle 4.2</strong>
+                              <span class="sg-table-caption-title">KI-Tools für wissenschaftliches Arbeiten</span>
+                            </caption>
                             <thead>
                               <tr>
                                 <th>Tool</th>
@@ -1073,6 +1090,7 @@
                             </tbody>
                           </table>
                         </div>
+                        <p class="sg-table-note"><em>Anmerkung.</em> Eigene Darstellung.</p>
  
                         <h3 class="sg-section-title" style="margin-top:1.75rem;">Wesentliche Fakten &amp; Daten</h3>
                         <ul class="sg-ul">

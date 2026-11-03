@@ -482,6 +482,9 @@
 
     .sg-table-wrap { overflow-x: auto; border-radius: 12px; border: 1px solid var(--border); box-shadow: var(--shadow-sm); }
     .sg-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; background: var(--surface); }
+    .sg-table caption { caption-side: top; padding: 0 1rem 0.75rem; color: var(--dark); text-align: left; }
+    .sg-table-caption-title { display: block; margin-top: 0.2rem; font-style: italic; }
+    .sg-table-note { margin-top: 0.5rem; color: var(--muted); font-size: 0.85rem; }
     .sg-table thead tr { background: var(--green); color: var(--dark); }
     .sg-table th { padding: 1rem 1.25rem; text-align: left; font-weight: 600; font-size: 0.85rem; letter-spacing: 0.05em; text-transform: uppercase; }
     .sg-table td { padding: 1rem 1.25rem; vertical-align: top; border-bottom: 1px solid var(--border); line-height: 1.6; color: #333; }
@@ -847,6 +850,10 @@ Krümmungsgrad hat.</span>
                         <h3 class="sg-section-title" style="margin-top:1.75rem;">📊 Arten von Hypothesen und Analyseverfahren </h3>
                         <div class="sg-table-wrap">
                           <table class="sg-table">
+                            <caption>
+                              <strong>Tabelle 2.1</strong>
+                              <span class="sg-table-caption-title">Arten von Hypothesen und Analyseverfahren</span>
+                            </caption>
                             <thead>
                               <tr>
                                 <th>Art der Hypothese</th>
@@ -895,6 +902,7 @@ Krümmungsgrad hat.</span>
                             </tbody>
                           </table>
                         </div>
+                        <p class="sg-table-note"><em>Anmerkung.</em> Eigene Darstellung.</p>
                         <p style="font-size:0.85rem; color:var(--muted); margin-top:0.5rem;">*Diese Analysemethoden werden in Statistik 1 behandelt.</p>
 
                         <h3 class="sg-section-title" style="margin-top:1.75rem;">🗂️ Wesentliche Fakten &amp; Daten </h3>

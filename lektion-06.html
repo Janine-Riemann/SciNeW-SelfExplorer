@@ -519,6 +519,9 @@
 
     .sg-table-wrap { overflow-x: auto; border-radius: 12px; border: 1px solid var(--border); box-shadow: var(--shadow-sm); }
     .sg-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; background: var(--surface); }
+    .sg-table caption { caption-side: top; padding: 0 1rem 0.75rem; color: var(--dark); text-align: left; }
+    .sg-table-caption-title { display: block; margin-top: 0.2rem; font-style: italic; }
+    .sg-table-note { margin-top: 0.5rem; color: var(--muted); font-size: 0.85rem; }
     .sg-table thead tr { background: var(--dark); color: #fff; }
     .sg-table th { padding: 1rem 1.25rem; text-align: left; font-weight: 600; font-size: 0.85rem; letter-spacing: 0.05em; text-transform: uppercase; }
     .sg-table td { padding: 1rem 1.25rem; vertical-align: top; border-bottom: 1px solid var(--border); line-height: 1.6; color: #333; }
@@ -885,6 +888,10 @@
                           <p class="sg-card-title">👥 Anzahl der Autor*innen im Text</p>
                           <div class="sg-table-wrap" style="margin-top:0.75rem;">
                             <table class="sg-table sg-table--green">
+                              <caption>
+                                <strong>Tabelle 6.1</strong>
+                                <span class="sg-table-caption-title">Anzahl der Autor*innen im Text</span>
+                              </caption>
                               <thead><tr><th>Konstellation</th><th>Eingeklammert</th><th>Narrativ</th></tr></thead>
                               <tbody>
                                 <tr><td>Ein Autor</td><td><span class="sg-code-chip">(Rogers, 2003)</span></td><td><span class="sg-code-chip">Rogers (2003)</span></td></tr>
@@ -895,6 +902,7 @@
                               </tbody>
                             </table>
                           </div>
+                          <p class="sg-table-note"><em>Anmerkung.</em> Eigene Darstellung.</p>
                         </div>
 
                         <div class="sg-card" style="margin-top:1.25rem;">

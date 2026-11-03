@@ -425,6 +425,9 @@
       padding: 0;
     }
     .img-placeholder svg { opacity: 0.45; }
+    .publishing-figure { width: 100%; max-width: 560px; }
+    .figure-label { margin-bottom: 0.5rem; color: var(--dark); line-height: 1.5; }
+    .figure-note { margin-top: 0.5rem; color: var(--muted); font-size: 0.85rem; }
     .publishing-layout {
       display: flex;
       flex-direction: column;
@@ -517,8 +520,6 @@
       display: grid; grid-template-columns: 3rem 1fr; gap: 1rem;
       padding: 0.85rem 0; border-bottom: 1px solid var(--border); color: #555; line-height: 1.55;
     }
-    .literature-step:first-of-type,
-    .literature-step:nth-of-type(2) { background: rgba(116,194,168,0.16); }
     .literature-step:last-child { border-bottom: none; }
     .literature-step-number {
       width: 2rem; height: 2rem; display: flex; align-items: center; justify-content: center;
@@ -1061,9 +1062,13 @@ und überprüfenden Umgang ab.</div>
                         <div class="sg-card" style="margin-top:1.75rem;">
                           <div class="sg-card-title">🧑‍🔬Wissenschaftliches Publizieren</div>
                           <div class="publishing-layout">
-                          <div class="img-placeholder">
-                            <img src="bilder/kapitel3-publizieren.png" class="clickable-img" alt="Illustration zu wissenschaftlichem Publizieren">
-                          </div>
+                          <figure class="publishing-figure">
+                            <p class="figure-label"><strong>Abbildung 3.1</strong><br><em>Wissenschaftliches Publizieren</em></p>
+                            <div class="img-placeholder">
+                              <img src="bilder/kapitel3-publizieren.png" class="clickable-img" alt="Illustration zu wissenschaftlichem Publizieren">
+                            </div>
+                            <figcaption class="figure-note"><em>Anmerkung.</em> Eigene Darstellung.</figcaption>
+                          </figure>
                           <div style="display:flex;flex-direction:column;gap:1.25rem;">
                             <div class="sg-card">
                               <div class="sg-card-title">📚 Publikationsformen</div>

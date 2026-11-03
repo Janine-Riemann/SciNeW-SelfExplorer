@@ -65,7 +65,7 @@
   top: 50%;
   right: 3rem;
   transform: translateY(-50%);
-  width: 360px; /* feste Breite */
+  width: 400px;
   height: auto;
   object-fit: contain;
   object-position: center center;
@@ -77,7 +77,7 @@
 /* Auf kleinen Bildschirmen verkleinern, damit es nicht mit dem Text kollidiert */
 @media (max-width: 700px) {
   .hero-img {
-    width: 180px;
+    width: 220px;
     height: auto;
     top: 50%;
     right: 1.5rem;
@@ -96,7 +96,7 @@
     top: auto;
     right: auto;
     transform: none;
-    width: 200px;
+    width: 240px;
     margin: 0 0 1rem 1.25rem;
   }
   /* Tabs sollen unabhängig vom Bild immer volle Breite bekommen */
@@ -107,7 +107,7 @@
    noch etwas kleiner machen, statt es auszublenden */
 @media (max-width: 480px) {
   .hero-img {
-    width: 110px;
+    width: 150px;
     margin: 0 0 0.75rem 1rem;
   }
 }
@@ -493,6 +493,11 @@
     .sg-card {
       background: #F9F9F6; border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem;
     }
+    .interpretation-image {
+      display: block; width: min(100%, 420px); max-width: 100%; height: auto;
+      margin: 1rem auto 0; border-radius: 12px; border: 1px solid var(--border);
+      box-shadow: var(--shadow-sm);
+    }
     .sg-card-title {
       display: flex; width: 100%; font-size: 1.1rem; font-weight: 700; color: var(--dark);
       margin-bottom: 1.1rem; padding-bottom: 0.65rem;
@@ -760,7 +765,7 @@ einem statistischen Zusammenhang (Korrelation) und einer Ursache-Wirkungs-Bezieh
                           <svg class="pcx2-icon-pause" viewBox="0 0 24 24" fill="currentColor"><path d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg>
                         </span>
                         <div class="pcx2-row-body">
-                          <div class="pcx2-row-eyebrow">Folge 1 von 4</div>
+                          <div class="pcx2-row-eyebrow">Folge 1 von 3</div>
                           <div class="pcx2-row-title">Forschungsergebnisse interpretieren</div>
                           <div class="pcx2-row-sub">Wie man Forschungsergebnisse interpretiert: Trenne Beschreibung von Interpretation, verknüpfe Daten mit Theorien und verstehe die Implikationen.</div>
                         </div>
@@ -778,7 +783,7 @@ einem statistischen Zusammenhang (Korrelation) und einer Ursache-Wirkungs-Bezieh
                           <svg class="pcx2-icon-pause" viewBox="0 0 24 24" fill="currentColor"><path d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg>
                         </span>
                         <div class="pcx2-row-body">
-                          <div class="pcx2-row-eyebrow">Folge 2 von 4</div>
+                          <div class="pcx2-row-eyebrow">Folge 2 von 3</div>
                           <div class="pcx2-row-title">Ergebnisse und Limitationen</div>
                           <div class="pcx2-row-sub">Best Practices zur Deutung von Forschungsergebnissen. Fokus: Limitationen richtig erkennen, formulieren und reflektieren.</div>
                         </div>
@@ -796,7 +801,7 @@ einem statistischen Zusammenhang (Korrelation) und einer Ursache-Wirkungs-Bezieh
                           <svg class="pcx2-icon-pause" viewBox="0 0 24 24" fill="currentColor"><path d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg>
                         </span>
                         <div class="pcx2-row-body">
-                          <div class="pcx2-row-eyebrow">Folge 3 von 4</div>
+                          <div class="pcx2-row-eyebrow">Folge 3 von 3</div>
                           <div class="pcx2-row-title">Wissenschaftsethik</div>
                           <div class="pcx2-row-sub">Wissenschaftsethik definiert moralische Regeln für Forschung, schützt Teilnehmer und Daten, sichert Integrität und Vertrauen in die Wissenschaft.</div>
                         </div>
@@ -805,22 +810,7 @@ einem statistischen Zusammenhang (Korrelation) und einer Ursache-Wirkungs-Bezieh
   </a>
                       </div>
 
-                      <div class="pcx2-row" data-pcx2-row
-                           data-src="audio/Etappe8-teil4.mp3"
-                           data-title="Science Guide"
-                           data-eyebrow="Folge 4 von 4">
-                        <span class="pcx2-playbtn">
-                          <svg class="pcx2-icon-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-                          <svg class="pcx2-icon-pause" viewBox="0 0 24 24" fill="currentColor"><path d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg>
-                        </span>
-                        <div class="pcx2-row-body">
-                          <div class="pcx2-row-eyebrow">Folge 4 von 4</div>
-                          <div class="pcx2-row-title">Science Guide</div>
-                          <div class="pcx2-row-sub">Science Guide (Abgabefristen, Anforderungen), Prüfungsvorbereitung &amp; Kernpunkte zur Interpretation von Forschungsergebnissen und Limitationen.</div>
-                        </div>
-                         <a class="pcx2-row-download" data-pcx2-row-download aria-label="Folge als MP3 herunterladen" title="Herunterladen">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14" stroke-linecap="round" stroke-linejoin="round"/></svg>
-  </a>
+                     
                       </div>
 
                     </div>
@@ -900,7 +890,7 @@ einem statistischen Zusammenhang (Korrelation) und einer Ursache-Wirkungs-Bezieh
                             <li><strong>Hypothesen prüfen:</strong> Forschungsfrage beantworten.</li>
                             <li><strong>Erklärungen bieten:</strong> Kausalität und wissenschaftliche Implikationen ableiten.</li>
                           </ol>
-                          <img src="bilder/Kapitel8-4Schritte-Interpretationsprozess.png" class="clickable-img"alt="Platzhalter: Trichter-Modell – vom breiten Themengebiet zur präzisen Forschungsfrage" style="flex: 0 1 220px; width: 220px; max-width: 100%; height: auto; border-radius: 12px; border: 1px solid var(--border); box-shadow: var(--shadow-sm);" />
+                          <img src="bilder/Kapitel8-4Schritte-Interpretationsprozess.png" class="clickable-img interpretation-image" alt="Platzhalter: Trichter-Modell – vom breiten Themengebiet zur präzisen Forschungsfrage" />
                           
                         </div>
 
@@ -928,7 +918,7 @@ Schritte nach Mayring: Paraphrasieren, Generalisieren, Reduzieren, Themencluster
                             <li>Interpretation (Bedeutung)</li>
                             <li>Implikationen (Handlungsempfehlung)</li>
                           </ol>
-                          <img src="bilder/Kapitel8-Interpretationspyramide.png" class="clickable-img"alt="Interpretationspyramide" style="flex: 0 1 220px; width: 220px; max-width: 100%; height: auto; border-radius: 12px; border: 1px solid var(--border); box-shadow: var(--shadow-sm);" />
+                          <img src="bilder/Kapitel8-Interpretationspyramide.png" class="clickable-img interpretation-image" alt="Interpretationspyramide" />
                           
                         </div>
 
@@ -943,7 +933,7 @@ Schritte nach Mayring: Paraphrasieren, Generalisieren, Reduzieren, Themencluster
                             <li>Theoretische, praktische und forschungsbezogene Implikationen aufzeigen.</li>
                             <li>Bescheidenheit.</li>
                           </ul>
-                           <img src="bilder/Kapitel8-BestPractitceInterpretation.png" class="clickable-img"alt="BestPractice" style="flex: 0 1 220px; width: 220px; max-width: 100%; height: auto; border-radius: 12px; border: 1px solid var(--border); box-shadow: var(--shadow-sm);" />
+                           <img src="bilder/Kapitel8-BestPractitceInterpretation.png" class="clickable-img interpretation-image" alt="BestPractice" />
                           
                         </div>
 
